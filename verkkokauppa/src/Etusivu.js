@@ -1,9 +1,19 @@
 import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-function Hello (){
-    return(
-     <div>
-        <h1>Hellooo</h1>
-     </div>
-    );
+function Etusivu(){
+
+return(
+
+<div>
+    <nav class="navbar navbar-light bg-light">
+        Navbaari        
+    </nav>
+</div>
+
+
+);
+
 }
+
+export {Etusivu};
