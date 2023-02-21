@@ -3,12 +3,13 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {Etusivu} from './Etusivu';
+//import {Etusivu} from './Etusivu';
+import { AboutUs } from './AboutUs';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Etusivu />
+    <AboutUs />
   </React.StrictMode>
 );
 
