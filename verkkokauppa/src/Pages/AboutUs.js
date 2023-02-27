@@ -1,8 +1,7 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 //import kouluTarvikkeet from "./Images/KouluTarvikkeetKuva.png";
 
-function AboutUs (){
+const AboutUs = () => {
 
     return(
         <div>

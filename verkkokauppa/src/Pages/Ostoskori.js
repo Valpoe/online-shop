@@ -1,12 +1,11 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
-function Ostoskori(){
+const Ostoskori = () => {
 
 return(
 
 <div>
-    <nav class="navbar navbar-light bg-light">
+    <nav className="navbar navbar-light bg-light">
         Ostoskori       
     </nav>
 </div>

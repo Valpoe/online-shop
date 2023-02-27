@@ -1,12 +1,12 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
-function Tuotteet(){
+const Tuotteet = () => {
 
 return(
 
 <div>
-    <nav class="navbar navbar-light bg-light">
+    <h1>asd</h1>
+    <nav className="navbar navbar-light bg-light">
         Tuotteet       
     </nav>
 </div>
