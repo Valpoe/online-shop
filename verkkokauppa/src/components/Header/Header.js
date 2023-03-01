@@ -39,6 +39,9 @@ const Header = () => {
             <MDBNavbarItem>
             <NavLink to="/ostoskori" className='nav-link'>Ostoskori</NavLink>
             </MDBNavbarItem>
+            <MDBNavbarItem>
+            <NavLink to="/privacystatement" className='nav-link'>Privacy statement</NavLink>
+            </MDBNavbarItem>
           </MDBNavbarNav>
         </MDBCollapse>
       </MDBContainer>
