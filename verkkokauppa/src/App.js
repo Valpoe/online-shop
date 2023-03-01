@@ -7,6 +7,7 @@ import Etusivu from './Pages/Etusivu';
 import Tuotteet from './Pages/Tuotteet';
 import AboutUs from './Pages/AboutUs';
 import Ostoskori from './Pages/Ostoskori';
+import ContactUs from './Pages/ContactUs';
 
 function App() {
   return (
@@ -15,8 +16,9 @@ function App() {
       <Routes>
         <Route path='/' element={<Etusivu />} />
         <Route path='/Tuotteet' element={<Tuotteet />} />
-        <Route path='/AboutUs' element={<AboutUs />} />
+        <Route path='/tietoa-meista' element={<AboutUs />} />
         <Route path='/Ostoskori' element={<Ostoskori />} />
+        <Route path='/ota-yhteytta' element={<ContactUs />} />
       </Routes>
       <Footer />
     </Router>

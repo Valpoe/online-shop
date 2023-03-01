@@ -55,7 +55,10 @@ return (
               <NavLink to="/tuotteet" className='text-reset'>Tuotteet</NavLink>
               </p>
               <p>
-              <NavLink to="/aboutus" className='text-reset'>Tietoa meistä</NavLink>
+              <NavLink to="/tietoa-meista" className='text-reset'>Tietoa meistä</NavLink>
+              </p>
+              <p>
+              <NavLink to="/ota-yhteytta" className='text-reset'>Ota yhteyttä</NavLink>
               </p>
               <p>
               <NavLink to="/ostoskori" className='text-reset'>Ostoskori</NavLink>
