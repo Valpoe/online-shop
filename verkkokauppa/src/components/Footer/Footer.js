@@ -63,6 +63,9 @@ return (
               <p>
               <NavLink to="/ostoskori" className='text-reset'>Ostoskori</NavLink>
               </p>
+              <p>
+              <NavLink to="/privacystatement" className='text-reset'>Privacy statement</NavLink>
+              </p>
             </MDBCol>
 
             <MDBCol md="3" lg="2" xl="2" className='mx-auto mb-4'>

@@ -8,6 +8,7 @@ import Tuotteet from './Pages/Tuotteet';
 import AboutUs from './Pages/AboutUs';
 import Ostoskori from './Pages/Ostoskori';
 import ContactUs from './Pages/ContactUs';
+import PrivacyStatement from './Pages/PrivacyStatement';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path='/Tuotteet' element={<Tuotteet />} />
         <Route path='/tietoa-meista' element={<AboutUs />} />
         <Route path='/Ostoskori' element={<Ostoskori />} />
+        <Route path='/PrivacyStatement' element={<PrivacyStatement />} />
         <Route path='/ota-yhteytta' element={<ContactUs />} />
       </Routes>
       <Footer />
