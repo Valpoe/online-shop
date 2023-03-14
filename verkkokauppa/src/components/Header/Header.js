@@ -12,21 +12,21 @@ import {
   } from 'mdb-react-ui-kit';
 
 const Header = () => {
-    const [showNav, setShowNav] = useState(false);
+    const [showNavCentred, setShowNavCentred] = useState(false);
     return(
-        <MDBNavbar expand='lg' light bgColor='light'>
+        <MDBNavbar expand='lg' light bgColor='light' >
       <MDBContainer fluid>
         <MDBNavbarBrand>Kynä & Kumi</MDBNavbarBrand>
         <MDBNavbarToggler
           type='button'
           aria-expanded='false'
           aria-label='Toggle navigation'
-          onClick={() => setShowNav(!showNav)}
+          onClick={() => setShowNavCentred(!showNavCentred)}
         >
           <MDBIcon icon='bars' fas />
         </MDBNavbarToggler>
-        <MDBCollapse navbar show={showNav}>
-          <MDBNavbarNav>
+        <MDBCollapse navbar show={showNavCentred}>
+          <MDBNavbarNav fullWidth={false} className="mb-2 mb-lg-0">
             <MDBNavbarItem>
             <NavLink to="/" className='nav-link'>Etusivu</NavLink>
             </MDBNavbarItem>
@@ -40,7 +40,9 @@ const Header = () => {
             <NavLink to="/ota-yhteytta" className='nav-link'>Ota yhteyttä</NavLink>
             </MDBNavbarItem>
             <MDBNavbarItem>
-            <NavLink to="/ostoskori" className='nav-link'>Ostoskori</NavLink>
+            <NavLink to="/ostoskori" className='nav-link'>
+              <MDBIcon fas icon="shopping-cart" />
+            </NavLink>
             </MDBNavbarItem>
             <MDBNavbarItem>
             <NavLink to="/privacystatement" className='nav-link'>Privacy statement</NavLink>

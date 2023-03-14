@@ -5,17 +5,11 @@ const AboutUs = () => {
 
     return(
         <div>
-            <section>
-                <nav className="navbar navbar-light bg-warning p-3 bg-opacity-25">
-                    <h2>Navbar</h2>        
-                </nav>
-            </section>
-
             <section className="bg-warning p-3 bg-opacity-25">
                 <div className="container">
                     <div className="row">
                         <div className="col-md-8">
-                            <h4 className="fw-bold text-left">About Us</h4>
+                            <h4 className="fw-bold text-left">Tietoa meistä</h4>
                             <p className="text-left fs-5">We are School store, an online retailer specializing in providing high-quality school-related
                             products to customers all over the world. Our mission is to bring joy and excitement to students
                             by offering a wide range of school items at affordable prices. Our team is comprised of experts
@@ -37,12 +31,11 @@ const AboutUs = () => {
                             Please enjoy our products.
                             </p>
                         </div>
-                        <div className="col-md-4 d-flex align-items-center">
-                           
-                        </div>
                     </div>
                 </div>
             </section>
+
+
         </div>
     );
 
