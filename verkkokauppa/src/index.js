@@ -6,12 +6,12 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 //import {Etusivu} from './Etusivu';
-import { AboutUs } from './AboutUs';
+//import { AboutUs } from './AboutUs';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <AboutUs />
+    <App />
   </React.StrictMode>
 );
 
