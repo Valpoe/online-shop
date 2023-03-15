@@ -9,6 +9,7 @@ import AboutUs from './Pages/AboutUs';
 import Ostoskori from './Pages/Ostoskori';
 import ContactUs from './Pages/ContactUs';
 import PrivacyStatement from './Pages/PrivacyStatement';
+import ProductInformation from './Pages/ProductInformation';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path='/Ostoskori' element={<Ostoskori />} />
         <Route path='/PrivacyStatement' element={<PrivacyStatement />} />
         <Route path='/ota-yhteytta' element={<ContactUs />} />
+        <Route path='/ProductInformation' element={<ProductInformation />} />
       </Routes>
       <Footer />
     </Router>

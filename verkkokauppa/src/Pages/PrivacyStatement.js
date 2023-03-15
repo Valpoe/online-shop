@@ -9,7 +9,7 @@ return(
     REKISTERI- & TIETOSUOJASELOSTE
 Tämän sivun tarkoituksena on auttaa sinua ymmärtämään millaisia tietoja keräämme kun selaat sivustojamme ja mikä on tietojenkeruun tarkoitus.
 
-Tämä on OFFLIFE Oy:n EU:n yleisten tietosuoja-asetusten (GDPR) mukainen rekisteri- ja tietosuojaseloste.
+Tämä on YRITYS EU:n yleisten tietosuoja-asetusten (GDPR) mukainen rekisteri- ja tietosuojaseloste.
 
 Kun käytät sivustoa, luovutat meille myös omia tietojasi. Kerromme teille myös henkilötietojen luovuttamisesta, kun käytät sivuston palveluja ja niissä olevia toimintoja. 
 
@@ -18,17 +18,13 @@ Sivustolla kerättyjä selaajatietoja käytetään sivuston palvelujen parantami
 Selatessasi sivujamme haluamme sinun ymmärtävän, kuinka käytämme tietoa ja tietävän, että meille sinun tietojesi turvallisuus on tärkeä asia!
 
 1. Rekisterinpitäjä
-OFFLIFE Oy
-3124560-9
-70100 Kuopio
+
 
 2. Rekisteristä vastaava yhteyshenkilö
-OFFLIFE Oy
-info@housti.fi
-+358 44 9864928
+
 
 3. Rekisterin nimi
-Offlife Oy:n markkinointi- ja analytiikkarekisteri.
+YRITYS Oy:n markkinointi- ja analytiikkarekisteri.
 
 4. Oikeusperuste ja henkilötietojen käsittelyn tarkoitus
 Tietojenkäsittelylle on oikeusperuste EU:n yleisen tietosuoja-asetuksen mukaisesti.
@@ -78,9 +74,6 @@ Rekisterinpitäjän sivuilla käytetään evästeitä käyttökokemuksen edistä
 
 Eväste on tekstitiedosto, joka verkkosivuilla käydessä tallentuu käyttäjän tietokoneelle. Se sisältää tietoja ja sitä käytetään mm. markkinointiin ja sivuston kehittämiseen. Evästeiden avulla kerätään tietoa sivuston käytöstä. Käyttäjän henkilöllisyys ei käy ilmi evästeiden avulla. Käyttäjä voi poistaa evästeet käytöstä selaimen asetuksista. Rekisterinpitäjä ei takaa, että sivusto toimii oikein evästeiden poistamisen jälkeen.
 
-Hallitse evästeitä
-
-We have received a privacy signal from your browser. For this reason we have set your privacy settings on this website to strictly necessary. If you want to have full functionality, please consider excluding https://housti.fi from your privacy settings. 
     </nav>
 </div>
 
