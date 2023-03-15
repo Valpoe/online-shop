@@ -14,7 +14,7 @@ import {
 const Header = () => {
     const [showNavCentred, setShowNavCentred] = useState(false);
     return(
-        <MDBNavbar expand='lg' light bgColor='light' >
+        <MDBNavbar expand='lg' light bgColor='light'>
       <MDBContainer fluid>
         <MDBNavbarBrand >Kynä & Kumi</MDBNavbarBrand>
         <MDBIcon fas icon="pencil-ruler" />

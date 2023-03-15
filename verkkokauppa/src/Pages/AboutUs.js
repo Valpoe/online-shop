@@ -1,37 +1,56 @@
 import React from 'react';
-//import kouluTarvikkeet from "./Images/KouluTarvikkeetKuva.png";
+import tietoaMeistaKuva from "../Images/Tietoamkuva.jpg"
+import tietoaMeistaKuva2 from "../Images/TMkuva2.jpg"
+import { MDBRow, MDBCol } from 'mdb-react-ui-kit';
 
 const AboutUs = () => {
 
+    const headerStyle = {
+        color: "white",
+        fontFamily: "serif",
+        backgroundColor: "rgb(96, 96, 96)",
+        padding: "50px 50px 50px 50px",
+        
+    };
+
+    const pStyle = {
+        padding: "50px 50px 50px 50px"
+    };
+
     return(
         <div>
-            <section className="bg-warning p-3 bg-opacity-25">
+            <section className="bg-info p-3 bg-opacity-25">
                 <div className="container">
-                    <div className="row">
-                        <div className="col-md-8">
-                            <h4 className="fw-bold text-left">Tietoa meistä</h4>
-                            <p className="text-left fs-5">We are School store, an online retailer specializing in providing high-quality school-related
-                            products to customers all over the world. Our mission is to bring joy and excitement to students
-                            by offering a wide range of school items at affordable prices. Our team is comprised of experts
-                            and enthusiasts who are dedicated to sourcing only the best school products from around the globe.
-                            From toys and apparel to accessories and collectibles, we have something for everyone who school supplys.
-                            </p>
-                            <p className="text-left fs-5">
-                            We understand that our customers are looking for unique and high-quality school items, which is why
-                            we carefully curate our product offerings to ensure that we only carry the best of the best. Whether you're
-                            a proud student or simply a fan of school, you can rest assured that when you shop with us, you're getting the very best.
-                            We are trying to make everyone's school journey just a little bit better.
-                            Thank you for choosing our school supply store. We look forward to serving you and helping you achieve your academic goals.
-                            </p>
-                            <p className="text-left fs-5">
-                            In addition to providing high-quality products and exceptional service, we also support the local community through various
-                            charitable initiatives. We believe that education is the key to success, and we are committed to making it accessible to everyone,
-                            regardless of their background or financial circumstances. We are also take to account environmental elements. We do that by using
-                            recyclable materials and using environmentally positive product mechanism.  We only want to provide the best for our clients.
-                            Please enjoy our products.
-                            </p>
-                        </div>
-                    </div>
+                    <MDBRow>
+                        <h1 style={headerStyle} className="fw-bold text-center fullwidth">Tietoa meistä</h1>
+                        <p style={pStyle} class="lh-lg">Kynä & Kumi on yritys, joka on omistautunut tarjoamaan korkealaatuisia
+                        koulutarvikkeita kaiken ikäisille opiskelijoille. Kirjoitusvälineisiin ja kumituotteisiin keskittyvä
+                        Kynä & Kumi tarjoaa laajan valikoiman tuotteita opiskelijoiden tarpeisiin päiväkodista yliopistoon.
+                        Yritys on ylpeä sitoutumisestaan ​​huippuosaamiseen sekä tuotteiden laadun että asiakaspalvelun suhteen.
+                        Etsitpä sitten kyniä, kyniä, pyyhekumia tai muita koulutarvikkeita, Kynä & Kumi on oikea lähde kaikkiin
+                        akateemisiin tarpeisiisi. Olemme yrityksenä sitoutuneet varmistamaan, että kaikki tarjoamamme koulutarvikkeet
+                        valmistetaan korkeimpien laatustandardien mukaisesti. Hankimme huolellisesti kaikki materiaalimme luotettavilta
+                        toimittajilta ja valmistamme tuotteet uusimmilla tuotantotekniikoilla ja koneilla. Tarjoamamme kynät ja lyijykynät
+                        ovat valmistettu käyttäen vain laadukkaimpia materiaaleja, kuten korkealaatuisia muoveja ja kestäviä metalleja.
+                        Yrityksen kynät on suunniteltu tarkasti, mikä varmistaa, että jokainen rivi on selkeä ja johdonmukainen.
+                        Kynät on valmistettu korkealaatuisesta grafiitista, joka on erityisesti käsitelty maksimaalisen kestävyyden ja
+                        sileyden varmistamiseksi.
+                        </p>
+                    </MDBRow>
+                    <MDBRow>
+                        <MDBCol md="6">
+                            <img src={tietoaMeistaKuva} alt="Kuva" width="800" height="468"  />
+                        </MDBCol>
+                        <MDBCol md="6">
+                            <img src={tietoaMeistaKuva2} alt="Kuva" width="375" height="250"  />
+                        </MDBCol>
+
+                    </MDBRow>
+                    <MDBRow>
+                        <MDBCol md="6">
+                            
+                        </MDBCol>
+                    </MDBRow>
                 </div>
             </section>
 
