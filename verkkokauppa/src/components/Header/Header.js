@@ -44,9 +44,6 @@ const Header = () => {
               <MDBIcon fas icon="shopping-cart" />
             </NavLink>
             </MDBNavbarItem>
-            <MDBNavbarItem>
-            <NavLink to="/privacystatement" className='nav-link'>Privacy statement</NavLink>
-            </MDBNavbarItem>
           </MDBNavbarNav>
         </MDBCollapse>
       </MDBContainer>
