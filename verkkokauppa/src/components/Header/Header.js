@@ -16,7 +16,8 @@ const Header = () => {
     return(
         <MDBNavbar expand='lg' light bgColor='light' >
       <MDBContainer fluid>
-        <MDBNavbarBrand>Kynä & Kumi</MDBNavbarBrand>
+        <MDBNavbarBrand >Kynä & Kumi</MDBNavbarBrand>
+        <MDBIcon fas icon="pencil-ruler" />
         <MDBNavbarToggler
           type='button'
           aria-expanded='false'
@@ -25,8 +26,9 @@ const Header = () => {
         >
           <MDBIcon icon='bars' fas />
         </MDBNavbarToggler>
-        <MDBCollapse navbar show={showNavCentred}>
-          <MDBNavbarNav fullWidth={false} className="mb-2 mb-lg-0">
+        <MDBCollapse navbar show={showNavCentred} class="collapse navbar-collapse justify-content-center" >
+          <MDBNavbarNav fullWidth={false} className="mb-2 mb-lg-0" >
+
             <MDBNavbarItem>
             <NavLink to="/" className='nav-link'>Etusivu</NavLink>
             </MDBNavbarItem>
@@ -47,6 +49,7 @@ const Header = () => {
               <MDBIcon fas icon="shopping-cart" />
             </NavLink>
             </MDBNavbarItem>
+
           </MDBNavbarNav>
         </MDBCollapse>
       </MDBContainer>
