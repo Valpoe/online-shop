@@ -1,6 +1,7 @@
 import React from 'react';
-import tietoaMeistaKuva from "../Images/Tietoamkuva.jpg"
+import tietoaMeistaKuva from "../Images/TMkuva1.jpg"
 import tietoaMeistaKuva2 from "../Images/TMkuva2.jpg"
+import tietoaMeistaKuva3 from "../Images/TMkuva3.jpg"
 import { MDBRow, MDBCol } from 'mdb-react-ui-kit';
 
 const AboutUs = () => {
@@ -39,16 +40,16 @@ const AboutUs = () => {
                     </MDBRow>
                     <MDBRow>
                         <MDBCol md="6">
-                            <img src={tietoaMeistaKuva} alt="Kuva" width="800" height="468"  />
+                            <img src={tietoaMeistaKuva} alt="Kuva" width="600" height="400"  />
                         </MDBCol>
                         <MDBCol md="6">
-                            <img src={tietoaMeistaKuva2} alt="Kuva" width="375" height="250"  />
+                            <img src={tietoaMeistaKuva2} alt="Kuva" width="600" height="400"  />
                         </MDBCol>
 
                     </MDBRow>
                     <MDBRow>
                         <MDBCol md="6">
-                            
+                            <img src={tietoaMeistaKuva3} alt="Kuva" width="750" height="500"  />
                         </MDBCol>
                     </MDBRow>
                 </div>
