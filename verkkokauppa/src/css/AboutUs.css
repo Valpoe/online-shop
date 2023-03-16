@@ -1,0 +1,24 @@
+.column-1 {
+    display: inline-flex;
+    
+}
+
+.column-2 {
+    flex-direction: column;
+    grid-template-columns: 100px 100px;
+    width: 200px;
+}
+
+.header {
+    font-weight: bold;
+    padding: 50px 50px 50px 50px;
+    background-color: rgb(100, 100, 100);
+    color: white;
+    font-family: serif;
+    text-align: center;
+}
+
+.text {
+    padding: 50px 50px 50px 50px;
+    line-height: 2;
+}

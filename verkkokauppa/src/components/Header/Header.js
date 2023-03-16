@@ -26,7 +26,7 @@ const Header = () => {
         >
           <MDBIcon icon='bars' fas />
         </MDBNavbarToggler>
-        <MDBCollapse navbar show={showNavCentred} class="collapse navbar-collapse justify-content-center" >
+        <MDBCollapse navbar show={showNavCentred} className="collapse navbar-collapse justify-content-center" >
           <MDBNavbarNav fullWidth={false} className="mb-2 mb-lg-0" >
 
             <MDBNavbarItem>

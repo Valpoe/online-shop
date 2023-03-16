@@ -2,29 +2,18 @@ import React from 'react';
 import tietoaMeistaKuva from "../Images/TMkuva1.jpg"
 import tietoaMeistaKuva2 from "../Images/TMkuva2.jpg"
 import tietoaMeistaKuva3 from "../Images/TMkuva3.jpg"
+import "../css/AboutUs.css"
 import { MDBRow, MDBCol } from 'mdb-react-ui-kit';
 
 const AboutUs = () => {
-
-    const headerStyle = {
-        color: "white",
-        fontFamily: "serif",
-        backgroundColor: "rgb(96, 96, 96)",
-        padding: "50px 50px 50px 50px",
-        
-    };
-
-    const pStyle = {
-        padding: "50px 50px 50px 50px"
-    };
 
     return(
         <div>
             <section className="bg-info p-3 bg-opacity-25">
                 <div className="container">
-                    <MDBRow>
-                        <h1 style={headerStyle} className="fw-bold text-center fullwidth">Tietoa meistä</h1>
-                        <p style={pStyle} class="lh-lg">Kynä & Kumi on yritys, joka on omistautunut tarjoamaan korkealaatuisia
+                    
+                        <h1 className="header">Tietoa meistä</h1>
+                        <p className="text">Kynä & Kumi on yritys, joka on omistautunut tarjoamaan korkealaatuisia
                         koulutarvikkeita kaiken ikäisille opiskelijoille. Kirjoitusvälineisiin ja kumituotteisiin keskittyvä
                         Kynä & Kumi tarjoaa laajan valikoiman tuotteita opiskelijoiden tarpeisiin päiväkodista yliopistoon.
                         Yritys on ylpeä sitoutumisestaan ​​huippuosaamiseen sekä tuotteiden laadun että asiakaspalvelun suhteen.
@@ -37,21 +26,20 @@ const AboutUs = () => {
                         Kynät on valmistettu korkealaatuisesta grafiitista, joka on erityisesti käsitelty maksimaalisen kestävyyden ja
                         sileyden varmistamiseksi.
                         </p>
-                    </MDBRow>
-                    <MDBRow>
-                        <MDBCol md="6">
-                            <img src={tietoaMeistaKuva} alt="Kuva" width="600" height="400"  />
-                        </MDBCol>
-                        <MDBCol md="6">
-                            <img src={tietoaMeistaKuva2} alt="Kuva" width="600" height="400"  />
-                        </MDBCol>
-
-                    </MDBRow>
-                    <MDBRow>
-                        <MDBCol md="6">
-                            <img src={tietoaMeistaKuva3} alt="Kuva" width="750" height="500"  />
-                        </MDBCol>
-                    </MDBRow>
+                    <div className="container">
+                        <div className="column-1">
+                        <img src={tietoaMeistaKuva} alt="Kuva" width="600" height="400"  />
+                        </div>
+                        <div className="column-2">
+                            <div className="cell-1">
+                                <img src={tietoaMeistaKuva2} alt="Kuva" width="600" height="400"  />
+                            </div>
+                            <div className="cell-2">
+                                <img src={tietoaMeistaKuva3} alt="Kuva" width="600" height="400"  /> 
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
             </section>
 
