@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+
 import {
   MDBTabs,
   MDBTabsItem,
@@ -9,6 +10,7 @@ import {
   MDBRow,
   MDBCol,
   MDBContainer,
+  MDBCardFooter,
 } from "mdb-react-ui-kit";
 
 import {
@@ -25,6 +27,74 @@ import {
   MDBDropdownToggle,
   MDBDropdownItem,
 } from "mdb-react-ui-kit";
+import ProductInformation from "./ProductInformation";
+
+//create element list for products
+
+//create element list for products
+const products_kynat = [
+  {
+    id: 1,
+    name: "Kynä",
+    price: 1.5,
+    description: "This is a longer card with supporting text below as anatural lead-in to additional content. This content is a little bit longer.",
+    image: "https://mdbootstrap.com/img/new/standard/city/044.webp",
+  },
+  {
+    id: 2,
+    name: "Kynä",
+    price: 1.5,
+    description: "Kynä, lead-in to additional content.",
+    image: "https://mdbootstrap.com/img/new/standard/city/044.webp",
+  },
+  {
+    id: 3,
+    name: "Kynä",
+    price: 1.5,
+    description: "Kynä, card with supporting text below as anatural lead-in to additional content. This content is a little bit longer",
+    image: "https://img.freepik.com/premium-psd/floating-pen-mockup_7956-394.jpg",
+  },
+  {
+    id: 4,
+    name: "Pensseli",
+    price: 1.5,
+    description: "Pensseli, lead-in to additional content.",
+    image: "http://unblast.com/wp-content/uploads/2020/08/Ballpoint-Pen-Mockup-1.jpg",
+  },
+  {
+    id: 5,
+    name: "Pensseli 2.0",
+    price: 1.5,
+    description: "Pensseli 2.0, card with supporting text below as anatural lead-in to additional content. This content is a little bit longer",
+    image: "https://jahtimedia.fi/sites/default/files/styles/meta_image/public/2019-02/Kuva1.jpg?h=56d95d7b&itok=nrPwM20k",
+  },
+  {
+    id: 6,
+    name: "Pensseli extreme 3.0",
+    price: 1.5,
+    description: "Pensseli extreme 3.0, lead-in to additional content.",
+    //use pencil_turbo.png from Images folder
+    image: "https://suomenluonto.fi/wp-content/uploads/2016/07/Martes_martes_Clunes_Scotland_1.jpg",
+  }];
+
+  const products_vihko = [
+    {
+      id: 13,
+      name: "Vihko",
+      price: 1.5,
+      description: "This is a longer card with supporting text below as anatural lead-in to additional content. This content is a little bit longer.",
+      image: "https://mdbootstrap.com/img/new/standard/city/044.webp",
+    },
+    {
+      id: 26,
+      name: "Vihko",
+      price: 1.5,
+      description: "Vihko, lead-in to additional content.",
+      image: "https://mdbootstrap.com/img/new/standard/city/044.webp",
+    }];
+
+    //products_all contains each element from products_kynä and products_vihko
+    const products_all = products_kynat.concat(products_vihko);
 
 const Tuotteet = () => {
   const [verticalActive, setVerticalActive] = useState("kaikki-tuotteet");
@@ -108,79 +178,111 @@ const Tuotteet = () => {
             <MDBTabsContent>
               <MDBTabsPane show={verticalActive === "kaikki-tuotteet"}>
                 <MDBRow className="row-cols-1 row-cols-md-3 g-4">
-                  <MDBCol>
-                    <MDBCard className="h-100">
-                      <MDBCardImage
-                        src="https://mdbootstrap.com/img/new/standard/city/041.webp"
-                        alt="..."
-                        position="top"
-                      />
-                      <MDBCardBody>
-                        <MDBCardTitle>Card title</MDBCardTitle>
-                        <MDBCardText>
-                          This is a longer card with supporting text below as a
-                          natural lead-in to additional content. This content is
-                          a little bit longer.
-                        </MDBCardText>
-                      </MDBCardBody>
-                    </MDBCard>
-                  </MDBCol>
-                  <MDBCol>
-                    <MDBCard className="h-100">
-                      <MDBCardImage
-                        src="https://mdbootstrap.com/img/new/standard/city/042.webp"
-                        alt="..."
-                        position="top"
-                      />
-                      <MDBCardBody>
-                        <MDBCardTitle>Card title</MDBCardTitle>
-                        <MDBCardText>This is a short card.</MDBCardText>
-                      </MDBCardBody>
-                    </MDBCard>
-                  </MDBCol>
-                  <MDBCol>
-                    <MDBCard className="h-100">
-                      <MDBCardImage
-                        src="https://mdbootstrap.com/img/new/standard/city/043.webp"
-                        alt="..."
-                        position="top"
-                      />
-                      <MDBCardBody>
-                        <MDBCardTitle>Card title</MDBCardTitle>
-                        <MDBCardText>
-                          This is a longer card with supporting text below as a
-                          natural lead-in to additional content.
-                        </MDBCardText>
-                      </MDBCardBody>
-                    </MDBCard>
-                  </MDBCol>
-                  <MDBCol>
-                    <MDBCard className="h-100">
-                      <MDBCardImage
-                        src="https://mdbootstrap.com/img/new/standard/city/044.webp"
-                        alt="..."
-                        position="top"
-                      />
-                      <MDBCardBody>
-                        <MDBCardTitle>Card title</MDBCardTitle>
-                        <MDBCardText>
-                          This is a longer card with supporting text below as a
-                          natural lead-in to additional content. This content is
-                          a little bit longer.
-                        </MDBCardText>
-                      </MDBCardBody>
-                    </MDBCard>
-                  </MDBCol>
+
+                  {products_all.map((product) => (
+                    <MDBCol key={product.id}>
+                      <MDBCard>
+                        <MDBCardImage
+                          src={product.image}
+                          position="top"
+                          alt="..."
+                        />
+                        <MDBCardBody>
+                          <MDBCardTitle>{product.name}</MDBCardTitle>
+                          <MDBCardText>{product.description}</MDBCardText>
+                          <MDBCardText><a href={`productInformation/${product.id}`}>Link to details {product.name}</a></MDBCardText>
+                          <MDBCardFooter>{product.price}</MDBCardFooter>
+                        </MDBCardBody>
+                      </MDBCard>
+                    </MDBCol>
+                  ))}
+
                 </MDBRow>
               </MDBTabsPane>
-              <MDBTabsPane show={verticalActive === "kynat"}>Kynät</MDBTabsPane>
-              <MDBTabsPane show={verticalActive === "kumit"}>Kumit</MDBTabsPane>
+              <MDBTabsPane show={verticalActive === "kynat"}>
+              <MDBRow className="row-cols-1 row-cols-md-3 g-4">
+
+                {products_kynat.map((product) => (
+                  <MDBCol key={product.id}>
+                    <MDBCard>
+                      <MDBCardImage
+                        src={product.image}
+                        position="top"
+                        alt="..."
+                      />
+                      <MDBCardBody>
+                        <MDBCardTitle>{product.name}</MDBCardTitle>
+                        <MDBCardText>{product.description}</MDBCardText>
+                      </MDBCardBody>
+                    </MDBCard>
+                  </MDBCol>
+                ))}
+                </MDBRow>
+                </MDBTabsPane>
+
+              <MDBTabsPane show={verticalActive === "kumit"}>
+              <MDBRow className="row-cols-1 row-cols-md-3 g-4">
+
+                        {products_vihko.map((product) => (
+                          <MDBCol key={product.id}>
+                            <MDBCard>
+                              <MDBCardImage
+                                src={product.image}
+                                position="top"
+                                alt="..."
+                              />
+                              <MDBCardBody>
+                                <MDBCardTitle>{product.name}</MDBCardTitle>
+                                <MDBCardText>{product.description}</MDBCardText>
+                              </MDBCardBody>
+                            </MDBCard>
+                          </MDBCol>
+                        ))}
+                        </MDBRow>
+                        </MDBTabsPane>
+
               <MDBTabsPane show={verticalActive === "penaalit"}>
-                Penaalit
-              </MDBTabsPane>
+              <MDBRow className="row-cols-1 row-cols-md-3 g-4">
+
+                {products_vihko.map((product) => (
+                  <MDBCol key={product.id}>
+                    <MDBCard>
+                      <MDBCardImage
+                        src={product.image}
+                        position="top"
+                        alt="..."
+                      />
+                      <MDBCardBody>
+                        <MDBCardTitle>{product.name}</MDBCardTitle>
+                        <MDBCardText>{product.description}</MDBCardText>
+                      </MDBCardBody>
+                    </MDBCard>
+                  </MDBCol>
+                ))}
+                </MDBRow>
+                </MDBTabsPane>
+
               <MDBTabsPane show={verticalActive === "vihkot"}>
-                Vihkot
-              </MDBTabsPane>
+              <MDBRow className="row-cols-1 row-cols-md-3 g-4">
+  
+                {products_vihko.map((product) => (
+                  <MDBCol key={product.id}>
+                    <MDBCard>
+                      <MDBCardImage
+                        src={product.image}
+                        position="top"
+                        alt="..."
+                      />
+                      <MDBCardBody>
+                        <MDBCardTitle>{product.name}</MDBCardTitle>
+                        <MDBCardText>{product.description}</MDBCardText>
+                      </MDBCardBody>
+                    </MDBCard>
+                  </MDBCol>
+                ))}
+                </MDBRow>
+                </MDBTabsPane>
+
             </MDBTabsContent>
           </MDBCol>
         </MDBRow>
