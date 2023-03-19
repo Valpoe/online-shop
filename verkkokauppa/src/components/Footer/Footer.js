@@ -7,7 +7,7 @@ return (
   <MDBFooter bgColor='light' className='text-center text-lg-start text-muted'>
       <section className='d-flex justify-content-center justify-content-lg-between p-4 border-bottom'>
         <div className='me-5 d-none d-lg-block'>
-          <span>Get connected with us on social networks:</span>
+          <span>Ota meihin yhteyttä sosiaalisessa mediassa:</span>
         </div>
 
         <div>
@@ -41,8 +41,7 @@ return (
                 Kynä & Kumi
               </h6>
               <p>
-                Here you can use rows and columns to organize your footer content. Lorem ipsum dolor sit amet,
-                consectetur adipisicing elit.
+                
               </p>
             </MDBCol>
 
@@ -114,7 +113,7 @@ return (
       </section>
 
       <div className='text-center p-4' style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}>
-        © 2021 Copyright:
+        © 2021 Copyright: 
         <a className='text-reset fw-bold' href='https://mdbootstrap.com/'>
           MDBootstrap.com
         </a>
