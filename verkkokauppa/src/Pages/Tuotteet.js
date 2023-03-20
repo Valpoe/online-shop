@@ -28,6 +28,7 @@ import {
   MDBDropdownItem,
 } from "mdb-react-ui-kit";
 import ProductInformation from "./ProductInformation";
+import { NavLink } from "react-router-dom";
 
 //create element list for products
 
@@ -190,7 +191,7 @@ const Tuotteet = () => {
                         <MDBCardBody>
                           <MDBCardTitle>{product.name}</MDBCardTitle>
                           <MDBCardText>{product.description}</MDBCardText>
-                          <MDBCardText><a href={`productInformation/${product.id}`}>Link to details {product.name}</a></MDBCardText>
+                          <MDBCardText><NavLink to={`/productInformation/${product.id}`}>Link to details {product.name}</NavLink></MDBCardText>
                           <MDBCardFooter>{product.price}</MDBCardFooter>
                         </MDBCardBody>
                       </MDBCard>

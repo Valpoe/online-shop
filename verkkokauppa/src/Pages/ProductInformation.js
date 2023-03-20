@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import { MDBTabsPane, MDBRow, MDBCol, MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardFooter, MDBTextArea } from 'mdb-react-ui-kit';
 
 function ProductInformation(){
     const { productId } = useParams();
@@ -13,78 +14,74 @@ function ProductInformation(){
   }
 
 
+
+//fetch haettu_tuote = tietkanta product where id = 1
+
 const ProductDetail = () => {
 
 return(
 
-<div>
-        <h1>Tuotteen tiedot:</h1>
-        <p>Värit: </p>
-        <div>
-            <div>
-            <label class="container">Valkoinen
-                <input type="checkbox" />
-                <span class="checkmark"></span>
-                </label>
+<div class="form-control p-5">
+              <MDBRow className="row-cols-1 row-cols-md-2 g-4">
 
-                <label class="container">Musta
-                <input type="checkbox"/>
-                <span class="checkmark"></span>
-                </label>
+                          <MDBCol key="1">
+                            <MDBCard>
+                              <MDBCardImage
+                                src="https://mdbootstrap.com/img/new/standard/nature/184.jpg"
+                                position="top"
+                                alt="..."
+                              />
+                              <MDBCardBody>
+                                <MDBCardTitle>PRODUCT WIP</MDBCardTitle>
+                                <MDBCardText>DESCRIPTION OF THE PRODUCT</MDBCardText>
+                              </MDBCardBody>
+                            </MDBCard>
 
-                <label class="container">Keltainen
-                <input type="checkbox"/>
-                <span class="checkmark"></span>
-                </label>
+                          </MDBCol>
+                          <MDBCol key="2" class="">
+                            <MDBCard>
+                              <MDBCardBody>
+                                <MDBCardTitle>COLOUR</MDBCardTitle>
+                                <MDBCardText>Lirum lipsum</MDBCardText>
+                                <MDBCardFooter></MDBCardFooter>
+                                <MDBCardText>"This product is out of stock at the moment, Tapio Räsänen will
+                                     handle this issues as soon as possible. Thank you for your patience!</MDBCardText>
+                                <MDBCardText>Price: 10€ - <a href='#'>Get notified when back in stock!</a></MDBCardText>
+                              </MDBCardBody>
+                            </MDBCard>
+                            <MDBCard>
+                              <MDBCardBody>
+                                <MDBCardTitle>CUSTOMISE YOUR PRODUCT</MDBCardTitle>
+                                <MDBCardText>Choose colour</MDBCardText>
+                                <div class="p-2">
+                                    <div>
+                                        <input type="radio" id="red" name="colour" value="red"/>
+                                        <label class="p-2" for="red">Red</label>
+                                        <input type="radio" id="blue" name="colour" value="blue"/>
+                                        <label class="p-2" for="blue">Blue</label>
+                                        <input type="radio" id="green" name="colour" value="green"/>
+                                        <label class="p-2" for="green">Green</label>                            
+                                    </div>
+                                </div>
+                                <MDBCardFooter></MDBCardFooter>
+                                <MDBCardText>Choose size</MDBCardText>
+                                <div class="p-2">
+                                    <div>
+                                        <input type="radio" id="small" name="size" value="small"/>
+                                        <label class="p-2" for="small">Small</label>
+                                        <input type="radio" id="medium" name="size" value="medium"/>
+                                        <label class="p-2" for="medium">Medium</label>
+                                        <input type="radio" id="large" name="size" value="large"/>
+                                        <label class="p-2" for="large">Large</label>
+                                    </div>
+                                </div>
+                              </MDBCardBody>
+                            </MDBCard>
+                          </MDBCol>
+                          
+            </MDBRow>
+            
 
-                <label class="container">Sininen
-                <input type="checkbox"/>
-                <span class="checkmark"></span>
-                </label>
-            </div>
-            <div>
-                <label>Määrä:</label>
-                <input type="number" min="1" max="10" />
-            </div>
-            <div>
-                Tuotteen arvosana:
-            </div>
-            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css" />
-
-            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css" />
-        <form class="rating">
-        <label>
-            <input type="radio" name="stars" value="1" />
-            <span class="fa fa-star icon"></span>
-        </label>
-        <label>
-            <input type="radio" name="stars" value="2" />
-            <span class="fa fa-star icon"></span>
-            <span class="fa fa-star icon"></span>
-        </label>
-        <label>
-            <input type="radio" name="stars" value="3" />
-            <span class="fa fa-star icon"></span>
-            <span class="fa fa-star icon"></span>
-            <span class="fa fa-star icon"></span>   
-        </label>
-        <label>
-            <input type="radio" name="stars" value="4" />
-            <span class="fa fa-star icon"></span>
-            <span class="fa fa-star icon"></span>
-            <span class="fa fa-star icon"></span>
-            <span class="fa fa-star icon"></span>
-        </label>
-        <label>
-            <input type="radio" name="stars" value="5" />
-            <span class="fa fa-star icon"></span>
-            <span class="fa fa-star icon"></span>
-            <span class="fa fa-star icon"></span>
-            <span class="fa fa-star icon"></span>
-            <span class="fa fa-star icon"></span>
-        </label>
-        </form>
-        </div>
 </div>
 
 );
