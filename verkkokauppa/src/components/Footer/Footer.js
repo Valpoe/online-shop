@@ -63,7 +63,7 @@ return (
               <NavLink to="/ostoskori" className='text-reset'>Ostoskori</NavLink>
               </p>
               <p>
-              <NavLink to="/privacystatement" className='text-reset'>Privacy statement</NavLink>
+              <NavLink to="/privacystatement" className='text-reset'>Tietosuojalausunto</NavLink>
               </p>
             </MDBCol>
 
