@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { MDBInput, MDBTextArea, MDBBtn } from "mdb-react-ui-kit";
 import { MDBContainer, MDBRow, MDBCol, MDBIcon } from "mdb-react-ui-kit";
+import koulutarvikekuva from "../Images/koulu-koulutarvikkeet-optimoitu.jpg";
 
 const ContactUs = () => {
   const [status, setStatus] = useState("Lähetä");
@@ -27,10 +28,10 @@ const ContactUs = () => {
   };
 
   return (
-    <section className="">
-      <MDBContainer className="text-center text-md-start mt-5">
+    <section className="d-flex justify-content-center justify-content-lg-between">
+      <MDBContainer className="text-center text-md-start">
         <MDBRow className="mt-3">
-          <MDBCol md="3" lg="4" xl="3" className="mx-auto mb-4">
+          <MDBCol lg="4" md="5" className="mx-auto mb-5 ps-5 pe-5">
             <form onSubmit={handleSubmit}>
               <h6 className="text-uppercase fw-bold mb-4">Ota yhteyttä</h6>
               <p>
@@ -49,7 +50,7 @@ const ContactUs = () => {
               </div>
             </form>
           </MDBCol>
-          <MDBCol md="4" lg="3" xl="3" className="mx-auto mb-md-0 mb-4">
+          <MDBCol lg="4" sm="8" md="5" className="mx-auto mb-5">
             <h6 className="text-uppercase fw-bold mb-4">Yhteystiedot</h6>
             <p>
               <MDBIcon icon="home" className="me-3" />
@@ -67,6 +68,7 @@ const ContactUs = () => {
               <MDBIcon icon="print" className="me-3" />
               + 01 234 567 89
             </p>
+            <img src={koulutarvikekuva} alt="koulutarvikekuva" width="300" height="400" className="mt-3"/>
           </MDBCol>
         </MDBRow>
       </MDBContainer>

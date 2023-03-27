@@ -49,7 +49,6 @@ const Header = () => {
               <MDBIcon fas icon="shopping-cart" />
             </NavLink>
             </MDBNavbarItem>
-
           </MDBNavbarNav>
         </MDBCollapse>
       </MDBContainer>
