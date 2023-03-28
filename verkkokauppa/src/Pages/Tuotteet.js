@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { getKategoriat } from '../components/Server/KategoriaAPI';
+import { getTuotteet } from '../components/Server/TuoteAPI';
 
 
 import {
@@ -114,6 +116,23 @@ const Tuotteet = () => {
   const [searchInput, setSearchInput] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [verticalActive, setVerticalActive] = useState("kaikki-tuotteet");
+
+  /// Tietokannasta tuotujen tietojen alustukseen:
+  const [tuotteet, setTuotteet] = useState([]);
+  const [kategoriat, setKategoriat] = useState([]);
+
+  /// Haetaan API:sta tietoa, muokataan logiikkaa tarpeen vaatiessa.
+  useEffect(() => {
+    async function fetchData() {
+      const kategoriaData = await getKategoriat();
+      const tuoteData = await getTuotteet();
+      setKategoriat(kategoriaData);
+      setTuotteet(tuoteData);
+      console.log(JSON.stringify(kategoriaData));
+      console.log(JSON.stringify(tuoteData));
+    }
+    fetchData();
+  }, []);
   
   const productColors = products_all.map((product) => {
     return { color: product.color };
