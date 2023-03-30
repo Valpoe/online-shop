@@ -136,10 +136,10 @@ const Tuotteet = () => {
     <div className="d-none d-lg-block text-center mb-3 mt-3">
                 <span>Väri</span>
               </div>
-        {/* {productColors.map((product) => (
-          <MDBBtn floating size="lg" className="m-1" key={product.color} style={{ backgroundColor: product.color }}>
+        {tuotteet && tuotteet.filter((v, i, a) => a.findIndex(t => (t.vari === v.vari)) === i).map((tuotteet) => (
+          <MDBBtn floating size="lg" className="m-1" key={tuotteet.vari} style={{ backgroundColor: tuotteet.vari }}>
           </MDBBtn>
-        ))} */}
+        ))}
     </div>
           </MDBCol>
           <MDBCol size="8" className="mt-5">       
@@ -150,7 +150,7 @@ const Tuotteet = () => {
                     <MDBCol key={tuotteet.id}>
                       <MDBCard className="h-100">
                         <MDBCardImage
-                          src="https://images.theconversation.com/files/220291/original/file-20180524-90281-1qovmkh.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1200&h=1200.0&fit=crop"
+                          src={tuotteet.kuva}
                           position="top"
                           alt="..."
                         />
@@ -173,7 +173,7 @@ const Tuotteet = () => {
                       <MDBCol key={tuotteet.id}>
                         <MDBCard className="h-100">
                           <MDBCardImage
-                            src="https://images.theconversation.com/files/220291/original/file-20180524-90281-1qovmkh.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1200&h=1200.0&fit=crop"
+                            src={tuotteet.kuva}
                             position="top"
                             alt="..."
                           />
@@ -194,7 +194,7 @@ const Tuotteet = () => {
                       <MDBCol key={tuotteet.id}>
                         <MDBCard className="h-100">
                           <MDBCardImage
-                            src="https://images.theconversation.com/files/220291/original/file-20180524-90281-1qovmkh.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1200&h=1200.0&fit=crop"
+                            src={tuotteet.kuva}
                             position="top"
                             alt="..."
                           />
