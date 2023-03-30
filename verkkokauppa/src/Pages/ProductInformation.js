@@ -3,11 +3,11 @@ import { useParams } from 'react-router-dom';
 import { MDBTabsPane, MDBRow, MDBCol, MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardFooter, MDBTextArea } from 'mdb-react-ui-kit';
 
 function ProductInformation(){
-    const { productId } = useParams();
+    const { tuoteID } = useParams();
   
     return(
       <div>
-        <h1>ProductID = {productId}</h1>
+        <h1>ProductID = {tuoteID}</h1>
         <ProductDetail/>
       </div>
     )

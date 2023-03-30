@@ -23,7 +23,7 @@ function App() {
         <Route path='/Ostoskori' element={<Ostoskori />} />
         <Route path='/PrivacyStatement' element={<PrivacyStatement />} />
         <Route path='/ota-yhteytta' element={<ContactUs />} />
-        <Route path='/ProductInformation/:productId' element={<ProductInformation/>} />
+        <Route path='/tuotteet/:tuoteID' element={<ProductInformation/>} />
       </Routes>
       <Footer />
     </Router>

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getKategoriat } from '../components/Server/KategoriaAPI';
 import { getTuotteet } from '../components/Server/TuoteAPI';
-
-
+import { NavLink } from "react-router-dom";
 import {
   MDBTabs,
   MDBTabsItem,
@@ -11,11 +10,7 @@ import {
   MDBTabsPane,
   MDBRow,
   MDBCol,
-  MDBContainer,
   MDBCardFooter,
-} from "mdb-react-ui-kit";
-
-import {
   MDBCard,
   MDBCardImage,
   MDBCardBody,
@@ -27,90 +22,7 @@ import {
   MDBInput,
   MDBBtnGroup,
   MDBRange,
-  MDBCheckbox,
 } from "mdb-react-ui-kit";
-
-import {
-  MDBDropdown,
-  MDBDropdownMenu,
-  MDBDropdownToggle,
-  MDBDropdownItem,
-} from "mdb-react-ui-kit";
-import ProductInformation from "./ProductInformation";
-import { NavLink } from "react-router-dom";
-
-
-const products_kynat = [
-  {
-    id: 1,
-    name: "Kynä",
-    price: 1.5,
-    description: "This is a longer card with supporting text below as anatural lead-in to additional content. This content is a little bit longer.",
-    image: "https://mdbootstrap.com/img/new/standard/city/044.webp",
-    color: "#FF3D00",
-  },
-  {
-    id: 2,
-    name: "Kynä",
-    price: 1.5,
-    description: "Kynä, lead-in to additional content.",
-    image: "https://mdbootstrap.com/img/new/standard/city/044.webp",
-    color: "#00B0FF",
-  },
-  {
-    id: 3,
-    name: "Kynä",
-    price: 1.5,
-    description: "Kynä, card with supporting text below as anatural lead-in to additional content. This content is a little bit longer",
-    image: "https://img.freepik.com/premium-psd/floating-pen-mockup_7956-394.jpg",
-    color: "#76FF03",
-  },
-  {
-    id: 4,
-    name: "Pensseli",
-    price: 1.5,
-    description: "Pensseli, lead-in to additional content.",
-    image: "http://unblast.com/wp-content/uploads/2020/08/Ballpoint-Pen-Mockup-1.jpg",
-    color: "#FF3D00",
-  },
-  {
-    id: 5,
-    name: "Pensseli 2.0",
-    price: 1.5,
-    description: "Pensseli 2.0, card with supporting text below as anatural lead-in to additional content. This content is a little bit longer",
-    image: "https://jahtimedia.fi/sites/default/files/styles/meta_image/public/2019-02/Kuva1.jpg?h=56d95d7b&itok=nrPwM20k",
-    color: "#00B0FF",
-  },
-  {
-    id: 6,
-    name: "Pensseli extreme 3.0",
-    price: 1.5,
-    description: "Pensseli extreme 3.0, lead-in to additional content.",
-    //use pencil_turbo.png from Images folder
-    image: "https://suomenluonto.fi/wp-content/uploads/2016/07/Martes_martes_Clunes_Scotland_1.jpg",
-    color: "#76FF03",
-  }];
-
-  const products_vihko = [
-    {
-      id: 13,
-      name: "Vihko",
-      price: 1.5,
-      description: "This is a longer card with supporting text below as anatural lead-in to additional content. This content is a little bit longer.",
-      image: "https://mdbootstrap.com/img/new/standard/city/044.webp",
-      color: "#FF3D00",
-    },
-    {
-      id: 26,
-      name: "Vihko",
-      price: 1.5,
-      description: "Vihko, lead-in to additional content.",
-      image: "https://mdbootstrap.com/img/new/standard/city/044.webp",
-      color: "#FFEA00",
-    }];
-
-    //products_all contains each element from products_kynä and products_vihko
-    const products_all = products_kynat.concat(products_vihko);
 
 const Tuotteet = () => {
   const [searchInput, setSearchInput] = useState("");
@@ -128,25 +40,14 @@ const Tuotteet = () => {
       const tuoteData = await getTuotteet();
       setKategoriat(kategoriaData);
       setTuotteet(tuoteData);
-      console.log(JSON.stringify(kategoriaData));
-      console.log(JSON.stringify(tuoteData));
     }
     fetchData();
   }, []);
-  
-  const productColors = products_all.map((product) => {
-    return { color: product.color };
-  }).filter((product, index, self) => {
-    return index === self.findIndex((t) => (
-      t.color === product.color
-    ));
-  });
 
   const handleVerticalClick = (value) => {
     if (value === verticalActive) {
       return;
     }
-
     setVerticalActive(value);
   };
 
@@ -159,12 +60,11 @@ const Tuotteet = () => {
     }
 
     if (e.target.value !== "") {
-      const filteredProducts = products_all.filter((product) => {
-        return product.name.toLowerCase().includes(e.target.value.toLowerCase());
+      const filteredProducts = tuotteet.filter((product) => {
+        return product.tuotenimi.toLowerCase().includes(e.target.value.toLowerCase());
       });
       setSearchResults(filteredProducts);
       setVerticalActive("searchResults");
-      console.log(productColors);
     }
   };
 
@@ -193,37 +93,16 @@ const Tuotteet = () => {
                   Kaikki tuotteet
                 </MDBTabsLink>
               </MDBTabsItem>
-              <MDBTabsItem>
-                <MDBTabsLink className="square border border-2"
-                  onClick={() => handleVerticalClick("kynat")}
-                  active={verticalActive === "kynat"}
-                ><i class="fas fa-pen-alt fa-lg me-2"></i>Kynät
-                </MDBTabsLink>
-              </MDBTabsItem>
-              <MDBTabsItem>
-                <MDBTabsLink className="square border border-2"
-                  onClick={() => handleVerticalClick("kumit")}
-                  active={verticalActive === "kumit"}
-                >
-                  <i class="fas fa-eraser fa-lg me-2"></i>Kumit
-                </MDBTabsLink>
-              </MDBTabsItem>
-              <MDBTabsItem>
-                <MDBTabsLink className="square border border-2"
-                  onClick={() => handleVerticalClick("penaalit")}
-                  active={verticalActive === "penaalit"}
-                >
-                  <i class="fas fa-box-open fa-lg me-2"></i>Penaalit
-                </MDBTabsLink>
-              </MDBTabsItem>
-              <MDBTabsItem>
-                <MDBTabsLink className="square border border-2"
-                  onClick={() => handleVerticalClick("vihkot")}
-                  active={verticalActive === "vihkot"}
-                >
-                  <i class="fas fa-book-open fa-lg me-2"></i>Vihkot
-                </MDBTabsLink>
-              </MDBTabsItem>
+              {kategoriat.map((kategoria) => (
+                <MDBTabsItem>
+                  <MDBTabsLink className="square border border-2"
+                    onClick={() => handleVerticalClick(kategoria.kategoriaID)}
+                    active={verticalActive === kategoria.kategoriaID}
+                  >
+                    {kategoria.kuvaus}
+                  </MDBTabsLink>
+                </MDBTabsItem>
+              ))}
             </MDBTabs>
             <div className="d-none d-lg-block text-uppercase text-center fw-bold mb-3 mt-3">
                 <span>Suodata tuotteita</span>
@@ -257,141 +136,78 @@ const Tuotteet = () => {
     <div className="d-none d-lg-block text-center mb-3 mt-3">
                 <span>Väri</span>
               </div>
-        {productColors.map((product) => (
+        {/* {productColors.map((product) => (
           <MDBBtn floating size="lg" className="m-1" key={product.color} style={{ backgroundColor: product.color }}>
           </MDBBtn>
-        ))}
+        ))} */}
     </div>
           </MDBCol>
           <MDBCol size="8" className="mt-5">       
             <MDBTabsContent>
               <MDBTabsPane show={verticalActive === "kaikki-tuotteet"}>
                 <MDBRow className="row-cols-1 row-cols-md-3 g-4">
-
-                  {products_all.map((product) => (
-                    <MDBCol key={product.id}>
+                  {tuotteet.map((tuotteet) => (
+                    <MDBCol key={tuotteet.id}>
                       <MDBCard className="h-100">
                         <MDBCardImage
-                          src={product.image}
+                          src="https://images.theconversation.com/files/220291/original/file-20180524-90281-1qovmkh.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1200&h=1200.0&fit=crop"
                           position="top"
                           alt="..."
                         />
                         <MDBCardBody>
-                          <MDBCardTitle>{product.name}</MDBCardTitle>
-                          <MDBCardText>{product.description}</MDBCardText>
-                          <MDBCardText><NavLink to={`/productInformation/${product.id}`}>Link to details {product.name}</NavLink></MDBCardText>
-                          <MDBCardFooter>{product.price}</MDBCardFooter>
+                          <MDBCardTitle>{tuotteet.tuotenimi}</MDBCardTitle>
+                          <MDBCardText>Saldo: {tuotteet.varastosaldo}</MDBCardText>
+                          <MDBCardText><NavLink to={`/tuotteet/${tuotteet.tuoteID}`}>Lisätietoja</NavLink></MDBCardText>
+                          <MDBCardFooter className="text-center">Hinta {tuotteet.hinta} €</MDBCardFooter>
                         </MDBCardBody>
                       </MDBCard>
                     </MDBCol>
                   ))}
-
                 </MDBRow>
               </MDBTabsPane>
-              <MDBTabsPane show={verticalActive === "kynat"}>
-              <MDBRow className="row-cols-1 row-cols-md-3 g-4">
 
-                {products_kynat.map((product) => (
-                  <MDBCol key={product.id}>
-                    <MDBCard className="h-100">
-                      <MDBCardImage
-                        src={product.image}
-                        position="top"
-                        alt="..."
-                      />
-                      <MDBCardBody>
-                        <MDBCardTitle>{product.name}</MDBCardTitle>
-                        <MDBCardText>{product.description}</MDBCardText>
-                      </MDBCardBody>
-                    </MDBCard>
-                  </MDBCol>
-                ))}
-                </MDBRow>
+              {kategoriat.map((kategoria) => (
+                <MDBTabsPane show={verticalActive === kategoria.kategoriaID}>
+                  <MDBRow className="row-cols-1 row-cols-md-3 g-4">
+                    {tuotteet && tuotteet.filter(tuote => tuote.kategoriaid === kategoria.kategoriaID).map((tuotteet) => (
+                      <MDBCol key={tuotteet.id}>
+                        <MDBCard className="h-100">
+                          <MDBCardImage
+                            src="https://images.theconversation.com/files/220291/original/file-20180524-90281-1qovmkh.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1200&h=1200.0&fit=crop"
+                            position="top"
+                            alt="..."
+                          />
+                          <MDBCardBody>
+                            <MDBCardTitle>{tuotteet.tuotenimi}</MDBCardTitle>
+                            <MDBCardText>Saldo: {tuotteet.varastosaldo}</MDBCardText>
+                            <MDBCardFooter className="text-center">Hinta: {tuotteet.hinta} €</MDBCardFooter>
+                          </MDBCardBody>
+                        </MDBCard>
+                      </MDBCol>
+                    ))}
+                  </MDBRow>
                 </MDBTabsPane>
-
-              <MDBTabsPane show={verticalActive === "kumit"}>
-              <MDBRow className="row-cols-1 row-cols-md-3 g-4">
-
-                        {products_vihko.map((product) => (
-                          <MDBCol key={product.id}>
-                            <MDBCard className="h-100">
-                              <MDBCardImage
-                                src={product.image}
-                                position="top"
-                                alt="..."
-                              />
-                              <MDBCardBody>
-                                <MDBCardTitle>{product.name}</MDBCardTitle>
-                                <MDBCardText>{product.description}</MDBCardText>
-                              </MDBCardBody>
-                            </MDBCard>
-                          </MDBCol>
-                        ))}
-                        </MDBRow>
-                        </MDBTabsPane>
-
-              <MDBTabsPane show={verticalActive === "penaalit"}>
-              <MDBRow className="row-cols-1 row-cols-md-3 g-4">
-
-                {products_vihko.map((product) => (
-                  <MDBCol key={product.id}>
-                    <MDBCard className="h-100">
-                      <MDBCardImage
-                        src={product.image}
-                        position="top"
-                        alt="..."
-                      />
-                      <MDBCardBody>
-                        <MDBCardTitle>{product.name}</MDBCardTitle>
-                        <MDBCardText>{product.description}</MDBCardText>
-                      </MDBCardBody>
-                    </MDBCard>
-                  </MDBCol>
-                ))}
-                </MDBRow>
-                </MDBTabsPane>
-
-              <MDBTabsPane show={verticalActive === "vihkot"}>
-              <MDBRow className="row-cols-1 row-cols-md-3 g-4">
-  
-                {products_vihko.map((product) => (
-                  <MDBCol key={product.id}>
-                    <MDBCard className="h-100">
-                      <MDBCardImage
-                        src={product.image}
-                        position="top"
-                        alt="..."
-                      />
-                      <MDBCardBody>
-                        <MDBCardTitle>{product.name}</MDBCardTitle>
-                        <MDBCardText>{product.description}</MDBCardText>
-                      </MDBCardBody>
-                    </MDBCard>
-                  </MDBCol>
-                ))}
-                </MDBRow>
-                </MDBTabsPane>
+              ))}
                 <MDBTabsPane show={verticalActive === "searchResults"}>
-                <MDBRow className="row-cols-1 row-cols-md-3 g-4">
-
-                {searchResults.map((product) => (
-                  <MDBCol key={product.id}>
-                    <MDBCard className="h-100">
-                      <MDBCardImage
-                        src={product.image}
-                        position="top"
-                        alt="..."
-                      />
-                      <MDBCardBody>
-                        <MDBCardTitle>{product.name}</MDBCardTitle>
-                        <MDBCardText>{product.description}</MDBCardText>
-                      </MDBCardBody>
-                    </MDBCard>
-                  </MDBCol>
-                ))}
-                </MDBRow>
+                  <MDBRow className="row-cols-1 row-cols-md-3 g-4">
+                    {searchResults.map((tuotteet) => (
+                      <MDBCol key={tuotteet.id}>
+                        <MDBCard className="h-100">
+                          <MDBCardImage
+                            src="https://images.theconversation.com/files/220291/original/file-20180524-90281-1qovmkh.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1200&h=1200.0&fit=crop"
+                            position="top"
+                            alt="..."
+                          />
+                          <MDBCardBody>
+                            <MDBCardTitle>{tuotteet.tuotenimi}</MDBCardTitle>
+                            <MDBCardText>Saldo: {tuotteet.varastosaldo}</MDBCardText>
+                            <MDBCardFooter className="text-center">Hinta: {tuotteet.hinta} €</MDBCardFooter>
+                          </MDBCardBody>
+                        </MDBCard>
+                      </MDBCol>
+                    ))}
+                  </MDBRow>
                 </MDBTabsPane>
-
             </MDBTabsContent>
           </MDBCol>
         </MDBRow>
