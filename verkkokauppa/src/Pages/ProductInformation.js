@@ -1,91 +1,101 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { MDBTabsPane, MDBRow, MDBCol, MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardFooter, MDBTextArea } from 'mdb-react-ui-kit';
-
-function ProductInformation(){
-    const { tuoteID } = useParams();
-  
-    return(
-      <div>
-        <h1>ProductID = {tuoteID}</h1>
-        <ProductDetail/>
-      </div>
-    )
-  }
+import { MDBRow, MDBCol, MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardFooter, MDBCarousel } from 'mdb-react-ui-kit';
+import { getKategoriaTuotteet, getTuote, getTuotteet } from '../components/Server/TuoteAPI';
 
 
 
-//fetch haettu_tuote = tietkanta product where id = 1
 
-const ProductDetail = () => {
+const ProductInformation = () => {
+  const [tuote, setTuote] = useState([]);
+  const [tuotekategoria, setTuotekategoria] = useState([]);
+  const { tuoteID } = useParams();
 
-return(
+  useEffect(() => {
+    async function fetchData() {
+      const tuoteData = await getTuote(tuoteID);
+      setTuote(tuoteData);
 
-<div class="form-control p-5">
-              <MDBRow className="row-cols-1 row-cols-md-2 g-4">
+    }
+    fetchData();
+  }, []);
 
-                          <MDBCol key="1">
-                            <MDBCard>
-                              <MDBCardImage
-                                src="https://mdbootstrap.com/img/new/standard/nature/184.jpg"
-                                position="top"
-                                alt="..."
-                              />
-                              <MDBCardBody>
-                                <MDBCardTitle>PRODUCT WIP</MDBCardTitle>
-                                <MDBCardText>DESCRIPTION OF THE PRODUCT</MDBCardText>
-                              </MDBCardBody>
-                            </MDBCard>
+  useEffect(() => {
+    async function fetchData() {
+          //fetch tuotekategoria with tuoteID
+          const tuotekategoriaData = await getKategoriaTuotteet(tuote[0].kategoriaid);
+          setTuotekategoria(tuotekategoriaData);
+    }
+    fetchData();
+  }, [tuote]);
 
-                          </MDBCol>
-                          <MDBCol key="2" class="">
-                            <MDBCard>
-                              <MDBCardBody>
-                                <MDBCardTitle>COLOUR</MDBCardTitle>
-                                <MDBCardText>Lirum lipsum</MDBCardText>
-                                <MDBCardFooter></MDBCardFooter>
-                                <MDBCardText>"This product is out of stock at the moment, Tapio Räsänen will
-                                     handle this issues as soon as possible. Thank you for your patience!</MDBCardText>
-                                <MDBCardText>Price: 10€ - <a href='#'>Get notified when back in stock!</a></MDBCardText>
-                              </MDBCardBody>
-                            </MDBCard>
-                            <MDBCard>
-                              <MDBCardBody>
-                                <MDBCardTitle>CUSTOMISE YOUR PRODUCT</MDBCardTitle>
-                                <MDBCardText>Choose colour</MDBCardText>
-                                <div class="p-2">
-                                    <div>
-                                        <input type="radio" id="red" name="colour" value="red"/>
-                                        <label class="p-2" for="red">Red</label>
-                                        <input type="radio" id="blue" name="colour" value="blue"/>
-                                        <label class="p-2" for="blue">Blue</label>
-                                        <input type="radio" id="green" name="colour" value="green"/>
-                                        <label class="p-2" for="green">Green</label>                            
-                                    </div>
-                                </div>
-                                <MDBCardFooter></MDBCardFooter>
-                                <MDBCardText>Choose size</MDBCardText>
-                                <div class="p-2">
-                                    <div>
-                                        <input type="radio" id="small" name="size" value="small"/>
-                                        <label class="p-2" for="small">Small</label>
-                                        <input type="radio" id="medium" name="size" value="medium"/>
-                                        <label class="p-2" for="medium">Medium</label>
-                                        <input type="radio" id="large" name="size" value="large"/>
-                                        <label class="p-2" for="large">Large</label>
-                                    </div>
-                                </div>
-                              </MDBCardBody>
-                            </MDBCard>
-                          </MDBCol>
-                          
+
+
+  //wait for tuote to be loaded then return details
+  if (tuote.length === 0) {
+    return <div className="form-control success">Ladataan tuotetietoja, hetkinen!</div>;
+  } else {
+    return (
+      <div className="p-4">
+        <h1>{tuote[0].tuotenimi} - tuotenumero: {tuote[0].tuoteID}</h1>
+        <MDBRow>
+          <MDBCol>
+            <div className="">
+            <MDBCard className='mb-3'>
+              <MDBCardImage src={tuote[0].kuva} alt='...' position='top' />
+              <MDBCardBody>
+                <MDBCardTitle>{tuote[0].nimi}</MDBCardTitle>
+                <MDBCardText>{tuote[0].kuvaus}</MDBCardText>
+              </MDBCardBody>
+            </MDBCard>
+            </div>
+          </MDBCol>
+          <MDBCol>
+            <div className="">
+            <MDBCard className='mb-3 p-5'>
+              <MDBCardText>Tuotetiedot</MDBCardText>
+              <MDBCardText>Koko: tähän mahd. koko</MDBCardText>
+              <MDBCardText>Väri: tähän mahd. väri</MDBCardText>
+              <MDBCardText>käytetty vihko!</MDBCardText>
+              <MDBCardText>{tuote[0].hinta} €</MDBCardText>
+              <MDBCardBody>
+                <MDBCardTitle>{tuote[0].nimi}</MDBCardTitle>
+                <MDBCardText>{tuote[0].kuvaus}</MDBCardText>
+                <MDBCardFooter>
+                  <MDBCardText><a href="#">Lisää ostoskoriin</a></MDBCardText>
+                </MDBCardFooter>
+              </MDBCardBody>
+            </MDBCard>
+            </div>
+          </MDBCol>
+        </MDBRow>
+
+          {tuotekategoria.length === 0 ? (
+            <div>Ladataan tuotteita... hetkinen!</div>
+          ) : (
+            <MDBRow className="row-cols-1 row-cols-md-3 g-4">
+                {tuotekategoria.map((tuotteet) => (
+               <MDBCol key={tuotteet.tuoteID}>
+               <MDBCard className="h-100">
+                 <MDBCardImage
+                   src={tuotteet.kuva}
+                   position="top"
+                   alt="..."
+                 />
+                 <MDBCardBody>
+                   <MDBCardTitle>{tuotteet.tuotenimi}</MDBCardTitle>
+                   <MDBCardText>Saldo: {tuotteet.varastosaldo}</MDBCardText>
+                   <MDBCardFooter className="text-center">Hinta: {tuotteet.hinta} €</MDBCardFooter>
+                 </MDBCardBody>
+               </MDBCard>
+             </MDBCol>
+                ))}
+
             </MDBRow>
-            
-
-</div>
-
-);
-
-}
+          )}
+    </div>
+    );
+  }
+};
 
 export default ProductInformation;

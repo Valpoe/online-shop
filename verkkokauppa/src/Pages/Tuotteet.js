@@ -68,6 +68,11 @@ const Tuotteet = () => {
     }
   };
 
+  //loading message when fetching the data
+  if (tuotteet.length === 0) {
+    return <div className="form-control success">Ladataan tietoja, hetkinen!</div>;
+  }
+
   return (
     <div>
       <>

@@ -8,11 +8,19 @@ export const  getTuotteet = async () => {
 };
 
 // Tuo tuoteid perusteella
-export const getProductById = async (productId) => {
-  const response = await fetch(`http://localhost:5000/tuotteet/${productId}`);
+export const getTuote = async (tuoteID) => {
+  const response = await fetch(`http://localhost:5000/tuote/${tuoteID}`);
+  const data = await response.json();
+  return data;
+};
+
+// Tuo kaikki saman kategorian tuotteet
+export const getKategoriaTuotteet = async (kategoriaID) => {
+  const response = await fetch(`http://localhost:5000/kategoria/${kategoriaID}`);
   const data = await response.json();
   return data;
 }
+
 
 
   

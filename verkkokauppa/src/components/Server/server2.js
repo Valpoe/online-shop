@@ -55,6 +55,34 @@ app.get('/kategoriat', async (req, res) => {
   });
 
 
+/////// Haetaan yksi tuote
+app.get('/tuote/:id', async (req, res) => {
+  try {
+    //use capitalized SQL keywords
+    //use dollar sign parameterized queries
+    const { rows } = await pool.query('SELECT * FROM tuote WHERE "tuoteID" = $1', [req.params.id]);
+    console.log(rows);
+    res.json(rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+/////// Haetaan kategoria tuotteet
+app.get('/kategoria/:id', async (req, res) => {
+  try {
+    //use capitalized SQL keywords
+    //use dollar sign parameterized queries
+    const { rows } = await pool.query('SELECT * FROM tuote WHERE "kategoriaid" = $1', [req.params.id]);
+    console.log(rows);
+    res.json(rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
