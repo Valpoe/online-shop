@@ -97,6 +97,18 @@ const Tuotteet = () => {
     setSearchResults(filteredProducts);
     setVerticalActive("searchResults");
   };
+
+  const handleCheapestClick = () => {
+    const filteredProducts = tuotteet.sort((a, b) => a.hinta - b.hinta);
+    setSearchResults(filteredProducts);
+    setVerticalActive("searchResults");
+  };
+
+  const handleMostExpensiveClick = () => {
+    const filteredProducts = tuotteet.sort((a, b) => b.hinta - a.hinta);
+    setSearchResults(filteredProducts);
+    setVerticalActive("searchResults");
+  };
   
 
   // Jos tuotteet eivät ole vielä ladattu, näytetään spinneri.
@@ -157,10 +169,10 @@ const Tuotteet = () => {
             </div>
             <div className="text-center mb-3">
               <MDBBtnGroup shadow="0">
-                <MDBBtn color="secondary" outline>
+                <MDBBtn color="secondary" outline onClick={handleCheapestClick}>
                   Halvin ensin
                 </MDBBtn>
-                <MDBBtn color="secondary" outline>
+                <MDBBtn color="secondary" outline onClick={handleMostExpensiveClick}>
                   Kallein ensin
                 </MDBBtn>
                 <MDBBtn color="secondary" outline>
