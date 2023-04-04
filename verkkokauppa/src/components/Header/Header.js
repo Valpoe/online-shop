@@ -42,9 +42,6 @@ const Header = () => {
             <NavLink to="/ota-yhteytta" className='nav-link'>Ota yhteyttä</NavLink>
             </MDBNavbarItem>
             <MDBNavbarItem>
-            <NavLink to="/ProductInformation" className='nav-link'>Tuote info</NavLink>
-            </MDBNavbarItem>
-            <MDBNavbarItem>
             <NavLink to="/ostoskori" className='nav-link'>
               <MDBIcon fas icon="shopping-cart" />
             </NavLink>

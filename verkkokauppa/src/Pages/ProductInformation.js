@@ -73,6 +73,8 @@ const ProductInformation = () => {
           {tuotekategoria.length === 0 ? (
             <div>Ladataan tuotteita... hetkinen!</div>
           ) : (
+            <div className='p-4'>
+              <h1>Samankaltaisia tuotteita:</h1>
             <MDBRow className="row-cols-1 row-cols-md-3 g-4">
                 {tuotekategoria.map((tuotteet) => (
                <MDBCol key={tuotteet.tuoteID}>
@@ -92,6 +94,7 @@ const ProductInformation = () => {
                 ))}
 
             </MDBRow>
+            </div>
           )}
     </div>
     );
