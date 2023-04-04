@@ -73,7 +73,7 @@ const Header = () => {
               <MDBBtn color='secondary' onClick={toggleShow}>
                 Close
               </MDBBtn>
-              <MDBBtn>Save changes</MDBBtn>
+              <MDBBtn>Siirry tilaamaan</MDBBtn>
             </MDBModalFooter>
           </MDBModalContent>
         </MDBModalDialog>
