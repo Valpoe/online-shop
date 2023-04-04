@@ -40,7 +40,7 @@ const Tuotteet = () => {
   useEffect(() => {
     async function fetchData() {
       const kategoriaData = await getKategoriat();
-      const tuoteData = await getTuotteet();
+      const tuoteData = await getTuotteet();   
       setKategoriat(kategoriaData);
       setTuotteet(tuoteData);
     }
@@ -75,6 +75,17 @@ const Tuotteet = () => {
     }
   };
 
+  const uniqueColors = [...new Set(tuotteet.map((product) => product.vari))];
+
+  // Tuotteen värisuodatus
+  const handleColorClick = (color) => {
+    const filteredProducts = tuotteet.filter((product) => {
+      return product.vari === color;
+    });
+    setSearchResults(filteredProducts);
+    setVerticalActive("searchResults");
+  };
+
   // Hinnan minimi arvon haku
   const handleMinSearch = (e) => {
     setMinPrice(e.target.value);
@@ -99,18 +110,16 @@ const Tuotteet = () => {
   };
 
   // Halvimman ja kalleimman tuotteen suodatus
-  const [sort, setSort] = useState("cheapest");
+  const [sort, setSort] = useState("");
   const handleSortClick = () => {
     if (sort === "cheapest") {
-      const filteredProducts = tuotteet.sort((a, b) => a.hinta - b.hinta);
-      setSearchResults(filteredProducts);
-      setVerticalActive("searchResults");
-      setSort("expensive");
-    } else {
       const filteredProducts = tuotteet.sort((a, b) => b.hinta - a.hinta);
       setSearchResults(filteredProducts);
       setVerticalActive("searchResults");
-      setSort("cheapest");
+    } else {
+      const filteredProducts = tuotteet.sort((a, b) => a.hinta - b.hinta);
+      setSearchResults(filteredProducts);
+      setVerticalActive("searchResults");
     }
   };
 
@@ -171,10 +180,10 @@ const Tuotteet = () => {
               <span>Suodata tuotteita</span>
             </div>
             <div className="text-center mb-3">
-                <MDBBtn className="me-2" color="secondary" outline onClick={handleSortClick}>
+                <MDBBtn className="me-2" color="secondary" outline onClick={() => {handleSortClick(); setSort("cheapest")}}>
                   Halvin ensin
                 </MDBBtn>
-                <MDBBtn classname="ms-2" color="secondary" outline onClick={handleSortClick}>
+                <MDBBtn classname="ms-2" color="secondary" outline onClick={() => {handleSortClick(); setSort("expensive")}}>
                   Kallein ensin
                 </MDBBtn>
             </div>
@@ -189,7 +198,17 @@ const Tuotteet = () => {
               <div className="d-none d-lg-block text-center mb-3 mt-3">
                 <span>Väri</span>
               </div>
-              {tuotteet &&
+              {uniqueColors.map((color) => (
+                <MDBBtn
+                  floating
+                  size="lg"
+                  className="m-1"
+                  key={color}
+                  style={{ backgroundColor: color }}
+                  onClick={() => handleColorClick(color)}
+                ></MDBBtn>
+              ))}
+              {/* {tuotteet &&
                 tuotteet
                   .filter(
                     (v, i, a) => a.findIndex((t) => t.vari === v.vari) === i
@@ -202,7 +221,7 @@ const Tuotteet = () => {
                       key={tuotteet.vari}
                       style={{ backgroundColor: tuotteet.vari }}
                     ></MDBBtn>
-                  ))}
+                  ))} */}
             </div>
           </MDBCol>
           <MDBCol size="8" className="mt-5">
