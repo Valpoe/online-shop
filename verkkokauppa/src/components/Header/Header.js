@@ -18,6 +18,7 @@ import {
     MDBModalBody,
     MDBModalFooter,
   } from 'mdb-react-ui-kit';
+import Ostoskori from '../Ostoskori';
 
 const Header = () => {
     const [showNavCentred, setShowNavCentred] = useState(false);
@@ -62,16 +63,17 @@ const Header = () => {
         <MDBModalDialog>
           <MDBModalContent>
             <MDBModalHeader>
-              <MDBModalTitle>Modal title</MDBModalTitle>
+              <MDBModalTitle>Ostoskori</MDBModalTitle>
               <MDBBtn className='btn-close' color='none' onClick={toggleShow}></MDBBtn>
             </MDBModalHeader>
             <MDBModalBody>...</MDBModalBody>
+            <Ostoskori/>
 
             <MDBModalFooter>
               <MDBBtn color='secondary' onClick={toggleShow}>
                 Close
               </MDBBtn>
-              <MDBBtn>Save changes</MDBBtn>
+              <MDBBtn>Siirry tilaamaan</MDBBtn>
             </MDBModalFooter>
           </MDBModalContent>
         </MDBModalDialog>
