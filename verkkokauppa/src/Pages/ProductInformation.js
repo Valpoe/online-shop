@@ -3,9 +3,6 @@ import { useParams } from 'react-router-dom';
 import { MDBRow, MDBCol, MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardFooter, MDBCarousel } from 'mdb-react-ui-kit';
 import { getKategoriaTuotteet, getTuote, getTuotteet } from '../components/Server/TuoteAPI';
 
-
-
-
 const ProductInformation = () => {
   const [tuote, setTuote] = useState([]);
   const [tuotekategoria, setTuotekategoria] = useState([]);

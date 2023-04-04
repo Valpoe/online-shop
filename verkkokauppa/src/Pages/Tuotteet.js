@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { getKategoriat } from '../components/Server/KategoriaAPI';
-import { getTuotteet } from '../components/Server/TuoteAPI';
+import { getKategoriat } from "../components/Server/KategoriaAPI";
+import { getTuotteet } from "../components/Server/TuoteAPI";
 import { NavLink } from "react-router-dom";
 import {
   MDBTabs,
@@ -22,18 +22,21 @@ import {
   MDBInput,
   MDBBtnGroup,
   MDBRange,
+  MDBSpinner,
 } from "mdb-react-ui-kit";
 
 const Tuotteet = () => {
   const [searchInput, setSearchInput] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [verticalActive, setVerticalActive] = useState("kaikki-tuotteet");
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(500);
 
-  /// Tietokannasta tuotujen tietojen alustukseen:
+  // Tietokannasta tuotujen tietojen alustukseen:
   const [tuotteet, setTuotteet] = useState([]);
   const [kategoriat, setKategoriat] = useState([]);
 
-  /// Haetaan API:sta tietoa, muokataan logiikkaa tarpeen vaatiessa.
+  // Haetaan API:sta tietoa, muokataan logiikkaa tarpeen vaatiessa.
   useEffect(() => {
     async function fetchData() {
       const kategoriaData = await getKategoriat();
@@ -44,6 +47,7 @@ const Tuotteet = () => {
     fetchData();
   }, []);
 
+  // Tuotekategorian valinta
   const handleVerticalClick = (value) => {
     if (value === verticalActive) {
       return;
@@ -51,6 +55,7 @@ const Tuotteet = () => {
     setVerticalActive(value);
   };
 
+  // Hakupalkin toiminnallisuus
   const handleSearch = (e) => {
     e.preventDefault();
     setSearchInput(e.target.value);
@@ -61,16 +66,33 @@ const Tuotteet = () => {
 
     if (e.target.value !== "") {
       const filteredProducts = tuotteet.filter((product) => {
-        return product.tuotenimi.toLowerCase().includes(e.target.value.toLowerCase());
+        return product.tuotenimi
+          .toLowerCase()
+          .includes(e.target.value.toLowerCase());
       });
       setSearchResults(filteredProducts);
       setVerticalActive("searchResults");
     }
   };
 
-  //loading message when fetching the data
+  const handleMinSearch = (e) => {
+    setMinPrice(e.target.value);
+  };
+
+  const handleMaxSearch = (e) => {
+    setMaxPrice(e.target.value);
+  };
+  
+
+  // Jos tuotteet eivät ole vielä ladattu, näytetään spinneri.
   if (tuotteet.length === 0) {
-    return <div className="form-control success">Ladataan tietoja, hetkinen!</div>;
+    return (
+      <div className="text-center m-5">
+      <MDBSpinner role="status">
+        <span className="visually-hidden">Loading...</span>
+      </MDBSpinner>
+      </div>
+    );
   }
 
   return (
@@ -78,20 +100,25 @@ const Tuotteet = () => {
       <>
         <MDBRow className="d-flex justify-content-center">
           <MDBCol size="6">
-          <MDBInputGroup>
-            <MDBIcon className="m-3" icon="search" size="lg" />
-            <MDBInput label='Etsi tuotteita' onChange={handleSearch} value={searchInput} />
-          </MDBInputGroup>
+            <MDBInputGroup>
+              <MDBIcon className="m-3" icon="search" size="lg" />
+              <MDBInput
+                label="Etsi tuotteita"
+                onChange={handleSearch}
+                value={searchInput}
+              />
+            </MDBInputGroup>
           </MDBCol>
         </MDBRow>
         <MDBRow>
           <MDBCol size="3" className="ms-4">
-            <MDBTabs pills className="flex-column">
+            <MDBTabs pills className="flex-column text-center">
               <div className="d-none d-lg-block text-uppercase text-center fw-bold mb-3">
                 <span>Kategoriat</span>
               </div>
               <MDBTabsItem>
-                <MDBTabsLink className="square border border-2"
+                <MDBTabsLink
+                  className="square border border-2"
                   onClick={() => handleVerticalClick("kaikki-tuotteet")}
                   active={verticalActive === "kaikki-tuotteet"}
                 >
@@ -100,7 +127,8 @@ const Tuotteet = () => {
               </MDBTabsItem>
               {kategoriat.map((kategoria) => (
                 <MDBTabsItem>
-                  <MDBTabsLink className="square border border-2"
+                  <MDBTabsLink
+                    className="square border border-2"
                     onClick={() => handleVerticalClick(kategoria.kategoriaID)}
                     active={verticalActive === kategoria.kategoriaID}
                   >
@@ -110,44 +138,49 @@ const Tuotteet = () => {
               ))}
             </MDBTabs>
             <div className="d-none d-lg-block text-uppercase text-center fw-bold mb-3 mt-3">
-                <span>Suodata tuotteita</span>
-              </div>
-              <div className="text-center mb-3" >
-              <MDBBtnGroup shadow='0'>
-      <MDBBtn color='secondary' outline>
-        Halvin ensin
-      </MDBBtn>
-      <MDBBtn color='secondary' outline>
-        Kallein ensin
-      </MDBBtn>
-      <MDBBtn color='secondary' outline>
-        Jotain muuta
-      </MDBBtn>
-    </MDBBtnGroup>
-    </div>
-              <div className="text-center mb-3" >
+              <span>Suodata tuotteita</span>
+            </div>
+            <div className="text-center mb-3">
+              <MDBBtnGroup shadow="0">
+                <MDBBtn color="secondary" outline>
+                  Halvin ensin
+                </MDBBtn>
+                <MDBBtn color="secondary" outline>
+                  Kallein ensin
+                </MDBBtn>
+                <MDBBtn color="secondary" outline>
+                  Jotain muuta
+                </MDBBtn>
+              </MDBBtnGroup>
+            </div>
+            <div className="text-center mb-3">
               <div className="d-none d-lg-block text-center mb-3 mt-3">
                 <span>Hinta</span>
               </div>
-              <MDBRange
-      defaultValue={10}
-      min='0'
-      max='20'
-      step='1'
-      id='customRange1'
-    />
-    </div>
-    <div className="text-center mb-3">
-    <div className="d-none d-lg-block text-center mb-3 mt-3">
+              <MDBInput label='Minimi' type='number' min="0" onChange={handleMinSearch} />
+              <MDBInput label='Maximi' type='number' max="500" onChange={handleMaxSearch} />
+            </div>
+            <div className="text-center mb-3">
+              <div className="d-none d-lg-block text-center mb-3 mt-3">
                 <span>Väri</span>
               </div>
-        {tuotteet && tuotteet.filter((v, i, a) => a.findIndex(t => (t.vari === v.vari)) === i).map((tuotteet) => (
-          <MDBBtn floating size="lg" className="m-1" key={tuotteet.vari} style={{ backgroundColor: tuotteet.vari }}>
-          </MDBBtn>
-        ))}
-    </div>
+              {tuotteet &&
+                tuotteet
+                  .filter(
+                    (v, i, a) => a.findIndex((t) => t.vari === v.vari) === i
+                  )
+                  .map((tuotteet) => (
+                    <MDBBtn
+                      floating
+                      size="lg"
+                      className="m-1"
+                      key={tuotteet.vari}
+                      style={{ backgroundColor: tuotteet.vari }}
+                    ></MDBBtn>
+                  ))}
+            </div>
           </MDBCol>
-          <MDBCol size="8" className="mt-5">       
+          <MDBCol size="8" className="mt-5">
             <MDBTabsContent>
               <MDBTabsPane show={verticalActive === "kaikki-tuotteet"}>
                 <MDBRow className="row-cols-1 row-cols-md-3 g-4">
@@ -161,9 +194,17 @@ const Tuotteet = () => {
                         />
                         <MDBCardBody>
                           <MDBCardTitle>{tuotteet.tuotenimi}</MDBCardTitle>
-                          <MDBCardText>Saldo: {tuotteet.varastosaldo}</MDBCardText>
-                          <MDBCardText><NavLink to={`/tuotteet/${tuotteet.tuoteID}`}>Lisätietoja</NavLink></MDBCardText>
-                          <MDBCardFooter className="text-center">Hinta {tuotteet.hinta} €</MDBCardFooter>
+                          <MDBCardText>
+                            Saldo: {tuotteet.varastosaldo}
+                          </MDBCardText>
+                          <MDBCardText>
+                            <NavLink to={`/tuotteet/${tuotteet.tuoteID}`}>
+                              Lisätietoja
+                            </NavLink>
+                          </MDBCardText>
+                          <MDBCardFooter className="text-center">
+                            Hinta {tuotteet.hinta} €
+                          </MDBCardFooter>
                         </MDBCardBody>
                       </MDBCard>
                     </MDBCol>
@@ -174,45 +215,60 @@ const Tuotteet = () => {
               {kategoriat.map((kategoria) => (
                 <MDBTabsPane show={verticalActive === kategoria.kategoriaID}>
                   <MDBRow className="row-cols-1 row-cols-md-3 g-4">
-                    {tuotteet && tuotteet.filter(tuote => tuote.kategoriaid === kategoria.kategoriaID).map((tuotteet) => (
-                      <MDBCol key={tuotteet.id}>
-                        <MDBCard className="h-100">
-                          <MDBCardImage
-                            src={tuotteet.kuva}
-                            position="top"
-                            alt="..."
-                          />
-                          <MDBCardBody>
-                            <MDBCardTitle>{tuotteet.tuotenimi}</MDBCardTitle>
-                            <MDBCardText>Saldo: {tuotteet.varastosaldo}</MDBCardText>
-                            <MDBCardFooter className="text-center">Hinta: {tuotteet.hinta} €</MDBCardFooter>
-                          </MDBCardBody>
-                        </MDBCard>
-                      </MDBCol>
-                    ))}
+                    {tuotteet &&
+                      tuotteet
+                        .filter(
+                          (tuote) => tuote.kategoriaid === kategoria.kategoriaID
+                        )
+                        .map((tuotteet) => (
+                          <MDBCol key={tuotteet.id}>
+                            <MDBCard className="h-100">
+                              <MDBCardImage
+                                src={tuotteet.kuva}
+                                position="top"
+                                alt="..."
+                              />
+                              <MDBCardBody>
+                                <MDBCardTitle>
+                                  {tuotteet.tuotenimi}
+                                </MDBCardTitle>
+                                <MDBCardText>
+                                  Saldo: {tuotteet.varastosaldo}
+                                </MDBCardText>
+                                <MDBCardFooter className="text-center">
+                                  Hinta: {tuotteet.hinta} €
+                                </MDBCardFooter>
+                              </MDBCardBody>
+                            </MDBCard>
+                          </MDBCol>
+                        ))}
                   </MDBRow>
                 </MDBTabsPane>
               ))}
-                <MDBTabsPane show={verticalActive === "searchResults"}>
-                  <MDBRow className="row-cols-1 row-cols-md-3 g-4">
-                    {searchResults.map((tuotteet) => (
-                      <MDBCol key={tuotteet.id}>
-                        <MDBCard className="h-100">
-                          <MDBCardImage
-                            src={tuotteet.kuva}
-                            position="top"
-                            alt="..."
-                          />
-                          <MDBCardBody>
-                            <MDBCardTitle>{tuotteet.tuotenimi}</MDBCardTitle>
-                            <MDBCardText>Saldo: {tuotteet.varastosaldo}</MDBCardText>
-                            <MDBCardFooter className="text-center">Hinta: {tuotteet.hinta} €</MDBCardFooter>
-                          </MDBCardBody>
-                        </MDBCard>
-                      </MDBCol>
-                    ))}
-                  </MDBRow>
-                </MDBTabsPane>
+              <MDBTabsPane show={verticalActive === "searchResults"}>
+                <MDBRow className="row-cols-1 row-cols-md-3 g-4">
+                  {searchResults.map((tuotteet) => (
+                    <MDBCol key={tuotteet.id}>
+                      <MDBCard className="h-100">
+                        <MDBCardImage
+                          src={tuotteet.kuva}
+                          position="top"
+                          alt="..."
+                        />
+                        <MDBCardBody>
+                          <MDBCardTitle>{tuotteet.tuotenimi}</MDBCardTitle>
+                          <MDBCardText>
+                            Saldo: {tuotteet.varastosaldo}
+                          </MDBCardText>
+                          <MDBCardFooter className="text-center">
+                            Hinta: {tuotteet.hinta} €
+                          </MDBCardFooter>
+                        </MDBCardBody>
+                      </MDBCard>
+                    </MDBCol>
+                  ))}
+                </MDBRow>
+              </MDBTabsPane>
             </MDBTabsContent>
           </MDBCol>
         </MDBRow>
