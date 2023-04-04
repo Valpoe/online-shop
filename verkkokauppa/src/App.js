@@ -9,6 +9,7 @@ import AboutUs from './Pages/AboutUs';
 import ContactUs from './Pages/ContactUs';
 import PrivacyStatement from './Pages/PrivacyStatement';
 import ProductInformation from './Pages/ProductInformation';
+import Tilaus from './Pages/Tilaus';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route path='/PrivacyStatement' element={<PrivacyStatement />} />
         <Route path='/ota-yhteytta' element={<ContactUs />} />
         <Route path='/tuotteet/:tuoteID' element={<ProductInformation/>} />
+        <Route path='/tilaus' element={<Tilaus/>} />
       </Routes>
       <Footer />
     </Router>
