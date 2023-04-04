@@ -75,12 +75,27 @@ const Tuotteet = () => {
     }
   };
 
+  // Hinnan minimi arvon haku
   const handleMinSearch = (e) => {
     setMinPrice(e.target.value);
+
+    const filteredProducts = tuotteet.filter((product) => {
+      return product.hinta >= e.target.value && product.hinta <= maxPrice;
+    });
+    setSearchResults(filteredProducts);
+    setVerticalActive("searchResults");
   };
 
+  // Hinnan maksimiarvon haku
   const handleMaxSearch = (e) => {
     setMaxPrice(e.target.value);
+
+    const filteredProducts = tuotteet.filter((product) => {
+      return product.hinta <= e.target.value && product.hinta >= minPrice;
+    }
+    );
+    setSearchResults(filteredProducts);
+    setVerticalActive("searchResults");
   };
   
 
