@@ -1,7 +1,6 @@
 .header {
     background-color: rgb(247, 211, 172);
     color: black;
-    font-family: serif;
 }
 
 .text {
@@ -10,7 +9,6 @@
 
 .subheader{
     color:black;
-    font-family: serif;
 }
 
 .quote {
