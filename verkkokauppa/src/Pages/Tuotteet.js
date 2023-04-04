@@ -30,7 +30,7 @@ const Tuotteet = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [verticalActive, setVerticalActive] = useState("kaikki-tuotteet");
   const [minPrice, setMinPrice] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(500);
+  const [maxPrice, setMaxPrice] = useState(400);
 
   // Tietokannasta tuotujen tietojen alustukseen:
   const [tuotteet, setTuotteet] = useState([]);
@@ -98,18 +98,21 @@ const Tuotteet = () => {
     setVerticalActive("searchResults");
   };
 
-  const handleCheapestClick = () => {
-    const filteredProducts = tuotteet.sort((a, b) => a.hinta - b.hinta);
-    setSearchResults(filteredProducts);
-    setVerticalActive("searchResults");
+  // Halvimman ja kalleimman tuotteen suodatus
+  const [sort, setSort] = useState("cheapest");
+  const handleSortClick = () => {
+    if (sort === "cheapest") {
+      const filteredProducts = tuotteet.sort((a, b) => a.hinta - b.hinta);
+      setSearchResults(filteredProducts);
+      setVerticalActive("searchResults");
+      setSort("expensive");
+    } else {
+      const filteredProducts = tuotteet.sort((a, b) => b.hinta - a.hinta);
+      setSearchResults(filteredProducts);
+      setVerticalActive("searchResults");
+      setSort("cheapest");
+    }
   };
-
-  const handleMostExpensiveClick = () => {
-    const filteredProducts = tuotteet.sort((a, b) => b.hinta - a.hinta);
-    setSearchResults(filteredProducts);
-    setVerticalActive("searchResults");
-  };
-  
 
   // Jos tuotteet eivät ole vielä ladattu, näytetään spinneri.
   if (tuotteet.length === 0) {
@@ -168,24 +171,19 @@ const Tuotteet = () => {
               <span>Suodata tuotteita</span>
             </div>
             <div className="text-center mb-3">
-              <MDBBtnGroup shadow="0">
-                <MDBBtn color="secondary" outline onClick={handleCheapestClick}>
+                <MDBBtn className="me-2" color="secondary" outline onClick={handleSortClick}>
                   Halvin ensin
                 </MDBBtn>
-                <MDBBtn color="secondary" outline onClick={handleMostExpensiveClick}>
+                <MDBBtn classname="ms-2" color="secondary" outline onClick={handleSortClick}>
                   Kallein ensin
                 </MDBBtn>
-                <MDBBtn color="secondary" outline>
-                  Jotain muuta
-                </MDBBtn>
-              </MDBBtnGroup>
             </div>
-            <div className="text-center mb-3">
+            <div className="mb-3">
               <div className="d-none d-lg-block text-center mb-3 mt-3">
                 <span>Hinta</span>
               </div>
-              <MDBInput label='Minimi' type='number' min="0" onChange={handleMinSearch} />
-              <MDBInput label='Maximi' type='number' max="500" onChange={handleMaxSearch} />
+              <MDBRange min="0" max="200" label="Min" value={minPrice} onChange={handleMinSearch} />
+              <MDBRange min="200" max="400" label="Max" value={maxPrice} onChange={handleMaxSearch} />
             </div>
             <div className="text-center mb-3">
               <div className="d-none d-lg-block text-center mb-3 mt-3">
