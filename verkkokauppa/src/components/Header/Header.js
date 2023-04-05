@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink } from "react-router-dom";
+import { NavLink, Navigate } from "react-router-dom";
 import {
     MDBContainer,
     MDBNavbar,
@@ -65,14 +65,13 @@ const Header = (props) => {
               <MDBModalTitle>Ostoskori</MDBModalTitle>
               <MDBBtn className='btn-close' color='none' onClick={toggleShow}></MDBBtn>
             </MDBModalHeader>
-            <MDBModalBody>...</MDBModalBody>
             <Ostoskori setItems={props.setItems} items={props.items} removeItem={props.removeItem} getTotal={props.getTotal} />
 
             <MDBModalFooter>
-              <MDBBtn color='secondary' onClick={toggleShow}>
+              <MDBBtn class="btn btn-dark" onClick={toggleShow}>
                 Close
               </MDBBtn>
-              <MDBBtn>Siirry tilaamaan</MDBBtn>
+              <MDBBtn><a class="btn-sm btn-primary" href="/tilaus">Siirry tilaamaan</a></MDBBtn>
             </MDBModalFooter>
           </MDBModalContent>
         </MDBModalDialog>

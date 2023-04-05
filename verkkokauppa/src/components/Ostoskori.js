@@ -11,7 +11,7 @@ function Ostoskori(props) {
     if (!props.items) {
       return 0;
     }
-    return props.items.reduce((total, item) => total + item.price, 0);
+    return props.items.reduce((total, item) => total + item.hinta, 0);
   };
 
   return (
@@ -21,14 +21,14 @@ function Ostoskori(props) {
         <ul>
           {props.items.map((item, index) => (
             <li key={index}>
-              {item.tuotenimi} - ${item.hinta}
-              <button onClick={() => removeItem(index)}>Remove Item</button>
+              {item.tuotenimi} - {item.hinta} €
+              <button className="btn btn-success p-2" onClick={() => removeItem(index)}>Remove Item</button>
             </li>
           ))}
         </ul>
       </div>
       <div>
-        <h3>Total: ${getTotal()}</h3>
+        <h3>Yhteensä: {getTotal()} €</h3>
       </div>
     </div>
   );

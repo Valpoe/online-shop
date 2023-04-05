@@ -28,7 +28,7 @@ function App() {
     if (!items) {
       return 0;
     }
-    return items.reduce((total, item) => total + item.price, 0);
+    return items.reduce((total, item) => total + item.hinta, 0);
   };
 
 
@@ -42,7 +42,7 @@ function App() {
         <Route path='/PrivacyStatement' element={<PrivacyStatement />} />
         <Route path='/ota-yhteytta' element={<ContactUs />} />
         <Route path='/tuotteet/:tuoteID' element={<ProductInformation setItems={setItems} items={items} removeItem={removeItem} getTotal={getTotal}/>} />
-        <Route path='/tilaus' element={<Tilaus/>} />
+        <Route path='/tilaus' element={<Tilaus items={items}/> } />
       </Routes>
       <Footer />
     </Router>
