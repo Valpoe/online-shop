@@ -225,7 +225,7 @@ const Tuotteet = () => {
                             Saldo: {tuotteet.varastosaldo}
                           </MDBCardText>
                           <MDBCardText>
-                            <NavLink to={`/tuotteet/${tuotteet.tuoteID}`}>
+                            <NavLink to={`/tuotteet/${tuotteet.tuoteID}` } className="btn btn-primary">
                               Lisätietoja
                             </NavLink>
                           </MDBCardText>
@@ -263,7 +263,7 @@ const Tuotteet = () => {
                                   Saldo: {tuotteet.varastosaldo}
                                 </MDBCardText>
                                 <MDBCardText>
-                              <NavLink to={`/tuotteet/${tuotteet.tuoteID}`}>
+                              <NavLink to={`/tuotteet/${tuotteet.tuoteID}`} className="btn btn-primary">
                                 Lisätietoja
                               </NavLink>
                             </MDBCardText>
@@ -293,7 +293,7 @@ const Tuotteet = () => {
                             Saldo: {tuotteet.varastosaldo}
                           </MDBCardText>
                           <MDBCardText>
-                            <NavLink to={`/tuotteet/${tuotteet.tuoteID}`}>
+                            <NavLink to={`/tuotteet/${tuotteet.tuoteID}`} className="btn btn-primary">
                               Lisätietoja
                             </NavLink>
                           </MDBCardText>

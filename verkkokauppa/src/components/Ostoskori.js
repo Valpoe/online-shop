@@ -1,46 +1,34 @@
-import React, { useState } from "react";
+import { MDBCardText, MDBTextArea } from "mdb-react-ui-kit";
 
-function Ostoskori() {
-  const [items, setItems] = useState([]);
-
-  const addItem = (item) => {
-    setItems([...items, item]);
-  };
+function Ostoskori(props) {
 
   const removeItem = (index) => {
-    const newItems = [...items];
-    newItems.splice(index, 1);
-    setItems(newItems);
+    console.log(index);
+    props.removeItem(index);
   };
 
   const getTotal = () => {
-    return items.reduce((total, item) => total + item.price, 0);
+    if (!props.items) {
+      return 0;
+    }
+    return props.items.reduce((total, item) => total + item.price, 0);
   };
 
   return (
-    <div>
-      <h1>Shopping Cart</h1>
+    <div className="p-4">
       <div>
-        <button onClick={() => addItem({ name: "Item 1", price: 10 })}>
-          Add Item 1
-        </button>
-        <button onClick={() => addItem({ name: "Item 2", price: 20 })}>
-          Add Item 2
-        </button>
-      </div>
-      <div>
-        <h2>Items</h2>
+        <MDBCardText>tuotteet</MDBCardText>
         <ul>
-          {items.map((item, index) => (
+          {props.items.map((item, index) => (
             <li key={index}>
-              {item.name} - ${item.price}
-              <button onClick={() => removeItem(index)}>Remove</button>
+              {item.tuotenimi} - ${item.hinta}
+              <button onClick={() => removeItem(index)}>Remove Item</button>
             </li>
           ))}
         </ul>
       </div>
       <div>
-        <h2>Total: ${getTotal()}</h2>
+        <h3>Total: ${getTotal()}</h3>
       </div>
     </div>
   );

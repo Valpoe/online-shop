@@ -20,7 +20,7 @@ import {
   } from 'mdb-react-ui-kit';
 import Ostoskori from '../Ostoskori';
 
-const Header = () => {
+const Header = (props) => {
     const [showNavCentred, setShowNavCentred] = useState(false);
     const [basicModal, setBasicModal] = useState(false);
 
@@ -57,7 +57,6 @@ const Header = () => {
           </MDBNavbarNav>
         </MDBCollapse>
 
-
         <MDBBtn onClick={toggleShow}><MDBIcon fas icon="shopping-cart" /></MDBBtn>
       <MDBModal show={basicModal} setShow={setBasicModal} tabIndex='-1'>
         <MDBModalDialog>
@@ -67,7 +66,7 @@ const Header = () => {
               <MDBBtn className='btn-close' color='none' onClick={toggleShow}></MDBBtn>
             </MDBModalHeader>
             <MDBModalBody>...</MDBModalBody>
-            <Ostoskori/>
+            <Ostoskori setItems={props.setItems} items={props.items} removeItem={props.removeItem} getTotal={props.getTotal} />
 
             <MDBModalFooter>
               <MDBBtn color='secondary' onClick={toggleShow}>
