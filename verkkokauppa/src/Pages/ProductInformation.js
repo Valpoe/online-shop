@@ -16,7 +16,8 @@ const ProductInformation = (props) => {
   //const { addItem } = useContext(OstoskoriContext);
   
   const refreshPage = () => {
-    //window.location.reload();
+    //move to top of page
+    window.scrollTo(0, 0);
   }
 
   const HandleAddToCart = (tuote) => {

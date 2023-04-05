@@ -24,7 +24,11 @@ import {
   MDBSpinner,
 } from "mdb-react-ui-kit";
 
-const Tuotteet = () => {
+
+
+
+
+const Tuotteet = (props) => {
   const [searchInput, setSearchInput] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [verticalActive, setVerticalActive] = useState("kaikki-tuotteet");
@@ -34,6 +38,14 @@ const Tuotteet = () => {
   // Tietokannasta tuotujen tietojen alustukseen:
   const [tuotteet, setTuotteet] = useState([]);
   const [kategoriat, setKategoriat] = useState([]);
+
+
+
+  const HandleAddToCart = (tuote) => {
+    props.setItems([...props.items,{tuotenimi: tuote.tuotenimi, hinta: tuote.hinta}]);
+    console.log(props.items);
+  }
+
 
   // Haetaan API:sta tietoa, muokataan logiikkaa tarpeen vaatiessa.
   useEffect(() => {
@@ -254,6 +266,7 @@ const Tuotteet = () => {
                           Saldo: {tuotteet.varastosaldo}
                         </MDBCardText>
                         <MDBCardText>
+                        <MDBCardText><button className='btn btn-success' onClick={() => HandleAddToCart(tuotteet)}>Lisää ostoskoriin</button></MDBCardText>
                           <NavLink to={`/tuotteet/${tuotteet.tuoteID}`}>
                             Lisätietoja
                           </NavLink>
@@ -292,6 +305,7 @@ const Tuotteet = () => {
                                 Saldo: {tuotteet.varastosaldo}
                               </MDBCardText>
                               <MDBCardText>
+                              <MDBCardText><button className='btn btn-success' onClick={() => HandleAddToCart(tuotteet)}>Lisää ostoskoriin</button></MDBCardText>
                                 <NavLink to={`/tuotteet/${tuotteet.tuoteID}`}>
                                   Lisätietoja
                                 </NavLink>
@@ -324,9 +338,9 @@ const Tuotteet = () => {
                           Saldo: {tuotteet.varastosaldo}
                         </MDBCardText>
                         <MDBCardText>
+                        <MDBBtn onClick={() => HandleAddToCart(tuotteet)}>Lisää ostoskoriin</MDBBtn>
                           <NavLink to={`/tuotteet/${tuotteet.tuoteID}`}>
-                            Lisätietoja
-                          </NavLink>
+                            Lisätietoja</NavLink>
                         </MDBCardText>
                         <MDBCardFooter className="text-center">
                           Hinta: {tuotteet.hinta} €
