@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
+import { MDBRow, MDBCol, MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardFooter, MDBSpinner } from 'mdb-react-ui-kit';
 import { MDBRow, MDBCol, MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardFooter, MDBCarousel, MDBSpinner } from 'mdb-react-ui-kit';
 import { getKategoriaTuotteet, getTuote, getTuotteet } from '../components/Server/TuoteAPI';
 import { NavLink } from "react-router-dom";
@@ -51,9 +52,16 @@ const ProductInformation = (props) => {
   }, [tuote]);
 
 
-  //wait for tuote to be loaded then return details
+
+  // Jos tuotteet eivät ole vielä ladattu, näytetään spinneri.
   if (tuote.length === 0) {
-    return <div className="form-control success">Ladataan tuotetietoja, hetkinen!</div>;
+    return (
+      <div className="text-center m-5">
+      <MDBSpinner role="status">
+        <span className="visually-hidden">Loading...</span>
+      </MDBSpinner>
+      </div>
+      )
   } else {
     return (
       <div className="p-4">
