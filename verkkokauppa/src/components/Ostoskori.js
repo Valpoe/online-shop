@@ -1,11 +1,7 @@
 import { MDBCard, MDBCardText, MDBCol, MDBIcon, MDBTextArea, MDBInput, MDBCardBody, MDBRow, MDBCardImage, MDBBtn, MDBTypography } from "mdb-react-ui-kit";
+import { useState, useEffect } from "react";
 
 function Ostoskori(props) {
-
-  const removeItem = (index) => {
-    console.log(index);
-    props.removeItem(index);
-  };
 
   const removeItemWithID = (tuoteid) => {
     const newItems = [...props.items];
@@ -27,8 +23,21 @@ function Ostoskori(props) {
     return props.items.reduce((total, item) => total + item.hinta, 0);
   };
 
+  useEffect(() => {
+
+    async function sortItems() {
+      //sort items
+      props.setItems(props.items.sort((a, b) => (a.tuotenimi > b.tuotenimi) ? 1 : -1))
+      console.log(props.items)
+    }
+    sortItems();
+
+  }, [props.items]);
+
+
+
   const HandleAddToCart = (tuote) => {
-    props.setItems([...props.items,{tuotenimi: tuote.tuotenimi, hinta: tuote.hinta, kuva: tuote.kuva, tuoteid: tuote.tuoteID}]);
+    props.setItems([...props.items,{tuotenimi: tuote.tuotenimi, hinta: tuote.hinta, kuva: tuote.kuva, tuoteid: tuote.tuoteid}]);
     console.log(props.items);
   }
 
@@ -72,7 +81,6 @@ function Ostoskori(props) {
             <MDBCol md="3" lg="3" xl="3">
               <p className="lead fw-normal mb-2">{item.tuotenimi}</p>
               <p>
-                <span className="text-muted">Määrä: {countItem(item.tuoteid)}   </span>
                 <span className="text-muted">ItemID: {item.tuoteid}</span>
               </p>
             </MDBCol>
