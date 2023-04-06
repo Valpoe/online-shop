@@ -7,6 +7,19 @@ function Ostoskori(props) {
     props.removeItem(index);
   };
 
+  const removeItemWithID = (tuoteid) => {
+    const newItems = [...props.items];
+    console.log("trying to remove:" + tuoteid)
+
+    //remove from list with matching tuoteid
+    const index = newItems.findIndex((item) => item.tuoteid === tuoteid);
+    if (index !== -1) {
+      newItems.splice(index, 1);
+      console.log("removed:" + tuoteid + " at index:" + index)
+    }
+    props.setItems(newItems);
+  };
+
   const getTotal = () => {
     if (!props.items) {
       return 0;
@@ -14,7 +27,10 @@ function Ostoskori(props) {
     return props.items.reduce((total, item) => total + item.hinta, 0);
   };
 
-  
+  const HandleAddToCart = (tuote) => {
+    props.setItems([...props.items,{tuotenimi: tuote.tuotenimi, hinta: tuote.hinta, kuva: tuote.kuva, tuoteid: tuote.tuoteID}]);
+    console.log(props.items);
+  }
 
 //count each tuoteID ammount in separate number
 
@@ -62,13 +78,13 @@ function Ostoskori(props) {
             </MDBCol>
             <MDBCol md="3" lg="3" xl="2"
               className="d-flex align-items-center justify-content-around">
-              <MDBBtn color="link" className="px-2">
+              <MDBBtn color="link" className="px-2" onClick={() => removeItemWithID(item.tuoteid)}>
                 <MDBIcon fas icon="minus" />
               </MDBBtn>
 
               <MDBInput min={0} value={countItem(item.tuoteid)} type="number" size="sm" />
 
-              <MDBBtn color="link" className="px-2">
+              <MDBBtn color="link" className="px-2" onClick={() => HandleAddToCart(item)}>
                 <MDBIcon fas icon="plus" />
               </MDBBtn>
             </MDBCol>
@@ -79,7 +95,7 @@ function Ostoskori(props) {
             </MDBCol>
             <MDBCol md="1" lg="1" xl="1" className="text-end">
               <a href="#!" className="text-danger">
-               <MDBBtn className="btn btn-light" onClick={() => removeItem(index)} ><MDBIcon fas icon="trash text-danger" size="lg" /></MDBBtn> 
+               <MDBBtn className="btn btn-light" onClick={() => removeItemWithID(item.tuoteid)} ><MDBIcon fas icon="trash text-danger" size="lg" /></MDBBtn> 
               </a>
             </MDBCol>
           </MDBRow>

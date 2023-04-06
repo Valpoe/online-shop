@@ -27,13 +27,10 @@ const ProductInformation = (props) => {
 
   useEffect(() => {
     //refresh page
-
     async function fetchData() {
       //fetch tuote with tuoteID
       const tuoteData = await getTuote(tuoteID);
       setTuote(tuoteData);
-      
-
     }
     fetchData();
   }, [aktiivinenTuote]);
