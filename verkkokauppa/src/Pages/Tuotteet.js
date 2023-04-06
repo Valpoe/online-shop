@@ -183,7 +183,7 @@ const Tuotteet = (props) => {
               </MDBTabsItem>
             ))}
           </MDBTabs>
-          <div className="d-none d-lg-block text-uppercase text-center fw-bold mb-3 mt-3">
+          <div className="text-uppercase text-center fw-bold mb-3 mt-3">
             <span>Suodata tuotteita</span>
           </div>
           <div className="text-center mb-3">
@@ -243,7 +243,7 @@ const Tuotteet = (props) => {
             ))}
           </div>
         </MDBCol>
-        <MDBCol size="8" className="mx-auto mb-5">
+        <MDBCol size="8" className="mx-auto mb-5 text-center">
           <MDBTabsContent>
             <MDBTabsPane show={verticalActive === "kaikki-tuotteet"}>
               <MDBRow className="row-cols-1 row-cols-md-3 g-4">
@@ -264,16 +264,14 @@ const Tuotteet = (props) => {
                         <MDBCardText>
                           Saldo: {tuotteet.varastosaldo}
                         </MDBCardText>
-                        <MDBCardText><button className='btn btn-success' onClick={() => HandleAddToCart(tuotteet)}>Lisää ostoskoriin</button></MDBCardText>
                         <MDBCardText>
                           <NavLink to={`/tuotteet/${tuotteet.tuoteID}`}>
                             Lisätietoja
                           </NavLink>
                         </MDBCardText>
+                        <MDBCardText><button className='btn btn-success' onClick={() => HandleAddToCart(tuotteet)}>Lisää ostoskoriin</button></MDBCardText>
                       </MDBCardBody>
-                        <MDBCardFooter className="text-center">
-                          Hinta {tuotteet.hinta} €
-                        </MDBCardFooter>
+                      <MDBCardFooter className="fw-bold">Hinta: {tuotteet.hinta} <MDBIcon fas icon="euro-sign" /></MDBCardFooter>
                     </MDBCard>
                   </MDBCol>
                 ))}
@@ -306,15 +304,13 @@ const Tuotteet = (props) => {
                                 Saldo: {tuotteet.varastosaldo}
                               </MDBCardText>
                               <MDBCardText>
-                              <MDBCardText><button className='btn btn-success' onClick={() => HandleAddToCart(tuotteet)}>Lisää ostoskoriin</button></MDBCardText>
                                 <NavLink to={`/tuotteet/${tuotteet.tuoteID}`}>
                                   Lisätietoja
                                 </NavLink>
                               </MDBCardText>
+                              <MDBCardText><button className='btn btn-success' onClick={() => HandleAddToCart(tuotteet)}>Lisää ostoskoriin</button></MDBCardText>
                             </MDBCardBody>
-                              <MDBCardFooter className="text-center">
-                                Hinta: {tuotteet.hinta} €
-                              </MDBCardFooter>
+                              <MDBCardFooter className="fw-bold">Hinta: {tuotteet.hinta} <MDBIcon fas icon="euro-sign" /></MDBCardFooter>
                           </MDBCard>
                         </MDBCol>
                       ))}
@@ -340,15 +336,13 @@ const Tuotteet = (props) => {
                         <MDBCardText>
                           Saldo: {tuotteet.varastosaldo}
                         </MDBCardText>
-                        <MDBCardText><button className='btn btn-success' onClick={() => HandleAddToCart(tuotteet)}>Lisää ostoskoriin</button></MDBCardText>
                         <MDBCardText>
                           <NavLink to={`/tuotteet/${tuotteet.tuoteID}`}>
                             Lisätietoja</NavLink>
                         </MDBCardText>
+                        <MDBCardText><button className='btn btn-success' onClick={() => HandleAddToCart(tuotteet)}>Lisää ostoskoriin</button></MDBCardText>
                       </MDBCardBody>
-                        <MDBCardFooter className="text-center">
-                          Hinta: {tuotteet.hinta} €
-                        </MDBCardFooter>
+                      <MDBCardFooter className="fw-bold">Hinta: {tuotteet.hinta} <MDBIcon fas icon="euro-sign" /></MDBCardFooter>
                     </MDBCard>
                   </MDBCol>
                 ))}
