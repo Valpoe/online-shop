@@ -17,6 +17,8 @@ import {
     MDBModalTitle,
     MDBModalBody,
     MDBModalFooter,
+    MDBCardText,
+    MDBCard,
   } from 'mdb-react-ui-kit';
 import Ostoskori from '../Ostoskori';
 
@@ -57,16 +59,15 @@ const Header = (props) => {
           </MDBNavbarNav>
         </MDBCollapse>
 
-        <MDBBtn onClick={toggleShow}><MDBIcon fas icon="shopping-cart" /></MDBBtn>
+        <MDBBtn onClick={toggleShow}><MDBIcon fas icon="shopping-cart" className='me-2'/>{props.items.length}</MDBBtn>
       <MDBModal show={basicModal} setShow={setBasicModal} tabIndex='-1'>
-        <MDBModalDialog>
+        <MDBModalDialog class="modal-dialog modal-xl">
           <MDBModalContent>
             <MDBModalHeader>
               <MDBModalTitle>Ostoskori</MDBModalTitle>
               <MDBBtn className='btn-close' color='none' onClick={toggleShow}></MDBBtn>
             </MDBModalHeader>
-            <Ostoskori setItems={props.setItems} items={props.items} removeItem={props.removeItem} getTotal={props.getTotal} />
-
+            <Ostoskori setItems={props.setItems} items={props.items} removeItem={props.removeItem} getTotal={props.getTotal} countItem={props.countItem} />
             <MDBModalFooter>
               <MDBBtn class="btn btn-dark" onClick={toggleShow}>
                 Close

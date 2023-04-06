@@ -42,7 +42,7 @@ const Tuotteet = (props) => {
 
 
   const HandleAddToCart = (tuote) => {
-    props.setItems([...props.items,{tuotenimi: tuote.tuotenimi, hinta: tuote.hinta}]);
+    props.setItems([...props.items,{tuotenimi: tuote.tuotenimi, hinta: tuote.hinta, kuva: tuote.kuva, tuoteid: tuote.tuoteID}]);
     console.log(props.items);
   }
 
