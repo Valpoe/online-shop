@@ -1,36 +1,67 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import { MDBRow, MDBCol, MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardFooter, MDBCarousel } from 'mdb-react-ui-kit';
+import { MDBRow, MDBCol, MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardFooter, MDBCarousel, MDBSpinner } from 'mdb-react-ui-kit';
 import { getKategoriaTuotteet, getTuote, getTuotteet } from '../components/Server/TuoteAPI';
+import { NavLink } from "react-router-dom";
 
-const ProductInformation = () => {
+
+const ProductInformation = (props) => {
+  const [aktiivinenTuote, setAktiivinenTuote] = useState([]);
   const [tuote, setTuote] = useState([]);
   const [tuotekategoria, setTuotekategoria] = useState([]);
+  //initialize items with mock data
+
   const { tuoteID } = useParams();
+  //use props to get ostoskori
+  //const { addItem } = useContext(OstoskoriContext);
+  
+  const refreshPage = () => {
+    //move to top of page
+    window.scrollTo(0, 0);
+  }
+
+  const HandleAddToCart = (tuote) => {
+    props.setItems([...props.items,{tuotenimi: tuote.tuotenimi, hinta: tuote.hinta, kuva: tuote.kuva, tuoteid: tuote.tuoteID}]);
+    console.log(props.items);
+  }
 
   useEffect(() => {
+    //refresh page
+
     async function fetchData() {
+      //fetch tuote with tuoteID
       const tuoteData = await getTuote(tuoteID);
       setTuote(tuoteData);
+      
 
     }
     fetchData();
-  }, []);
+  }, [aktiivinenTuote]);
 
   useEffect(() => {
+    
     async function fetchData() {
           //fetch tuotekategoria with tuoteID
-          const tuotekategoriaData = await getKategoriaTuotteet(tuote[0].kategoriaid);
-          setTuotekategoria(tuotekategoriaData);
+          setTuotekategoria(await getKategoriaTuotteet(tuote[0].kategoriaid));
     }
     fetchData();
+
+    if(tuoteID == aktiivinenTuote){
+      refreshPage();
+      }
   }, [tuote]);
 
 
 
-  //wait for tuote to be loaded then return details
+  // Jos tuotteet eivät ole vielä ladattu, näytetään spinneri.
   if (tuote.length === 0) {
-    return <div className="form-control success">Ladataan tuotetietoja, hetkinen!</div>;
+    return (
+      <div className="text-center m-5">
+      <MDBSpinner role="status">
+        <span className="visually-hidden">Loading...</span>
+      </MDBSpinner>
+      </div>
+      )
   } else {
     return (
       <div className="p-4">
@@ -53,13 +84,14 @@ const ProductInformation = () => {
               <MDBCardText>Tuotetiedot</MDBCardText>
               <MDBCardText>Koko: tähän mahd. koko</MDBCardText>
               <MDBCardText>Väri: tähän mahd. väri</MDBCardText>
-              <MDBCardText>käytetty vihko!</MDBCardText>
+              <MDBCardText></MDBCardText>
               <MDBCardText>{tuote[0].hinta} €</MDBCardText>
               <MDBCardBody>
                 <MDBCardTitle>{tuote[0].nimi}</MDBCardTitle>
                 <MDBCardText>{tuote[0].kuvaus}</MDBCardText>
+                <input type="number" className='form-control' placeholder='1'/>
+                <MDBCardText><button className='btn btn-success' onClick={() => HandleAddToCart(tuote[0])}>Lisää ostoskoriin</button></MDBCardText>
                 <MDBCardFooter>
-                  <MDBCardText><a href="#">Lisää ostoskoriin</a></MDBCardText>
                 </MDBCardFooter>
               </MDBCardBody>
             </MDBCard>
@@ -68,7 +100,11 @@ const ProductInformation = () => {
         </MDBRow>
 
           {tuotekategoria.length === 0 ? (
-            <div>Ladataan tuotteita... hetkinen!</div>
+                  <div className="text-center m-5">
+                  <MDBSpinner role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </MDBSpinner>
+                  </div>
           ) : (
             <div className='p-4'>
               <h1>Samankaltaisia tuotteita:</h1>
@@ -85,6 +121,7 @@ const ProductInformation = () => {
                    <MDBCardTitle>{tuotteet.tuotenimi}</MDBCardTitle>
                    <MDBCardText>Saldo: {tuotteet.varastosaldo}</MDBCardText>
                    <MDBCardFooter className="text-center">Hinta: {tuotteet.hinta} €</MDBCardFooter>
+                   <NavLink to={`/tuotteet/${tuotteet.tuoteID}`} onClick={() => setAktiivinenTuote(tuotteet.tuoteID)} className="btn btn-primary">Katso lisää</NavLink>
                  </MDBCardBody>
                </MDBCard>
              </MDBCol>

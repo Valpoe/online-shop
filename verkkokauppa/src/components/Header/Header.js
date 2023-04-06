@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink } from "react-router-dom";
+import { NavLink, Navigate } from "react-router-dom";
 import {
     MDBContainer,
     MDBNavbar,
@@ -17,10 +17,12 @@ import {
     MDBModalTitle,
     MDBModalBody,
     MDBModalFooter,
+    MDBCardText,
+    MDBCard,
   } from 'mdb-react-ui-kit';
 import Ostoskori from '../Ostoskori';
 
-const Header = () => {
+const Header = (props) => {
     const [showNavCentred, setShowNavCentred] = useState(false);
     const [basicModal, setBasicModal] = useState(false);
 
@@ -57,23 +59,20 @@ const Header = () => {
           </MDBNavbarNav>
         </MDBCollapse>
 
-
-        <MDBBtn onClick={toggleShow}><MDBIcon fas icon="shopping-cart" /></MDBBtn>
+        <MDBBtn onClick={toggleShow}><MDBIcon fas icon="shopping-cart" className='me-2'/>{props.items.length}</MDBBtn>
       <MDBModal show={basicModal} setShow={setBasicModal} tabIndex='-1'>
-        <MDBModalDialog>
+        <MDBModalDialog class="modal-dialog modal-xl">
           <MDBModalContent>
             <MDBModalHeader>
               <MDBModalTitle>Ostoskori</MDBModalTitle>
               <MDBBtn className='btn-close' color='none' onClick={toggleShow}></MDBBtn>
             </MDBModalHeader>
-            <MDBModalBody>...</MDBModalBody>
-            <Ostoskori/>
-
+            <Ostoskori setItems={props.setItems} items={props.items} removeItem={props.removeItem} getTotal={props.getTotal} countItem={props.countItem} />
             <MDBModalFooter>
-              <MDBBtn color='secondary' onClick={toggleShow}>
+              <MDBBtn class="btn btn-dark" onClick={toggleShow}>
                 Close
               </MDBBtn>
-              <MDBBtn>Siirry tilaamaan</MDBBtn>
+              <NavLink class="btn btn-primary" to={"/tilaus"}>Siirry tilaamaan</NavLink>
             </MDBModalFooter>
           </MDBModalContent>
         </MDBModalDialog>
