@@ -54,8 +54,6 @@ const Header = (props) => {
             <MDBNavbarItem>
             <NavLink to="/ota-yhteytta" className='nav-link'>Ota yhteyttä</NavLink>
             </MDBNavbarItem>
-            <MDBNavbarItem>
-            </MDBNavbarItem>
           </MDBNavbarNav>
         </MDBCollapse>
 
@@ -72,13 +70,11 @@ const Header = (props) => {
               <MDBBtn class="btn btn-dark" onClick={toggleShow}>
                 Close
               </MDBBtn>
-              <NavLink class="btn btn-primary" to={"/tilaus"}>Siirry tilaamaan</NavLink>
+              <NavLink class="btn btn-primary" to={"/tilaus"} onClick={toggleShow}>Siirry tilaamaan</NavLink>
             </MDBModalFooter>
           </MDBModalContent>
         </MDBModalDialog>
       </MDBModal>
-
-
       </MDBContainer>
     </MDBNavbar>
     );
