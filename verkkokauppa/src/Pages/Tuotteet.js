@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getKategoriat } from "../components/Server/KategoriaAPI";
 import { getTuotteet } from "../components/Server/TuoteAPI";
+//import LisääOstoskoriin from '../components/Server/OstoskoriAPI.js';
 import { NavLink } from "react-router-dom";
 import {
   MDBTabs,
