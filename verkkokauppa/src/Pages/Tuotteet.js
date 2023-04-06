@@ -117,7 +117,7 @@ const Tuotteet = (props) => {
   };
 
   // Halvimman ja kalleimman tuotteen suodatus
-  const [sort, setSort] = useState("");
+  const [sort, setSort] = useState("cheapest");
   const handleSortClick = () => {
     if (sort === "cheapest") {
       const filteredProducts = tuotteet.sort((a, b) => b.hinta - a.hinta);
