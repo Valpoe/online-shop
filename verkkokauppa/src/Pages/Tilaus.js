@@ -24,6 +24,7 @@ const Tilaus = (props) => {
     checked: false, // add checked property for checkbox
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [failedSubmit, setFailedSubmit] = useState(false);
 
   const [tilaus, setTilaus] = useState(false);
 
@@ -47,32 +48,32 @@ const Tilaus = (props) => {
     // Perform form validation
     let errors = {};
     if (!formData.firstName) {
-      errors.firstName = 'First name is required';
+      errors.firstName = 'Etunimi on pakollinen';
     }
     if (!formData.lastName) {
-      errors.lastName = 'Last name is required';
+      errors.lastName = 'Sukunimi on pakollinen';
     }
     if (!formData.email) {
-      errors.email = 'Email is required';
+      errors.email = 'Sähköposti on pakollinen';
     } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
-      errors.email = 'Invalid email address';
+      errors.email = 'sähköposti on virheellinen';
     }
     if (!formData.phone) {
-      errors.phone = 'Phone number is required';
+      errors.phone = 'Puhelinnumero on pakollinen';
     }
     if (!formData.address) {
-      errors.address = 'Address is required';
+      errors.address = 'Osoite on pakollinen';
     }
     if (!formData.city) {
-      errors.city = 'City is required';
+      errors.city = 'Kaupunki on pakollinen';
     }
     if (!formData.zip) {
-      errors.zip = 'Zip code is required';
+      errors.zip = 'Postinumero on pakollinen';
     } else if (!/^\d{5}(?:[-\s]\d{4})?$/.test(formData.zip)) {
-      errors.zip = 'Invalid zip code';
+      errors.zip = 'Postinumero on virheellinen';
     }
     if (!formData.checked) {
-        errors.checked = 'Please accept the terms and conditions';
+        errors.checked = 'Sinun täytyy hyväksyä ehdot';
       }
     setFormErrors(errors);
 
@@ -81,12 +82,14 @@ const Tilaus = (props) => {
       // Perform form submission
       console.log(formData);
       setIsSubmitting(false);
+      setFailedSubmit(false);
       setTilaus(true);
       //alert('Form submitted successfully!');
     } else {
-        alert('Form submission failed!\n' + JSON.stringify(errors));
+        //alert('Form submission failed!\n' + JSON.stringify(errors));
         console.log(errors)
       setIsSubmitting(false);
+      setFailedSubmit(true);
     }
   };
 
@@ -120,8 +123,12 @@ const Tilaus = (props) => {
           <MDBCol md='8' className='mx-auto mt-4'>
             <MDBCard>
               <MDBCardBody>
-                <MDBCardTitle className='mb-4'>Tilauslomake</MDBCardTitle>
+                <MDBCardTitle className='mb-2'>Tilauslomake</MDBCardTitle>
+              { failedSubmit && (
+                        <div className='text-danger p-2 mb-2'>Lomakkeen täytössä ilmeni virheitä, ole hyvä ja tarkista lomake uudelleen!</div>
+                    )}
                 <form onSubmit={handleSubmit}>
+
                   <MDBRow>
                     <MDBCol md='12' className='mb-4'>
                       <MDBInput
@@ -132,6 +139,9 @@ const Tilaus = (props) => {
                         error={formErrors.firstName}
                         outline
                       />
+                        {formErrors.firstName && (
+                            <div className='text-danger p-2'>*{formErrors.firstName}</div>
+                        )}
                     </MDBCol>
                     <MDBCol md='12' className='mb-4'>
                       <MDBInput
@@ -142,6 +152,9 @@ const Tilaus = (props) => {
                         error={formErrors.lastName}
                         outline
                       />
+                        {formErrors.lastName && (
+                            <div className='text-danger p-2'>*{formErrors.lastName}</div>
+                        )}
                     </MDBCol>
                   </MDBRow>
                   <MDBRow>
@@ -155,6 +168,9 @@ const Tilaus = (props) => {
                         error={formErrors.email}
                         outline
                         />
+                        {formErrors.email && (
+                            <div className='text-danger p-2'>*{formErrors.email}</div>
+                        )}
                     </MDBCol>
                     <MDBCol md='12' className='mb-4'>
                         <MDBInput
@@ -165,6 +181,9 @@ const Tilaus = (props) => {
                             error={formErrors.phone}
                             outline
                         />
+                        {formErrors.phone && (
+                            <div className='text-danger p-2'>*{formErrors.phone}</div>
+                        )}
                     </MDBCol>
                   </MDBRow>
                   <MDBRow>
@@ -177,6 +196,9 @@ const Tilaus = (props) => {
                             error={formErrors.address}
                             outline
                         />
+                        {formErrors.address && (
+                            <div className='text-danger p-2'>*{formErrors.address}</div>
+                        )}
                     </MDBCol>
                   </MDBRow>
                   <MDBRow>
@@ -189,6 +211,9 @@ const Tilaus = (props) => {
                             error={formErrors.city}
                             outline
                         />
+                        {formErrors.city && (
+                            <div className='text-danger p-2'>*{formErrors.city}</div>
+                        )}
                     </MDBCol>
                   </MDBRow>
                     <MDBRow>
@@ -201,6 +226,9 @@ const Tilaus = (props) => {
                                 error={formErrors.zip}
                                 outline
                             />
+                            {formErrors.zip && (
+                                <div className='text-danger p-2'>*{formErrors.zip}</div>
+                            )}
                         </MDBCol>
                     </MDBRow>
                   <MDBCardFooter></MDBCardFooter> 
@@ -216,6 +244,9 @@ const Tilaus = (props) => {
                         onChange={handleChange}
                         error={formErrors.checked}
                     />
+                    {formErrors.checked && (
+                        <div className='text-danger p-2'>{formErrors.checked}</div>
+                    )}
                     </label>
                 </div>
                     <MDBBtn className='btn btn-primary btn-lg btn-block mt-4' color='primary' type='submit' disabled={isSubmitting}>Vahvista tilaus</MDBBtn>
