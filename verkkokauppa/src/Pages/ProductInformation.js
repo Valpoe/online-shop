@@ -21,8 +21,8 @@ const ProductInformation = (props) => {
   }
 
   const HandleAddToCart = (tuote) => {
-      props.setItems([...props.items,{tuotenimi: tuote.tuotenimi, hinta: tuote.hinta, kuva: tuote.kuva, tuoteid: tuote.tuotei,
-        varastosaldo: tuote.varastosaldo}]);
+    props.setItems([...props.items,{tuotenimi: tuote.tuotenimi, hinta: tuote.hinta, kuva: tuote.kuva, tuoteid: tuote.tuoteID}]);
+    console.log(props.items);
   }
 
   useEffect(() => {
@@ -100,20 +100,6 @@ const ProductInformation = (props) => {
               <MDBCardText>Tämä kynä on erittäin hyvä kynä.</MDBCardText>
               <MDBCardText>Hinta: {tuote[0].hinta} <MDBIcon fas icon="euro-sign" /></MDBCardText>
               <MaaraLaskin items={props.items} tuote={tuote[0]} setItems={props.setItems}/>
-                {/* <MDBCardText className="fw-bold">Määrä:</MDBCardText>
-                <div className="d-flex align-items-center justify-content-around">
-                <MDBBtn color="link">
-                <MDBIcon fas icon="minus" />
-              </MDBBtn>
-              <MDBInput className="text-center " min={1} />
-              <MDBBtn color="link">
-                <MDBIcon fas icon="plus" />
-              </MDBBtn>
-              </div> */}
-              {/* </MDBCardBody>
-                <MDBCardFooter>
-                  <button className='btn btn-success' onClick={() => HandleAddToCart(tuote[0])}>Lisää ostoskoriin</button>
-                </MDBCardFooter> */}
                 </MDBCardBody>
             </MDBCard>
             </div>
