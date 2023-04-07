@@ -17,9 +17,6 @@ function App() {
 
   const [items, setItems] = useState([])
 
-
-
-
   //get items count
   const getItemsCount = () => {
     if (!items) {

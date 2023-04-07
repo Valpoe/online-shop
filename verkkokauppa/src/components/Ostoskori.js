@@ -1,5 +1,5 @@
 import { Toast } from "bootstrap";
-import { MDBCard, MDBCardText, MDBCol, MDBIcon, MDBTextArea, MDBInput, MDBCardBody, MDBRow, MDBCardImage, MDBBtn, MDBTypography } from "mdb-react-ui-kit";
+import { MDBCard, MDBCardText, MDBCol, MDBIcon, MDBInput, MDBCardBody, MDBRow, MDBCardImage, MDBBtn, MDBTypography } from "mdb-react-ui-kit";
 import { useState, useEffect } from "react";
 
 function Ostoskori(props) {
@@ -90,7 +90,7 @@ function Ostoskori(props) {
                 <MDBIcon fas icon="minus" />
               </MDBBtn>
 
-              <MDBInput min={0} value={countItem(item.tuoteid)} type="number" size="sm" />
+              <MDBInput className="text-center" min={0} value={countItem(item.tuoteid)} size="sm" />
               <MDBBtn color="link" className="px-2" onClick={() => HandleAddToCart(item)}>
 
                 <MDBIcon fas icon="plus" />

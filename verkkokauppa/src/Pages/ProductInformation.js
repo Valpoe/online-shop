@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import { MDBRow, MDBCol, MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardFooter, MDBContainer, MDBSpinner } from 'mdb-react-ui-kit';
+import { MDBRow, MDBCol, MDBCard, MDBCardImage, MDBCardBody, MDBBtn, MDBInput, MDBCardHeader, MDBCardTitle, MDBCardText, MDBCardFooter, MDBContainer, MDBSpinner, MDBIcon } from 'mdb-react-ui-kit';
 import { getKategoriaTuotteet, getTuote, getTuotteet } from '../components/Server/TuoteAPI';
 import { NavLink } from "react-router-dom";
-
+import MaaraLaskin from '../components/MaaraLaskin';
 
 const ProductInformation = (props) => {
   const [aktiivinenTuote, setAktiivinenTuote] = useState([]);
@@ -21,8 +21,8 @@ const ProductInformation = (props) => {
   }
 
   const HandleAddToCart = (tuote) => {
-    props.setItems([...props.items,{tuotenimi: tuote.tuotenimi, hinta: tuote.hinta, kuva: tuote.kuva, tuoteid: tuote.tuoteID}]);
-    console.log(props.items);
+      props.setItems([...props.items,{tuotenimi: tuote.tuotenimi, hinta: tuote.hinta, kuva: tuote.kuva, tuoteid: tuote.tuotei,
+        varastosaldo: tuote.varastosaldo}]);
   }
 
   useEffect(() => {
@@ -61,14 +61,18 @@ const ProductInformation = (props) => {
       )
   } else {
     return (
+      <section className="d-flex justify-content-center justify-content-lg-between">
       <MDBContainer className="text-center text-md-start">
-      <div className="p-4">
-        <h1>{tuote[0].tuotenimi} - tuotenumero: {tuote[0].tuoteID}</h1>
+      <div className="text-uppercase fw-bold mb-3 mt-3">
+        <h2>{tuote[0].tuotenimi}</h2>
+      </div>
         <MDBRow>
-          <MDBCol>
+          <MDBCol className="mx-auto mb-5 text-center">
             <div className="">
-            <MDBCard className='mb-3'>
-              <MDBCardImage src={tuote[0].kuva} alt='...' position='top' />
+            <MDBCard className='h-100'>
+              <MDBCardImage src={tuote[0].kuva}
+                        position="top"
+                        alt="..." />
               <MDBCardBody>
                 <MDBCardTitle>{tuote[0].nimi}</MDBCardTitle>
                 <MDBCardText>{tuote[0].kuvaus}</MDBCardText>
@@ -76,22 +80,41 @@ const ProductInformation = (props) => {
             </MDBCard>
             </div>
           </MDBCol>
-          <MDBCol>
+          <MDBCol className="mx-auto mb-5 text-center">
             <div className="">
             <MDBCard className='mb-3 p-5'>
-              <MDBCardText>Tuotetiedot</MDBCardText>
-              <MDBCardText>Koko: tähän mahd. koko</MDBCardText>
-              <MDBCardText>Väri: tähän mahd. väri</MDBCardText>
-              <MDBCardText></MDBCardText>
-              <MDBCardText>{tuote[0].hinta} €</MDBCardText>
+              <MDBCardHeader>
+                <MDBCardTitle className="text-uppercase text-center fw-bold mb-3 mt-3">Tuotetiedot</MDBCardTitle>
+              </MDBCardHeader>
               <MDBCardBody>
-                <MDBCardTitle>{tuote[0].nimi}</MDBCardTitle>
-                <MDBCardText>{tuote[0].kuvaus}</MDBCardText>
-                <input type="number" className='form-control' placeholder='1'/>
-                <MDBCardText><button className='btn btn-success' onClick={() => HandleAddToCart(tuote[0])}>Lisää ostoskoriin</button></MDBCardText>
+              <MDBCardText className="fw-bold">Väri: </MDBCardText>
+              <div className="text-center">
+              <MDBBtn
+                floating
+                size="md"
+                className="mt-n2 mb-2"
+                style={{ backgroundColor: tuote[0].vari}}
+              ></MDBBtn>
+              </div>
+              <MDBCardText className="fw-bold">Tuotteen kuvaus:</MDBCardText>
+              <MDBCardText>Tämä kynä on erittäin hyvä kynä.</MDBCardText>
+              <MDBCardText>Hinta: {tuote[0].hinta} <MDBIcon fas icon="euro-sign" /></MDBCardText>
+              <MaaraLaskin items={props.items} tuote={tuote[0]} setItems={props.setItems}/>
+                {/* <MDBCardText className="fw-bold">Määrä:</MDBCardText>
+                <div className="d-flex align-items-center justify-content-around">
+                <MDBBtn color="link">
+                <MDBIcon fas icon="minus" />
+              </MDBBtn>
+              <MDBInput className="text-center " min={1} />
+              <MDBBtn color="link">
+                <MDBIcon fas icon="plus" />
+              </MDBBtn>
+              </div> */}
+              {/* </MDBCardBody>
                 <MDBCardFooter>
-                </MDBCardFooter>
-              </MDBCardBody>
+                  <button className='btn btn-success' onClick={() => HandleAddToCart(tuote[0])}>Lisää ostoskoriin</button>
+                </MDBCardFooter> */}
+                </MDBCardBody>
             </MDBCard>
             </div>
           </MDBCol>
@@ -104,8 +127,10 @@ const ProductInformation = (props) => {
                   </MDBSpinner>
                   </div>
           ) : (
-            <div className='p-4'>
-              <h1>Samankaltaisia tuotteita:</h1>
+            <MDBCol className="mx-auto mb-5 text-center">
+            <div className="text-uppercase fw-bold mb-3 mt-3">
+        <h2>Samankaltaisia tuotteita</h2>
+      </div>
             <MDBRow className="row-cols-1 row-cols-md-3 g-4">
                 {tuotekategoria.map((tuotteet) => (
                <MDBCol key={tuotteet.tuoteID}>
@@ -116,20 +141,31 @@ const ProductInformation = (props) => {
                    alt="..."
                  />
                  <MDBCardBody>
-                   <MDBCardTitle>{tuotteet.tuotenimi}</MDBCardTitle>
-                   <MDBCardText>Saldo: {tuotteet.varastosaldo}</MDBCardText>
-                   <MDBCardFooter className="text-center">Hinta: {tuotteet.hinta} €</MDBCardFooter>
-                   <NavLink to={`/tuotteet/${tuotteet.tuoteID}`} onClick={() => setAktiivinenTuote(tuotteet.tuoteID)} className="btn btn-primary">Katso lisää</NavLink>
+                   <MDBCardHeader>
+                        <MDBCardTitle>{tuotteet.tuotenimi}</MDBCardTitle>
+                        </MDBCardHeader>
+                      <MDBCardBody>
+                        <MDBCardText>
+                          Saldo: {tuotteet.varastosaldo}
+                        </MDBCardText>
+                        <MDBCardText>
+                          <NavLink to={`/tuotteet/${tuotteet.tuoteID}`} onClick={() => setAktiivinenTuote(tuotteet.tuoteID)}>
+                            Lisätietoja
+                          </NavLink>
+                        </MDBCardText>
+                        <MDBCardText><button className='btn btn-success' onClick={() => HandleAddToCart(tuotteet)}>Lisää ostoskoriin</button></MDBCardText>
+                      </MDBCardBody>
+                      <MDBCardFooter className="fw-bold">Hinta: {tuotteet.hinta} <MDBIcon fas icon="euro-sign" /></MDBCardFooter>
                  </MDBCardBody>
                </MDBCard>
              </MDBCol>
                 ))}
 
             </MDBRow>
-            </div>
+            </MDBCol>
           )}
-    </div>
     </MDBContainer>
+    </section>
     );
   }
 };
