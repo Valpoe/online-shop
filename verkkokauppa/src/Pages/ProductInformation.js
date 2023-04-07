@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import { MDBRow, MDBCol, MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardFooter, MDBCarousel, MDBSpinner } from 'mdb-react-ui-kit';
+import { MDBRow, MDBCol, MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardFooter, MDBContainer, MDBSpinner } from 'mdb-react-ui-kit';
 import { getKategoriaTuotteet, getTuote, getTuotteet } from '../components/Server/TuoteAPI';
 import { NavLink } from "react-router-dom";
 
@@ -61,6 +61,7 @@ const ProductInformation = (props) => {
       )
   } else {
     return (
+      <MDBContainer className="text-center text-md-start">
       <div className="p-4">
         <h1>{tuote[0].tuotenimi} - tuotenumero: {tuote[0].tuoteID}</h1>
         <MDBRow>
@@ -128,6 +129,7 @@ const ProductInformation = (props) => {
             </div>
           )}
     </div>
+    </MDBContainer>
     );
   }
 };
