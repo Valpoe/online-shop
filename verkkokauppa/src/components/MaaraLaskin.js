@@ -20,9 +20,10 @@ function MaaraLaskin(props) {
 
   const HandleAddToCart = (tuote, quantity) => {
     const newItems = [...props.items];
-  
+    
+    console.log("trying to add:" + tuote.tuoteID + " with quantity:" + quantity)
     for (let i = 0; i < quantity; i++) {
-      newItems.push({ tuotenimi: tuote.tuotenimi, hinta: tuote.hinta, kuva: tuote.kuva, tuoteid: tuote.tuoteid });
+      newItems.push({ tuotenimi: tuote.tuotenimi, hinta: tuote.hinta, kuva: tuote.kuva, tuoteid: tuote.tuoteID });
     }
     props.setItems(newItems);
   }

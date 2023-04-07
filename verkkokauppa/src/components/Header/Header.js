@@ -31,7 +31,7 @@ const Header = (props) => {
       
         <MDBNavbar expand='lg' light bgColor='light' className="mb-5">
       <MDBContainer fluid>
-        <MDBNavbarBrand style={{fontFamily: 'serif'}} >Kynä & Kumi</MDBNavbarBrand>
+        <MDBNavbarBrand style={{fontFamily: 'serif'}} className='' >Kynä & Kumi</MDBNavbarBrand>
         <MDBIcon fas icon="pencil-ruler" />
         <MDBNavbarToggler
           type='button'
