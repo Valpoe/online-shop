@@ -24,24 +24,6 @@ function Yhteenveto(props) {
     return props.items.reduce((total, item) => total + item.hinta, 0);
   };
 
-  useEffect(() => {
-
-    async function sortItems() {
-      //sort items
-      props.setItems(props.items.sort((a, b) => (a.tuotenimi > b.tuotenimi) ? 1 : -1))
-      console.log(props.items)
-    }
-    sortItems();
-
-  }, [props.items]);
-
-
-
-  const HandleAddToCart = (tuote) => {
-    props.setItems([...props.items,{tuotenimi: tuote.tuotenimi, hinta: tuote.hinta, kuva: tuote.kuva, tuoteid: tuote.tuoteid}]);
-    console.log(props.items);
-  }
-
 //count each tuoteID ammount in separate number
 
   const countItem = (itemID) => {

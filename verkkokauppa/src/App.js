@@ -53,7 +53,7 @@ function App() {
         <Route path='/PrivacyStatement' element={<PrivacyStatement />} />
         <Route path='/ota-yhteytta' element={<ContactUs />} />
         <Route path='/tuotteet/:tuoteID' element={<ProductInformation setItems={setItems} items={items} getTotal={getTotal} countItem={countItem}/>} />
-        <Route path='/tilaus' element={<Tilaus items={items}/> } />
+        <Route path='/tilaus' element={<Tilaus items={items} setItems={setItems}/> } />
       </Routes>
       <Footer />
     </Router>

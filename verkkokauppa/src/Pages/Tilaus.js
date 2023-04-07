@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MDBRow, MDBCol, MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardFooter, MDBInput, MDBBtn, MDBCheckbox } from 'mdb-react-ui-kit';
 import Ostoskori from '../components/Ostoskori';
 import Yhteenveto from '../components/Yhteenveto';
@@ -11,7 +11,6 @@ const Tilaus = (props) => {
     phone: '',
     address: '',
     city: '',
-    state: '',
     zip: '',
   });
   const [formErrors, setFormErrors] = useState({
@@ -21,14 +20,28 @@ const Tilaus = (props) => {
     phone: '',
     address: '',
     city: '',
-    state: '',
     zip: '',
+    checked: false, // add checked property for checkbox
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const [tilaus, setTilaus] = useState(false);
+
+  //useeffect to clear ostoskori after tilaus set true
+     useEffect(() => {
+       if (tilaus) {
+            props.setItems([]);
+         }
+        }, [tilaus]);
+
   const handleSubmit = (event) => {
-    console.log('Form submitted');
+    console.log('Form submitted' + JSON.stringify(formData));
+    //clear ostoskori after submit and set tilaus to true
+    //prevent page reload
     event.preventDefault();
+
+    //scroll up
+    window.scrollTo(0, 0);
     setIsSubmitting(true);
 
     // Perform form validation
@@ -53,14 +66,14 @@ const Tilaus = (props) => {
     if (!formData.city) {
       errors.city = 'City is required';
     }
-    if (!formData.state) {
-      errors.state = 'State is required';
-    }
     if (!formData.zip) {
       errors.zip = 'Zip code is required';
     } else if (!/^\d{5}(?:[-\s]\d{4})?$/.test(formData.zip)) {
       errors.zip = 'Invalid zip code';
     }
+    if (!formData.checked) {
+        errors.checked = 'Please accept the terms and conditions';
+      }
     setFormErrors(errors);
 
     // If there are no errors, submit the form
@@ -68,15 +81,39 @@ const Tilaus = (props) => {
       // Perform form submission
       console.log(formData);
       setIsSubmitting(false);
-      alert('Form submitted successfully!');
+      setTilaus(true);
+      //alert('Form submitted successfully!');
     } else {
+        alert('Form submission failed!\n' + JSON.stringify(errors));
+        console.log(errors)
       setIsSubmitting(false);
     }
   };
 
   const handleChange = (event) => {
-    setFormData({ ...formData, [event.target.name]: event.target.value });
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+    setFormData({ ...formData, [name]: value });
   };
+
+  //if isSubmitting is true, disable the submit button
+  if (tilaus) {
+    return (
+        <MDBRow className='p-5'>
+            <MDBCol md='8' className='mx-auto mt-4'>
+                <MDBCard>
+                    <MDBCardBody>
+                        <MDBCardTitle className='mb-4'>Kiitos tilauksesta, {formData.firstName}!</MDBCardTitle>
+                        <MDBCardText>
+                            Tilausvahvistus lähetetään sähköpostiosoitteesi <b className='font-weight-bold'>{formData.email}</b>.
+                        </MDBCardText>
+                    </MDBCardBody>
+                </MDBCard>
+            </MDBCol>
+        </MDBRow>
+    );
+}
 
     return (
         <MDBRow>
@@ -154,14 +191,34 @@ const Tilaus = (props) => {
                         />
                     </MDBCol>
                   </MDBRow>
+                    <MDBRow>
+                        <MDBCol md='12' className='mb-4'>
+                            <MDBInput
+                                label='Postinumero'
+                                name='zip'
+                                value={formData.zip}
+                                onChange={handleChange}
+                                error={formErrors.zip}
+                                outline
+                            />
+                        </MDBCol>
+                    </MDBRow>
                   <MDBCardFooter></MDBCardFooter> 
                   <MDBCardTitle className='blockquote text-center'>Ostoskori</MDBCardTitle>
                   <Yhteenveto items={props.items}/>
                   <div className='text-center'>
-                    <p>Hyväksyn toimitusehdot</p>
-                    <MDBCheckbox className='check' type='checkbox' id='checkbox1' />
-                    <button type='submit' className='btn-block btn-primary rounded-pill mt-3'>Tilaa tuotteet</button>
+                  <label className='checkbox-label'>
+                    <span>Hyväksyn toimitusehdot</span>
+                    <MDBCheckbox
+                        name='checked'
+                        id='checkbox1'
+                        checked={formData.checked}
+                        onChange={handleChange}
+                        error={formErrors.checked}
+                    />
+                    </label>
                 </div>
+                    <MDBBtn className='btn btn-primary btn-lg btn-block mt-4' color='primary' type='submit' disabled={isSubmitting}>Vahvista tilaus</MDBBtn>
                 </form>
               </MDBCardBody>
             </MDBCard>
