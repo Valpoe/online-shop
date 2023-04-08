@@ -4,19 +4,6 @@ import { useState, useEffect } from "react";
 
 function Yhteenveto(props) {
 
-  const removeItemWithID = (tuoteid) => {
-    const newItems = [...props.items];
-    console.log("trying to remove:" + tuoteid)
-
-    //remove from list with matching tuoteid
-    const index = newItems.findIndex((item) => item.tuoteid === tuoteid);
-    if (index !== -1) {
-      newItems.splice(index, 1);
-      console.log("removed:" + tuoteid + " at index:" + index)
-    }
-    props.setItems(newItems);
-  };
-
   const getTotal = () => {
     if (!props.items) {
       return 0;
@@ -25,7 +12,6 @@ function Yhteenveto(props) {
   };
 
 //count each tuoteID ammount in separate number
-
   const countItem = (itemID) => {
     let count = 0;
     props.items.forEach((item) => {
@@ -83,5 +69,4 @@ function Yhteenveto(props) {
     </div>
   );
 }
-
 export default Yhteenveto;

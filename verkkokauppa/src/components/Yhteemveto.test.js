@@ -1,67 +1,54 @@
 import { render, screen } from '@testing-library/react';
 import Yhteenveto from './Yhteenveto';
 
-describe('Yhteenveto component', () => {
+describe('Yhteenveto', () => {
   const items = [
-    {
-      tuoteid: '1',
-      tuotenimi: 'Testi tuote 1',
-      kuva: 'testikuva1.png',
-      hinta: 10.99,
-    },
-    {
-      tuoteid: '2',
-      tuotenimi: 'Testi tuote 2',
-      kuva: 'testikuva2.png',
-      hinta: 20.99,
-    },
-    {
-      tuoteid: '1',
-      tuotenimi: 'Testi tuote 1',
-      kuva: 'testikuva1.png',
-      hinta: 10.99,
-    },
+    { tuotenimi: 'Product 1', hinta: 10, kuva: 'image1.png', tuoteid: '1' },
+    { tuotenimi: 'Product 2', hinta: 20, kuva: 'image2.png', tuoteid: '2' },
+    { tuotenimi: 'Product 1', hinta: 10, kuva: 'image1.png', tuoteid: '1' },
   ];
-  const setItems = jest.fn();
 
-  beforeEach(() => {
-    render(<Yhteenveto items={items} setItems={setItems} />);
+  it('displays the correct items in the cart', () => {
+    render(<Yhteenveto items={items} />);
+    const product1Title = screen.getByText('Product 1');
+    const product2Title = screen.getByText('Product 2');
+    expect(product1Title).toBeInTheDocument();
+    expect(product2Title).toBeInTheDocument();
   });
 
-  it('should render each item in the list', () => {
-    const item1 = screen.getByText('Testi tuote 1');
-    const item2 = screen.getByText('Testi tuote 2');
-    expect(item1).toBeInTheDocument();
-    expect(item2).toBeInTheDocument();
+  it('displays the correct item count for each product', () => {
+    render(<Yhteenveto items={items} />);
+    const product1Count = screen.getByText('Määrä: 2');
+    const product2Count = screen.getByText('Määrä: 1');
+    expect(product1Count).toBeInTheDocument();
+    expect(product2Count).toBeInTheDocument();
   });
 
-  it('should display the correct total price', () => {
-    const total = screen.getByText('Yhteensä: 42.97 €');
-    expect(total).toBeInTheDocument();
+  it('displays the correct total price', () => {
+    render(<Yhteenveto items={items} />);
+    const totalPrice = screen.getByText('Yhteensä: 40 €');
+    expect(totalPrice).toBeInTheDocument();
   });
 
-  it('should call setItems with the updated list when an item is removed', () => {
-    const removeBtn = screen.getAllByText('Poista')[0];
-    removeBtn.click();
-    expect(setItems).toHaveBeenCalledTimes(1);
-    expect(setItems).toHaveBeenCalledWith([
-      {
-        tuoteid: '2',
-        tuotenimi: 'Testi tuote 2',
-        kuva: 'testikuva2.png',
-        hinta: 20.99,
-      },
-      {
-        tuoteid: '1',
-        tuotenimi: 'Testi tuote 1',
-        kuva: 'testikuva1.png',
-        hinta: 10.99,
-      },
-    ]);
+  it('displays a message when the cart is empty', () => {
+    render(<Yhteenveto />);
+    const emptyCartMessage = screen.getByText('Ostoskori on tyhjä');
+    expect(emptyCartMessage).toBeInTheDocument();
   });
 });
 
-/*These tests check that the Yhteenveto component renders each item in the list,
-displays the correct total price,
-and updates the list correctly when an item is removed.
-You can run them with the Jest test runner.*/ 
+
+/*
+displays the correct items in the cart: verifies that the component displays
+the correct product titles for each item in the cart.
+
+displays the correct item count for each product: verifies that the component displays
+the correct item count for each product in the cart.
+
+displays the correct total price: verifies that the component displays
+the correct total price for all items in the cart.
+
+displays a message when the cart is empty: verifies that the component
+displays a message when the cart is empty.
+
+*/
