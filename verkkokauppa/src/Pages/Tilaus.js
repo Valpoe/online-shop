@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { MDBRow, MDBCol, MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardFooter, MDBInput, MDBBtn, MDBCheckbox } from 'mdb-react-ui-kit';
-import Ostoskori from '../components/Ostoskori';
 import Yhteenveto from '../components/Yhteenveto';
 
 const Tilaus = (props) => {
@@ -23,10 +22,38 @@ const Tilaus = (props) => {
     zip: '',
     checked: false, // add checked property for checkbox
   });
+
+  const [ostoskori, setOstoskori] = useState(props.items);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [failedSubmit, setFailedSubmit] = useState(false);
 
   const [tilaus, setTilaus] = useState(false);
+
+  //search item ammount from ostoskori with item id and return ammount
+  const countItem = (itemID) => {
+    let count = 0;
+    ostoskori.forEach((item) => {
+      if (item.tuoteid === itemID) {
+        count++;
+      }
+    });
+    return count;
+  };
+
+  const uniqueItems = ostoskori.filter((item, index, array) => {
+    return array.findIndex((uItem) => uItem.tuoteid === item.tuoteid) === index;
+  });
+  
+  const uniqueItemsWithQuantity = uniqueItems.map((tuote, index) => {
+    return {
+      tuoteid: tuote.tuoteid,
+      hinta: tuote.hinta,
+      kuva: tuote.kuva,
+      tuotenimi: tuote.tuotenimi,
+      kuvaus: tuote.kuvaus,
+      määrä: countItem(tuote.tuoteid),
+    };
+  });
 
   //useeffect to clear ostoskori after tilaus set true
      useEffect(() => {
@@ -80,10 +107,14 @@ const Tilaus = (props) => {
     // If there are no errors, submit the form
     if (Object.keys(errors).length === 0) {
       // Perform form submission
-      console.log(formData);
       setIsSubmitting(false);
       setFailedSubmit(false);
       setTilaus(true);
+      
+      //print ostoskori json
+      //Form output and filtered ostoskori output with quantyties
+      console.log(formData);
+      console.log(JSON.stringify(uniqueItemsWithQuantity));
       //alert('Form submitted successfully!');
     } else {
         //alert('Form submission failed!\n' + JSON.stringify(errors));
@@ -137,7 +168,7 @@ const Tilaus = (props) => {
                         value={formData.firstName}
                         onChange={handleChange}
                         error={formErrors.firstName}
-                        outline
+                        outline="true"
                       />
                         {formErrors.firstName && (
                             <div className='text-danger p-2'>*{formErrors.firstName}</div>
@@ -150,7 +181,7 @@ const Tilaus = (props) => {
                         value={formData.lastName}
                         onChange={handleChange}
                         error={formErrors.lastName}
-                        outline
+                        outline="true"
                       />
                         {formErrors.lastName && (
                             <div className='text-danger p-2'>*{formErrors.lastName}</div>
@@ -166,7 +197,7 @@ const Tilaus = (props) => {
                         value={formData.email}
                         onChange={handleChange}
                         error={formErrors.email}
-                        outline
+                        outline="true"
                         />
                         {formErrors.email && (
                             <div className='text-danger p-2'>*{formErrors.email}</div>
@@ -179,7 +210,7 @@ const Tilaus = (props) => {
                             value={formData.phone}
                             onChange={handleChange}
                             error={formErrors.phone}
-                            outline
+                            outline="true"
                         />
                         {formErrors.phone && (
                             <div className='text-danger p-2'>*{formErrors.phone}</div>
@@ -194,7 +225,7 @@ const Tilaus = (props) => {
                             value={formData.address}
                             onChange={handleChange}
                             error={formErrors.address}
-                            outline
+                            outline="true"
                         />
                         {formErrors.address && (
                             <div className='text-danger p-2'>*{formErrors.address}</div>
@@ -209,7 +240,7 @@ const Tilaus = (props) => {
                             value={formData.city}
                             onChange={handleChange}
                             error={formErrors.city}
-                            outline
+                            outline="true"
                         />
                         {formErrors.city && (
                             <div className='text-danger p-2'>*{formErrors.city}</div>
@@ -224,7 +255,7 @@ const Tilaus = (props) => {
                                 value={formData.zip}
                                 onChange={handleChange}
                                 error={formErrors.zip}
-                                outline
+                                outline="true"
                             />
                             {formErrors.zip && (
                                 <div className='text-danger p-2'>*{formErrors.zip}</div>
@@ -243,7 +274,7 @@ const Tilaus = (props) => {
                         checked={formData.checked}
                         onChange={handleChange}
                         error={formErrors.checked}
-                    />
+                        />
                     {formErrors.checked && (
                         <div className='text-danger p-2'>{formErrors.checked}</div>
                     )}

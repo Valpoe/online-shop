@@ -59,7 +59,7 @@ const Header = (props) => {
 
         <MDBBtn onClick={toggleShow}><MDBIcon fas icon="shopping-cart" className='me-2'/>{props.items.length}</MDBBtn>
       <MDBModal show={basicModal} setShow={setBasicModal} tabIndex='-1'>
-        <MDBModalDialog class="modal-dialog modal-xl">
+        <MDBModalDialog className="modal-dialog modal-xl">
           <MDBModalContent>
             <MDBModalHeader>
               <MDBModalTitle>Ostoskori</MDBModalTitle>
@@ -67,10 +67,10 @@ const Header = (props) => {
             </MDBModalHeader>
             <Ostoskori setItems={props.setItems} items={props.items} removeItem={props.removeItem} getTotal={props.getTotal} countItem={props.countItem} />
             <MDBModalFooter>
-              <MDBBtn class="btn btn-dark" onClick={toggleShow}>
+              <MDBBtn className="btn btn-dark" onClick={toggleShow}>
                 Close
               </MDBBtn>
-              <NavLink class="btn btn-primary" to={"/tilaus"} onClick={toggleShow}>Siirry tilaamaan</NavLink>
+              <NavLink className="btn btn-primary" to={"/tilaus"} onClick={toggleShow}>Siirry tilaamaan</NavLink>
             </MDBModalFooter>
           </MDBModalContent>
         </MDBModalDialog>

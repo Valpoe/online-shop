@@ -35,17 +35,21 @@ const ProductInformation = (props) => {
     fetchData();
   }, [aktiivinenTuote]);
 
-  useEffect(() => {
-    
-    async function fetchData() {
-          //fetch tuotekategoria with tuoteID
-          setTuotekategoria(await getKategoriaTuotteet(tuote[0].kategoriaid));
-    }
-    fetchData();
 
-    if(tuoteID == aktiivinenTuote){
-      refreshPage();
+  
+  useEffect(() => {
+    async function TuoteKategoriaHaku() {
+      if (tuote[0] && tuote[0].kategoriaid) {
+        console.log(tuote[0].kategoriaid + "kategoria id haettu!!!");
+        setTuotekategoria(await getKategoriaTuotteet(tuote[0].kategoriaid));
       }
+    }
+    
+    TuoteKategoriaHaku();
+  
+    if(tuoteID === aktiivinenTuote){
+      refreshPage();
+    }
   }, [tuote]);
 
 

@@ -173,7 +173,7 @@ const Tuotteet = (props) => {
               </MDBTabsLink>
             </MDBTabsItem>
             {kategoriat.map((kategoria) => (
-              <MDBTabsItem>
+              <MDBTabsItem key={kategoria.id}>
                 <MDBTabsLink
                   className="square border border-2"
                   onClick={() => handleVerticalClick(kategoria.kategoriaID)}
@@ -280,7 +280,7 @@ const Tuotteet = (props) => {
             </MDBTabsPane>
 
             {kategoriat.map((kategoria) => (
-              <MDBTabsPane show={verticalActive === kategoria.kategoriaID}>
+              <MDBTabsPane key={kategoria.id} show={verticalActive === kategoria.kategoriaID}>
                 <MDBRow className="row-cols-1 row-cols-md-3 g-4">
                   {tuotteet &&
                     tuotteet

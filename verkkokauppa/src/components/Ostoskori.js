@@ -62,15 +62,13 @@ function Ostoskori(props) {
     }
     return false;
   });
-
-
   
   return (
     <div className="p-4">
       <div>
         <ul>
           {uniqueItems.map((item, index) => (
-        <MDBCard className="rounded-3 mb-4">
+        <MDBCard key={index}  className="rounded-3 mb-4">
         <MDBCardBody className="p-4">
           <MDBRow className="justify-content-between align-items-center">
             <MDBCol md="2" lg="2" xl="2">
