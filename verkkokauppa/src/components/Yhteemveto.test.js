@@ -51,4 +51,25 @@ the correct total price for all items in the cart.
 displays a message when the cart is empty: verifies that the component
 displays a message when the cart is empty.
 
+///documenttiin
+
+Seuraavat testit on luotu Yhteenveto-komponentille:
+
+"renders without crashing" - Testi tarkistaa,
+että Yhteenveto-komponentti renderöityy ilman virheitä.
+
+"displays correct total amount" - Testi tarkistaa,
+että yhteenveto-komponentti näyttää oikean kokonaissumman tuotteiden hinnoista.
+
+"displays empty cart message when no items in cart" - Testi tarkistaa,
+että Yhteenveto-komponentti näyttää viestin "Ostoskori on tyhjä",
+jos ostoskori on tyhjä.
+
+"displays correct amount of each product" - Testi tarkistaa,
+että Yhteenveto-komponentti näyttää oikean määrän kustakin tuotteesta, jonka käyttäjä on lisännyt ostoskoriin.
+
+"displays unique products only once" - Testi tarkistaa,
+että Yhteenveto-komponentti näyttää jokaisen tuotteen vain kerran, vaikka käyttäjä olisi lisännyt saman tuotteen ostoskoriin useita kertoja.
+
+
 */
