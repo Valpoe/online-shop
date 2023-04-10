@@ -3,7 +3,8 @@ import { useParams } from 'react-router-dom';
 import { MDBRow, MDBCol, MDBCard, MDBCardImage, MDBCardBody, MDBBtn, MDBInput, MDBCardHeader, MDBCardTitle, MDBCardText, MDBCardFooter, MDBContainer, MDBSpinner, MDBIcon } from 'mdb-react-ui-kit';
 import { getKategoriaTuotteet, getTuote, getTuotteet } from '../components/Server/TuoteAPI';
 import { NavLink } from "react-router-dom";
-import MaaraLaskin from '../components/MaaraLaskin';
+
+import Tuote from '../components/TuoteenTiedot';
 
 const ProductInformation = (props) => {
   const [aktiivinenTuote, setAktiivinenTuote] = useState([]);
@@ -67,48 +68,10 @@ const ProductInformation = (props) => {
     return (
       <section className="d-flex justify-content-center justify-content-lg-between">
       <MDBContainer className="text-center text-md-start">
-      <div className="text-uppercase fw-bold mb-3 mt-3">
-        <h2>{tuote[0].tuotenimi}</h2>
-      </div>
-        <MDBRow>
-          <MDBCol className="mx-auto mb-5 text-center">
-            <div className="">
-            <MDBCard className='h-100'>
-              <MDBCardImage src={tuote[0].kuva}
-                        position="top"
-                        alt="..." />
-              <MDBCardBody>
-                <MDBCardTitle>{tuote[0].nimi}</MDBCardTitle>
-                <MDBCardText>{tuote[0].kuvaus}</MDBCardText>
-              </MDBCardBody>
-            </MDBCard>
-            </div>
-          </MDBCol>
-          <MDBCol className="mx-auto mb-5 text-center">
-            <div className="">
-            <MDBCard className='mb-3 p-5'>
-              <MDBCardHeader>
-                <MDBCardTitle className="text-uppercase text-center fw-bold mb-3 mt-3">Tuotetiedot</MDBCardTitle>
-              </MDBCardHeader>
-              <MDBCardBody>
-              <MDBCardText className="fw-bold">Väri: </MDBCardText>
-              <div className="text-center">
-              <MDBBtn
-                floating
-                size="md"
-                className="mt-n2 mb-2"
-                style={{ backgroundColor: tuote[0].vari}}
-              ></MDBBtn>
-              </div>
-              <MDBCardText className="fw-bold">Tuotteen kuvaus:</MDBCardText>
-              <MDBCardText>Tämä kynä on erittäin hyvä kynä.</MDBCardText>
-              <MDBCardText>Hinta: {tuote[0].hinta} <MDBIcon fas icon="euro-sign" /></MDBCardText>
-              <MaaraLaskin items={props.items} tuote={tuote[0]} setItems={props.setItems}/>
-                </MDBCardBody>
-            </MDBCard>
-            </div>
-          </MDBCol>
-        </MDBRow>
+
+
+        <Tuote tuote={tuote[0]} items={props.items} ></Tuote>
+        
 
           {tuotekategoria.length === 0 ? (
                   <div className="text-center m-5">
