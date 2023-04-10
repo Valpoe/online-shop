@@ -69,10 +69,8 @@ const ProductInformation = (props) => {
       <section className="d-flex justify-content-center justify-content-lg-between">
       <MDBContainer className="text-center text-md-start">
 
-
-        <Tuote tuote={tuote[0]} items={props.items} ></Tuote>
-
-
+        <TuotteenTiedot tuote={tuote[0]} items={props.items} setItems={props.setItems} ></TuotteenTiedot>
+        
           {tuotekategoria.length === 0 ? (
                   <div className="text-center m-5">
                   <MDBSpinner role="status">
