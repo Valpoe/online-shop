@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import MaaraLaskin from './MaaraLaskin';
+import MaaraLaskin from './components/MaaraLaskin';
 
 describe('MaaraLaskin component', () => {
   const tuote = {
