@@ -2,7 +2,7 @@ import { Toast } from "bootstrap";
 import { MDBCard, MDBCardText, MDBCol, MDBIcon,
      MDBInput, MDBCardBody, MDBRow, MDBCardImage, MDBBtn, MDBTypography, MDBCardTitle, MDBCardHeader } from "mdb-react-ui-kit";
 import { useState, useEffect } from "react";
-import MaaraLaskin from '../components/MaaraLaskin';
+import MaaraLaskin from './MaaraLaskin';
 
 function TuoteenTiedot(props) {
 
