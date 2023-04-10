@@ -4,7 +4,7 @@ import { MDBRow, MDBCol, MDBCard, MDBCardImage, MDBCardBody, MDBBtn, MDBInput, M
 import { getKategoriaTuotteet, getTuote, getTuotteet } from '../components/Server/TuoteAPI';
 import { NavLink } from "react-router-dom";
 
-import TuotteenTiedot from '../components/TuoteenTiedot';
+import Tuote from '../components/TuotteenTiedot';
 
 const ProductInformation = (props) => {
   const [aktiivinenTuote, setAktiivinenTuote] = useState([]);
