@@ -2,10 +2,9 @@ import React, { useState, useEffect } from "react";
 import { getKategoriat } from "../components/Server/KategoriaAPI";
 import { getTuotteet } from "../components/Server/TuoteAPI";
 import { NavLink } from "react-router-dom";
+import Tuotehakupalkki from "../components/Tuotehakupalkki";
+import TuoteKategoriat from "../components/TuoteKategoriat";
 import {
-  MDBTabs,
-  MDBTabsItem,
-  MDBTabsLink,
   MDBTabsContent,
   MDBTabsPane,
   MDBRow,
@@ -16,22 +15,15 @@ import {
   MDBCardBody,
   MDBCardTitle,
   MDBCardText,
-  MDBBtn,
   MDBIcon,
-  MDBInputGroup,
-  MDBInput,
-  MDBRange,
   MDBSpinner,
   MDBCardHeader,
-  MDBContainer,
+  MDBContainer
 } from "mdb-react-ui-kit";
-import Tuotehakupalkki from "../components/Tuotehakupalkki";
 
 const Tuotteet = (props) => {
   const [searchResults, setSearchResults] = useState([]);
   const [verticalActive, setVerticalActive] = useState("kaikki-tuotteet");
-  const [minPrice, setMinPrice] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(400);
 
   // Tietokannasta tuotujen tietojen alustukseen:
   const [tuotteet, setTuotteet] = useState([]);
@@ -54,62 +46,6 @@ const Tuotteet = (props) => {
     fetchData();
   }, []);
 
-  // Tuotekategorian valinta
-  const handleVerticalClick = (value) => {
-    if (value === verticalActive) {
-      return;
-    }
-    setVerticalActive(value);
-  };
-
-  // Tuotteen uniikkien värien listaus
-  const uniqueColors = [...new Set(tuotteet.map((product) => product.vari))];
-
-  // Tuotteen värisuodatus
-  const handleColorClick = (color) => {
-    const filteredProducts = tuotteet.filter((product) => {
-      return product.vari === color;
-    });
-    setSearchResults(filteredProducts);
-    setVerticalActive("searchResults");
-  };
-
-  // Hinnan minimi arvon haku
-  const handleMinSearch = (e) => {
-    setMinPrice(e.target.value);
-
-    const filteredProducts = tuotteet.filter((product) => {
-      return product.hinta >= e.target.value && product.hinta <= maxPrice;
-    });
-    setSearchResults(filteredProducts);
-    setVerticalActive("searchResults");
-  };
-
-  // Hinnan maksimiarvon haku
-  const handleMaxSearch = (e) => {
-    setMaxPrice(e.target.value);
-
-    const filteredProducts = tuotteet.filter((product) => {
-      return product.hinta <= e.target.value && product.hinta >= minPrice;
-    });
-    setSearchResults(filteredProducts);
-    setVerticalActive("searchResults");
-  };
-
-  // Halvimman ja kalleimman tuotteen suodatus
-  const [sort, setSort] = useState("cheapest");
-  const handleSortClick = () => {
-    if (sort === "cheapest") {
-      const filteredProducts = tuotteet.sort((a, b) => b.hinta - a.hinta);
-      setSearchResults(filteredProducts);
-      setVerticalActive("searchResults");
-    } else {
-      const filteredProducts = tuotteet.sort((a, b) => a.hinta - b.hinta);
-      setSearchResults(filteredProducts);
-      setVerticalActive("searchResults");
-    }
-  };
-
   // Jos tuotteet eivät ole vielä ladattu, näytetään spinneri.
   if (tuotteet.length === 0) {
     return (
@@ -131,90 +67,8 @@ const Tuotteet = (props) => {
       </MDBRow>
       <MDBRow className="mt-3">
         <MDBCol lg="4" md="8" sm="8" className="mx-auto mb-5">
-          <MDBTabs pills className="flex-column text-center">
-            <div className="text-uppercase text-center fw-bold mb-3">
-              <span>Kategoriat</span>
-            </div>
-            <MDBTabsItem>
-              <MDBTabsLink
-                className="square border border-2"
-                onClick={() => handleVerticalClick("kaikki-tuotteet")}
-                active={verticalActive === "kaikki-tuotteet"}
-              >
-                Kaikki tuotteet
-              </MDBTabsLink>
-            </MDBTabsItem>
-            {kategoriat.map((kategoria) => (
-              <MDBTabsItem key={kategoria.id}>
-                <MDBTabsLink
-                  className="square border border-2"
-                  onClick={() => handleVerticalClick(kategoria.kategoriaID)}
-                  active={verticalActive === kategoria.kategoriaID}
-                >
-                  {kategoria.kuvaus}
-                </MDBTabsLink>
-              </MDBTabsItem>
-            ))}
-          </MDBTabs>
-          <div className="text-uppercase text-center fw-bold mb-3 mt-3">
-            <span>Suodata tuotteita</span>
-          </div>
-          <div className="text-center mb-3">
-            <MDBBtn
-              color="secondary"
-              outline
-              onClick={() => {
-                handleSortClick();
-                setSort("cheapest");
-              }}
-            >
-              Halvin ensin
-            </MDBBtn>
-            <MDBBtn
-              color="secondary"
-              outline
-              onClick={() => {
-                handleSortClick();
-                setSort("expensive");
-              }}
-            >
-              Kallein ensin
-            </MDBBtn>
-          </div>
-          <div className="mb-3">
-            <div className="text-center mb-3 mt-3">
-              <span>Hinta</span>
-            </div>
-            <MDBRange
-              min="0"
-              max="200"
-              label="Min"
-              value={minPrice}
-              onChange={handleMinSearch}
-            />
-            <MDBRange
-              min="200"
-              max="400"
-              label="Max"
-              value={maxPrice}
-              onChange={handleMaxSearch}
-            />
-          </div>
-          <div className="text-center mb-3">
-            <div className="text-center mb-3 mt-3">
-              <span>Väri</span>
-            </div>
-            {uniqueColors.map((color) => (
-              <MDBBtn
-                floating
-                size="lg"
-                className="m-1"
-                key={color}
-                style={{ backgroundColor: color }}
-                onClick={() => handleColorClick(color)}
-              ></MDBBtn>
-            ))}
-          </div>
+          <TuoteKategoriat kategoriat={kategoriat} verticalActive={verticalActive} tuotteet={tuotteet} 
+          setSearchResults={setSearchResults} setVerticalActive={setVerticalActive} />
         </MDBCol>
         <MDBCol size="8" className="mx-auto mb-5 text-center">
           <MDBTabsContent>
