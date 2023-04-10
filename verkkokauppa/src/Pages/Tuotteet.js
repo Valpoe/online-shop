@@ -25,9 +25,9 @@ import {
   MDBCardHeader,
   MDBContainer,
 } from "mdb-react-ui-kit";
+import Tuotehakupalkki from "../components/Tuotehakupalkki";
 
 const Tuotteet = (props) => {
-  const [searchInput, setSearchInput] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [verticalActive, setVerticalActive] = useState("kaikki-tuotteet");
   const [minPrice, setMinPrice] = useState(0);
@@ -60,26 +60,6 @@ const Tuotteet = (props) => {
       return;
     }
     setVerticalActive(value);
-  };
-
-  // Hakupalkin toiminnallisuus
-  const handleSearch = (e) => {
-    e.preventDefault();
-    setSearchInput(e.target.value);
-
-    if (e.target.value === "") {
-      setVerticalActive("kaikki-tuotteet");
-    }
-
-    if (e.target.value !== "") {
-      const filteredProducts = tuotteet.filter((product) => {
-        return product.tuotenimi
-          .toLowerCase()
-          .includes(e.target.value.toLowerCase());
-      });
-      setSearchResults(filteredProducts);
-      setVerticalActive("searchResults");
-    }
   };
 
   // Tuotteen uniikkien värien listaus
@@ -146,14 +126,7 @@ const Tuotteet = (props) => {
     <MDBContainer className="text-center text-md-start">
       <MDBRow className="justify-content-center">
         <MDBCol size="4">
-          <MDBInputGroup>
-            <MDBIcon className="m-3" icon="search" size="lg" />
-            <MDBInput
-              label="Etsi tuotteita"
-              onChange={handleSearch}
-              value={searchInput}
-            />
-          </MDBInputGroup>
+          <Tuotehakupalkki tuotteet={tuotteet} setVerticalActive={setVerticalActive} setSearchResults={setSearchResults} />
         </MDBCol>
       </MDBRow>
       <MDBRow className="mt-3">
