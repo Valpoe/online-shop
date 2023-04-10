@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import SamankaltaisetTuotteet from './SamankaltaisetTuotteet';
+import SamankaltaisetTuotteet from './components/SamankaltaisetTuotteet';
 
 const mockItems = [];
 const mockSetItems = jest.fn();
