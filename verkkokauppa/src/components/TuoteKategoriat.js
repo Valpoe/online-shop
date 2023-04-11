@@ -57,7 +57,7 @@ function TuoteKategoriat(props) {
 
   // Halvimman ja kalleimman tuotteen suodatus
   const [sort, setSort] = useState("cheapest");
-  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [sortedProducts, setSortedProducts] = useState([]);
 
   useEffect(() => {
   }, [sort]);
@@ -74,13 +74,10 @@ function TuoteKategoriat(props) {
         return b.hinta - a.hinta;
       }
     });
-    setFilteredProducts(sortedProducts);
-  }, [sort, props.tuotteet]);
-
-  useEffect(() => {
-    props.setSearchResults(filteredProducts);
+    setSortedProducts(sortedProducts);
+    props.setSearchResults(sortedProducts);
     props.setVerticalActive("searchResults");
-  }, [filteredProducts, props]);
+  }, [sort, props.tuotteet]);
 
   return (
     <>
