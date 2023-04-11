@@ -12,7 +12,6 @@ function SamankaltaisetTuotteet(props) {
 
       const [tuotekategoria, setTuotekategoria] = useState([props.tuotekategoria]);
       const [valittuTuote, setvalittuTuote] = useState([props.aktiivinenTuote]);
-      const [filteredTuote, setFilteredTuote] = useState([props.tuotekategoria]);
 
       useEffect(() => {
         async function TuoteKategoriaHaku() {
