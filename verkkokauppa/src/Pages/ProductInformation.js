@@ -11,6 +11,7 @@ const ProductInformation = (props) => {
   const [tuote, setTuote] = useState([]);
   const [tuotekategoria, setTuotekategoria] = useState([]);
   const { tuoteID } = useParams();
+  const [kategoriaID, setKategoriaID] = useState([]);
   
   const refreshPage = () => {
     //move to top of page
@@ -22,24 +23,28 @@ const ProductInformation = (props) => {
     async function fetchData() {
       //fetch tuote with tuoteID
       const tuoteData = await getTuote(tuoteID);
+      setTuotekategoria(await getKategoriaTuotteet(tuoteData[0].kategoriaid));
+      setKategoriaID(tuoteData[0].kategoriaid);
       setTuote(tuoteData);
     }
     fetchData();
   }, [aktiivinenTuote]);
   
-  useEffect(() => {
-    async function TuoteKategoriaHaku() {
-      if (tuote[0] && tuote[0].kategoriaid) {
-        console.log(tuote[0].kategoriaid + "kategoria id haettu!!!");
-        setTuotekategoria(await getKategoriaTuotteet(tuote[0].kategoriaid));
-      }
-    }
-    TuoteKategoriaHaku();
-  
-    if(tuoteID === aktiivinenTuote){
-      refreshPage();
-    }
-  }, [tuote]);
+//  useEffect(() => {
+//    async function TuoteKategoriaHaku() {
+//      if (tuote[0] && tuote[0].kategoriaid) {
+//        console.log(tuote[0].kategoriaid + "kategoria id haettu!!!");
+//        setTuotekategoria(await getKategoriaTuotteet(tuote[0].kategoriaid));
+//      }
+//    }
+//    TuoteKategoriaHaku();
+//  
+//    if(tuoteID === aktiivinenTuote){
+//      refreshPage();
+//    }
+//  }, [tuote]);
+
+
 
   // Jos tuotteet eivät ole vielä ladattu, näytetään spinneri.
   if (tuote.length === 0) {
@@ -70,7 +75,7 @@ const ProductInformation = (props) => {
             </div>
             <MDBRow className="row-cols-1 row-cols-md-3 g-4">
 
-              <SamankaltaisetTuotteet tuotteet={props.tuotteet} items={props.items} tuotekategoria={tuotekategoria} setAktiivinenTuote={setAktiivinenTuote}/>
+              <SamankaltaisetTuotteet tuote={tuote} items={props.items} tuotekategoria={kategoriaID} setAktiivinenTuote={setAktiivinenTuote} setItems={props.setItems}/>
 
             </MDBRow>
             </MDBCol>
