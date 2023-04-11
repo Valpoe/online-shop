@@ -20,6 +20,7 @@ function SamankaltaisetTuotteet(props) {
               setTuotekategoria(await getKategoriaTuotteet(props.tuotekategoria));
               console.log(tuotekategoria + "  kategoria id haettu!!!");
               setvalittuTuote(props.tuote[0].tuoteID);
+              props.setAktiivinenTuote(props.tuote[0].tuoteID);
           }
         }
         TuoteKategoriaHaku();
