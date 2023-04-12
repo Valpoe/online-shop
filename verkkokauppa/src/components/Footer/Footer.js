@@ -1,8 +1,10 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { MDBFooter, MDBContainer, MDBRow, MDBCol, MDBIcon } from 'mdb-react-ui-kit';
+//asd
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
 return (
   <MDBFooter bgColor='light' className='text-center text-lg-start text-muted'>
       <section className='d-flex justify-content-center justify-content-lg-between p-4 border-bottom'>
@@ -113,9 +115,9 @@ return (
       </section>
 
       <div className='text-center p-4' style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}>
-        © 2021 Copyright: 
+        © {currentYear} Copyright: 
         <a className='text-reset fw-bold' href='https://mdbootstrap.com/'>
-          MDBootstrap.com
+          Kynä & Kumi
         </a>
       </div>
     </MDBFooter>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink } from "react-router-dom";
+import { NavLink, Navigate } from "react-router-dom";
 import {
     MDBContainer,
     MDBNavbar,
@@ -8,29 +8,44 @@ import {
     MDBNavbarNav,
     MDBNavbarItem,
     MDBIcon,
-    MDBCollapse
+    MDBCollapse,  
+    MDBBtn,
+    MDBModal,
+    MDBModalDialog,
+    MDBModalContent,
+    MDBModalHeader,
+    MDBModalTitle,
+    MDBModalBody,
+    MDBModalFooter,
+    MDBCardText,
+    MDBCard,
   } from 'mdb-react-ui-kit';
+import Ostoskori from '../Ostoskori';
 
-const Header = () => {
+const Header = (props) => {
     const [showNavCentred, setShowNavCentred] = useState(false);
+    const [basicModal, setBasicModal] = useState(false);
+
+    const toggleShow = () => setBasicModal(!basicModal);
     return(
+      
         <MDBNavbar expand='lg' light bgColor='light' className="mb-5">
       <MDBContainer fluid>
         <MDBNavbarBrand tag="strong">
           Kynä & Kumi
          </MDBNavbarBrand>
         <MDBIcon fas icon="pencil-ruler" className="text-dark" />
+        <MDBNavbarBrand style={{fontFamily: 'serif'}} className='' >Kynä & Kumi</MDBNavbarBrand>
+        <MDBIcon fas icon="pencil-ruler" />
         <MDBNavbarToggler
           type='button'
           aria-expanded='false'
           aria-label='Toggle navigation'
-          onClick={() => setShowNavCentred(!showNavCentred)}
-        >
+          onClick={() => setShowNavCentred(!showNavCentred)}>
           <MDBIcon icon='bars' fas />
         </MDBNavbarToggler>
         <MDBCollapse navbar show={showNavCentred} className="collapse navbar-collapse justify-content-center" >
           <MDBNavbarNav fullWidth={false} className="mb-2 mb-lg-0" >
-
             <MDBNavbarItem>
             <NavLink to="/" className='nav-link'>Etusivu</NavLink>
             </MDBNavbarItem>
@@ -43,17 +58,27 @@ const Header = () => {
             <MDBNavbarItem>
             <NavLink to="/ota-yhteytta" className='nav-link'>Ota yhteyttä</NavLink>
             </MDBNavbarItem>
-            <MDBNavbarItem>
-            <NavLink to="/ProductInformation" className='nav-link'>Tuote info</NavLink>
-            </MDBNavbarItem>
-            <MDBNavbarItem>
-            <NavLink to="/ostoskori" className='nav-link'>
-              <MDBIcon fas icon="shopping-cart" />
-            </NavLink>
-            </MDBNavbarItem>
-
           </MDBNavbarNav>
         </MDBCollapse>
+
+        <MDBBtn onClick={toggleShow}><MDBIcon fas icon="shopping-cart" className='me-2'/>{props.items.length}</MDBBtn>
+      <MDBModal show={basicModal} setShow={setBasicModal} tabIndex='-1'>
+        <MDBModalDialog className="modal-dialog modal-xl">
+          <MDBModalContent>
+            <MDBModalHeader>
+              <MDBModalTitle>Ostoskori</MDBModalTitle>
+              <MDBBtn className='btn-close' color='none' onClick={toggleShow}></MDBBtn>
+            </MDBModalHeader>
+            <Ostoskori setItems={props.setItems} items={props.items} removeItem={props.removeItem} getTotal={props.getTotal} countItem={props.countItem} />
+            <MDBModalFooter>
+              <MDBBtn className="btn btn-dark" onClick={toggleShow}>
+                Close
+              </MDBBtn>
+              <NavLink className="btn btn-primary" to={"/tilaus"} onClick={toggleShow}>Siirry tilaamaan</NavLink>
+            </MDBModalFooter>
+          </MDBModalContent>
+        </MDBModalDialog>
+      </MDBModal>
       </MDBContainer>
     </MDBNavbar>
     );
