@@ -1,5 +1,5 @@
 import React from 'react';
-import { MDBCarousel, MDBCarouselItem, MDBTypography } from 'mdb-react-ui-kit';
+import { MDBCarousel, MDBCarouselItem, MDBTypography, MDBBtn } from 'mdb-react-ui-kit';
 import EtusivuKuva3 from "../Images/ESvihkokuva.jpg"
 import EtusivuKuva2 from "../Images/ESkuva2.jpg"
 import EtusivuKuva1 from "../Images/ESkuva1.jpg"
@@ -8,27 +8,42 @@ const Etusivu = () => {
 
 return(
 
-<MDBTypography>
-    <MDBCarousel showIndicators showControls dealy={3000} >
-        <MDBCarouselItem
-            className='w-100 d-block'
-            itemId={1}
-            src={EtusivuKuva1} 
-            alt='...'
-        />
-        <MDBCarouselItem
-            className='w-100 d-block'
-            itemId={2}
-            src={EtusivuKuva2} 
-            alt='kynät'
-        />
-        <MDBCarouselItem
-            className='w-100 d-block'
-            itemId={3}
-            src={EtusivuKuva3}
-            alt='...'
-        />
+<MDBTypography className="p-5">
+<MDBCarousel showIndicators showControls fade>
+      <MDBCarouselItem
+        className='w-100 d-block'
+        itemId={1}
+        src='https://mdbootstrap.com/img/Photos/Slides/img%20(15).jpg'
+        alt='...'
+      >
+        <h5>First slide label</h5>
+        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+      </MDBCarouselItem>
+
+      <MDBCarouselItem
+        className='w-100 d-block'
+        itemId={2}
+        src='https://mdbootstrap.com/img/Photos/Slides/img%20(22).jpg'
+        alt='...'
+      >
+        <h5>Second slide label</h5>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      </MDBCarouselItem>
+
+      <MDBCarouselItem
+        className='w-100 d-block'
+        itemId={3}
+        src='https://mdbootstrap.com/img/Photos/Slides/img%20(23).jpg'
+        alt='...'
+      >
+        <h5>Third slide label</h5>
+        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+      </MDBCarouselItem>
     </MDBCarousel>
+<MDBTypography className="text-center p-3">
+    <MDBBtn color="success">Ostoksille</MDBBtn>
+</MDBTypography>
+
 </MDBTypography>
 
 );

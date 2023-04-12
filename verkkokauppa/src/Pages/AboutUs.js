@@ -2,7 +2,6 @@ import React from 'react';
 import tietoaMeistaKuva from "../Images/TMkuva1.jpg"
 import tietoaMeistaKuva2 from "../Images/TMkuva2.jpg"
 import tietoaMeistaKuva3 from "../Images/TMkuva3.jpg"
-import "../css/AboutUs.css"
 import { MDBRow, MDBCol, MDBTypography } from 'mdb-react-ui-kit';
 
 const AboutUs = () => {
@@ -11,16 +10,16 @@ const AboutUs = () => {
         <MDBTypography tag="div">
             <MDBTypography tag="div">
                 <MDBTypography tag="div">
-                    <MDBTypography variant="h1" className="fw-bold text-center p-5 header">Tietoa meistä</MDBTypography>
+                    <MDBTypography variant="h1" className="fw-bold text-center p-5 text-dark bg-success bg-opacity-50">Tietoa meistä</MDBTypography>
                 </MDBTypography>
                 <MDBTypography tag="div">
-                    <p className="quote text-center fw-bold pt-5 fs-5 fst-italic pb-2">
+                    <p className="text-success text-center fw-bold pt-5 fs-5 fst-italic pb-2">
                         Korkealaatuisella suomalaisella tekniikalla valmistetut koulutarvikkeet kirkkaissa väreissä jakestävissä pakkauksissa.
                     </p>
                     <MDBRow>
                         <MDBCol md="6">
-                            <MDBTypography variant="h4" className="subheader fw-bold text-center pt-3 pb-2">Yrityksemme</MDBTypography>
-                            <MDBTypography tag="div" className="text lh-lg ps-5 pe-5">
+                            <MDBTypography variant="h4" className="text-dark fw-bold text-center pt-3 pb-2">Yrityksemme</MDBTypography>
+                            <MDBTypography tag="div" className="text-dark lh-lg ps-5 pe-5">
                             <p>Kynä & Kumi on yritys, joka on omistautunut tarjoamaan korkealaatuisia
                                 koulutarvikkeita kaiken ikäisille opiskelijoille. Kirjoitusvälineisiin ja kumituotteisiin keskittyvä
                                 Kynä & Kumi tarjoaa laajan valikoiman tuotteita opiskelijoiden tarpeisiin päiväkodista yliopistoon.
@@ -45,8 +44,8 @@ const AboutUs = () => {
                     </MDBRow>
                 </MDBTypography>
                 <MDBTypography tag="div">
-                    <MDBTypography variant="h4" className="subheader fw-bold text-center pt-5 pb-2">Mistä kaikki alkoi</MDBTypography>
-                    <p className="text lh-lg ps-5 pe-5 pb-5">
+                    <MDBTypography variant="h4" className="text-dark fw-bold text-center pt-5 pb-2">Mistä kaikki alkoi</MDBTypography>
+                    <p className="text-dark lh-lg ps-5 pe-5 pb-5">
                         Kynä & Kumin perustivat vuonna 2005 kaksi ystävää, Anna ja Marko, joita jakoi intohimo koulutukseen ja
                         halu luoda laadukkaita koulutarvikkeita. Inspiraation yritykselle tuli Annan kokemuksesta opettajana,
                         jossa hänellä oli usein vaikeuksia löytää oppilailleen luotettavia ja kestäviä kirjoitusvälineitä ja
