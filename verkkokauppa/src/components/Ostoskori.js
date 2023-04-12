@@ -66,7 +66,6 @@ function Ostoskori(props) {
   return (
     <div className="p-4">
       <div>
-        <ul>
           {uniqueItems.map((item, index) => (
         <MDBCard key={index}  className="rounded-3 mb-4">
         <MDBCardBody className="p-4">
@@ -108,7 +107,6 @@ function Ostoskori(props) {
         </MDBCardBody>
       </MDBCard>
           ))}
-        </ul>
       </div>
       <div>
         {getTotal() === 0 ? <h3 className="text-center">Ostoskori on tyhjä</h3> : <h3 className="text-center">Yhteensä: {getTotal()} €</h3>}
