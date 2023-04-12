@@ -22,7 +22,7 @@ return(
     </nav>
 </div>
 
-</MDBTypography>
+
 
 );
 
