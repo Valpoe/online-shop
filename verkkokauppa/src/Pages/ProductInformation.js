@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { MDBRow, MDBCol, MDBCard, MDBCardImage, MDBCardBody, MDBBtn, MDBInput, MDBCardHeader, MDBCardTitle, MDBCardText, MDBCardFooter, MDBContainer, MDBSpinner, MDBIcon } from 'mdb-react-ui-kit';
-import { getKategoriaTuotteet, getTuote, getTuotteet } from '../components/Server/TuoteAPI';
-import { NavLink } from "react-router-dom";
+import { MDBRow, MDBCol, MDBContainer, MDBSpinner } from 'mdb-react-ui-kit';
+import { getKategoriaTuotteet, getTuote } from '../components/Server/TuoteAPI';
 import TuotteenTiedot from '../components/TuotteenTiedot';
 import SamankaltaisetTuotteet from '../components/SamankaltaisetTuotteet';
 
@@ -13,10 +12,6 @@ const ProductInformation = (props) => {
   const { tuoteID } = useParams();
   const [kategoriaID, setKategoriaID] = useState([]);
   
-  const refreshPage = () => {
-    //move to top of page
-    window.scrollTo(0, 0);
-  }
 
   useEffect(() => {
     //refresh page
@@ -29,22 +24,6 @@ const ProductInformation = (props) => {
     }
     fetchData();
   }, [aktiivinenTuote]);
-  
-//  useEffect(() => {
-//    async function TuoteKategoriaHaku() {
-//      if (tuote[0] && tuote[0].kategoriaid) {
-//        console.log(tuote[0].kategoriaid + "kategoria id haettu!!!");
-//        setTuotekategoria(await getKategoriaTuotteet(tuote[0].kategoriaid));
-//      }
-//    }
-//    TuoteKategoriaHaku();
-//  
-//    if(tuoteID === aktiivinenTuote){
-//      refreshPage();
-//    }
-//  }, [tuote]);
-
-
 
   // Jos tuotteet eivät ole vielä ladattu, näytetään spinneri.
   if (tuote.length === 0) {
@@ -75,7 +54,7 @@ const ProductInformation = (props) => {
             </div>
             <MDBRow className="row-cols-1 row-cols-md-3 g-4">
 
-              <SamankaltaisetTuotteet tuote={tuote} items={props.items} tuotekategoria={kategoriaID} setAktiivinenTuote={setAktiivinenTuote} setItems={props.setItems}/>
+              <SamankaltaisetTuotteet tuote={tuote} items={props.items} tuotekategoria={kategoriaID} setAktiivinenTuote={setAktiivinenTuote} aktiivinenTuote={aktiivinenTuote} setItems={props.setItems}/>
 
             </MDBRow>
             </MDBCol>
