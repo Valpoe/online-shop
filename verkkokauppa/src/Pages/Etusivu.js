@@ -1,4 +1,8 @@
 import React from 'react';
+import { MDBCarousel, MDBCarouselItem, MDBTypography, MDBBtn } from 'mdb-react-ui-kit';
+import EtusivuKuva3 from "../Images/ESvihkokuva.jpg"
+import EtusivuKuva2 from "../Images/ESkuva2.jpg"
+import EtusivuKuva1 from "../Images/ESkuva1.jpg"
 
 const Etusivu = () => {
 
@@ -17,6 +21,7 @@ return(
         </p>
     </nav>
 </div>
+
 
 
 );

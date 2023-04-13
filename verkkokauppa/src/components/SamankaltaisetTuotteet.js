@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { MDBRow, MDBCol, MDBCard, MDBCardImage, MDBCardBody, MDBBtn, MDBInput, MDBCardHeader, MDBCardTitle, MDBCardText, MDBCardFooter, MDBContainer, MDBSpinner, MDBIcon } from 'mdb-react-ui-kit';
-
+import { MDBCol, MDBCard, MDBCardImage, MDBCardBody, MDBCardHeader, MDBCardTitle, MDBCardText, MDBCardFooter, MDBIcon } from 'mdb-react-ui-kit';
+import { getKategoriaTuotteet } from "./Server/TuoteAPI";
 
 function SamankaltaisetTuotteet(props) {
 
@@ -10,38 +10,78 @@ function SamankaltaisetTuotteet(props) {
         console.log(props.items);
       }
 
-return (
-    <>
-        {props.tuotekategoria.map((tuotteet) => (
-                    <MDBCol key={props.tuotteet.tuoteID}>
-                    <MDBCard className="h-100">
-                        <MDBCardImage
-                        src={props.tuotteet.kuva}
-                        position="top"
-                        alt="..."
-                        />
-                        <MDBCardBody>
-                        <MDBCardHeader>
-                                <MDBCardTitle>{props.tuotteet.tuotenimi}</MDBCardTitle>
-                                </MDBCardHeader>
-                            <MDBCardBody>
-                                <MDBCardText>
-                                Saldo: {props.tuotteet.varastosaldo}
-                                </MDBCardText>
-                                <MDBCardText>
-                                <NavLink to={`/tuotteet/${props.tuotteet.tuoteID}`} onClick={() => props.setAktiivinenTuote(props.tuotteet.tuoteID)}>
-                                    Lisätietoja
-                                </NavLink>
-                                </MDBCardText>
-                                <MDBCardText><button className='btn btn-success' onClick={() => HandleAddToCart(props.tuotteet)}>Lisää ostoskoriin</button></MDBCardText>
-                            </MDBCardBody>
-                            <MDBCardFooter className="fw-bold">Hinta: {props.tuotteet.hinta} <MDBIcon fas icon="euro-sign" /></MDBCardFooter>
-                        </MDBCardBody>
-                    </MDBCard>
-                    </MDBCol>
-                        ))}
-    </>
- )
+      const [tuotekategoria, setTuotekategoria] = useState([props.tuotekategoria]);
+      const [valittuTuote, setvalittuTuote] = useState([props.aktiivinenTuote]);
+
+      useEffect(() => {
+        async function TuoteKategoriaHaku() {
+          if (props.tuotekategoria && props.tuotekategoria) {
+              setTuotekategoria(await getKategoriaTuotteet(props.tuotekategoria));
+              console.log(tuotekategoria + "  kategoria id haettu!!!");
+              setvalittuTuote(props.tuote[0].tuoteID);
+              props.setAktiivinenTuote(props.tuote[0].tuoteID);
+          }
+        }
+        TuoteKategoriaHaku();
+
+      }, [props.tuotekategoria]);
+
+      useEffect(() => {
+        console.log("tuotekategoria: " + tuotekategoria + " aktiivinenTuote: " + props.tuote[0].tuoteID)
+        //remove valittutuote from tuotekategoria
+
+    }, [valittuTuote]);
+
+      useEffect(() => {
+        console.log("filteredtuote: " + props.aktiivinenTuote);
+        refreshPage();
+    }, [props.aktiivinenTuote]);
+
+      const refreshPage = () => {
+        //move to top of page
+        window.scrollTo(0, 0);
+      }
+
+      return (
+        <>
+          {tuotekategoria
+            .filter((tuote) => tuote.tuoteID !== props.aktiivinenTuote)
+            .map((tuotteet, index) => (
+              <MDBCol key={index}>
+                <MDBCard className="h-100">
+                  <MDBCardImage src={tuotteet.kuva} position="top" alt="..." />
+                  <MDBCardBody>
+                    <MDBCardHeader>
+                      <MDBCardTitle>{tuotteet.tuotenimi}</MDBCardTitle>
+                    </MDBCardHeader>
+                    <MDBCardBody>
+                      <MDBCardText>Saldo: {tuotteet.varastosaldo}</MDBCardText>
+                      <MDBCardText>
+                        <NavLink
+                          to={`/tuotteet/${tuotteet.tuoteID}`}
+                          onClick={() => props.setAktiivinenTuote(tuotteet.tuoteID)}
+                        >
+                          Lisätietoja
+                        </NavLink>
+                      </MDBCardText>
+                      <MDBCardText>
+                        <button
+                          className="btn btn-success"
+                          onClick={() => HandleAddToCart(tuotteet)}
+                        >
+                          Lisää ostoskoriin
+                        </button>
+                      </MDBCardText>
+                    </MDBCardBody>
+                    <MDBCardFooter className="fw-bold">
+                      Hinta: {tuotteet.hinta} <MDBIcon fas icon="euro-sign" />
+                    </MDBCardFooter>
+                  </MDBCardBody>
+                </MDBCard>
+              </MDBCol>
+            ))}
+        </>
+      );
 }
 
 export default SamankaltaisetTuotteet;

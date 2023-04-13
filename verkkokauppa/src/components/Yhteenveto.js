@@ -1,15 +1,16 @@
 import { Toast } from "bootstrap";
 import { MDBCard, MDBCardText, MDBCol, MDBIcon, MDBTextArea, MDBInput, MDBCardBody, MDBRow, MDBCardImage, MDBBtn, MDBTypography } from "mdb-react-ui-kit";
 import { useState, useEffect } from "react";
+import "./ScrollableContainer.css"
 
 function Yhteenveto(props) {
 
-  const getTotal = () => {
-    if (!props.items) {
-      return 0;
-    }
-    return props.items.reduce((total, item) => total + item.hinta, 0);
-  };
+  // const getTotal = () => {
+  //   if (!props.items) {
+  //     return 0;
+  //   }
+  //   return props.items.reduce((total, item) => total + item.hinta, 0);
+  // };
 
 //count each tuoteID ammount in separate number
   const countItem = (itemID) => {
@@ -33,12 +34,10 @@ function Yhteenveto(props) {
 
   
   return (
-    <div className="p-4">
-      <div>
-        <ul>
+      <div className="scrollable-container">
           {uniqueItems.map((item) => (
         <MDBCard className="rounded-3 mb-4">
-        <MDBCardBody className="p-4">
+        <MDBCardBody>
           <MDBRow className="justify-content-between align-items-center">
             <MDBCol md="2" lg="2" xl="2">
               <MDBCardImage className="rounded-3" fluid
@@ -52,7 +51,7 @@ function Yhteenveto(props) {
                 <MDBCardText className="text-muted">Määrä: {countItem(item.tuoteid)}</MDBCardText>
               </p>
             </MDBCol>
-            <MDBCol md="3" lg="2" xl="2" className="offset-lg-1">
+            <MDBCol md="3" lg="2" xl="2">
               <MDBTypography tag="h5" className="mb-0">
                 {item.hinta} €
               </MDBTypography>
@@ -61,11 +60,7 @@ function Yhteenveto(props) {
         </MDBCardBody>
       </MDBCard>
           ))}
-        </ul>
-      </div>
-      <div>
-        {getTotal() === 0 ? <h3 className="text-center">Ostoskori on tyhjä</h3> : <h3 className="text-center">Yhteensä: {getTotal()} €</h3>}
-      </div>
+  {/* {getTotal() === 0 ? <h3 className="text-center mt-3">Ostoskori on tyhjä</h3> : <h3 className="text-center">Yhteensä: {getTotal()} €</h3>} */}
     </div>
   );
 }
