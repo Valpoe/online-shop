@@ -39,13 +39,10 @@ function MaaraLaskin(props) {
         <MDBBtn color="link" onClick={() => increaseQuantity()}>
           <MDBIcon fas icon="plus" />
         </MDBBtn>
-          <button
-            className="btn btn-success"
-            onClick={() => HandleAddToCart(props.tuote, quantity)}
-          >
-            Lisää ostoskoriin
-          </button>
       </div>
+        <MDBBtn className="mt-3" onClick={() => HandleAddToCart(props.tuote, quantity)}>
+          Lisää ostoskoriin
+        </MDBBtn>
     </>
   );
 }

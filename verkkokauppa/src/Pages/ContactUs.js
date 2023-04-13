@@ -28,9 +28,10 @@ const ContactUs = () => {
   };
 
   return (
+    <div className="pt-5 pb-5" style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}>
     <section className="d-flex justify-content-center justify-content-lg-between">
       <MDBContainer className="text-center text-md-start">
-        <MDBRow className="mt-3">
+        <MDBRow>
           <MDBCol lg="4" md="5" className="mx-auto mb-5 ps-5 pe-5">
             <form onSubmit={handleSubmit}>
               <h6 className="text-uppercase fw-bold mb-4">Ota yhteyttä</h6>
@@ -50,7 +51,7 @@ const ContactUs = () => {
               </div>
             </form>
           </MDBCol>
-          <MDBCol lg="4" sm="8" md="5" className="mx-auto mb-5">
+          <MDBCol lg="4" sm="8" md="5" className="mx-auto">
             <h6 className="text-uppercase fw-bold mb-4">Yhteystiedot</h6>
             <p>
               <MDBIcon icon="home" className="me-3" />
@@ -73,6 +74,7 @@ const ContactUs = () => {
         </MDBRow>
       </MDBContainer>
     </section>
+    </div>
   );
 };
 

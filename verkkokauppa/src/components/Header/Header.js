@@ -29,7 +29,7 @@ const Header = (props) => {
     const toggleShow = () => setBasicModal(!basicModal);
     return(
       
-        <MDBNavbar expand='lg' light bgColor='light' className="mb-5">
+        <MDBNavbar expand='lg' light bgColor='light'>
       <MDBContainer fluid>
         <MDBNavbarBrand tag="strong">
           Kynä & Kumi

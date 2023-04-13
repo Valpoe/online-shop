@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { MDBCol, MDBCard, MDBCardImage, MDBCardBody, MDBCardHeader, MDBCardTitle, MDBCardText, MDBCardFooter, MDBIcon } from 'mdb-react-ui-kit';
+import { MDBCol, MDBCard, MDBCardImage, MDBCardBody, MDBCardHeader, MDBCardTitle, MDBBtn, MDBCardText, MDBCardFooter, MDBIcon } from 'mdb-react-ui-kit';
 import { getKategoriaTuotteet } from "./Server/TuoteAPI";
 
 function SamankaltaisetTuotteet(props) {
@@ -47,10 +47,9 @@ function SamankaltaisetTuotteet(props) {
           {tuotekategoria
             .filter((tuote) => tuote.tuoteID !== props.aktiivinenTuote)
             .map((tuotteet, index) => (
-              <MDBCol key={index}>
+                <MDBCol key={index}>
                 <MDBCard className="h-100">
                   <MDBCardImage src={tuotteet.kuva} position="top" alt="..." />
-                  <MDBCardBody>
                     <MDBCardHeader>
                       <MDBCardTitle>{tuotteet.tuotenimi}</MDBCardTitle>
                     </MDBCardHeader>
@@ -65,18 +64,16 @@ function SamankaltaisetTuotteet(props) {
                         </NavLink>
                       </MDBCardText>
                       <MDBCardText>
-                        <button
-                          className="btn btn-success"
+                        <MDBBtn
                           onClick={() => HandleAddToCart(tuotteet)}
                         >
                           Lisää ostoskoriin
-                        </button>
+                        </MDBBtn>
                       </MDBCardText>
                     </MDBCardBody>
                     <MDBCardFooter className="fw-bold">
                       Hinta: {tuotteet.hinta} <MDBIcon fas icon="euro-sign" />
                     </MDBCardFooter>
-                  </MDBCardBody>
                 </MDBCard>
               </MDBCol>
             ))}

@@ -1,4 +1,4 @@
-import { MDBCard, MDBCardBody, MDBCardFooter, MDBCardHeader, MDBCardImage, MDBCardText, MDBCardTitle, MDBCol, MDBIcon, MDBRow, MDBTabsContent, MDBTabsPane } from 'mdb-react-ui-kit';
+import { MDBCard, MDBCardBody, MDBCardFooter, MDBBtn, MDBCardHeader, MDBCardImage, MDBCardText, MDBCardTitle, MDBCol, MDBIcon, MDBRow, MDBTabsContent, MDBTabsPane } from 'mdb-react-ui-kit';
 import { NavLink } from 'react-router-dom';
 
 function TuoteKortit(props) {
@@ -19,8 +19,6 @@ function TuoteKortit(props) {
                 <MDBCard className="h-100">
                   <MDBCardImage
                     src={tuotteet.kuva}
-                    width="250px"
-                    height="250px"
                     position="top"
                     alt="..."
                   />
@@ -35,12 +33,11 @@ function TuoteKortit(props) {
                       </NavLink>
                     </MDBCardText>
                     <MDBCardText>
-                      <button
-                        className="btn btn-success"
+                      <MDBBtn
                         onClick={() => HandleAddToCart(tuotteet)}
                       >
                         Lisää ostoskoriin
-                      </button>
+                      </MDBBtn>
                     </MDBCardText>
                   </MDBCardBody>
                   <MDBCardFooter className="fw-bold">
@@ -68,8 +65,6 @@ function TuoteKortit(props) {
                       <MDBCard className="h-100">
                         <MDBCardImage
                           src={tuotteet.kuva}
-                          width="250px"
-                          height="250px"
                           position="top"
                           alt="..."
                         />
@@ -86,12 +81,11 @@ function TuoteKortit(props) {
                             </NavLink>
                           </MDBCardText>
                           <MDBCardText>
-                            <button
-                              className="btn btn-success"
-                              onClick={() => HandleAddToCart(tuotteet)}
-                            >
-                              Lisää ostoskoriin
-                            </button>
+                          <MDBBtn
+                        onClick={() => HandleAddToCart(tuotteet)}
+                      >
+                        Lisää ostoskoriin
+                      </MDBBtn>
                           </MDBCardText>
                         </MDBCardBody>
                         <MDBCardFooter className="fw-bold">
@@ -111,8 +105,7 @@ function TuoteKortit(props) {
                 <MDBCard className="h-100">
                   <MDBCardImage
                     src={tuotteet.kuva}
-                    width="250px"
-                    height="250px"
+
                     position="top"
                     alt="..."
                   />
@@ -127,12 +120,11 @@ function TuoteKortit(props) {
                       </NavLink>
                     </MDBCardText>
                     <MDBCardText>
-                      <button
-                        className="btn btn-success"
+                    <MDBBtn
                         onClick={() => HandleAddToCart(tuotteet)}
                       >
                         Lisää ostoskoriin
-                      </button>
+                      </MDBBtn>
                     </MDBCardText>
                   </MDBCardBody>
                   <MDBCardFooter className="fw-bold">

@@ -36,11 +36,10 @@ const ProductInformation = (props) => {
       )
   } else {
     return (
+      <div className="pt-5 pb-5" style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}>
       <section className="d-flex justify-content-center justify-content-lg-between">
       <MDBContainer className="text-center text-md-start">
-
         <TuotteenTiedot tuote={tuote[0]} items={props.items} setItems={props.setItems} ></TuotteenTiedot>
-        
           {tuotekategoria.length === 0 ? (
                   <div className="text-center m-5">
                   <MDBSpinner role="status">
@@ -48,19 +47,16 @@ const ProductInformation = (props) => {
                   </MDBSpinner>
                   </div>
           ) : (
-            <MDBCol className="mx-auto mb-5 text-center">
-            <div className="text-uppercase fw-bold mb-3 mt-3">
-            <h2>Samankaltaisia tuotteita</h2>
-            </div>
-            <MDBRow className="row-cols-1 row-cols-md-3 g-4">
-
+            <MDBCol className="mx-auto text-center">
+              <h6 className='text-uppercase fw-bold mb-5'>Samankaltaisia tuotteita</h6>
+            <MDBRow className="row-cols-1 row-cols-md-3 g-4 justify-content-center">
               <SamankaltaisetTuotteet tuote={tuote} items={props.items} tuotekategoria={kategoriaID} setAktiivinenTuote={setAktiivinenTuote} aktiivinenTuote={aktiivinenTuote} setItems={props.setItems}/>
-
             </MDBRow>
             </MDBCol>
           )}
     </MDBContainer>
     </section>
+    </div>
     );
   }
 };

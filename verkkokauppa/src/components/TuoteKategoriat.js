@@ -82,9 +82,7 @@ function TuoteKategoriat(props) {
   return (
     <>
       <MDBTabs pills className="flex-column text-center">
-        <div className="text-uppercase text-center fw-bold mb-3">
-          <span>Kategoriat</span>
-        </div>
+      <h6 className='text-uppercase fw-bold mb-4'>Kategoriat</h6>
         <MDBTabsItem>
           <MDBTabsLink
             className="square border border-2"
@@ -97,20 +95,18 @@ function TuoteKategoriat(props) {
         {props.kategoriat.map((kategoria) => (
           <MDBTabsItem key={kategoria.id}>
             <MDBTabsLink
-              className="square border border-2"
+              className="square border border-2"            
               onClick={() => handleVerticalClick(kategoria.kategoriaID)}
               active={props.verticalActive === kategoria.kategoriaID}
             >
-              {kategoria.kuvaus}
+            {kategoria.kuvaus}
             </MDBTabsLink>
           </MDBTabsItem>
         ))}
       </MDBTabs>
-      <div className="text-uppercase text-center fw-bold mb-3 mt-3">
-        <span>Suodata tuotteita</span>
-      </div>
-      <div className="text-center mb-3">
-        <MDBBtn
+      <h6 className='text-uppercase fw-bold mb-4 text-center mt-4'>Suodata tuotteita</h6>
+      <div className="text-center mb-4">
+        <MDBBtn className="me-2"
           color="secondary"
           outline
           onClick={() => {
@@ -129,10 +125,10 @@ function TuoteKategoriat(props) {
           Kallein ensin
         </MDBBtn>
       </div>
-      <div className="mb-3">
-        <div className="text-center mb-3 mt-3">
-          <span>Hinta</span>
-        </div>
+      <div className="mb-4">
+        <p className="text-center">
+        Hinta
+        </p>
         <MDBRange
           min="0"
           max="200"
@@ -148,10 +144,10 @@ function TuoteKategoriat(props) {
           onChange={handleMaxSearch}
         />
       </div>
-      <div className="text-center mb-3">
-        <div className="text-center mb-3 mt-3">
-          <span>Väri</span>
-        </div>
+      <div className="mb-4">
+      <p className="text-center">
+        Väri
+        </p>
         {uniqueColors.map((color) => (
           <MDBBtn
             floating

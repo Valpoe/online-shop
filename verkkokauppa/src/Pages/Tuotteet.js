@@ -42,6 +42,7 @@ const Tuotteet = (props) => {
   }
 
   return (
+    <div className="pt-5 pb-5" style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}>
     <section className="d-flex justify-content-center justify-content-lg-between">
     <MDBContainer className="text-center text-md-start">
       <MDBRow className="justify-content-center">
@@ -49,17 +50,18 @@ const Tuotteet = (props) => {
           <Tuotehakupalkki tuotteet={tuotteet} setVerticalActive={setVerticalActive} setSearchResults={setSearchResults} />
         </MDBCol>
       </MDBRow>
-      <MDBRow className="mt-3">
+      <MDBRow className="mt-4">
         <MDBCol lg="4" md="8" sm="8" className="mx-auto mb-5">
           <TuoteKategoriat kategoriat={kategoriat} verticalActive={verticalActive} tuotteet={tuotteet} 
           setSearchResults={setSearchResults} setVerticalActive={setVerticalActive} />
         </MDBCol>
-        <MDBCol size="8" className="mx-auto mb-5 text-center">
+        <MDBCol size="8" className="mx-auto text-center">
           <TuoteKortit items={props.items} setItems={props.setItems} tuotteet={tuotteet} kategoriat={kategoriat} searchResults={searchResults} verticalActive={verticalActive} />
         </MDBCol>
       </MDBRow>
     </MDBContainer>
     </section>
+    </div>
   );
 };
 
