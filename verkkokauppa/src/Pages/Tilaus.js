@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { MDBRow, MDBCol, MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardFooter, MDBInput, MDBBtn, MDBCheckbox } from 'mdb-react-ui-kit';
 import Yhteenveto from '../components/Yhteenveto';
+import addAsiakas from '../components/Server/AsiakasAPI';
+import createTilaus from '../components/Server/TilausAPI';
+
 
 const Tilaus = (props) => {
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -22,11 +26,25 @@ const Tilaus = (props) => {
     zip: '',
     checked: false, // add checked property for checkbox
   });
-
+  
+  ////// Tilauksen luonti, voi siirtää muualle
+/*
+  const handleButtonClick = async () => {
+    try {
+      const response = await createTilaus.newTilaus(formData, uniqueItemsWithQuantity);
+      if (response.success) {
+        console.log(response.message);
+      } else {
+        console.error(response.message);
+      }
+    } catch (err) {
+      console.error('Error making order:', err);
+    }
+  };
+*/
   const [ostoskori, setOstoskori] = useState(props.items);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [failedSubmit, setFailedSubmit] = useState(false);
-
   const [tilaus, setTilaus] = useState(false);
 
   //search item ammount from ostoskori with item id and return ammount
@@ -54,6 +72,7 @@ const Tilaus = (props) => {
       määrä: countItem(tuote.tuoteid),
     };
   });
+
 
   //useeffect to clear ostoskori after tilaus set true
      useEffect(() => {
@@ -110,7 +129,7 @@ const Tilaus = (props) => {
       setIsSubmitting(false);
       setFailedSubmit(false);
       setTilaus(true);
-      
+      createTilaus.newTilaus(formData, uniqueItemsWithQuantity);
       //print ostoskori json
       //Form output and filtered ostoskori output with quantyties
       console.log(formData);
