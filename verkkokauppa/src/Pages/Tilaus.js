@@ -16,7 +16,6 @@ import {
   MDBFooter,
   MDBCardHeader
 } from "mdb-react-ui-kit";
-import Yhteenveto from "../components/Yhteenveto";
 import Yhteenveto from '../components/Yhteenveto';
 import addAsiakas from '../components/Server/AsiakasAPI';
 import createTilaus from '../components/Server/TilausAPI';
