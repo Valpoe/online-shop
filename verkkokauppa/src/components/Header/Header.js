@@ -21,12 +21,16 @@ import {
     MDBCard,
   } from 'mdb-react-ui-kit';
 import Ostoskori from '../Ostoskori';
+import LoginRegister from '../LoginRegister';
 
 const Header = (props) => {
     const [showNavCentred, setShowNavCentred] = useState(false);
     const [basicModal, setBasicModal] = useState(false);
+    const [basicModalLogin, setBasicModalLogin] = useState(false);
 
     const toggleShow = () => setBasicModal(!basicModal);
+    const toggleShowLogin = () => setBasicModalLogin(!basicModalLogin);
+
     return(
       
         <MDBNavbar expand='lg' light bgColor='light'>
@@ -77,6 +81,27 @@ const Header = (props) => {
           </MDBModalContent>
         </MDBModalDialog>
       </MDBModal>
+
+
+
+      <MDBBtn onClick={toggleShowLogin}><MDBIcon fas icon="child" className='me-2'/></MDBBtn>
+      <MDBModal show={basicModalLogin} setShow={setBasicModalLogin} tabIndex='-1'>
+        <MDBModalDialog className="modal-dialog modal-xl">
+          <MDBModalContent>
+            <MDBModalHeader>
+              <MDBBtn className='btn-close' color='none' onClick={toggleShowLogin}></MDBBtn>
+            </MDBModalHeader>
+            <LoginRegister/>
+            <MDBModalFooter>
+              <MDBBtn className="btn btn-dark" onClick={toggleShowLogin}>
+                Close
+              </MDBBtn>
+              <NavLink className="btn btn-primary" to={"/tilaus"} onClick={toggleShowLogin}>Meme</NavLink>
+            </MDBModalFooter>
+          </MDBModalContent>
+        </MDBModalDialog>
+      </MDBModal>
+
       </MDBContainer>
     </MDBNavbar>
     );

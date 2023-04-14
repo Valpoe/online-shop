@@ -11,6 +11,7 @@ import PrivacyStatement from './Pages/PrivacyStatement';
 import ProductInformation from './Pages/ProductInformation';
 import Tilaus from './Pages/Tilaus';
 import { useState } from 'react';
+import OrderManagement from './Pages/OrderManagement';
 
 
 function App() {
@@ -51,6 +52,7 @@ function App() {
         <Route path='/ota-yhteytta' element={<ContactUs />} />
         <Route path='/tuotteet/:tuoteID' element={<ProductInformation setItems={setItems} items={items} getTotal={getTotal} countItem={countItem}/>} />
         <Route path='/tilaus' element={<Tilaus items={items} setItems={setItems}/> } />
+        <Route path='/tilaushallinta' element={<OrderManagement items={items} setItems={setItems}/> } />
       </Routes>
       <Footer />
     </Router>
