@@ -16,7 +16,14 @@ import OrderManagement from './Pages/OrderManagement';
 
 function App() {
 
+  
   const [items, setItems] = useState([])
+
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [user, setUser] = useState(null)
+
+  
 
   //get items count
   const getItemsCount = () => {
