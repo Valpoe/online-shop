@@ -202,7 +202,6 @@ function LoginRegister(props) {
             value={LoginForm.password}
             error={LoginErrorForm.password}
             onChange={handleChangeLogin}
-            
             />
             
 

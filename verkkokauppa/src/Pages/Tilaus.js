@@ -14,11 +14,13 @@ import {
   MDBValidation,
   MDBValidationItem,
   MDBFooter,
-  MDBCardHeader
+  MDBCardHeader,
+  MDBIcon
 } from "mdb-react-ui-kit";
 import Yhteenveto from '../components/Yhteenveto';
 import addAsiakas from '../components/Server/AsiakasAPI';
 import createTilaus from '../components/Server/TilausAPI';
+import LoginRegister from "../components/LoginRegister";
 
 const Tilaus = (props) => {
 
@@ -171,6 +173,25 @@ const Tilaus = (props) => {
     const name = target.name;
     setFormData({ ...formData, [name]: value });
   };
+
+  if(props.userID === null) {
+    return (
+      <MDBCard>
+        <MDBCardBody>
+          <MDBCardTitle className="mb-4">
+            Hupsis, et ole kirjautunut sisään vielä
+            <MDBIcon fas icon="circle-exclamation" className="p-1"></MDBIcon>
+          </MDBCardTitle>
+          <MDBCardText>
+            <p>Ole hyvä ja kirjaudu tai rekisteröidy ennen kuin jatkat tilauksen tekemiseen.
+              Näin varmistamme että saatte tuotteenne varmasti perille. Kiitos yhteistyöstä!</p>
+          </MDBCardText>
+          <LoginRegister></LoginRegister>
+        </MDBCardBody>
+
+      </MDBCard>
+  );
+}
 
   //if isSubmitting is true, disable the submit button
   if (tilaus) {

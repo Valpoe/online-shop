@@ -12,18 +12,17 @@ import ProductInformation from './Pages/ProductInformation';
 import Tilaus from './Pages/Tilaus';
 import { useState } from 'react';
 import OrderManagement from './Pages/OrderManagement';
-
+import AccountManagement from './Pages/AccountManagement';
 
 function App() {
 
   
   const [items, setItems] = useState([])
-
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
+  const [userID, setUserID] = useState(null)
 
-  
 
   //get items count
   const getItemsCount = () => {
@@ -58,8 +57,9 @@ function App() {
         <Route path='/PrivacyStatement' element={<PrivacyStatement />} />
         <Route path='/ota-yhteytta' element={<ContactUs />} />
         <Route path='/tuotteet/:tuoteID' element={<ProductInformation setItems={setItems} items={items} getTotal={getTotal} countItem={countItem}/>} />
-        <Route path='/tilaus' element={<Tilaus items={items} setItems={setItems}/> } />
+        <Route path='/tilaus' element={<Tilaus items={items} setItems={setItems} userID={userID}/> } />
         <Route path='/tilaushallinta' element={<OrderManagement items={items} setItems={setItems}/> } />
+        <Route path='/tilinhallinta' element={<AccountManagement items={items} setItems={setItems}/> } />
       </Routes>
       <Footer />
     </Router>
