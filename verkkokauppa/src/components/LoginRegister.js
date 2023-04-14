@@ -119,7 +119,6 @@ function LoginRegister(props) {
         
 
             useEffect(() => {
-
                 console.log(LoginActive);
             }, [LoginActive]);
 
@@ -151,7 +150,7 @@ function LoginRegister(props) {
                   )}
 
           <div className="text-center mb-3">
-            <p>Sign in with:</p>
+            <p>Seuraa sosiaalista mediaamme:</p>
 
             <div className='d-flex justify-content-between mx-auto' style={{width: '40%'}}>
               <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
@@ -171,7 +170,7 @@ function LoginRegister(props) {
               </MDBBtn>
             </div>
 
-            <p className="text-center mt-3">or:</p>
+            <p className="text-center mt-3">Tai:</p>
           </div>
             <form onSubmit={SubmitLogin}>
 
@@ -208,7 +207,7 @@ function LoginRegister(props) {
             
 
           <div className="d-flex justify-content-between mx-4 mb-4">
-            <MDBCheckbox label='Remember me' />
+            <MDBCheckbox label='Muista minut' />
             <a href="!#">Unohtuiko salasana?</a>
           </div>
 
