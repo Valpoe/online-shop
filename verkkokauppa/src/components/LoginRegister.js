@@ -59,6 +59,7 @@ function LoginRegister(props) {
             if(Object.keys(errors).length === 0) {
                 console.log(LoginForm);
                 setLoginActive(true);
+                props.setUserID(1);
             }
             else {
                 console.log(errors)
