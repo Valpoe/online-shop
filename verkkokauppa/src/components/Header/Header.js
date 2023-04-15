@@ -93,7 +93,7 @@ const Header = (props) => {
                   <MDBModalHeader>
                     <MDBBtn className='btn-close' color='none' onClick={toggleShowLogin}></MDBBtn>
                   </MDBModalHeader>
-                  <LoginRegister/>
+                  <LoginRegister social={true} setUserID={props.setUserID} userID={props.userID} setUser={props.setUser}/>
                   <MDBModalFooter>
                     <MDBBtn className="btn btn-dark" onClick={toggleShowLogin}>
                       Close

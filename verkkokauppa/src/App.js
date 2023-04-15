@@ -49,7 +49,7 @@ function App() {
 
   return (
     <Router>
-      <Header setItems={setItems} items={items} getTotal={getTotal} getItemsCount={getItemsCount} countItem={countItem} user={user}/>
+      <Header setItems={setItems} items={items} getTotal={getTotal} getItemsCount={getItemsCount} countItem={countItem} user={user} setUserID={setUserID} userID={userID} setUser={setUser}/>
       <Routes>
         <Route path='/' element={<Etusivu />} />
         <Route path='/Tuotteet' element={<Tuotteet setItems={setItems} items={items} getTotal={getTotal} countItem={countItem}/>} />

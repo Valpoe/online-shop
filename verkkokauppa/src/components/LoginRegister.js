@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { MDBContainer, MDBTabs, MDBTabsItem, MDBTabsLink, MDBTabsContent, MDBTabsPane, MDBCheckbox, MDBInput, MDBBtn, MDBIcon } from "mdb-react-ui-kit";
-import { Tab } from "bootstrap";
+import { Modal, Tab } from "bootstrap";
 
 function LoginRegister(props) {
+
+        const [showSocial, setShowSocial] = useState(props.social);
 
         const [RegisterForm, setRegisterForm] = useState({
             name: '',
@@ -152,29 +154,33 @@ function LoginRegister(props) {
                     <div className="text-success mb-2">*Kirjautuminen onnistui</div>
                   )}
 
+
+          {showSocial && (
           <div className="text-center mb-3">
-            <p>Seuraa sosiaalista mediaamme:</p>
+              <div>
+                <p>Seuraa sosiaalista mediaamme:</p>
 
-            <div className='d-flex justify-content-between mx-auto' style={{width: '40%'}}>
-              <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
-                <MDBIcon fab icon='facebook-f' size="sm"/>
-              </MDBBtn>
+                <div className='d-flex justify-content-between mx-auto' style={{width: '40%'}}>
+                  <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
+                    <MDBIcon fab icon='facebook-f' size="sm"/>
+                  </MDBBtn>
 
-              <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
-                <MDBIcon fab icon='twitter' size="sm"/>
-              </MDBBtn>
+                  <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
+                    <MDBIcon fab icon='twitter' size="sm"/>
+                  </MDBBtn>
 
-              <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
-                <MDBIcon fab icon='google' size="sm"/>
-              </MDBBtn>
+                  <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
+                    <MDBIcon fab icon='google' size="sm"/>
+                  </MDBBtn>
 
-              <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
-                <MDBIcon fab icon='github' size="sm"/>
-              </MDBBtn>
-            </div>
-
-            <p className="text-center mt-3">Tai:</p>
-          </div>
+                  <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
+                    <MDBIcon fab icon='github' size="sm"/>
+                  </MDBBtn>
+                </div>
+                <p className="text-center mt-3">Tai:</p>
+                </div>          
+                  </div>
+                  )}
             <form onSubmit={SubmitLogin}>
 
 
@@ -222,29 +228,32 @@ function LoginRegister(props) {
 
         <MDBTabsPane show={justifyActive === 'tab2'}>
 
+        {showSocial && (
           <div className="text-center mb-3">
-            <p>Seuraa sosiaalista mediaamme:</p>
+              <div>
+                <p>Seuraa sosiaalista mediaamme:</p>
 
-            <div className='d-flex justify-content-between mx-auto' style={{width: '40%'}}>
-              <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
-                <MDBIcon fab icon='facebook-f' size="sm"/>
-              </MDBBtn>
+                <div className='d-flex justify-content-between mx-auto' style={{width: '40%'}}>
+                  <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
+                    <MDBIcon fab icon='facebook-f' size="sm"/>
+                  </MDBBtn>
 
-              <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
-                <MDBIcon fab icon='twitter' size="sm"/>
-              </MDBBtn>
+                  <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
+                    <MDBIcon fab icon='twitter' size="sm"/>
+                  </MDBBtn>
 
-              <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
-                <MDBIcon fab icon='google' size="sm"/>
-              </MDBBtn>
+                  <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
+                    <MDBIcon fab icon='google' size="sm"/>
+                  </MDBBtn>
 
-              <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
-                <MDBIcon fab icon='github' size="sm"/>
-              </MDBBtn>
-            </div>
-
-            <p className="text-center mt-3">Tai:</p>
-          </div>
+                  <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
+                    <MDBIcon fab icon='github' size="sm"/>
+                  </MDBBtn>
+                </div>
+                <p className="text-center mt-3">Tai:</p>
+                </div>          
+                  </div>
+                  )}
 
         <form onSubmit={SubmitRegister}>
 
