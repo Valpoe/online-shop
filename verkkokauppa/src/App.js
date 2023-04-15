@@ -49,7 +49,7 @@ function App() {
 
   return (
     <Router>
-      <Header setItems={setItems} items={items} getTotal={getTotal} getItemsCount={getItemsCount} countItem={countItem} />
+      <Header setItems={setItems} items={items} getTotal={getTotal} getItemsCount={getItemsCount} countItem={countItem} user={user}/>
       <Routes>
         <Route path='/' element={<Etusivu />} />
         <Route path='/Tuotteet' element={<Tuotteet setItems={setItems} items={items} getTotal={getTotal} countItem={countItem}/>} />
@@ -57,7 +57,7 @@ function App() {
         <Route path='/PrivacyStatement' element={<PrivacyStatement />} />
         <Route path='/ota-yhteytta' element={<ContactUs />} />
         <Route path='/tuotteet/:tuoteID' element={<ProductInformation setItems={setItems} items={items} getTotal={getTotal} countItem={countItem}/>} />
-        <Route path='/tilaus' element={<Tilaus items={items} setItems={setItems} userID={userID} setUserID={setUserID}/> } />
+        <Route path='/tilaus' element={<Tilaus items={items} setItems={setItems} userID={userID} setUserID={setUserID} user={user} setUser={setUser} /> } />
         <Route path='/tilaushallinta' element={<OrderManagement items={items} setItems={setItems}/> } />
         <Route path='/tilinhallinta' element={<AccountManagement items={items} setItems={setItems}/> } />
       </Routes>

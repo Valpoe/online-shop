@@ -58,6 +58,8 @@ function LoginRegister(props) {
                 //if no errors submit the form
             if(Object.keys(errors).length === 0) {
                 console.log(LoginForm);
+
+                props.setUser(LoginForm.email)
                 setLoginActive(true);
                 props.setUserID(1);
             }
@@ -295,18 +297,13 @@ function LoginRegister(props) {
         onChange={handleChange}
         error={RegisterErrorForm.checked}
         />
-        
 
         <MDBBtn type='submit' className="mb-4 w-100">Rekisteröidy</MDBBtn>
-
           <div className='d-flex justify-content-center mb-4'>
           </div>
-
         </form>
         </MDBTabsPane>
-
       </MDBTabsContent>
-
     </MDBContainer>
     </>
   );

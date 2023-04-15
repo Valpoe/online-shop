@@ -32,7 +32,6 @@ const Header = (props) => {
     const toggleShowLogin = () => setBasicModalLogin(!basicModalLogin);
 
     return(
-      
         <MDBNavbar expand='lg' light bgColor='light'>
       <MDBContainer fluid>
         <MDBNavbarBrand tag="strong">
@@ -63,45 +62,49 @@ const Header = (props) => {
           </MDBNavbarNav>
         </MDBCollapse>
 
-        <MDBBtn onClick={toggleShow} className='me-2'><MDBIcon fas icon="shopping-cart" className='me-2'/>{props.items.length}</MDBBtn>
-      <MDBModal show={basicModal} setShow={setBasicModal} tabIndex='-1'>
-        <MDBModalDialog className="modal-dialog modal-xl">
-          <MDBModalContent>
-            <MDBModalHeader>
-              <MDBModalTitle>Ostoskori</MDBModalTitle>
-              <MDBBtn className='btn-close' color='none' onClick={toggleShow}></MDBBtn>
-            </MDBModalHeader>
-            <Ostoskori setItems={props.setItems} items={props.items} removeItem={props.removeItem} getTotal={props.getTotal} countItem={props.countItem} />
-            <MDBModalFooter>
-              <MDBBtn className="btn btn-dark" onClick={toggleShow}>
-                Close
-              </MDBBtn>
-              <NavLink className="btn btn-primary" to={"/tilaus"} onClick={toggleShow}>Siirry tilaamaan</NavLink>
-            </MDBModalFooter>
-          </MDBModalContent>
-        </MDBModalDialog>
-      </MDBModal>
+            <MDBBtn onClick={toggleShow} className='me-2'><MDBIcon fas icon="shopping-cart" className='me-2'/>{props.items.length}</MDBBtn>
+            <MDBModal show={basicModal} setShow={setBasicModal} tabIndex='-1'>
+              <MDBModalDialog className="modal-dialog modal-xl">
+                <MDBModalContent>
+                  <MDBModalHeader>
+                    <MDBModalTitle>Ostoskori</MDBModalTitle>
+                    <MDBBtn className='btn-close' color='none' onClick={toggleShow}></MDBBtn>
+                  </MDBModalHeader>
+                  <Ostoskori setItems={props.setItems} items={props.items} removeItem={props.removeItem} getTotal={props.getTotal} countItem={props.countItem} />
+                  <MDBModalFooter>
+                    <MDBBtn className="btn btn-dark" onClick={toggleShow}>
+                      Close
+                    </MDBBtn>
+                    <NavLink className="btn btn-primary" to={"/tilaus"} onClick={toggleShow}>Siirry tilaamaan</NavLink>
+                  </MDBModalFooter>
+                </MDBModalContent>
+              </MDBModalDialog>
+            </MDBModal>
 
-
-
-      <MDBBtn onClick={toggleShowLogin}><MDBIcon fas icon="child" className='me-1'/><MDBIcon fas icon="circle-right" className='me-2'/>kirjaudu</MDBBtn>
-      <MDBModal show={basicModalLogin} setShow={setBasicModalLogin} tabIndex='-1'>
-        <MDBModalDialog className="modal-dialog modal-xl">
-          <MDBModalContent>
-            <MDBModalHeader>
-              <MDBBtn className='btn-close' color='none' onClick={toggleShowLogin}></MDBBtn>
-            </MDBModalHeader>
-            <LoginRegister/>
-            <MDBModalFooter>
-              <MDBBtn className="btn btn-dark" onClick={toggleShowLogin}>
-                Close
-              </MDBBtn>
-              <NavLink className="btn btn-primary" to={"/tilaus"} onClick={toggleShowLogin}>Meme</NavLink>
-            </MDBModalFooter>
-          </MDBModalContent>
-        </MDBModalDialog>
-      </MDBModal>
-
+            {props.user && (
+          <MDBBtn className=''>{props.user} </MDBBtn>
+        )}{
+          !props.user && (
+            <>
+            <MDBBtn onClick={toggleShowLogin} className='me-2'><MDBIcon fas icon="child" className='me-1'/><MDBIcon fas icon="circle-right" className='me-2'/>kirjaudu</MDBBtn>
+            <MDBModal show={basicModalLogin} setShow={setBasicModalLogin} tabIndex='-1'>
+              <MDBModalDialog className="modal-dialog modal-xl">
+                <MDBModalContent>
+                  <MDBModalHeader>
+                    <MDBBtn className='btn-close' color='none' onClick={toggleShowLogin}></MDBBtn>
+                  </MDBModalHeader>
+                  <LoginRegister/>
+                  <MDBModalFooter>
+                    <MDBBtn className="btn btn-dark" onClick={toggleShowLogin}>
+                      Close
+                    </MDBBtn>
+                    <NavLink className="btn btn-primary" to={"/tilaus"} onClick={toggleShowLogin}>Meme</NavLink>
+                  </MDBModalFooter>
+                </MDBModalContent>
+              </MDBModalDialog>
+            </MDBModal>
+            </>
+            )}
       </MDBContainer>
     </MDBNavbar>
     );
