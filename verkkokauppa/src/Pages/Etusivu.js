@@ -8,7 +8,7 @@ const Etusivu = () => {
 
 return(
 
-<div>
+<div className="pb-5" style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)'}}>
     <nav className="navbar navbar-light bg-light">
         <h1>NAPSUKAUPPA</h1>
         <p>
