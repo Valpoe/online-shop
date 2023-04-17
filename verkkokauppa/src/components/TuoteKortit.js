@@ -6,7 +6,6 @@ function TuoteKortit(props) {
   // Tuotteen lisäys ostoskoriin
   const HandleAddToCart = (tuote) => {
     props.setItems([...props.items,{tuotenimi: tuote.tuotenimi, hinta: tuote.hinta, kuva: tuote.kuva, tuoteid: tuote.tuoteID}]);
-    console.log(props.items);
   }
 
   return (
@@ -16,7 +15,7 @@ function TuoteKortit(props) {
           <MDBRow className="row-cols-1 row-cols-md-3 g-4">
             {props.tuotteet.map((tuotteet) => (
               <MDBCol key={tuotteet.id}>
-                <MDBCard className="h-100">
+                <MDBCard className="h-100" data-testid="product-cards">
                   <MDBCardImage
                     src={tuotteet.kuva}
                     position="top"
@@ -81,7 +80,7 @@ function TuoteKortit(props) {
                             </NavLink>
                           </MDBCardText>
                           <MDBCardText>
-                          <MDBBtn
+                          <MDBBtn data-testid="add-to-cart-button"
                         onClick={() => HandleAddToCart(tuotteet)}
                       >
                         Lisää ostoskoriin
