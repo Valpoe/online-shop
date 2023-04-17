@@ -45,7 +45,7 @@ const ContactUs = () => {
                 <MDBTextArea label="Viesti" id="message" rows={4} />
               </p>
               <div className="d-flex justify-content-center">
-                <MDBBtn type="submit" className="me-1">
+                <MDBBtn color="success" type="submit" className="me-1">
                   {status}
                 </MDBBtn>
               </div>

@@ -62,7 +62,7 @@ const Header = (props) => {
           </MDBNavbarNav>
         </MDBCollapse>
 
-            <MDBBtn onClick={toggleShow} className='me-2'><MDBIcon fas icon="shopping-cart" className='me-2'/>{props.items.length}</MDBBtn>
+            <MDBBtn color="success" onClick={toggleShow} className='me-2'><MDBIcon fas icon="shopping-cart" className='me-2'/>{props.items.length}</MDBBtn>
             <MDBModal show={basicModal} setShow={setBasicModal} tabIndex='-1'>
               <MDBModalDialog className="modal-dialog modal-xl">
                 <MDBModalContent>
@@ -86,7 +86,7 @@ const Header = (props) => {
         )}{
           !props.user && (
             <>
-            <MDBBtn onClick={toggleShowLogin} className='me-2'><MDBIcon fas icon="child" className='me-1'/><MDBIcon fas icon="circle-right" className='me-2'/>kirjaudu</MDBBtn>
+            <MDBBtn color="success" onClick={toggleShowLogin} className='me-2'><MDBIcon fas icon="child" className='me-1'/><MDBIcon fas icon="circle-right" className='me-2'/>kirjaudu</MDBBtn>
             <MDBModal show={basicModalLogin} setShow={setBasicModalLogin} tabIndex='-1'>
               <MDBModalDialog className="modal-dialog modal-xl">
                 <MDBModalContent>
