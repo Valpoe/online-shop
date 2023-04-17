@@ -81,7 +81,7 @@ const Header = (props) => {
         )}{
           !props.user && (
             <>
-            <MDBBtn onClick={toggleShowLogin} className='me-2'><MDBIcon fas icon="child" className='me-1'/><MDBIcon fas icon="circle-right" className='me-2'/>kirjaudu</MDBBtn>
+            <MDBBtn color="success" onClick={toggleShowLogin} className='me-2'><MDBIcon fas icon="child" className='me-1'/><MDBIcon fas icon="circle-right" className='me-2'/>kirjaudu</MDBBtn>
             <MDBModal show={basicModalLogin} setShow={setBasicModalLogin} tabIndex='-1'>
               <MDBModalDialog className="modal-dialog modal-xl">
                 <MDBModalContent>
