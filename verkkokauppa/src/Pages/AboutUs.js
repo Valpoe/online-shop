@@ -7,6 +7,7 @@ import { MDBRow, MDBCol, MDBTypography } from 'mdb-react-ui-kit';
 const AboutUs = () => {
 
     return(
+        <div className="pb-5" style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)'}}>
         <MDBTypography tag="div">
             <MDBTypography tag="div">
                 <MDBTypography tag="div">
@@ -69,8 +70,8 @@ const AboutUs = () => {
                 </MDBTypography>  
             </MDBTypography>
         </MDBTypography>
+        </div>
     );
-
 }
 
 export default AboutUs;

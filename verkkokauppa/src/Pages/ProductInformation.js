@@ -36,7 +36,7 @@ const ProductInformation = (props) => {
       )
   } else {
     return (
-      <div className="pt-5 pb-5" style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}>
+      <div className="pb-5 pt-5" style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)'}}>
       <section className="d-flex justify-content-center justify-content-lg-between">
       <MDBContainer className="text-center text-md-start">
         <TuotteenTiedot tuote={tuote[0]} items={props.items} setItems={props.setItems} ></TuotteenTiedot>

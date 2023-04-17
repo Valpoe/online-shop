@@ -7,7 +7,7 @@ import EtusivuKuva3 from "../Images/EtusivuKuva3.jpg"
 const Etusivu = () => {
 
 return(
-<div>
+<div className="pb-5" style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)'}}>
   <MDBRow>
     <MDBCol>
     <MDBCarousel showIndicators showControls fade className="">
