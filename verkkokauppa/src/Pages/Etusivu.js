@@ -10,7 +10,7 @@ return(
 <div className="" style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)'}}>
   <MDBRow>
     <MDBCol>
-    <MDBCarousel showIndicators showControls fade className="">
+    <MDBCarousel showIndicators showControls dealy={100}>
       <MDBCarouselItem
         className='w-100 d-block'
         itemId={1}
