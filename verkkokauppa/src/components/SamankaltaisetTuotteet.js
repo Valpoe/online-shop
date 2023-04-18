@@ -27,7 +27,7 @@ function SamankaltaisetTuotteet(props) {
       }, [props.tuotekategoria]);
 
       useEffect(() => {
-        console.log("tuotekategoria: " + tuotekategoria + " aktiivinenTuote: " + props.tuote[0].tuoteID)
+        //console.log("tuotekategoria: " + tuotekategoria + " aktiivinenTuote: " + props.tuote[0].tuoteID)
         //remove valittutuote from tuotekategoria
 
     }, [valittuTuote]);
