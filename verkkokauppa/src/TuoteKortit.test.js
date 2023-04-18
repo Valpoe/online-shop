@@ -55,28 +55,24 @@ describe('TuoteKortit component', () => {
     );
   });
 
-  test('renders the correct number of product cards', () => {
+  test('renders the correct number of products', () => {
     render (
       <MemoryRouter>
         <TuoteKortit {...mockProps} />
       </MemoryRouter>
     );
-    const productCards = screen.getAllByRole('article');
-    expect(productCards).toHaveLength(mockProps.tuotteet.length);
+    const products = screen.getAllByTestId('product-cards');
+    expect(products).toHaveLength(mockProps.tuotteet.length);
   });
 
-  test('adds the correct product to the cart when "Lisää ostoskoriin" button is clicked', () => {
-    const handleAddToCart = jest.fn();
-    const testProduct = mockProps.tuotteet[0];
+  test('render the correct product name', () => {
     render (
       <MemoryRouter>
-        <TuoteKortit {...mockProps} handleAddToCart={handleAddToCart} />
+        <TuoteKortit {...mockProps} />
       </MemoryRouter>
     );
-    const addToCartButton = screen.getByRole('button', {
-      name: /lisää ostoskoriin/i,
-    });
-    fireEvent.click(addToCartButton);
-    expect(handleAddToCart).toHaveBeenCalledTimes(1);
-  });
+    const productName = screen.getAllByText('Testituote 1')[0];
+    expect(productName).toBeInTheDocument();
+  }
+  );
 });

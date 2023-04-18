@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import './App.css';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
@@ -10,7 +9,7 @@ import ContactUs from './Pages/ContactUs';
 import PrivacyStatement from './Pages/PrivacyStatement';
 import ProductInformation from './Pages/ProductInformation';
 import Tilaus from './Pages/Tilaus';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import OrderManagement from './Pages/OrderManagement';
 import AccountManagement from './Pages/AccountManagement';
 

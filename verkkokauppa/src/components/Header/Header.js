@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink, Navigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import {
     MDBContainer,
     MDBNavbar,
@@ -15,10 +15,7 @@ import {
     MDBModalContent,
     MDBModalHeader,
     MDBModalTitle,
-    MDBModalBody,
     MDBModalFooter,
-    MDBCardText,
-    MDBCard,
   } from 'mdb-react-ui-kit';
 import Ostoskori from '../Ostoskori';
 import LoginRegister from '../LoginRegister';
@@ -32,7 +29,7 @@ const Header = (props) => {
     const toggleShowLogin = () => setBasicModalLogin(!basicModalLogin);
 
     return(
-        <MDBNavbar expand='lg' light bgColor='light'>
+        <MDBNavbar expand='lg' light bgColor='light' className="sticky-header">
       <MDBContainer fluid>
         <MDBNavbarBrand tag="strong">
           Kynä & Kumi
@@ -61,8 +58,7 @@ const Header = (props) => {
             </MDBNavbarItem>
           </MDBNavbarNav>
         </MDBCollapse>
-
-            <MDBBtn onClick={toggleShow} className='me-2'><MDBIcon fas icon="shopping-cart" className='me-2'/>{props.items.length}</MDBBtn>
+            <MDBBtn color="success" onClick={toggleShow} className='me-2'><MDBIcon fas icon="shopping-cart" className='me-2'/>{props.items.length}</MDBBtn>
             <MDBModal show={basicModal} setShow={setBasicModal} tabIndex='-1'>
               <MDBModalDialog className="modal-dialog modal-xl">
                 <MDBModalContent>
@@ -80,25 +76,23 @@ const Header = (props) => {
                 </MDBModalContent>
               </MDBModalDialog>
             </MDBModal>
-
             {props.user && (
           <MDBBtn className=''>{props.user} </MDBBtn>
         )}{
           !props.user && (
             <>
-            <MDBBtn onClick={toggleShowLogin} className='me-2'><MDBIcon fas icon="child" className='me-1'/><MDBIcon fas icon="circle-right" className='me-2'/>kirjaudu</MDBBtn>
+            <MDBBtn color="success" onClick={toggleShowLogin} className='me-2'><MDBIcon fas icon="child" className='me-1'/><MDBIcon fas icon="circle-right" className='me-2'/>kirjaudu</MDBBtn>
             <MDBModal show={basicModalLogin} setShow={setBasicModalLogin} tabIndex='-1'>
               <MDBModalDialog className="modal-dialog modal-xl">
                 <MDBModalContent>
                   <MDBModalHeader>
                     <MDBBtn className='btn-close' color='none' onClick={toggleShowLogin}></MDBBtn>
                   </MDBModalHeader>
-                  <LoginRegister social={true} setUserID={props.setUserID} userID={props.userID} setUser={props.setUser}/>
+                  <LoginRegister setUserID={props.setUserID} userID={props.userID} setUser={props.setUser}/>
                   <MDBModalFooter>
                     <MDBBtn className="btn btn-dark" onClick={toggleShowLogin}>
-                      Close
+                      Sulje
                     </MDBBtn>
-                    <NavLink className="btn btn-primary" to={"/tilaus"} onClick={toggleShowLogin}>Meme</NavLink>
                   </MDBModalFooter>
                 </MDBModalContent>
               </MDBModalDialog>

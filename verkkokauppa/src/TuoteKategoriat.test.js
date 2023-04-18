@@ -23,26 +23,26 @@ test("renders component with categories and filters", async () => {
     />
   );
 
-  // Check if all category tabs are present
+  // Tarkistaa, että kaikki kategoriat näkyvät
   expect(screen.getByText("Kaikki tuotteet")).toBeInTheDocument();
   expect(screen.getByText("Kategoria 1")).toBeInTheDocument();
   expect(screen.getByText("Kategoria 2")).toBeInTheDocument();
 
-  // Check if sort buttons are present
+  // Tarkistaa, että halvin ja kallein suodatukset näkyvät
   expect(screen.getByText("Halvin ensin")).toBeInTheDocument();
   expect(screen.getByText("Kallein ensin")).toBeInTheDocument();
 
-  // Check if price ranges are present
+  // Tarkistaa, että hintasuodattimet näkyvät
   expect(screen.getByText("Min")).toBeInTheDocument();
   expect(screen.getByText("Max")).toBeInTheDocument();
 
-  // Check if color buttons are present
+  // Tarkistaa, että värisuodattimet näkyvät
   expect(screen.getAllByTestId("colorButton")).toHaveLength(3);
 });
 
+// Tarkistaa, että kategorian valinta toimii
 test("handles category tab clicks", () => {
   const setVerticalActive = jest.fn();
-
   render(
     <TuoteKategoriat
       kategoriat={kategoriat}

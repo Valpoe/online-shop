@@ -28,7 +28,7 @@ const ContactUs = () => {
   };
 
   return (
-    <div className="pt-5 pb-5" style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}>
+    <div className="pb-5 pt-5" style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)'}}>
     <section className="d-flex justify-content-center justify-content-lg-between">
       <MDBContainer className="text-center text-md-start">
         <MDBRow>
@@ -45,7 +45,7 @@ const ContactUs = () => {
                 <MDBTextArea label="Viesti" id="message" rows={4} />
               </p>
               <div className="d-flex justify-content-center">
-                <MDBBtn type="submit" className="me-1">
+                <MDBBtn color="success" type="submit" className="me-1">
                   {status}
                 </MDBBtn>
               </div>

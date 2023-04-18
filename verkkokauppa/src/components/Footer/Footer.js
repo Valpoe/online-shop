@@ -1,7 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { MDBFooter, MDBContainer, MDBRow, MDBCol, MDBIcon } from 'mdb-react-ui-kit';
-//asd
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -11,24 +10,23 @@ return (
         <div className='me-5 d-none d-lg-block'>
           <span>Ota meihin yhteyttä sosiaalisessa mediassa:</span>
         </div>
-
         <div>
-          <a href='' className='me-4 text-reset'>
+          <a href="/#" className='me-4 text-reset'>
             <MDBIcon fab icon="facebook-f" />
           </a>
-          <a href='' className='me-4 text-reset'>
+          <a href='/#' className='me-4 text-reset'>
             <MDBIcon fab icon="twitter" />
           </a>
-          <a href='' className='me-4 text-reset'>
+          <a href='/#' className='me-4 text-reset'>
             <MDBIcon fab icon="google" />
           </a>
-          <a href='' className='me-4 text-reset'>
+          <a href='/#' className='me-4 text-reset'>
             <MDBIcon fab icon="instagram" />
           </a>
-          <a href='' className='me-4 text-reset'>
+          <a href='/#' className='me-4 text-reset'>
             <MDBIcon fab icon="linkedin" />
           </a>
-          <a href='' className='me-4 text-reset'>
+          <a href='/#' className='me-4 text-reset'>
             <MDBIcon fab icon="github" />
           </a>
         </div>
@@ -42,11 +40,9 @@ return (
                 <MDBIcon icon="gem" className="me-3" />
                 Kynä & Kumi
               </h6>
-              <p>
-                
+              <p>         
               </p>
             </MDBCol>
-
             <MDBCol md="2" lg="2" xl="2" className='mx-auto mb-4'>
               <h6 className='text-uppercase fw-bold mb-4'>Navigoi</h6>
               <p>
@@ -115,9 +111,8 @@ return (
       </section>
 
       <div className='text-center p-4' style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}>
-        © {currentYear} Copyright: 
-        <a className='text-reset fw-bold' href='https://mdbootstrap.com/'>
-          Kynä & Kumi
+        © {currentYear} Copyright: <a className='text-reset fw-bold' href='https://mdbootstrap.com/'>
+           Kynä & Kumi
         </a>
       </div>
     </MDBFooter>

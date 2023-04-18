@@ -54,16 +54,3 @@ describe('TuoteenTiedot', () => {
     ]);
   });
 });
-
-/* 
-
-These tests check that:
-
--The product name, image, description, color, and price are rendered correctly.
--The quantity input updates the items state correctly when the user types in a new value.
-
-Note that the tests assume that MaaraLaskin is a separate component
-that is responsible for rendering the quantity input and handling its events. 
-If that's not the case, you may need to adjust the tests accordingly.
-
-*/
