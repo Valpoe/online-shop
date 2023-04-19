@@ -36,6 +36,7 @@ function LoginRegister(props) {
   });
 
   const [LoginActive, setLoginActive] = useState(false);
+  const [RegisterActive, setRegisterActive] = useState(false);
   const [justifyActive, setJustifyActive] = useState("tab1");
 
   const handleJustifyClick = (value) => {
@@ -106,8 +107,10 @@ function LoginRegister(props) {
         checked: false,
       });
       setJustifyActive("tab1");
+      setRegisterActive(true);
     } else {
       console.log(errors);
+      setRegisterActive(false);
     }
     return;
   };
@@ -153,6 +156,9 @@ function LoginRegister(props) {
 
   return (
       <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
+        {RegisterActive && justifyActive === "tab1" && (
+          <div className="text-success mb-2">Rekisteröityminen onnistui! Voit nyt kirjautua sisään!</div>
+        )}
         <MDBTabs
           pills
           justify
