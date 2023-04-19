@@ -29,6 +29,7 @@ const Tilaus = (props) => {
     address: "",
     city: "",
     zip: "",
+    password: "",
   });
   const [formErrors, setFormErrors] = useState({
     firstName: "",
@@ -139,6 +140,9 @@ const Tilaus = (props) => {
     } else if (!/^\d{5}(?:[-\s]\d{4})?$/.test(formData.zip)) {
       errors.zip = "Postinumero on virheellinen";
     }
+    if(!formData.password){
+      errors.password = "Salasana on pakollinen";
+    }
     if (!formData.checked) {
       errors.checked = "Sinun täytyy hyväksyä ehdot";
     }
@@ -171,27 +175,27 @@ const Tilaus = (props) => {
     setFormData({ ...formData, [name]: value });
   };
 
-  if(props.userID === null) {
-    return (
-      <div className="pb-5 pt-5" style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)'}}>
-      <MDBContainer>
-      <MDBCard>
-        <MDBCardBody className="text-center">
-          <MDBCardTitle className="mb-4">
-            Hupsis, et ole kirjautunut sisään vielä
-            <MDBIcon fas icon="circle-exclamation" className="ms-2"></MDBIcon>
-          </MDBCardTitle>
-          <MDBCardText>
-            Ole hyvä ja kirjaudu tai rekisteröidy ennen kuin jatkat tilauksen tekemiseen.
-              Näin varmistamme että saatte tuotteenne varmasti perille. Kiitos yhteistyöstä!
-          </MDBCardText>
-          <LoginRegister setUserID={props.setUserID} userID={props.userID} setUser={props.setUser}></LoginRegister>
-        </MDBCardBody>
-      </MDBCard>
-      </MDBContainer>
-      </div>
-    )
-}
+//  if(props.userID === null) {
+//    return (
+//      <div className="pb-5 pt-5" style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)'}}>
+//      <MDBContainer>
+//      <MDBCard>
+//        <MDBCardBody className="text-center">
+//          <MDBCardTitle className="mb-4">
+//            Hupsis, et ole kirjautunut sisään vielä
+//            <MDBIcon fas icon="circle-exclamation" className="ms-2"></MDBIcon>
+//          </MDBCardTitle>
+//          <MDBCardText>
+//            Ole hyvä ja kirjaudu tai rekisteröidy ennen kuin jatkat tilauksen tekemiseen.
+//              Näin varmistamme että saatte tuotteenne varmasti perille. Kiitos yhteistyöstä!
+//          </MDBCardText>
+//          <LoginRegister setUserID={props.setUserID} userID={props.userID} setUser={props.setUser}></LoginRegister>
+//        </MDBCardBody>
+//      </MDBCard>
+//      </MDBContainer>
+//      </div>
+//    )
+//}
 
   //if isSubmitting is true, disable the submit button
   if (tilaus) {
@@ -319,6 +323,31 @@ const Tilaus = (props) => {
                   {formErrors.zip && (
                     <div className="text-danger mb-2">*{formErrors.zip}</div>
                   )}
+                  <MDBInput className="mb-3"
+                    label="Salasana"
+                    name="password"
+                    type="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    error={formErrors.password}
+                    outline="true"
+                  />
+
+                  {formErrors.password && (
+                    <div className="text-danger mb-2">
+                      *{formErrors.password}
+                    </div>
+                  )}
+
+                  <div className="text-left">
+                    <label className="checkbox-label">
+                      <span>Luo asiakastili</span>
+                      <MDBCheckbox className="mt-2 mb-2"
+                        name="ATluonti"
+                      ></MDBCheckbox>
+                    </label>
+                  </div>
+                  
 
                   <MDBCardFooter className="mt-5"></MDBCardFooter>
                   <div className="text-center">
