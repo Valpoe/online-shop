@@ -99,6 +99,13 @@ function LoginRegister(props) {
     //if no errors submit the form
     if (Object.keys(errors).length === 0) {
       console.log(RegisterForm);
+      setRegisterForm({
+        name: "",
+        email: "",
+        password: "",
+        checked: false,
+      });
+      setJustifyActive("tab1");
     } else {
       console.log(errors);
     }
@@ -179,7 +186,6 @@ function LoginRegister(props) {
               {LoginErrorForm.email && (
                 <div className="text-danger mb-2">*{LoginErrorForm.email}</div>
               )}
-
               <MDBInput
                 wrapperClass="mb-4"
                 label="Sähköposti"
