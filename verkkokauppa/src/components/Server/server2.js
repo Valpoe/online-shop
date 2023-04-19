@@ -130,6 +130,111 @@ app.post('/tilaus', async (req, res) => {
   }
 });
 
+//// Asiakastilin kirjautuminen + Asiakastiliin liitetyn tilauksen ja tuotteiden haku
+
+/*
+app.post('/login', (req, res) => {
+  const { username, password } = req.body.LogInCredentials;
+
+  /// Etsitään AsiakasTilistä tunnuksia vastaava rivi
+  pool.query('SELECT "asiakasID" FROM asiakasTili WHERE Username = $1 AND Password = $2', [username, password], (error, results) => {
+    if (error) {
+      throw error;
+    }
+
+    if (results.rows.length > 0) {
+      const customerId = results.rows[0].CustomerID;
+
+      //// Haetaan mätsäävät asiakastiedot
+      pool.query('SELECT * FROM asiakas WHERE "asiakasID" = $1', [customerId], (error, results) => {
+        if (error) {
+          throw error;
+        }
+
+        const customerData = results.rows[0];
+
+        //// Haetaan kyseisen asiakkaan tilauksen tiedot
+        pool.query('SELECT * FROM tilaus WHERE "asiakasid" = $1', [customerId], (error, results) => {
+          if (error) {
+            throw error;
+          }
+
+          const orders = results.rows;
+
+          /// Haetaan kyseisen asiakkaan tilauksen tuotteet
+          Promise.all(
+            orders.map((order) =>
+              pool.query('SELECT * FROM tilausTuotteet WHERE "tilausid" = $1', [order.OrderID])
+            )
+          ).then((orderItemsResults) => {
+            const orderItems = orderItemsResults.map((result) => result.rows);
+
+            // Tilauksen kaikki tiedot
+            const data = {
+              customer: customerData,
+              orders,
+              orderItems,
+            };
+
+            res.status(200).json(data);
+          });
+        });
+      });
+    } else {
+      res.status(401).send('Tunnuksia ei löytynyt');
+    }
+  });
+});
+*/
+
+const logIn = async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    
+     /// Etsitään AsiakasTilistä tunnuksia vastaava rivi
+    const customerAccount = await pool.query(
+      'SELECT * FROM "asiakasTili" WHERE Username = $1 AND Password = $2',
+      [username, password]
+    );
+    
+    if (customerAccount.rows.length === 0) {
+      return res.status(401).json({ message: "Invalid username or password" });
+    }
+    
+    const customerID = customerAccount.rows[0].CustomerID;
+    
+    //// Haetaan mätsäävät asiakastiedot
+    const customer = await pool.query(
+      'SELECT * FROM asiakas WHERE "asiakasID" = $1',
+      [customerID]
+    );
+    
+     //// Haetaan kyseisen asiakkaan tilauksen tiedot
+    const orders = await pool.query(
+      'SELECT * FROM tilaus WHERE "asiakasid" = $1',
+      [customerID]
+    );
+    
+    /// Haetaan kyseisen asiakkaan tilauksen tuotteet
+    const orderItems = await pool.query(
+      'SELECT * FROM "tilausTuotteet" WHERE "tilausid" IN (SELECT "tilausID" FROM tilaus WHERE "asiakasid" = $1)',
+      [customerID]
+    );
+    
+    const data = {
+      customer: customer.rows[0],
+      orders: orders.rows,
+      orderItems: orderItems.rows,
+    };
+    
+    return res.status(200).json(data);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ message: "Yhteysvirhe" });
+  }
+};
+
+
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
