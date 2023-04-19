@@ -58,7 +58,7 @@ function App() {
         <Route path='/tuotteet/:tuoteID' element={<ProductInformation setItems={setItems} items={items} getTotal={getTotal} countItem={countItem}/>} />
         <Route path='/tilaus' element={<Tilaus items={items} setItems={setItems} userID={userID} setUserID={setUserID} user={user} setUser={setUser} /> } />
         <Route path='/tilaushallinta' element={<OrderManagement items={items} setItems={setItems}/> } />
-        <Route path='/tilinhallinta' element={<AccountManagement items={items} setItems={setItems}/> } />
+        <Route path='/tilinhallinta' element={<AccountManagement items={items} setItems={setItems} user={user} setUserID={setUserID} userID={userID} setUser={setUser}/>  } />
       </Routes>
       <Footer />
     </Router>
