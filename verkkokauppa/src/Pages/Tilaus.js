@@ -30,6 +30,7 @@ const Tilaus = (props) => {
     city: "",
     zip: "",
     password: "",
+    ATchecked: false, // add checked property for checkbox
   });
   const [formErrors, setFormErrors] = useState({
     firstName: "",
@@ -39,6 +40,7 @@ const Tilaus = (props) => {
     address: "",
     city: "",
     zip: "",
+    ATchecked: false, // add checked property for checkbox
     checked: false, // add checked property for checkbox
   });
   
@@ -339,15 +341,24 @@ const Tilaus = (props) => {
                     </div>
                   )}
 
-                  <div className="text-left">
+                <MDBCardFooter className="mt-5"></MDBCardFooter>
+                  <div className="text-center">
                     <label className="checkbox-label">
                       <span>Luo asiakastili</span>
                       <MDBCheckbox className="mt-2 mb-2"
-                        name="ATluonti"
-                      ></MDBCheckbox>
+                        name="ATchecked"
+                        id="checkbox1"
+                        checked={formData.ATchecked}
+                        onChange={handleChange}
+                        error={formErrors.ATchecked}
+                      />
+                      {formErrors.ATchecked && (
+                        <div className="text-danger mb-2">
+                          {formErrors.ATchecked}
+                        </div>
+                      )}
                     </label>
                   </div>
-                  
 
                   <MDBCardFooter className="mt-5"></MDBCardFooter>
                   <div className="text-center">
