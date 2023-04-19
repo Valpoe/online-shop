@@ -11,9 +11,6 @@ import {
   MDBBtn,
   MDBCheckbox,
   MDBContainer,
-  MDBValidation,
-  MDBValidationItem,
-  MDBFooter,
   MDBCardHeader,
   MDBIcon
 } from "mdb-react-ui-kit";
@@ -176,21 +173,24 @@ const Tilaus = (props) => {
 
   if(props.userID === null) {
     return (
+      <div className="pb-5 pt-5" style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)'}}>
+      <MDBContainer>
       <MDBCard>
-        <MDBCardBody>
+        <MDBCardBody className="text-center">
           <MDBCardTitle className="mb-4">
             Hupsis, et ole kirjautunut sisään vielä
-            <MDBIcon fas icon="circle-exclamation" className="p-1"></MDBIcon>
+            <MDBIcon fas icon="circle-exclamation" className="ms-2"></MDBIcon>
           </MDBCardTitle>
           <MDBCardText>
-            <p>Ole hyvä ja kirjaudu tai rekisteröidy ennen kuin jatkat tilauksen tekemiseen.
-              Näin varmistamme että saatte tuotteenne varmasti perille. Kiitos yhteistyöstä!</p>
+            Ole hyvä ja kirjaudu tai rekisteröidy ennen kuin jatkat tilauksen tekemiseen.
+              Näin varmistamme että saatte tuotteenne varmasti perille. Kiitos yhteistyöstä!
           </MDBCardText>
           <LoginRegister setUserID={props.setUserID} userID={props.userID} setUser={props.setUser}></LoginRegister>
         </MDBCardBody>
-
       </MDBCard>
-  );
+      </MDBContainer>
+      </div>
+    )
 }
 
   //if isSubmitting is true, disable the submit button

@@ -1,5 +1,6 @@
 import { MDBCard, MDBCardBody, MDBCardFooter, MDBBtn, MDBCardHeader, MDBCardImage, MDBCardText, MDBCardTitle, MDBCol, MDBIcon, MDBRow, MDBTabsContent, MDBTabsPane } from 'mdb-react-ui-kit';
 import { NavLink } from 'react-router-dom';
+import "./CardImageSize.css";
 
 function TuoteKortit(props) {
 
@@ -15,9 +16,10 @@ function TuoteKortit(props) {
           <MDBRow className="row-cols-1 row-cols-md-3 g-4">
             {props.tuotteet.map((tuotteet) => (
               <MDBCol key={tuotteet.id}>
-                <MDBCard className="h-100" data-testid="product-cards">
+                <MDBCard className="h-100 align-items-center" data-testid="product-cards">
                   <MDBCardImage
                     src={tuotteet.kuva}
+                    className="cardImage"
                     position="top"
                     alt="..."
                   />
@@ -32,14 +34,14 @@ function TuoteKortit(props) {
                       </NavLink>
                     </MDBCardText>
                     <MDBCardText>
-                      <MDBBtn
+                      <MDBBtn className="mt-auto"
                         onClick={() => HandleAddToCart(tuotteet)}
                       >
                         Lisää ostoskoriin
                       </MDBBtn>
                     </MDBCardText>
                   </MDBCardBody>
-                  <MDBCardFooter className="fw-bold">
+                    <MDBCardFooter className="fw-bold">
                     Hinta: {tuotteet.hinta} <MDBIcon fas icon="euro-sign" />
                   </MDBCardFooter>
                 </MDBCard>
@@ -61,9 +63,10 @@ function TuoteKortit(props) {
                   )
                   .map((tuotteet) => (
                     <MDBCol key={tuotteet.id}>
-                      <MDBCard className="h-100">
+                      <MDBCard className="h-100 align-items-center">
                         <MDBCardImage
                           src={tuotteet.kuva}
+                          className="cardImage"
                           position="top"
                           alt="..."
                         />
@@ -101,10 +104,10 @@ function TuoteKortit(props) {
           <MDBRow className="row-cols-1 row-cols-md-3 g-4">
             {props.searchResults.map((tuotteet) => (
               <MDBCol key={tuotteet.id}>
-                <MDBCard className="h-100">
+                <MDBCard className="h-100 align-items-center">
                   <MDBCardImage
                     src={tuotteet.kuva}
-
+                    className="cardImage"
                     position="top"
                     alt="..."
                   />

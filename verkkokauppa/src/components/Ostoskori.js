@@ -1,6 +1,6 @@
-import { Toast } from "bootstrap";
-import { MDBCard, MDBCardText, MDBCol, MDBIcon, MDBInput, MDBCardBody, MDBRow, MDBCardImage, MDBBtn, MDBTypography } from "mdb-react-ui-kit";
-import { useState, useEffect } from "react";
+import { MDBCard, MDBCol, MDBIcon, MDBInput, MDBCardBody, MDBRow, MDBCardImage, MDBBtn, MDBTypography } from "mdb-react-ui-kit";
+import { useEffect } from "react";
+import "./ScrollableContainer.css"
 
 function Ostoskori(props) {
 
@@ -64,7 +64,7 @@ function Ostoskori(props) {
   });
   
   return (
-    <div className="p-4">
+    <div className="p-4 scrollable-container">
       <div>
           {uniqueItems.map((item, index) => (
         <MDBCard key={index}  className="rounded-3 mb-4">

@@ -29,7 +29,7 @@ const Header = (props) => {
     const toggleShowLogin = () => setBasicModalLogin(!basicModalLogin);
 
     return(
-        <MDBNavbar expand='lg' light bgColor='light' className="sticky-header">
+        <MDBNavbar expand='lg' light bgColor='light'>
       <MDBContainer fluid>
         <MDBNavbarBrand tag="strong">
           Kynä & Kumi
