@@ -10,9 +10,9 @@ function TuoteKortit(props) {
     props.setItems([...props.items,{tuotenimi: tuote.tuotenimi, hinta: tuote.hinta, kuva: tuote.kuva, tuoteid: tuote.tuoteID}]);
   }
 
+  // Pagination toiminnalisuus
   const [currentPage, setCurrentPage] = useState(1);
   const cardsPerPage = 6;
-
   const indexOfLastCard = currentPage * cardsPerPage;
   const indexOfFirstCard = indexOfLastCard - cardsPerPage;
   const currentCards = props.tuotteet.slice(indexOfFirstCard, indexOfLastCard);
@@ -27,7 +27,7 @@ function TuoteKortit(props) {
     <>
       <MDBTabsContent>
         <MDBTabsPane show={props.verticalActive === "kaikki-tuotteet"}>
-          <MDBRow className="row-cols-1 row-cols-md-3 g-4">
+          <MDBRow className="row-cols-1 row-cols-md-3 rows-cols-sm-2 g-4">
             {currentCards.map((tuotteet) => (
               <MDBCol key={tuotteet.id}>
                 <MDBCard className="h-100 align-items-center" data-testid="product-cards">

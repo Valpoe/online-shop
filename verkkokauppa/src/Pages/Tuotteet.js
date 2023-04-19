@@ -55,7 +55,7 @@ const Tuotteet = (props) => {
           <TuoteKategoriat kategoriat={kategoriat} verticalActive={verticalActive} tuotteet={tuotteet} 
           setSearchResults={setSearchResults} setVerticalActive={setVerticalActive} />
         </MDBCol>
-        <MDBCol size="8" className="mx-auto text-center">
+        <MDBCol className="text-center">
           <TuoteKortit items={props.items} setItems={props.setItems} tuotteet={tuotteet} kategoriat={kategoriat} searchResults={searchResults} verticalActive={verticalActive} />
         </MDBCol>
       </MDBRow>
