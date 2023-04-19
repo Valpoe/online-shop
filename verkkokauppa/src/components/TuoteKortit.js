@@ -23,7 +23,6 @@ function TuoteKortit(props) {
   const totalSearchPages = Math.ceil(props.searchResults.length / cardsPerPage);
   const totalCategoryPages = Math.ceil(6 / cardsPerPage);
 
-
   return (
     <>
       <MDBTabsContent>
