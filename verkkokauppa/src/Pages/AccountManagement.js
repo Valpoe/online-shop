@@ -13,7 +13,9 @@ const OrderManagement = (props) => {
 
     return (
         <div>
+            <div className='p-2'>
             <Logout userID={props.userID} setUser={props.setUser}></Logout>
+            </div>
             <MDBCard>
                 <MDBCardBody>
                 <MDBRow>

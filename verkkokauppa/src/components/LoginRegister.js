@@ -99,6 +99,8 @@ function LoginRegister(props) {
     //if no errors submit the form
     if (Object.keys(errors).length === 0) {
       console.log(RegisterForm);
+
+      
       setRegisterForm({
         name: "",
         email: "",
