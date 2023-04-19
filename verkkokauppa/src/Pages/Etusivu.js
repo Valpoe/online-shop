@@ -3,6 +3,7 @@ import { MDBCarousel, MDBCarouselItem, MDBTypography, MDBBtn, MDBRow, MDBCol } f
 import EtusivuKuva1 from "../Images/EtusivuKuva1.jpg"
 import EtusivuKuva2 from "../Images/EtusivuKuva2.jpg"
 import EtusivuKuva3 from "../Images/EtusivuKuva3.jpg"
+import { NavLink } from "react-router-dom";
 
 const Etusivu = () => {
 
@@ -47,7 +48,7 @@ return(
         Meidän tarjoamamme koulutarvikkeet ovat laadukkaita ja kestäviä, joten oppilaat voivat käyttää niitä pitkään. Lisäksi meillä on laaja valikoima erilaisia tarvikkeita, joten oppilaat voivat löytää kaiken, mitä he tarvitsevat yhdeltä paikalta. Tarjoamme myös hyvät hinnat, jotta kaikilla oppilailla on varaa hankkia tarvitsemansa tarvikkeet.
         Kokonaisuudessaan koulutarvikkeet ovat tärkeitä koulunkäynnin kannalta ja me tarjoamme niitä, jotta oppilailla on kaikki tarvittavat työkalut menestyäkseen koulussa.                
     </p>
-    <MDBBtn color="success" className=" " >Ostoksille</MDBBtn>  
+    <NavLink className="btn btn-success mb-4" to={"/tuotteet"}>Ostoksille</NavLink>
     </div>
     </MDBCol>
   </MDBRow>
