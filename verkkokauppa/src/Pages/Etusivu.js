@@ -1,5 +1,5 @@
 import React from 'react';
-import { MDBCarousel, MDBCarouselItem, MDBTypography, MDBBtn, MDBRow, MDBCol } from 'mdb-react-ui-kit';
+import { MDBCarousel, MDBCarouselItem, MDBTypography, MDBBtn, MDBRow, MDBCol, MDBContainer } from 'mdb-react-ui-kit';
 import EtusivuKuva1 from "../Images/EtusivuKuva1.jpg"
 import EtusivuKuva2 from "../Images/EtusivuKuva2.jpg"
 import EtusivuKuva3 from "../Images/EtusivuKuva3.jpg"
@@ -8,7 +8,9 @@ import { NavLink } from "react-router-dom";
 const Etusivu = () => {
 
 return(
-<div className="" style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)'}}>
+<div className="pb-5 pt-5" style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)'}}>
+<section className="d-flex justify-content-center justify-content-lg-between">
+  <MDBContainer>
   <MDBRow>
     <MDBCol>
     <MDBCarousel showIndicators showControls dealy={100}>
@@ -48,14 +50,15 @@ return(
         Meidän tarjoamamme koulutarvikkeet ovat laadukkaita ja kestäviä, joten oppilaat voivat käyttää niitä pitkään. Lisäksi meillä on laaja valikoima erilaisia tarvikkeita, joten oppilaat voivat löytää kaiken, mitä he tarvitsevat yhdeltä paikalta. Tarjoamme myös hyvät hinnat, jotta kaikilla oppilailla on varaa hankkia tarvitsemansa tarvikkeet.
         Kokonaisuudessaan koulutarvikkeet ovat tärkeitä koulunkäynnin kannalta ja me tarjoamme niitä, jotta oppilailla on kaikki tarvittavat työkalut menestyäkseen koulussa.                
     </p>
-    <NavLink className="btn btn-success mb-4" to={"/tuotteet"}>Ostoksille</NavLink>
+    <NavLink className="btn btn-success" to={"/tuotteet"}>Ostoksille</NavLink>
     </div>
     </MDBCol>
   </MDBRow>
+  </MDBContainer>
+</section>
 </div>
 
 );
 
 }
-
 export default Etusivu;
