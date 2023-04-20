@@ -18,8 +18,11 @@ import Yhteenveto from '../components/Yhteenveto';
 import addAsiakas from '../components/Server/AsiakasAPI';
 import createTilaus from '../components/Server/TilausAPI';
 import LoginRegister from "../components/LoginRegister";
+import { getAsiakkaatEmail } from "../components/Server/TuoteAPI";
 
 const Tilaus = (props) => {
+
+  const [sahkopostit, setSahkopostit] = useState(getAsiakkaatEmail);
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -44,6 +47,11 @@ const Tilaus = (props) => {
     ATchecked: false, // add checked property for checkbox
     checked: false, // add checked property for checkbox
   });
+
+
+  useEffect(() => {
+    setSahkopostit(getAsiakkaatEmail);
+  }, []);
   
   ////// Tilauksen luonti, voi siirtää muualle
 /*
@@ -106,7 +114,7 @@ const Tilaus = (props) => {
     }
   }, [tilaus]);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     console.log("Form submitted" + JSON.stringify(formData));
     //clear ostoskori after submit and set tilaus to true
     //prevent page reload
@@ -126,9 +134,19 @@ const Tilaus = (props) => {
     }
     if (!formData.email) {
       errors.email = "Sähköposti on pakollinen";
-    } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
+    } 
+    else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
       errors.email = "sähköposti on virheellinen";
     }
+    //if sahkoposti is already in database
+    if (formData.email) {
+      const isEmailInDatabase = await getAsiakkaatEmail(formData.email);
+      if (isEmailInDatabase === true) {
+        errors.email = "sähköposti on jo käytössä";
+      }
+    }
+
+
     if (!formData.phone) {
       errors.phone = "Puhelinnumero on pakollinen";
     }
@@ -143,7 +161,7 @@ const Tilaus = (props) => {
     } else if (!/^\d{5}(?:[-\s]\d{4})?$/.test(formData.zip)) {
       errors.zip = "Postinumero on virheellinen";
     }
-    if(!formData.password){
+    if(!formData.password && !formData.ATchecked === false){
       errors.password = "Salasana on pakollinen";
     }
     if (!formData.checked) {
@@ -151,8 +169,11 @@ const Tilaus = (props) => {
     }
     setFormErrors(errors);
 
+
+    
+
     // If there are no errors, submit the form
-    if (Object.keys(errors).length === 0) {
+    if (Object.keys(errors).length === 0 && props.items.length > 0) {
       // Perform form submission
       setIsSubmitting(false);
       setFailedSubmit(false);
@@ -201,6 +222,26 @@ const Tilaus = (props) => {
 //}
 
   //if isSubmitting is true, disable the submit button
+
+  if(props.items.length === 0 && !tilaus) {
+    return (
+      <div className="pb-5 pt-5" style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)'}}>
+      <MDBContainer>
+      <MDBCard>
+        <MDBCardBody className="text-center">
+          <MDBCardTitle className="mb-4">
+            Ostoskori on tyhjä
+            <MDBIcon fas icon="circle-exclamation" className="ms-2"></MDBIcon>
+          </MDBCardTitle>
+          <MDBCardText>
+            Et voi tehdä tilausta, jos ostoskorisi on tyhjä.
+          </MDBCardText>
+        </MDBCardBody>
+      </MDBCard>
+      </MDBContainer>
+      </div>
+    );}
+
   if (tilaus) {
     return (
       <MDBRow className="p-5">
@@ -324,7 +365,10 @@ const Tilaus = (props) => {
                   {formErrors.zip && (
                     <div className="text-danger mb-2">*{formErrors.zip}</div>
                   )}
-                  <MDBInput
+
+                  {props.userID === null && (
+                    <MDBInput className="mb-3"
+                    
                     label="Salasana"
                     name="password"
                     type="password"
@@ -332,7 +376,8 @@ const Tilaus = (props) => {
                     onChange={handleChange}
                     error={formErrors.password}
                     outline="true"
-                  />
+                    />
+                  )}
 
                   {formErrors.password && (
                     <div className="text-danger mb-2">
@@ -341,13 +386,18 @@ const Tilaus = (props) => {
                   )}
 
                 <MDBCardFooter className="mt-5">
+
                   <div className="d-flex justify-content-center justify-content-lg-between text-center">
                     <label className="checkbox-label">
+                    {props.userID === null && (
+                      <>
                       <span>Luo asiakastili</span>
                       <MDBCheckbox className="mt-2 mb-2"
                         name="ATluonti"
                         onChange={handleChange}
                       ></MDBCheckbox>
+                      </>
+                    )}
                     </label>
                     <label className="checkbox-label">
                       <span>Hyväksyn toimitusehdot</span>
@@ -363,8 +413,11 @@ const Tilaus = (props) => {
                           {formErrors.checked}
                         </div>
                       )}
+              
                     </label>
                   </div>
+
+                  
                   <MDBBtn
                     className="btn btn-primary btn-lg btn-block mt-4"
                     color="primary"

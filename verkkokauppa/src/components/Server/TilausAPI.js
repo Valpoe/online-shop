@@ -20,6 +20,8 @@ export const newTilaus = async (customerData, orderData) => {
   };
 
   export const luoAsiakas = (customerData) => {
+
+    
     const { firstName, lastName, email, phone, address, zip, city, password, ATluonti } = customerData;
     const kokonimi = firstName + ' ' + lastName;
     const osoite = address + ', ' + zip + ', ' + city;

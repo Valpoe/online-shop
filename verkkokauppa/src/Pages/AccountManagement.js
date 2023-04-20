@@ -28,22 +28,26 @@ const OrderManagement = (props) => {
             <MDBCol className="mx-auto ps-5 pe-5">
               <form>
                 <h6 className="text-uppercase fw-bold mb-4">Omat tiedot</h6>
-                <MDBInput wrapperClass="mb-4" id="form6Example3" label="Nimi" />
+                <MDBInput 
+                wrapperClass="mb-4" 
+                id="form6Example3"
+                label="Nimi"
+                >{props.asiakasTiedot.customer.nimi}</MDBInput>
                 <MDBInput
                   wrapperClass="mb-4"
                   id="form6Example3"
                   label="Sähköposti"
-                />
+                >{props.asiakasTiedot.customer.email}</MDBInput>
                 <MDBInput
                   wrapperClass="mb-4"
                   id="form6Example3"
                   label="Osoite"
-                />
+                >{props.asiakasTiedot.customer.osoite}</MDBInput>
                 <MDBInput
                   wrapperClass="mb-4"
                   id="form6Example4"
                   label="Puhelinnumero"
-                />
+                >{props.asiakasTiedot.customer.puhelinnro}</MDBInput>
 
                 <MDBBtn type="submit">
                   Tallenna
@@ -63,35 +67,17 @@ const OrderManagement = (props) => {
                   </tr>
                 </MDBTableHead>
                 <MDBTableBody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>60</td>
-                    <td>21.03.2023</td>
-                    <td>400 egee</td>
-                  </tr>
-                  <tr>
-                    <th scope="col"></th>
-                    <th scope="col">Tuote</th>
-                    <th scope="col">Määrä</th>
-                    <th scope="col">Hinta</th>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>paskapaperi</td>
-                    <td>6 kpl</td>
-                    <td>6 egee</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td colSpan={2}>Larry the Bird</td>
-                    <td>@twitter</td>
-                  </tr>
+                  {props.asiakasTiedot.orders.map((order) => {
+                    return (
+                      <tr>
+                        <th scope="row"></th>
+                        <td>{order.tilausID}</td>
+                        <td>{order.tilauspvm}</td>
+                        <td>{order.summa} €</td>
+                      </tr>
+                    );
+                  })}
+
                 </MDBTableBody>
               </MDBTable>
             </MDBCol>
