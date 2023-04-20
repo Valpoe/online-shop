@@ -106,7 +106,10 @@ const SubmitLogin = async (event) => {
     try {
       console.log(JSON.stringify(LoginForm))
       const userData = await logIn(LoginForm);
+      props.setPassword(LoginForm.password);
+      props.setEmail(LoginForm.email);
       console.log("Asiakkaan tiedot ja tilauksen tiedot:")
+      console.log(JSON.stringify(userData + " " + LoginForm.password + " " + LoginForm.email))
       console.log(JSON.stringify(userData))
       props.setUserID(userData.id);
       props.setUser(userData.name);

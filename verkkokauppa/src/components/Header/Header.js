@@ -89,7 +89,7 @@ const Header = (props) => {
                   <MDBModalHeader>
                     <MDBBtn className='btn-close' color='none' onClick={toggleShowLogin}></MDBBtn>
                   </MDBModalHeader>
-                  <LoginRegister setUserID={props.setUserID} userID={props.userID} setUser={props.setUser} toggleShowLogin={toggleShowLogin} setAsiakasTiedot={props.setAsiakasTiedot} asiakasTiedot={props.asiakasTiedot}/>
+                  <LoginRegister setUserID={props.setUserID} userID={props.userID} setUser={props.setUser} toggleShowLogin={toggleShowLogin} setAsiakasTiedot={props.setAsiakasTiedot} asiakasTiedot={props.asiakasTiedot} email={props.email} setEmail={props.setEmail} password={props.password} setPassword={props.setPassword}/>
                   <MDBModalFooter>
                     <MDBBtn className="btn btn-dark" onClick={toggleShowLogin}>
                       Sulje

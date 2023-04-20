@@ -1,5 +1,6 @@
 import Logout from "../components/Logout";
 import { logIn } from "../components/Server/LogInAPI";
+import { getTuote } from "../components/Server/TuoteAPI";
 
 import React from "react";
 import {
@@ -11,11 +12,11 @@ import {
   MDBTable,
   MDBTableHead,
   MDBTableBody,
+  MDBFooter,
+  MDBCardText,
 } from "mdb-react-ui-kit";
 
 const OrderManagement = (props) => {
-
-
 
   return (
     <div
@@ -32,22 +33,27 @@ const OrderManagement = (props) => {
                 wrapperClass="mb-4" 
                 id="form6Example3"
                 label="Nimi"
-                >{props.asiakasTiedot.customer.nimi}</MDBInput>
+                value = {props.asiakasTiedot.customer.nimi}
+                ></MDBInput>
                 <MDBInput
                   wrapperClass="mb-4"
                   id="form6Example3"
                   label="Sähköposti"
-                >{props.asiakasTiedot.customer.email}</MDBInput>
+                  value = {props.asiakasTiedot.customer.email}
+                ></MDBInput>
                 <MDBInput
                   wrapperClass="mb-4"
                   id="form6Example3"
                   label="Osoite"
-                >{props.asiakasTiedot.customer.osoite}</MDBInput>
+                  value = {props.asiakasTiedot.customer.osoite}
+                ></MDBInput>
                 <MDBInput
                   wrapperClass="mb-4"
                   id="form6Example4"
                   label="Puhelinnumero"
-                >{props.asiakasTiedot.customer.puhelinnro}</MDBInput>
+                  value={props.asiakasTiedot.customer.puhelinnro}
+
+                ></MDBInput>
 
                 <MDBBtn type="submit">
                   Tallenna
@@ -57,27 +63,49 @@ const OrderManagement = (props) => {
 
             <MDBCol className="mx-auto ps-5 pe-5">
               <h6 className="text-uppercase fw-bold mb-4">Omat tilaukset</h6>
-              <MDBTable hover>
+              <MDBTable hover className="btn btn-success">
                 <MDBTableHead>
                   <tr>
                     <th scope="col"></th>
                     <th scope="col">Tilaus ID</th>
-                    <th scope="col">Tilaus päivämäärä</th>
+                    <th scope="col">Tilauspäivämäärä</th>
                     <th scope="col">Summa</th>
                   </tr>
                 </MDBTableHead>
-                <MDBTableBody>
+                <MDBTableBody > 
                   {props.asiakasTiedot.orders.map((order) => {
+                    const orderItems = props.asiakasTiedot.orderItems.filter((orderItem) => orderItem.tilausid === order.tilausID);
+                    let tuote;
                     return (
-                      <tr>
-                        <th scope="row"></th>
-                        <td>{order.tilausID}</td>
-                        <td>{order.tilauspvm}</td>
-                        <td>{order.summa} €</td>
-                      </tr>
+                      <React.Fragment key={order.tilausID}>
+                        <tr>
+                          <th scope="col"></th>
+                          <td>{order.tilausID}</td>
+                          <td>{order.tilauspvm}</td>
+                          <td>{order.summa} €</td>
+                        </tr>
+                        <tr>
+                          <td colSpan="4">
+                            <MDBTable hover>
+                              <MDBTableBody className="btn btn-primary">
+                              {orderItems.map((orderItem) => {
+                                const tuote = getTuote(orderItem.tuoteid);
+                                return (
+                                  <tr key={orderItem.tuoteid}>
+                                    <td>tuoteid: {orderItem.tuoteid}</td>
+                                    <td>tuotenimi: {tuote.tuotenimi}</td>
+                                    <td>summa: {orderItem.summa} €</td>
+                                    <td>kpl: {orderItem.kpl}</td>
+                                  </tr>
+                                );
+                              })}
+                              </MDBTableBody>
+                            </MDBTable>
+                          </td>
+                        </tr>
+                      </React.Fragment>
                     );
                   })}
-
                 </MDBTableBody>
               </MDBTable>
             </MDBCol>

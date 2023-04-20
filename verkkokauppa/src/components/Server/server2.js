@@ -133,25 +133,29 @@ app.post('/addasiakas', async (req, res) => {
 
 app.post('/tilaus', async (req, res) => {
   try {
-    const { asiakas, orderData, grandTotal } = req.body;
-    
-    //1: Uuden asiakkaan lisäys
-    const newCustomerQuery = `INSERT INTO asiakas (nimi, email, osoite, puhelinnro) VALUES ($1, $2, $3, $4) RETURNING "asiakasID"`;
-    const newCustomerValues = [asiakas.nimi, asiakas.email, asiakas.osoite, asiakas.puhelinnro];
-    const newCustomerResult = await pool.query(newCustomerQuery, newCustomerValues);
-    const customerId = newCustomerResult.rows[0].asiakasID;
+    const { userID, asiakas, orderData, grandTotal } = req.body;
 
-    console.log(asiakas.ATluonti)
-     // Luodaanko asiakastili
-     if (asiakas.ATluonti) {
-      console.log("asiakastiliä luodaan")
-      await pool.query(
-        'INSERT INTO "asiakasTili" ("asiakasID", username, password) VALUES ($1, $2, $3)',
-        [customerId, asiakas.email, asiakas.password]
-      );
+    // 1: Uuden asiakkaan lisäys, jos userID on null
+    let customerId;
+    if (!userID) {
+      const newCustomerQuery = `INSERT INTO asiakas (nimi, email, osoite, puhelinnro) VALUES ($1, $2, $3, $4) RETURNING "asiakasID"`;
+      const newCustomerValues = [asiakas.nimi, asiakas.email, asiakas.osoite, asiakas.puhelinnro];
+      const newCustomerResult = await pool.query(newCustomerQuery, newCustomerValues);
+      customerId = newCustomerResult.rows[0].asiakasID;
+
+      // Luodaanko asiakastili
+      if (asiakas.ATluonti) {
+        console.log("asiakastiliä luodaan")
+        await pool.query(
+          'INSERT INTO "asiakasTili" ("asiakasID", username, password) VALUES ($1, $2, $3)',
+          [customerId, asiakas.email, asiakas.password]
+        );
+      }
+    } else {
+      customerId = userID;
     }
-   
-    // 2: Tilauksen luonti uudelle asiakkaalle
+
+    // 2: Tilauksen luonti uudelle tai vanhalle asiakkaalle
     const newOrderQuery = `INSERT INTO tilaus (asiakasid, tilauspvm, summa) VALUES ($1, $2, $3) RETURNING "tilausID"`;
     const newOrderValues = [customerId, new Date(), grandTotal]; 
     const newOrderResult = await pool.query(newOrderQuery, newOrderValues);
@@ -165,11 +169,12 @@ app.post('/tilaus', async (req, res) => {
     }
 
     res.json({ message: 'Tilaus onnistui!' });
-  } catch (err) {
-    console.error('Virhe tilauksen luonnissa:', err);
+  } catch (error) {
+    console.error('Virhe tilauksen luonnissa:', error);
     res.status(500).json({ error: 'Tilaus epäonnistui' });
   }
 });
+
 
 //// Asiakastilin kirjautuminen + Asiakastiliin liitetyn tilauksen ja tuotteiden haku
 /*
@@ -280,10 +285,10 @@ app.post('/login', (req, res) => {
 // Route for logging in
 app.post('/login', async (req, res) => {
   try {
-    const  loginData  = req.body;
+    const  {loginData}  = req.body;
     console.log("Login servulla")
     console.log(JSON.stringify(loginData))
-    
+
     // Löytyykö asiakastiliä
     const accountQuery = 'SELECT * FROM "asiakasTili" WHERE username = $1 AND password = $2';
     const accountValues = [loginData.email, loginData.password];
@@ -296,6 +301,7 @@ app.post('/login', async (req, res) => {
     console.log("Asiakastili haettu")
     // Asiakkaan tiedot
     const customerId = accountResult.rows[0].asiakasID;
+
     //console.log("AsiakasID:")
     //console.log(JSON.stringify(customerId))
     const customerQuery = 'SELECT * FROM asiakas WHERE "asiakasID" = $1';
@@ -332,6 +338,7 @@ app.post('/login', async (req, res) => {
     res.status(500).send('Server error');
   }
 });
+
 
 //// tilauksen muokkausta
 app.put('/edit', async (req, res) => {

@@ -16,7 +16,6 @@ const LogIn = async (credentials) => {
     return data;
   };
   
-  
   export default logIn;
 */
   export const logIn = async (loginData) => {
@@ -36,4 +35,6 @@ const LogIn = async (credentials) => {
       console.log(JSON.stringify(error));
     }
   };
-  
+
+
+ 

@@ -17,8 +17,10 @@ import {
 import Yhteenveto from '../components/Yhteenveto';
 import addAsiakas from '../components/Server/AsiakasAPI';
 import createTilaus from '../components/Server/TilausAPI';
+import { asiakasTilaus } from "../components/Server/TilausAPI";
 import LoginRegister from "../components/LoginRegister";
 import { getAsiakkaatEmail } from "../components/Server/TuoteAPI";
+import { logIn } from "../components/Server/LogInAPI";
 
 const Tilaus = (props) => {
 
@@ -198,15 +200,39 @@ const Tilaus = (props) => {
     setFormErrors(errors);
 
 
-    
-
     // If there are no errors, submit the form
     if (Object.keys(errors).length === 0 && props.items.length > 0) {
       // Perform form submission
+      
+      if( props.userID !== null){
+        console.log("asiakas ID:llä :" + props.userID + " teki tilauksen")
+      }
+
       setIsSubmitting(false);
       setFailedSubmit(false);
       setTilaus(true);
+
+      if(props.userID === null){
       createTilaus.newTilaus(formData, uniqueItemsWithQuantity);
+      }
+
+      else{
+        //userID tilaus
+      console.log("KUTSUTAAN APIA TÄLLÄ PROPSILLA:" + props.userID )
+      console.log(formData, props.userID, uniqueItemsWithQuantity)
+      asiakasTilaus(formData, props.userID, uniqueItemsWithQuantity);
+
+      //strings
+      const logIt = {
+        email: props.email,
+        password: props.password,
+      }
+      console.log(logIt)
+
+      const userData = await logIn(logIt);
+      props.setAsiakasTiedot(userData);
+      }
+
       //print ostoskori json
       //Form output and filtered ostoskori output with quantyties
       console.log(formData);
@@ -248,8 +274,7 @@ const Tilaus = (props) => {
 //      </div>
 //    )
 //}
-
-  //if isSubmitting is true, disable the submit button
+//if isSubmitting is true, disable the submit button
 
   if(props.items.length === 0 && !tilaus) {
     return (

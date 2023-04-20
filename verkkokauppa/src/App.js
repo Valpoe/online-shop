@@ -50,7 +50,7 @@ function App() {
 
   return (
     <Router>
-      <Header setItems={setItems} items={items} getTotal={getTotal} getItemsCount={getItemsCount} countItem={countItem} user={user} setUserID={setUserID} userID={userID} setUser={setUser} setAsiakasTiedot={setAsiakasTiedot} asiakasTiedot={asiakasTiedot}/>
+      <Header setItems={setItems} items={items} getTotal={getTotal} getItemsCount={getItemsCount} countItem={countItem} user={user} setUserID={setUserID} userID={userID} setUser={setUser} setAsiakasTiedot={setAsiakasTiedot} asiakasTiedot={asiakasTiedot} email={email} setEmail={setEmail} password={password} setPassword={setPassword}/>
       <Routes>
         <Route path='/' element={<Etusivu />} />
         <Route path='/Tuotteet' element={<Tuotteet setItems={setItems} items={items} getTotal={getTotal} countItem={countItem}/>} />
@@ -58,9 +58,9 @@ function App() {
         <Route path='/PrivacyStatement' element={<PrivacyStatement />} />
         <Route path='/ota-yhteytta' element={<ContactUs />} />
         <Route path='/tuotteet/:tuoteID' element={<ProductInformation setItems={setItems} items={items} getTotal={getTotal} countItem={countItem}/>} />
-        <Route path='/tilaus' element={<Tilaus items={items} setItems={setItems} userID={userID} setUserID={setUserID} user={user} setUser={setUser} asiakasTiedot={asiakasTiedot}/> } />
+        <Route path='/tilaus' element={<Tilaus items={items} setItems={setItems} userID={userID} setUserID={setUserID} user={user} setUser={setUser} asiakasTiedot={asiakasTiedot} setAsiakasTiedot={setAsiakasTiedot} email={email} setEmail={setEmail} password={password} setPassword={setPassword}/> } />
         <Route path='/tilaushallinta' element={<OrderManagement items={items} setItems={setItems}/> } />
-        <Route path='/tilinhallinta' element={<AccountManagement items={items} setItems={setItems} user={user} setUserID={setUserID} userID={userID} setUser={setUser} asiakasTiedot={asiakasTiedot}/>  } />
+        <Route path='/tilinhallinta' element={<AccountManagement items={items} setItems={setItems} user={user} setUserID={setUserID} userID={userID} setUser={setUser} asiakasTiedot={asiakasTiedot}/>} />
       </Routes>
       <Footer />
     </Router>
