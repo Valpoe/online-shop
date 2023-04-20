@@ -302,8 +302,77 @@ app.post('/login', async (req, res) => {
   }
 });
 
+//// tilauksen muokkausta
+app.put('/edit', async (req, res) => {
+  try {
+    const customerId = req.params.customerId;
+    const editOrder = req.body;
+
+    // Update asiakas
+    const customerQuery = 'UPDATE asiakas SET nimi = $1, email = $2, osoite = $3, puhelinnro = $4 WHERE "asiakasID" = $5';
+    const customerValues = [editOrder.customer.name, editOrder.customer.email, editOrder.customer.address, editOrder.customer.number, customerId];
+    await pool.query(customerQuery, customerValues);
+
+    // Update tilaus
+    const orderQuery = 'UPDATE "tilaus" SET tilauspvm = $1, summa = $2 WHERE "tilausID" = $3';
+    const orderValues = [editOrder.order.orderdate, editOrder.order.sum, editOrder.order.orderid];
+    await pool.query(orderQuery, orderValues);
+/*
+    // Update tilaustuotteet
+    for (const item of editOrder.orderitems) {
+      const orderItemsQuery = 'UPDATE "tilausTuotteet" SET kpl = $1, summa = $2 WHERE "tilaustuotteetid" = $3';
+      const orderItemsValues = [item.quantity, item.sum, item.orderitemsid];
+      await pool.query(orderItemsQuery, orderItemsValues);
+    }
+*/
+    // update tilaustuotteet
+    for (let i = 0; i < editOrder.orderitems.length; i++) {
+      const orderitem = editOrder.orderitems[i];
+      const orderitemQuery = 'UPDATE "tilausTuotteet" SET kpl = $1 WHERE "tilaustuotteetid" = $2';
+      const orderitemValues = [orderitem.quantity, orderitem.orderitemsid];
+      
+      if (orderitem.quantity === 0) {
+        const deleteQuery = 'DELETE FROM "tilausTuotteet" WHERE ""tilaustuotteet"id" = $1';
+        await client.query(deleteQuery, [orderitem.orderitemsid]);
+      } else {
+        await client.query(orderitemQuery, orderitemValues);
+      }
+    }
+
+    // päivitetty asiakas
+    const customerResult = await pool.query('SELECT * FROM asiakas WHERE "asiakasID" = $1', [customerId]);
+    const customer = customerResult.rows[0];
+
+    // päivitetty tilaus
+    const orderResult = await pool.query('SELECT * FROM "tilaus" WHERE "tilausID" = $1', [editOrder.order.orderid]);
+    const order = orderResult.rows[0];
+
+    // päivitetty tilaustuotteet
+    const orderItemsResult = await pool.query('SELECT * FROM "tilausTuotteet" WHERE "tilausid" = $1', [editOrder.order.orderid]);
+    const orderItems = orderItemsResult.rows;
+
+    
+    const updatedData = {
+      customer: customer,
+      orders: order,
+      orderItems: orderItems
+    };
+    res.status(200).json(updatedData);
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Internal server error');
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
+
+
+
+
+
+
 
 
