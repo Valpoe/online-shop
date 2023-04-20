@@ -4,7 +4,6 @@ import {
   MDBContainer,
   MDBTabs,
   MDBTabsItem,
-  MDBTabsLink,
   MDBTabsContent,
   MDBTabsPane,
   MDBCheckbox,
