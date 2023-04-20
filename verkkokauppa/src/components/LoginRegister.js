@@ -82,6 +82,23 @@ function LoginRegister(props) {
     return;
   };
 */
+/// nonii eli tätä sitten käytätte tilauksen muokkaamiseen :)
+const editTilaus = async () => {
+  try {
+    const response = await fetch('http://localhost:5000/edit-order', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(editorder)
+    });
+    const data = await response.json();
+    // Update the UI with the edited data
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const SubmitLogin = async (event) => {
   event.preventDefault();
 
