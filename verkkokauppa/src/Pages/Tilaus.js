@@ -228,10 +228,8 @@ const Tilaus = (props) => {
         <MDBRow>
           <MDBCol size="5" className="mx-auto mb-5">
             <MDBCard className="h-100">
+                <MDBCardHeader className="text-center"><MDBCardTitle className="mt-1">Asiakkaan tiedot</MDBCardTitle></MDBCardHeader>
               <MDBCardBody>
-                <MDBCardTitle className="mb-3 text-center">
-                  Asiakkaan tiedot
-                </MDBCardTitle>
                 {failedSubmit && (
                   <div className="text-danger p-2 mb-2">
                     Lomakkeen täytössä ilmeni virheitä, ole hyvä ja tarkista
@@ -326,7 +324,7 @@ const Tilaus = (props) => {
                   {formErrors.zip && (
                     <div className="text-danger mb-2">*{formErrors.zip}</div>
                   )}
-                  <MDBInput className="mb-3"
+                  <MDBInput
                     label="Salasana"
                     name="password"
                     type="password"
@@ -342,8 +340,8 @@ const Tilaus = (props) => {
                     </div>
                   )}
 
-                <MDBCardFooter className="mt-5"></MDBCardFooter>
-                  <div className="text-center">
+                <MDBCardFooter className="mt-5">
+                  <div className="d-flex justify-content-center justify-content-lg-between text-center">
                     <label className="checkbox-label">
                       <span>Luo asiakastili</span>
                       <MDBCheckbox className="mt-2 mb-2"
@@ -351,10 +349,6 @@ const Tilaus = (props) => {
                         onChange={handleChange}
                       ></MDBCheckbox>
                     </label>
-                  </div>
-
-                  <MDBCardFooter className="mt-5"></MDBCardFooter>
-                  <div className="text-center">
                     <label className="checkbox-label">
                       <span>Hyväksyn toimitusehdot</span>
                       <MDBCheckbox className="mt-2 mb-2"
@@ -379,6 +373,7 @@ const Tilaus = (props) => {
                   >
                     Vahvista tilaus
                   </MDBBtn>
+                </MDBCardFooter>
                 </form>
               </MDBCardBody>
             </MDBCard>
