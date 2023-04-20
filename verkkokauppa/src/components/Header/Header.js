@@ -77,7 +77,7 @@ const Header = (props) => {
               </MDBModalDialog>
             </MDBModal>
             {props.user && (
-          <NavLink className="btn btn-primary" to={"/tilinhallinta"}>{props.user}</NavLink>
+          <NavLink className="btn btn-primary" to={"/tilinhallinta"}>{props.user}  {props.userID} </NavLink>
           
         )}{
           !props.user && 

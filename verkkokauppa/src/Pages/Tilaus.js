@@ -52,6 +52,34 @@ const Tilaus = (props) => {
   useEffect(() => {
     setSahkopostit(getAsiakkaatEmail);
   }, []);
+
+  useEffect(() => {
+
+    props.userID !== null && props.userID !== undefined
+      ? setFormData({
+        ...formData,
+        email: props.asiakasTiedot.customer.email,
+        firstName: props.asiakasTiedot.customer.nimi.split(" ")[0],
+        lastName: props.asiakasTiedot.customer.nimi.split(" ")[1],
+        phone: props.asiakasTiedot.customer.puhelinnro,
+        address: props.asiakasTiedot.customer.osoite.split(", ")[0],
+        city: props.asiakasTiedot.customer.osoite.split(", ")[2],
+        zip: props.asiakasTiedot.customer.osoite.split(", ")[1],
+      })
+      : setFormData({
+        ...formData,
+        email: "",
+        firstName: "",
+        lastName: "",
+        phone: "",
+        address: "",
+        city: "",
+        zip: "",
+        password: "",
+        ATchecked: false, // add checked property for checkbox
+        ATluonti: false,
+      });
+  }, [props.userID]);
   
   ////// Tilauksen luonti, voi siirtää muualle
 /*
@@ -139,7 +167,7 @@ const Tilaus = (props) => {
       errors.email = "sähköposti on virheellinen";
     }
     //if sahkoposti is already in database
-    if (formData.email) {
+    if (formData.email && props.userID === null) {
       const isEmailInDatabase = await getAsiakkaatEmail(formData.email);
       if (isEmailInDatabase === true) {
         errors.email = "sähköposti on jo käytössä";
