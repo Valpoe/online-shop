@@ -348,6 +348,7 @@ const Tilaus = (props) => {
                       <span>Luo asiakastili</span>
                       <MDBCheckbox className="mt-2 mb-2"
                         name="ATluonti"
+                        onChange={handleChange}
                       ></MDBCheckbox>
                     </label>
                   </div>
