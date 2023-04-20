@@ -54,8 +54,39 @@ app.get('/kategoriat', async (req, res) => {
       res.status(500).send('Internal Server Error');
     }
   });
+/// Kaikki tilauksessa olevat tuotteet
+  app.get('/tilaustuotteet', async (req, res) => {
+    try {
+      const query = 'SELECT * FROM "tilausTuotteet"';
+      const result = await pool.query(query);
+      res.json(result.rows);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+  app.get('/tilaus', async (req, res) => {
+    try {
+      const query = 'SELECT * FROM "tilaus"';
+      const result = await pool.query(query);
+      res.json(result.rows);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
 
-
+  app.get('/asiakastilit', async (req, res) => {
+    try {
+      const query = 'SELECT * FROM "asiakasTili" ';
+      const result = await pool.query(query);
+      res.json(result.rows);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+  
 /////// Haetaan yksi tuote
 app.get('/tuote/:id', async (req, res) => {
   try {
