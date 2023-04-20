@@ -23,6 +23,11 @@ function App() {
   const [userID, setUserID] = useState(null)
 
 
+  useEffect(() => {
+    const fetchData = async () => {
+      
+
+
   //get items count
   const getItemsCount = () => {
     if (!items) {
