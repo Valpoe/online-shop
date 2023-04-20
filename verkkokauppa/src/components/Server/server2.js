@@ -103,12 +103,22 @@ app.post('/addasiakas', async (req, res) => {
 app.post('/tilaus', async (req, res) => {
   try {
     const { asiakas, orderData, grandTotal } = req.body;
-   
+    
     //1: Uuden asiakkaan lisäys
     const newCustomerQuery = `INSERT INTO asiakas (nimi, email, osoite, puhelinnro) VALUES ($1, $2, $3, $4) RETURNING "asiakasID"`;
     const newCustomerValues = [asiakas.nimi, asiakas.email, asiakas.osoite, asiakas.puhelinnro];
     const newCustomerResult = await pool.query(newCustomerQuery, newCustomerValues);
     const customerId = newCustomerResult.rows[0].asiakasID;
+
+    console.log(asiakas.ATluonti)
+     // Luodaanko asiakastili
+     if (asiakas.ATluonti) {
+      console.log("asiakastiliä luodaan")
+      await pool.query(
+        'INSERT INTO "asiakasTili" ("asiakasID", username, password) VALUES ($1, $2, $3)',
+        [customerId, asiakas.email, asiakas.password]
+      );
+    }
    
     // 2: Tilauksen luonti uudelle asiakkaalle
     const newOrderQuery = `INSERT INTO tilaus (asiakasid, tilauspvm, summa) VALUES ($1, $2, $3) RETURNING "tilausID"`;
@@ -131,13 +141,13 @@ app.post('/tilaus', async (req, res) => {
 });
 
 //// Asiakastilin kirjautuminen + Asiakastiliin liitetyn tilauksen ja tuotteiden haku
-
 /*
+
 app.post('/login', (req, res) => {
   const { username, password } = req.body.LogInCredentials;
 
   /// Etsitään AsiakasTilistä tunnuksia vastaava rivi
-  pool.query('SELECT "asiakasID" FROM asiakasTili WHERE Username = $1 AND Password = $2', [username, password], (error, results) => {
+  pool.query('SELECT "asiakasID" FROM asiakasTili WHERE username = $1 AND password = $2', [username, password], (error, results) => {
     if (error) {
       throw error;
     }
@@ -164,7 +174,7 @@ app.post('/login', (req, res) => {
           /// Haetaan kyseisen asiakkaan tilauksen tuotteet
           Promise.all(
             orders.map((order) =>
-              pool.query('SELECT * FROM tilausTuotteet WHERE "tilausid" = $1', [order.OrderID])
+              pool.query('SELECT * FROM "tilausTuotteet" WHERE "tilausid" = $1', [order.OrderID])
             )
           ).then((orderItemsResults) => {
             const orderItems = orderItemsResults.map((result) => result.rows);
@@ -187,13 +197,14 @@ app.post('/login', (req, res) => {
 });
 */
 
-const logIn = async (req, res) => {
+/*
+app.post('/login', (req, res) => {
   try {
     const { username, password } = req.body;
     
      /// Etsitään AsiakasTilistä tunnuksia vastaava rivi
     const customerAccount = await pool.query(
-      'SELECT * FROM "asiakasTili" WHERE Username = $1 AND Password = $2',
+      'SELECT * FROM "asiakasTili" WHERE username = $1 AND password = $2',
       [username, password]
     );
     
@@ -232,9 +243,67 @@ const logIn = async (req, res) => {
     console.error(err.message);
     res.status(500).json({ message: "Yhteysvirhe" });
   }
-};
+});
+*/
 
+// Route for logging in
+app.post('/login', async (req, res) => {
+  try {
+    const  loginData  = req.body;
+    console.log("Login servulla")
+    console.log(JSON.stringify(loginData))
+    
+    // Löytyykö asiakastiliä
+    const accountQuery = 'SELECT * FROM "asiakasTili" WHERE username = $1 AND password = $2';
+    const accountValues = [loginData.email, loginData.password];
+    const accountResult = await pool.query(accountQuery, accountValues);
+    if (accountResult.rows.length === 0) {
+      res.status(401).send('Virheellinen tunnus tai salasana');
+      return;
+    }
+    console.log('Asiakastilin setit:', accountResult.rows[0]);
+    console.log("Asiakastili haettu")
+    // Asiakkaan tiedot
+    const customerId = accountResult.rows[0].asiakasID;
+    //console.log("AsiakasID:")
+    //console.log(JSON.stringify(customerId))
+    const customerQuery = 'SELECT * FROM asiakas WHERE "asiakasID" = $1';
+    const customerValues = [customerId];
+    const customerResult = await pool.query(customerQuery, customerValues);
+    console.log('Asiakkaan tiedot:');
+    console.log(customerResult.rows);
+
+    console.log("Asiakas haettu")
+    //console.log(JSON.stringify(customerResult))
+    // Get orders data
+    const ordersQuery = 'SELECT * FROM tilaus WHERE asiakasid = $1';
+    const ordersValues = [customerId];
+    const ordersResult = await pool.query(ordersQuery, ordersValues);
+    console.log("Tilaukset haettu")
+    //console.log(JSON.stringify(orderResult))
+    // tilauksen tuotteet
+    const orderItemsQuery = 'SELECT * FROM "tilausTuotteet" WHERE tilausid IN (SELECT "tilausID" FROM tilaus WHERE asiakasid = $1)';
+    const orderItemsValues = [customerId];
+    const orderItemsResult = await pool.query(orderItemsQuery, orderItemsValues);
+    console.log("Tilaustuotteet haettu")
+    //console.log(JSON.stringify(orderItemsResult))
+    
+    const data = {
+      customer: customerResult.rows[0],
+      orders: ordersResult.rows,
+      orderItems: orderItemsResult.rows
+    };
+    console.log("Yhteenveto asiakastilin tiedoista:")
+    console.log(JSON.stringify(data))
+    res.json(data);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
+
+

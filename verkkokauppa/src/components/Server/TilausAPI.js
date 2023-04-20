@@ -20,10 +20,11 @@ export const newTilaus = async (customerData, orderData) => {
   };
 
   export const luoAsiakas = (customerData) => {
-    const { firstName, lastName, email, phone, address, zip, city } = customerData;
+    const { firstName, lastName, email, phone, address, zip, city, password, ATluonti } = customerData;
     const kokonimi = firstName + ' ' + lastName;
     const osoite = address + ', ' + zip + ', ' + city;
-    const data = { nimi: kokonimi, email: email, osoite: osoite, puhelinnro: phone };
+    const data = { nimi: kokonimi, email: email, osoite: osoite, puhelinnro: phone, password: password, ATluonti: ATluonti};
+    console.log(JSON.stringify(data)) 
     return data;
   };
 

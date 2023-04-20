@@ -30,6 +30,7 @@ const Tilaus = (props) => {
     city: "",
     zip: "",
     password: "",
+    ATluonti: false,
   });
   const [formErrors, setFormErrors] = useState({
     firstName: "",
@@ -344,6 +345,8 @@ const Tilaus = (props) => {
                       <span>Luo asiakastili</span>
                       <MDBCheckbox className="mt-2 mb-2"
                         name="ATluonti"
+                        ATluonti={formData.ATluonti}
+                        onChange={handleChange}
                       ></MDBCheckbox>
                     </label>
                   </div>
@@ -356,7 +359,7 @@ const Tilaus = (props) => {
                       <MDBCheckbox className="mt-2 mb-2"
                         name="checked"
                         id="checkbox1"
-                        checked={formData.checked}
+                       // checked={formData.checked}
                         onChange={handleChange}
                         error={formErrors.checked}
                       />

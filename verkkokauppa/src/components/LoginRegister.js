@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { logIn } from '../components/Server/LogInAPI';
 import {
   MDBContainer,
   MDBTabs,
@@ -46,7 +47,7 @@ function LoginRegister(props) {
     setJustifyActive(value);
     console.log(value);
   };
-
+/*
   const SubmitLogin = (event) => {
     event.preventDefault();
 
@@ -77,6 +78,46 @@ function LoginRegister(props) {
     }
     return;
   };
+*/
+const SubmitLogin = async (event) => {
+  event.preventDefault();
+
+  let errors = {};
+  //check if all fields are filled and checkbox is checked
+  if (!LoginForm.email) {
+    errors.email = "Syötä sähköpostiosoite";
+  }
+  if (!LoginForm.email.includes("@")) {
+    errors.email = "Sähköposti on virheellinen";
+  }
+  if (!LoginForm.password) {
+    errors.password = "Syötä salasana";
+  }
+
+  setLoginErrorForm(errors);
+
+  //if no errors submit the form
+  if (Object.keys(errors).length === 0) {
+    console.log(LoginForm);
+
+    try {
+      console.log(JSON.stringify(LoginForm))
+      const userData = await logIn(LoginForm);
+      console.log("Asiakkaan tiedot ja tilauksen tiedot:")
+      console.log(JSON.stringify(userData))
+      props.setUser(userData.name);
+      props.setUserID(userData.id);
+      setLoginActive(true);
+    } catch (error) {
+      console.log(error);
+      setLoginActive(false);
+    }
+  } else {
+    console.log(errors);
+    setLoginActive(false);
+  }
+  return;
+};
 
   const SubmitRegister = (event) => {
     event.preventDefault();
