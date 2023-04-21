@@ -1,5 +1,3 @@
-import Logout from "../components/Logout";
-import { logIn } from "../components/Server/LogInAPI";
 import { getTuote } from "../components/Server/TuoteAPI";
 import { useEffect } from "react";
 import { getAsiakkaatEmail } from "../components/Server/TuoteAPI";
@@ -131,12 +129,14 @@ const OrderManagement = (props) => {
     setFormErrors(errors);
   
     console.log("Form errors" + JSON.stringify(errors));
+    console.log("Form data" + JSON.stringify(props.asiakasTiedot));
     // If there are no errors, submit the form
     if (Object.keys(errors).length === 0 && props.items.length > 0) {
       // Perform form submission
 
       setFailedSubmit(false);
       setIsSubmitting(false);
+      
 
       if( props.userID !== null){
         console.log("asiakas ID:llä :" + props.userID + " teki tilauksen")

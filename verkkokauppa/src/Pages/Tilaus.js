@@ -199,7 +199,6 @@ const Tilaus = (props) => {
     }
     setFormErrors(errors);
 
-
     // If there are no errors, submit the form
     if (Object.keys(errors).length === 0 && props.items.length > 0) {
       // Perform form submission
@@ -207,7 +206,6 @@ const Tilaus = (props) => {
       if( props.userID !== null){
         console.log("asiakas ID:llä :" + props.userID + " teki tilauksen")
       }
-
       setIsSubmitting(false);
       setFailedSubmit(false);
       setTilaus(true);
