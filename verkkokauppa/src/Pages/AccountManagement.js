@@ -104,7 +104,12 @@ const OrderManagement = (props) => {
     }
     //if sahkoposti is already in database
     if (formData.email && props.userID === null) {
-      const isEmailInDatabase = await getAsiakkaatEmail(formData.email);
+
+      //if formEmail in sahkopostit;
+      const isEmailInDatabase = sahkopostit.some(
+        (email) => email === formData.email
+      );
+      
       if (isEmailInDatabase === true) {
         errors.email = "sähköposti on jo käytössä";
       }
@@ -138,8 +143,8 @@ const OrderManagement = (props) => {
     props.asiakasTiedot.customer.osoite = formData.address + ", " + formData.zip + ", " + formData.city;
 
 
-    const editoredit = JSON.stringify(props.asiakasTiedot)
-    const userData = await editOrder(editoredit);
+    const editoredit = formData;
+    //const userData = await editOrder(editoredit);
 
     //editAsiakas(JSON.stringify(props.asiakasTiedot.customer));
     //console.log(JSON.stringify(props.asiakasTiedot.customer));
@@ -304,11 +309,10 @@ const OrderManagement = (props) => {
                             <MDBTable hover>
                               <MDBTableBody className="btn btn-primary">
                               {orderItems.map((orderItem) => {
-                                const tuote = getTuote(orderItem.tuoteid);
                                 return (
                                   <tr key={orderItem.tuoteid}>
                                     <td>tuoteid: {orderItem.tuoteid}</td>
-                                    <td>tuotenimi: {tuote.tuotenimi}</td>
+                                    <td>tuotenimi: {orderItem.tuotenimi}</td>
                                     <td>summa: {orderItem.summa} €</td>
                                     <td>kpl: {orderItem.kpl}</td>
                                   </tr>
