@@ -8,26 +8,26 @@ return (
   <MDBFooter bgColor='light' className='text-center text-lg-start text-muted'>
       <section className='d-flex justify-content-center justify-content-lg-between p-4 border-bottom'>
         <div className='me-5 d-none d-lg-block'>
-          <span>Ota meihin yhteyttä sosiaalisessa mediassa:</span>
+          <span className="text-dark">Ota meihin yhteyttä sosiaalisessa mediassa:</span>
         </div>
         <div>
           <a href="/#" className='me-4 text-reset'>
-            <MDBIcon fab icon="facebook-f" />
+            <MDBIcon fab icon="facebook-f" style={{color: "#3b5998"}} />
           </a>
           <a href='/#' className='me-4 text-reset'>
-            <MDBIcon fab icon="twitter" />
+            <MDBIcon fab icon="twitter" style={{ color: '#55acee' }} />
           </a>
           <a href='/#' className='me-4 text-reset'>
-            <MDBIcon fab icon="google" />
+            <MDBIcon fab icon="google" style={{ color: '#db4437' }} />
           </a>
           <a href='/#' className='me-4 text-reset'>
-            <MDBIcon fab icon="instagram" />
+            <MDBIcon fab icon="instagram" style={{ color: '#ac2bac' }} />
           </a>
           <a href='/#' className='me-4 text-reset'>
-            <MDBIcon fab icon="linkedin" />
+            <MDBIcon fab icon="linkedin" style={{ color: '#0072b1' }}/>
           </a>
           <a href='/#' className='me-4 text-reset'>
-            <MDBIcon fab icon="github" />
+            <MDBIcon fab icon="github" className="text-dark" />
           </a>
         </div>
       </section>
@@ -36,61 +36,61 @@ return (
         <MDBContainer className='text-center text-md-start mt-5'>
           <MDBRow className='mt-3'>
             <MDBCol md="3" lg="4" xl="3" className='mx-auto mb-4'>
-              <h6 className='text-uppercase fw-bold mb-4'>
-                <MDBIcon icon="gem" className="me-3" />
+              <h6 className='text-uppercase text-dark fw-bold mb-4'>
+                <MDBIcon icon="gem" className="me-3 text-dark" />
                 Kynä & Kumi
               </h6>
               <p>         
               </p>
             </MDBCol>
             <MDBCol md="2" lg="2" xl="2" className='mx-auto mb-4'>
-              <h6 className='text-uppercase fw-bold mb-4'>Navigoi</h6>
+              <h6 className='text-uppercase fw-bold mb-4 text-dark'>Navigoi</h6>
               <p>
-                <NavLink to="/" className='text-reset'>Etusivu</NavLink>
+                <NavLink to="/" className='text-reset text-dark'>Etusivu</NavLink>
               </p>
               <p>
-              <NavLink to="/tuotteet" className='text-reset'>Tuotteet</NavLink>
+              <NavLink to="/tuotteet" className='text-reset text-dark'>Tuotteet</NavLink>
               </p>
               <p>
-              <NavLink to="/tietoa-meista" className='text-reset'>Tietoa meistä</NavLink>
+              <NavLink to="/tietoa-meista" className='text-reset text-dark'>Tietoa meistä</NavLink>
               </p>
               <p>
-              <NavLink to="/ota-yhteytta" className='text-reset'>Ota yhteyttä</NavLink>
+              <NavLink to="/ota-yhteytta" className='text-reset text-dark'>Ota yhteyttä</NavLink>
               </p>
               <p>
-              <NavLink to="/ostoskori" className='text-reset'>Ostoskori</NavLink>
+              <NavLink to="/ostoskori" className='text-reset text-dark'>Ostoskori</NavLink>
               </p>
               <p>
-              <NavLink to="/privacystatement" className='text-reset'>Tietosuojalausunto</NavLink>
+              <NavLink to="/privacystatement" className='text-reset text-dark'>Tietosuojalausunto</NavLink>
               </p>
             </MDBCol>
 
             <MDBCol md="3" lg="2" xl="2" className='mx-auto mb-4'>
-              <h6 className='text-uppercase fw-bold mb-4'>Useful links</h6>
+              <h6 className='text-uppercase fw-bold mb-4 text-dark'>Hyödylliset linkit</h6>
               <p>
                 <a href='#!' className='text-reset'>
-                  Pricing
+                  Hinnoittelu
                 </a>
               </p>
               <p>
                 <a href='#!' className='text-reset'>
-                  Settings
+                  Asetukset
                 </a>
               </p>
               <p>
                 <a href='#!' className='text-reset'>
-                  Orders
+                  Lue lisää
                 </a>
               </p>
               <p>
                 <a href='#!' className='text-reset'>
-                  Help
+                  Tuki
                 </a>
               </p>
             </MDBCol>
 
             <MDBCol md="4" lg="3" xl="3" className='mx-auto mb-md-0 mb-4'>
-              <h6 className='text-uppercase fw-bold mb-4'>Contact</h6>
+              <h6 className='text-uppercase fw-bold mb-4 text-dark'>Ota yhteyttä</h6>
               <p>
                 <MDBIcon icon="home" className="me-3" />
                 Umpikuja 3, 12345 Kaupunki
