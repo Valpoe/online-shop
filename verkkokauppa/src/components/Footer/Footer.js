@@ -58,33 +58,30 @@ return (
               <NavLink to="/ota-yhteytta" className='text-reset'>Ota yhteyttä</NavLink>
               </p>
               <p>
-              <NavLink to="/ostoskori" className='text-reset'>Ostoskori</NavLink>
-              </p>
-              <p>
               <NavLink to="/privacystatement" className='text-reset'>Tietosuojalausunto</NavLink>
               </p>
             </MDBCol>
 
             <MDBCol md="3" lg="2" xl="2" className='mx-auto mb-4'>
-              <h6 className='text-uppercase fw-bold mb-4'>Useful links</h6>
+              <h6 className='text-uppercase fw-bold mb-4'>Hyödyllisiä linkkejä</h6>
               <p>
-                <a href='#!' className='text-reset'>
-                  Pricing
+                <a href='/#' className='text-reset'>
+                  Hinnoittelu
                 </a>
               </p>
               <p>
-                <a href='#!' className='text-reset'>
-                  Settings
+                <a href='/#' className='text-reset'>
+                  Asetukset
                 </a>
               </p>
               <p>
-                <a href='#!' className='text-reset'>
-                  Orders
+                <a href='/#' className='text-reset'>
+                  Tilaukset
                 </a>
               </p>
               <p>
-                <a href='#!' className='text-reset'>
-                  Help
+                <a href='/#' className='text-reset'>
+                  Apua
                 </a>
               </p>
             </MDBCol>
@@ -100,10 +97,10 @@ return (
                 ohj2ryhmaf@gmail.com
               </p>
               <p>
-                <MDBIcon icon="phone" className="me-3" />+ 01 234 567 88
+                <MDBIcon icon="phone" className="me-3" />+ 358 123 456 789
               </p>
               <p>
-                <MDBIcon icon="print" className="me-3" />+ 01 234 567 89
+                <MDBIcon icon="print" className="me-3" />+ 358 987 654 321
               </p>
             </MDBCol>
           </MDBRow>

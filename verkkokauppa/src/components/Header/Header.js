@@ -30,7 +30,7 @@ const Header = (props) => {
 
     return(
         <MDBNavbar expand='lg' light bgColor='light'>
-      <MDBContainer fluid>
+      <MDBContainer>
         <MDBNavbarBrand tag="strong">
           Kynä & Kumi
          </MDBNavbarBrand>

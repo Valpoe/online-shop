@@ -4,6 +4,8 @@ import { MDBContainer, MDBRow, MDBCol, MDBIcon } from "mdb-react-ui-kit";
 import koulutarvikekuva from "../Images/koulu-koulutarvikkeet-optimoitu.jpg";
 
 const ContactUs = () => {
+
+  // Yhteydenottolomakkeen toiminnalisuus
   const [status, setStatus] = useState("Lähetä");
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -63,11 +65,11 @@ const ContactUs = () => {
             </p>
             <p>
               <MDBIcon icon="phone" className="me-3" />
-              + 01 234 567 88
+              + 358 123 456 78
             </p>
             <p>
               <MDBIcon icon="print" className="me-3" />
-              + 01 234 567 89
+              + 358 987 654 32
             </p>
             <img src={koulutarvikekuva} alt="koulutarvikekuva" width="300" height="400" className="mt-3"/>
           </MDBCol>
