@@ -137,22 +137,16 @@ const OrderManagement = (props) => {
     props.asiakasTiedot.customer.puhelinnro = formData.phone;
     props.asiakasTiedot.customer.osoite = formData.address + ", " + formData.zip + ", " + formData.city;
 
-    console.log("Form data" + JSON.stringify(props.asiakasTiedot));
 
-    editOrder(JSON.stringify(props.asiakasTiedot));
+    const editoredit = JSON.stringify(props.asiakasTiedot)
+    const userData = await editOrder(editoredit);
+
+    //editAsiakas(JSON.stringify(props.asiakasTiedot.customer));
+    //console.log(JSON.stringify(props.asiakasTiedot.customer));
     
     // If there are no errors, submit the form
     if (Object.keys(errors).length === 0 && props.items.length > 0) {
       // Perform form submission
-
-      setFailedSubmit(false);
-      setIsSubmitting(false);
-
-
-      if( props.userID !== null){
-        console.log("asiakas ID:llä :" + props.userID + " teki tilauksen")
-      }
-  
       setIsSubmitting(false);
       setFailedSubmit(false);
   
