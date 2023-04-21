@@ -1,14 +1,13 @@
-import { MDBInputGroup, MDBIcon, MDBInput } from "mdb-react-ui-kit";
 import { useState } from "react";
+import { MDBInputGroup, MDBIcon, MDBInput } from "mdb-react-ui-kit";
 
 function Tuotehakupalkki(props) {
-
   const [searchInput, setSearchInput] = useState("");
 
   // Hakupalkin toiminnallisuus
   const handleSearch = (e) => {
     e.preventDefault();
-   setSearchInput(e.target.value);
+    setSearchInput(e.target.value);
 
     if (e.target.value === "") {
       props.setVerticalActive("kaikki-tuotteet");
@@ -25,18 +24,16 @@ function Tuotehakupalkki(props) {
     }
   };
 
-return (
- <>
- <MDBInputGroup>
-            <MDBIcon className="m-3" icon="search" size="lg" />
-            <MDBInput
-              label="Etsi tuotteita"
-              onChange={handleSearch}
-              value={searchInput}
-            />
-          </MDBInputGroup>
-     </>
- )
+  return (
+      <MDBInputGroup>
+        <MDBIcon className="m-3" icon="search" size="lg" />
+        <MDBInput
+          label="Etsi tuotteita"
+          onChange={handleSearch}
+          value={searchInput}
+        />
+      </MDBInputGroup>
+  );
 }
 
 export default Tuotehakupalkki;

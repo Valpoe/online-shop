@@ -15,11 +15,11 @@ const Tuotteet = (props) => {
   const [searchResults, setSearchResults] = useState([]);
   const [verticalActive, setVerticalActive] = useState("kaikki-tuotteet");
 
-  // Tietokannasta tuotujen tietojen alustukseen:
+  // Tietokannasta tuotujen tietojen alustukseen
   const [tuotteet, setTuotteet] = useState([]);
   const [kategoriat, setKategoriat] = useState([]);
 
-  // Haetaan API:sta tietoa, muokataan logiikkaa tarpeen vaatiessa.
+  // Haetaan API:sta tietoa, muokataan logiikkaa tarpeen vaatiessa
   useEffect(() => {
     async function fetchData() {
       const kategoriaData = await getKategoriat();
@@ -30,7 +30,7 @@ const Tuotteet = (props) => {
     fetchData();
   }, []);
 
-  // Jos tuotteet eivät ole vielä ladattu, näytetään spinneri.
+  // Jos tuotteet eivät ole vielä ladattu, näytetään spinneri
   if (tuotteet.length === 0) {
     return (
       <div className="text-center m-5">

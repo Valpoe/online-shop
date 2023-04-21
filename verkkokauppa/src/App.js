@@ -1,7 +1,8 @@
 import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useState } from 'react';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Etusivu from './Pages/Etusivu';
 import Tuotteet from './Pages/Tuotteet';
 import AboutUs from './Pages/AboutUs';
@@ -9,13 +10,11 @@ import ContactUs from './Pages/ContactUs';
 import PrivacyStatement from './Pages/PrivacyStatement';
 import ProductInformation from './Pages/ProductInformation';
 import Tilaus from './Pages/Tilaus';
-import { useEffect, useState } from 'react';
 import OrderManagement from './Pages/OrderManagement';
 import AccountManagement from './Pages/AccountManagement';
 
 function App() {
 
-  
   const [items, setItems] = useState([])
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -23,9 +22,7 @@ function App() {
   const [userID, setUserID] = useState(null)
   const [asiakasTiedot, setAsiakasTiedot] = useState(null)
 
-
-
-  //get items count
+  // Hakee tuotteiden määrän
   const getItemsCount = () => {
     if (!items) {
       return 0;
@@ -33,6 +30,7 @@ function App() {
     return items.length;
   };
 
+  // Hakee ostoskorin tuotteiden yhteishinnan
   const getTotal = () => {
     if (!items) {
       return 0;
@@ -40,6 +38,7 @@ function App() {
     return items.reduce((total, item) => total + item.hinta, 0);
   };
 
+  // Hakee ostoskorin tuotteiden määrän
   const countItem = (itemID) => {
     let count = 0;
     items.forEach((item) => {
