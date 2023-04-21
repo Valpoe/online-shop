@@ -4,10 +4,10 @@
 }
 
 html {
-  /* this makes sure the padding and the border is included in the box sizing */
+  /* Tämä varmistaa, että padding ja reunat ovat sisälletettyjä box-sizingissä */
   box-sizing: border-box;
-  /* Remove horizontal scroll bar */
-  overflow-x: hidden;
+  /* Poistaa horizontaalisen scroll bar:n */
+  /* overflow-x: hidden; */
 }
 
 html body {

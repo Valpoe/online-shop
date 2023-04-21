@@ -29,12 +29,12 @@ const Header = (props) => {
     const toggleShowLogin = () => setBasicModalLogin(!basicModalLogin);
 
     return(
-        <MDBNavbar expand='lg' light bgColor='light'>
-      <MDBContainer fluid>
+      <MDBNavbar expand='lg' light bgColor='light'>
+          <MDBContainer className="text-center text-md-start justify-content-center">
         <MDBNavbarBrand tag="strong">
           Kynä & Kumi
+        <MDBIcon fas icon="pencil-ruler" className="text-dark ms-3" />
          </MDBNavbarBrand>
-        <MDBIcon fas icon="pencil-ruler" className="text-dark" />
         <MDBNavbarToggler
           type='button'
           aria-expanded='false'
@@ -45,16 +45,16 @@ const Header = (props) => {
         <MDBCollapse navbar show={showNavCentred} className="collapse navbar-collapse justify-content-center" >
           <MDBNavbarNav fullWidth={false} className="mb-2 mb-lg-0" >
             <MDBNavbarItem>
-            <NavLink to="/" className='nav-link'>Etusivu</NavLink>
+            <NavLink to="/" className='nav-link fw-bold'>Etusivu</NavLink>
             </MDBNavbarItem>
             <MDBNavbarItem>
-              <NavLink to="/tuotteet" className='nav-link'>Tuotteet</NavLink>
+              <NavLink to="/tuotteet" className='nav-link fw-bold'>Tuotteet</NavLink>
             </MDBNavbarItem>
             <MDBNavbarItem>
-            <NavLink to="/tietoa-meista" className='nav-link'>Tietoa meistä</NavLink>
+            <NavLink to="/tietoa-meista" className='nav-link fw-bold'>Tietoa meistä</NavLink>
             </MDBNavbarItem>
             <MDBNavbarItem>
-            <NavLink to="/ota-yhteytta" className='nav-link'>Ota yhteyttä</NavLink>
+            <NavLink to="/ota-yhteytta" className='nav-link fw-bold'>Ota yhteyttä</NavLink>
             </MDBNavbarItem>
           </MDBNavbarNav>
         </MDBCollapse>
@@ -77,18 +77,19 @@ const Header = (props) => {
               </MDBModalDialog>
             </MDBModal>
             {props.user && (
-          <MDBBtn className=''>{props.user} </MDBBtn>
+          <NavLink className="btn btn-primary" to={"/tilinhallinta"}>{props.user}  {props.userID} </NavLink>
+          
         )}{
-          !props.user && (
+          !props.user && 
             <>
-            <MDBBtn color="success" onClick={toggleShowLogin} className='me-2'><MDBIcon fas icon="child" className='me-1'/><MDBIcon fas icon="circle-right" className='me-2'/>kirjaudu</MDBBtn>
+            <MDBBtn color="success" onClick={toggleShowLogin}><MDBIcon fas icon="child" className='me-2'/><MDBIcon fas icon="circle-right"/></MDBBtn>
             <MDBModal show={basicModalLogin} setShow={setBasicModalLogin} tabIndex='-1'>
               <MDBModalDialog className="modal-dialog modal-xl">
                 <MDBModalContent>
                   <MDBModalHeader>
                     <MDBBtn className='btn-close' color='none' onClick={toggleShowLogin}></MDBBtn>
                   </MDBModalHeader>
-                  <LoginRegister setUserID={props.setUserID} userID={props.userID} setUser={props.setUser}/>
+                  <LoginRegister setUserID={props.setUserID} userID={props.userID} setUser={props.setUser} toggleShowLogin={toggleShowLogin} setAsiakasTiedot={props.setAsiakasTiedot} asiakasTiedot={props.asiakasTiedot} email={props.email} setEmail={props.setEmail} password={props.password} setPassword={props.setPassword}/>
                   <MDBModalFooter>
                     <MDBBtn className="btn btn-dark" onClick={toggleShowLogin}>
                       Sulje
@@ -98,8 +99,8 @@ const Header = (props) => {
               </MDBModalDialog>
             </MDBModal>
             </>
-            )}
-      </MDBContainer>
+            }
+    </MDBContainer>
     </MDBNavbar>
     );
 };

@@ -17,9 +17,14 @@ import {
 import Yhteenveto from '../components/Yhteenveto';
 import addAsiakas from '../components/Server/AsiakasAPI';
 import createTilaus from '../components/Server/TilausAPI';
+import { asiakasTilaus } from "../components/Server/TilausAPI";
 import LoginRegister from "../components/LoginRegister";
+import { getAsiakkaatEmail } from "../components/Server/TuoteAPI";
+import { logIn } from "../components/Server/LogInAPI";
 
 const Tilaus = (props) => {
+
+  const [sahkopostit, setSahkopostit] = useState(getAsiakkaatEmail);
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -29,6 +34,9 @@ const Tilaus = (props) => {
     address: "",
     city: "",
     zip: "",
+    password: "",
+    ATchecked: false, // add checked property for checkbox
+    ATluonti: false,
   });
   const [formErrors, setFormErrors] = useState({
     firstName: "",
@@ -38,8 +46,42 @@ const Tilaus = (props) => {
     address: "",
     city: "",
     zip: "",
+    ATchecked: false, // add checked property for checkbox
     checked: false, // add checked property for checkbox
   });
+
+
+  useEffect(() => {
+    setSahkopostit(getAsiakkaatEmail);
+  }, []);
+
+  useEffect(() => {
+
+    props.userID !== null && props.userID !== undefined
+      ? setFormData({
+        ...formData,
+        email: props.asiakasTiedot.customer.email,
+        firstName: props.asiakasTiedot.customer.nimi.split(" ")[0],
+        lastName: props.asiakasTiedot.customer.nimi.split(" ")[1],
+        phone: props.asiakasTiedot.customer.puhelinnro,
+        address: props.asiakasTiedot.customer.osoite.split(", ")[0],
+        city: props.asiakasTiedot.customer.osoite.split(", ")[2],
+        zip: props.asiakasTiedot.customer.osoite.split(", ")[1],
+      })
+      : setFormData({
+        ...formData,
+        email: "",
+        firstName: "",
+        lastName: "",
+        phone: "",
+        address: "",
+        city: "",
+        zip: "",
+        password: "",
+        ATchecked: false, // add checked property for checkbox
+        ATluonti: false,
+      });
+  }, [props.userID]);
   
   ////// Tilauksen luonti, voi siirtää muualle
 /*
@@ -102,7 +144,7 @@ const Tilaus = (props) => {
     }
   }, [tilaus]);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     console.log("Form submitted" + JSON.stringify(formData));
     //clear ostoskori after submit and set tilaus to true
     //prevent page reload
@@ -122,9 +164,19 @@ const Tilaus = (props) => {
     }
     if (!formData.email) {
       errors.email = "Sähköposti on pakollinen";
-    } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
+    } 
+    else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
       errors.email = "sähköposti on virheellinen";
     }
+    //if sahkoposti is already in database
+    if (formData.email && props.userID === null) {
+      const isEmailInDatabase = await getAsiakkaatEmail(formData.email);
+      if (isEmailInDatabase === true) {
+        errors.email = "sähköposti on jo käytössä";
+      }
+    }
+
+
     if (!formData.phone) {
       errors.phone = "Puhelinnumero on pakollinen";
     }
@@ -139,18 +191,46 @@ const Tilaus = (props) => {
     } else if (!/^\d{5}(?:[-\s]\d{4})?$/.test(formData.zip)) {
       errors.zip = "Postinumero on virheellinen";
     }
+    if(!formData.password && !formData.ATchecked === false){
+      errors.password = "Salasana on pakollinen";
+    }
     if (!formData.checked) {
       errors.checked = "Sinun täytyy hyväksyä ehdot";
     }
     setFormErrors(errors);
 
     // If there are no errors, submit the form
-    if (Object.keys(errors).length === 0) {
+    if (Object.keys(errors).length === 0 && props.items.length > 0) {
       // Perform form submission
+      
+      if( props.userID !== null){
+        console.log("asiakas ID:llä :" + props.userID + " teki tilauksen")
+      }
       setIsSubmitting(false);
       setFailedSubmit(false);
       setTilaus(true);
+
+      if(props.userID === null){
       createTilaus.newTilaus(formData, uniqueItemsWithQuantity);
+      }
+
+      else{
+        //userID tilaus
+      console.log("KUTSUTAAN APIA TÄLLÄ PROPSILLA:" + props.userID )
+      console.log(formData, props.userID, uniqueItemsWithQuantity)
+      asiakasTilaus(formData, props.userID, uniqueItemsWithQuantity);
+
+      //strings
+      const logIt = {
+        email: props.email,
+        password: props.password,
+      }
+      console.log(logIt)
+
+      const userData = await logIn(logIt);
+      props.setAsiakasTiedot(userData);
+      }
+
       //print ostoskori json
       //Form output and filtered ostoskori output with quantyties
       console.log(formData);
@@ -171,29 +251,48 @@ const Tilaus = (props) => {
     setFormData({ ...formData, [name]: value });
   };
 
-  if(props.userID === null) {
+//  if(props.userID === null) {
+//    return (
+//      <div className="pb-5 pt-5" style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)'}}>
+//      <MDBContainer>
+//      <MDBCard>
+//        <MDBCardBody className="text-center">
+//          <MDBCardTitle className="mb-4">
+//            Hupsis, et ole kirjautunut sisään vielä
+//            <MDBIcon fas icon="circle-exclamation" className="ms-2"></MDBIcon>
+//          </MDBCardTitle>
+//          <MDBCardText>
+//            Ole hyvä ja kirjaudu tai rekisteröidy ennen kuin jatkat tilauksen tekemiseen.
+//              Näin varmistamme että saatte tuotteenne varmasti perille. Kiitos yhteistyöstä!
+//          </MDBCardText>
+//          <LoginRegister setUserID={props.setUserID} userID={props.userID} setUser={props.setUser}></LoginRegister>
+//        </MDBCardBody>
+//      </MDBCard>
+//      </MDBContainer>
+//      </div>
+//    )
+//}
+//if isSubmitting is true, disable the submit button
+
+  if(props.items.length === 0 && !tilaus) {
     return (
       <div className="pb-5 pt-5" style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)'}}>
       <MDBContainer>
       <MDBCard>
         <MDBCardBody className="text-center">
           <MDBCardTitle className="mb-4">
-            Hupsis, et ole kirjautunut sisään vielä
+            Ostoskori on tyhjä
             <MDBIcon fas icon="circle-exclamation" className="ms-2"></MDBIcon>
           </MDBCardTitle>
           <MDBCardText>
-            Ole hyvä ja kirjaudu tai rekisteröidy ennen kuin jatkat tilauksen tekemiseen.
-              Näin varmistamme että saatte tuotteenne varmasti perille. Kiitos yhteistyöstä!
+            Et voi tehdä tilausta, jos ostoskorisi on tyhjä.
           </MDBCardText>
-          <LoginRegister setUserID={props.setUserID} userID={props.userID} setUser={props.setUser}></LoginRegister>
         </MDBCardBody>
       </MDBCard>
       </MDBContainer>
       </div>
-    )
-}
+    );}
 
-  //if isSubmitting is true, disable the submit button
   if (tilaus) {
     return (
       <MDBRow className="p-5">
@@ -221,10 +320,8 @@ const Tilaus = (props) => {
         <MDBRow>
           <MDBCol size="5" className="mx-auto mb-5">
             <MDBCard className="h-100">
+                <MDBCardHeader className="text-center"><MDBCardTitle className="mt-1">Asiakkaan tiedot</MDBCardTitle></MDBCardHeader>
               <MDBCardBody>
-                <MDBCardTitle className="mb-3 text-center">
-                  Asiakkaan tiedot
-                </MDBCardTitle>
                 {failedSubmit && (
                   <div className="text-danger p-2 mb-2">
                     Lomakkeen täytössä ilmeni virheitä, ole hyvä ja tarkista
@@ -320,14 +417,45 @@ const Tilaus = (props) => {
                     <div className="text-danger mb-2">*{formErrors.zip}</div>
                   )}
 
-                  <MDBCardFooter className="mt-5"></MDBCardFooter>
-                  <div className="text-center">
+                  {props.userID === null && (
+                    <MDBInput className="mb-3"
+                    
+                    label="Salasana"
+                    name="password"
+                    type="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    error={formErrors.password}
+                    outline="true"
+                    />
+                  )}
+
+                  {formErrors.password && (
+                    <div className="text-danger mb-2">
+                      *{formErrors.password}
+                    </div>
+                  )}
+
+                <MDBCardFooter className="mt-5">
+
+                  <div className="d-flex justify-content-center justify-content-lg-between text-center">
+                    <label className="checkbox-label">
+                    {props.userID === null && (
+                      <>
+                      <span>Luo asiakastili</span>
+                      <MDBCheckbox className="mt-2 mb-2"
+                        name="ATluonti"
+                        onChange={handleChange}
+                      ></MDBCheckbox>
+                      </>
+                    )}
+                    </label>
                     <label className="checkbox-label">
                       <span>Hyväksyn toimitusehdot</span>
                       <MDBCheckbox className="mt-2 mb-2"
                         name="checked"
                         id="checkbox1"
-                        checked={formData.checked}
+                       // checked={formData.checked}
                         onChange={handleChange}
                         error={formErrors.checked}
                       />
@@ -336,8 +464,11 @@ const Tilaus = (props) => {
                           {formErrors.checked}
                         </div>
                       )}
+              
                     </label>
                   </div>
+
+                  
                   <MDBBtn
                     className="btn btn-primary btn-lg btn-block mt-4"
                     color="primary"
@@ -346,6 +477,7 @@ const Tilaus = (props) => {
                   >
                     Vahvista tilaus
                   </MDBBtn>
+                </MDBCardFooter>
                 </form>
               </MDBCardBody>
             </MDBCard>

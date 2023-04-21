@@ -1,15 +1,18 @@
 import { useState, useEffect } from "react";
+import { logIn } from '../components/Server/LogInAPI';
 import {
   MDBContainer,
   MDBTabs,
   MDBTabsItem,
-  MDBTabsLink,
   MDBTabsContent,
   MDBTabsPane,
   MDBCheckbox,
   MDBInput,
   MDBBtn,
+  MDBCardText,
+  MDBIcon,
 } from "mdb-react-ui-kit";
+import { NavLink } from "react-router-dom";
 
 function LoginRegister(props) {
   const [RegisterForm, setRegisterForm] = useState({
@@ -36,6 +39,7 @@ function LoginRegister(props) {
   });
 
   const [LoginActive, setLoginActive] = useState(false);
+  const [RegisterActive, setRegisterActive] = useState(false);
   const [justifyActive, setJustifyActive] = useState("tab1");
 
   const handleJustifyClick = (value) => {
@@ -45,7 +49,7 @@ function LoginRegister(props) {
     setJustifyActive(value);
     console.log(value);
   };
-
+/*
   const SubmitLogin = (event) => {
     event.preventDefault();
 
@@ -76,6 +80,54 @@ function LoginRegister(props) {
     }
     return;
   };
+*/
+
+const SubmitLogin = async (event) => {
+  event.preventDefault();
+
+  let errors = {};
+  //check if all fields are filled and checkbox is checked
+  if (!LoginForm.email) {
+    errors.email = "Syötä sähköpostiosoite";
+  }
+  if (!LoginForm.email.includes("@")) {
+    errors.email = "Sähköposti on virheellinen";
+  }
+  if (!LoginForm.password) {
+    errors.password = "Syötä salasana";
+  }
+
+  setLoginErrorForm(errors);
+
+  //if no errors submit the form
+  if (Object.keys(errors).length === 0) {
+    console.log(LoginForm);
+
+    try {
+      console.log(JSON.stringify(LoginForm))
+      const userData = await logIn(LoginForm);
+      props.setPassword(LoginForm.password);
+      props.setEmail(LoginForm.email);
+      console.log("Asiakkaan tiedot ja tilauksen tiedot:")
+      console.log(JSON.stringify(userData + " " + LoginForm.password + " " + LoginForm.email))
+      console.log(JSON.stringify(userData))
+      props.setUserID(userData.id);
+      props.setUser(userData.name);
+      console.log("Asiakkaan id:" + userData.customer.asiakasID)
+      props.setUserID(userData.customer.asiakasID);
+      props.setAsiakasTiedot(userData);
+      props.setUser(userData.customer.email);
+      setLoginActive(true);
+    } catch (error) {
+      console.log(error);
+      setLoginActive(false);
+    }
+  } else {
+    console.log(errors);
+    setLoginActive(false);
+  }
+  return;
+};
 
   const SubmitRegister = (event) => {
     event.preventDefault();
@@ -99,6 +151,8 @@ function LoginRegister(props) {
     //if no errors submit the form
     if (Object.keys(errors).length === 0) {
       console.log(RegisterForm);
+
+      
       setRegisterForm({
         name: "",
         email: "",
@@ -106,8 +160,10 @@ function LoginRegister(props) {
         checked: false,
       });
       setJustifyActive("tab1");
+      setRegisterActive(true);
     } else {
       console.log(errors);
+      setRegisterActive(false);
     }
     return;
   };
@@ -153,26 +209,17 @@ function LoginRegister(props) {
 
   return (
       <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
+        {RegisterActive && justifyActive === "tab1" && (
+          <div className="text-success mb-2">Rekisteröityminen onnistui! Voit nyt kirjautua sisään!</div>
+        )}
         <MDBTabs
           pills
           justify
           className="mb-3 d-flex flex-row justify-content-between"
         >
           <MDBTabsItem>
-            <MDBTabsLink
-              onClick={() => handleJustifyClick("tab1")}
-              active={justifyActive === "tab1"}
-            >
-              Kirjaudu
-            </MDBTabsLink>
-          </MDBTabsItem>
-          <MDBTabsItem>
-            <MDBTabsLink
-              onClick={() => handleJustifyClick("tab2")}
-              active={justifyActive === "tab2"}
-            >
-              Rekisteröidy
-            </MDBTabsLink>
+            <MDBCardText><MDBIcon fas icon="pencil-ruler" className="text-dark m-2" />Kirjaudu tunnuksilla tai luo uusi asiakastili  </MDBCardText>
+            <NavLink className="btn btn-primary m-3" to={"/tilaus"} onClick={props.toggleShowLogin}>luo asiakastili</NavLink>
           </MDBTabsItem>
         </MDBTabs>
 
@@ -232,17 +279,6 @@ function LoginRegister(props) {
                 Kirjaudu sisään
               </MDBBtn>
             </form>
-
-            <p className="text-center">
-              Etkö ole vielä asiakas?{" "}
-              <a
-                href="javascript:void(0);"
-                onClick={() => handleJustifyClick("tab2")}
-                active={justifyActive === "tab2"}
-              >
-                Rekisteröidy
-              </a>
-            </p>
           </MDBTabsPane>
 
           <MDBTabsPane show={justifyActive === "tab2"}>

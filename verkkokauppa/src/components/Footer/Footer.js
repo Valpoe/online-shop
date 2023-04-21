@@ -55,10 +55,7 @@ return (
               <NavLink to="/tietoa-meista" className='text-reset text-dark'>Tietoa meistä</NavLink>
               </p>
               <p>
-              <NavLink to="/ota-yhteytta" className='text-reset text-dark'>Ota yhteyttä</NavLink>
-              </p>
-              <p>
-              <NavLink to="/ostoskori" className='text-reset text-dark'>Ostoskori</NavLink>
+              <NavLink to="/ota-yhteytta" className='text-reset'>Ota yhteyttä</NavLink>
               </p>
               <p>
               <NavLink to="/privacystatement" className='text-reset text-dark'>Tietosuojalausunto</NavLink>
@@ -66,25 +63,25 @@ return (
             </MDBCol>
 
             <MDBCol md="3" lg="2" xl="2" className='mx-auto mb-4'>
-              <h6 className='text-uppercase fw-bold mb-4 text-dark'>Hyödylliset linkit</h6>
+              <h6 className='text-uppercase fw-bold mb-4'>Useful links</h6>
               <p>
                 <a href='#!' className='text-reset'>
-                  Hinnoittelu
+                  Pricing
                 </a>
               </p>
               <p>
                 <a href='#!' className='text-reset'>
-                  Asetukset
+                  Settings
                 </a>
               </p>
               <p>
                 <a href='#!' className='text-reset'>
-                  Lue lisää
+                  Orders
                 </a>
               </p>
               <p>
                 <a href='#!' className='text-reset'>
-                  Tuki
+                  Help
                 </a>
               </p>
             </MDBCol>
@@ -100,10 +97,10 @@ return (
                 ohj2ryhmaf@gmail.com
               </p>
               <p>
-                <MDBIcon icon="phone" className="me-3" />+ 01 234 567 88
+                <MDBIcon icon="phone" className="me-3" />+ 358 123 456 789
               </p>
               <p>
-                <MDBIcon icon="print" className="me-3" />+ 01 234 567 89
+                <MDBIcon icon="print" className="me-3" />+ 358 987 654 321
               </p>
             </MDBCol>
           </MDBRow>

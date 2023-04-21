@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import {
   MDBBtn,
   MDBRange,
@@ -5,7 +6,6 @@ import {
   MDBTabsItem,
   MDBTabsLink,
 } from "mdb-react-ui-kit";
-import { useState, useEffect } from "react";
 
 function TuoteKategoriat(props) {
   const [minPrice, setMinPrice] = useState(0);
@@ -33,7 +33,7 @@ function TuoteKategoriat(props) {
     props.setVerticalActive("searchResults");
   };
 
-  // Hinnan minimi arvon haku
+  // Hinnan minimiarvon haku
   const handleMinSearch = (e) => {
     setMinPrice(e.target.value);
 
@@ -59,8 +59,7 @@ function TuoteKategoriat(props) {
   const [sort, setSort] = useState("cheapest");
   const [sortedProducts, setSortedProducts] = useState([]);
 
-  useEffect(() => {
-  }, [sort]);
+  useEffect(() => {}, [sort]);
 
   const handleSortClick = (newSort) => {
     setSort(newSort);
@@ -82,7 +81,7 @@ function TuoteKategoriat(props) {
   return (
     <>
       <MDBTabs pills className="flex-column text-center">
-      <h6 className='text-uppercase fw-bold mb-4'>Kategoriat</h6>
+        <h6 className="text-uppercase fw-bold mb-4">Kategoriat</h6>
         <MDBTabsItem>
           <MDBTabsLink
             className="square border border-2"
@@ -95,18 +94,21 @@ function TuoteKategoriat(props) {
         {props.kategoriat.map((kategoria) => (
           <MDBTabsItem key={kategoria.id}>
             <MDBTabsLink
-              className="square border border-2"            
+              className="square border border-2"
               onClick={() => handleVerticalClick(kategoria.kategoriaID)}
               active={props.verticalActive === kategoria.kategoriaID}
             >
-            {kategoria.kuvaus}
+              {kategoria.kuvaus}
             </MDBTabsLink>
           </MDBTabsItem>
         ))}
       </MDBTabs>
-      <h6 className='text-uppercase fw-bold mb-4 text-center mt-4'>Suodata tuotteita</h6>
+      <h6 className="text-uppercase fw-bold mb-4 text-center mt-4">
+        Suodata tuotteita
+      </h6>
       <div className="text-center mb-4">
-        <MDBBtn className="me-2"
+        <MDBBtn
+          className="me-2"
           color="secondary"
           outline
           onClick={() => {
@@ -126,9 +128,7 @@ function TuoteKategoriat(props) {
         </MDBBtn>
       </div>
       <div className="mb-4">
-        <p className="text-center">
-        Hinta
-        </p>
+        <p className="text-center">Hinta</p>
         <MDBRange
           min="0"
           max="200"
@@ -145,9 +145,7 @@ function TuoteKategoriat(props) {
         />
       </div>
       <div className="mb-4">
-      <p className="text-center">
-        Väri
-        </p>
+        <p className="text-center">Väri</p>
         {uniqueColors.map((color) => (
           <MDBBtn
             floating
