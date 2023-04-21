@@ -2,6 +2,7 @@ import { getTuote } from "../components/Server/TuoteAPI";
 import { useEffect } from "react";
 import { getAsiakkaatEmail } from "../components/Server/TuoteAPI";
 import React, { useState } from "react";
+import { editOrder } from "../components/Server/editTilausAPI";
 import {
   MDBRow,
   MDBCol,
@@ -130,13 +131,23 @@ const OrderManagement = (props) => {
   
     console.log("Form errors" + JSON.stringify(errors));
     console.log("Form data" + JSON.stringify(props.asiakasTiedot));
+    //edit the form before pasting back
+    props.asiakasTiedot.customer.email = formData.email;
+    props.asiakasTiedot.customer.nimi = formData.firstName + " " + formData.lastName;
+    props.asiakasTiedot.customer.puhelinnro = formData.phone;
+    props.asiakasTiedot.customer.osoite = formData.address + ", " + formData.zip + ", " + formData.city;
+
+    console.log("Form data" + JSON.stringify(props.asiakasTiedot));
+
+    editOrder(JSON.stringify(props.asiakasTiedot));
+    
     // If there are no errors, submit the form
     if (Object.keys(errors).length === 0 && props.items.length > 0) {
       // Perform form submission
 
       setFailedSubmit(false);
       setIsSubmitting(false);
-      
+
 
       if( props.userID !== null){
         console.log("asiakas ID:llä :" + props.userID + " teki tilauksen")
@@ -210,7 +221,7 @@ const OrderManagement = (props) => {
                     onChange={handleChange}
                     error={formErrors.email}
                     outline="true"
-                    disabled="true"
+                    disabled={true}
                   />
                   {formErrors.email && (
                     <div className="text-danger mb-2">*{formErrors.email}</div>
