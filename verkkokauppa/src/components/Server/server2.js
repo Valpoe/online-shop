@@ -285,7 +285,7 @@ app.post('/login', (req, res) => {
 // Route for logging in
 app.post('/login', async (req, res) => {
   try {
-    const  {loginData}  = req.body;
+    const  loginData  = req.body;
     console.log("Login servulla")
     console.log(JSON.stringify(loginData))
 
