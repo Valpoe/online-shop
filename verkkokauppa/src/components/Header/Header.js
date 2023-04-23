@@ -69,7 +69,7 @@ const Header = (props) => {
                   <Ostoskori setItems={props.setItems} items={props.items} removeItem={props.removeItem} getTotal={props.getTotal} countItem={props.countItem} />
                   <MDBModalFooter>
                     <MDBBtn className="btn btn-dark" onClick={toggleShow}>
-                      Close
+                      Sulje
                     </MDBBtn>
                     <NavLink className="btn btn-primary" to={"/tilaus"} onClick={toggleShow}>Siirry tilaamaan</NavLink>
                   </MDBModalFooter>

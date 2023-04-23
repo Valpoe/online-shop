@@ -77,16 +77,12 @@ function Ostoskori(props) {
             </MDBCol>
             <MDBCol md="3" lg="3" xl="3">
               <p className="lead fw-normal mb-2">{item.tuotenimi}</p>
-              <p>
-                <span className="text-muted">ItemID: {item.tuoteid}</span>
-              </p>
             </MDBCol>
             <MDBCol md="3" lg="3" xl="2"
               className="d-flex align-items-center justify-content-around">
               <MDBBtn color="link" className="px-2" onClick={() => removeItemWithID(item.tuoteid)}>
                 <MDBIcon fas icon="minus" />
               </MDBBtn>
-
               <MDBInput className="text-center" min={0} value={countItem(item.tuoteid)} size="sm" />
               <MDBBtn color="link" className="px-2" onClick={() => HandleAddToCart(item)}>
 
