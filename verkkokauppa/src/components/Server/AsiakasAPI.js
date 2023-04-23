@@ -4,8 +4,16 @@ const luoAsiakas = (formData) => {
     console.log("Luodaan asiakasta")
     const { firstName, lastName, email, phone, address } = formData;
     const kokonimi = firstName + ' ' + lastName;
-    const data = { nimi: kokonimi, email: email, osoite: address, puhelinnro: phone };
-    return data;
+
+    if(firstName === ""){
+      const data = { nimi: " ", email: email, osoite: " ", puhelinnro: " " };
+      return data;
+    }
+    
+    else{
+      const data = { nimi: kokonimi, email: email, osoite: address, puhelinnro: phone };
+      return data;
+    }
   };
   
   const addAsiakas = async (formData) => {

@@ -155,6 +155,7 @@ app.post('/tilaus', async (req, res) => {
       customerId = userID;
     }
 
+    if(orderData && orderData.length > 0){
     // 2: Tilauksen luonti uudelle tai vanhalle asiakkaalle
     const newOrderQuery = `INSERT INTO tilaus (asiakasid, tilauspvm, summa) VALUES ($1, $2, $3) RETURNING "tilausID"`;
     const newOrderValues = [customerId, new Date(), grandTotal]; 
@@ -167,6 +168,7 @@ app.post('/tilaus', async (req, res) => {
       const newOrderItemValues = [orderId, product.tuoteid, product.määrä, product.määrä * product.hinta]; 
       await pool.query(newOrderItemQuery, newOrderItemValues);
     }
+  }
 
     res.json({ message: 'Tilaus onnistui!' });
   } catch (error) {
