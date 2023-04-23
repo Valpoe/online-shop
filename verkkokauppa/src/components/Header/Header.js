@@ -33,6 +33,11 @@ const Header = (props) => {
     const toggleShow = () => setBasicModal(!basicModal);
     const toggleShowLogin = () => setBasicModalLogin(!basicModalLogin);
 
+    const resetAccount = () => {
+      props.setUser(null);
+      props.setUserID(null);
+    }
+
     return(
       <MDBNavbar expand='lg' light bgColor='light'>
           <MDBContainer className="text-center text-md-start justify-content-center">
@@ -95,7 +100,7 @@ const Header = (props) => {
                       </MDBDropdownItem>
                   <MDBDropdownItem link className="asd" childTag="button">
                   <NavLink className="asd" exact to="/">
-                    <MDBBtn color="tertiary" className="asd" rippleColor='light' onClick={() => {props.setUser(null)}}><MDBIcon fas icon="sign-out-alt" className='me-2'/>Kirjaudu ulos</MDBBtn>
+                    <MDBBtn color="tertiary" className="asd" rippleColor='light' onClick={resetAccount}><MDBIcon fas icon="sign-out-alt" className='me-2'/>Kirjaudu ulos</MDBBtn>
                       </NavLink>
                   </MDBDropdownItem>
                 </MDBDropdownMenu>

@@ -2,3 +2,7 @@
   height: 537px; 
   overflow-y: auto; 
 }
+
+.table-container {
+  min-width: 400px;
+}
