@@ -251,27 +251,27 @@ const Tilaus = (props) => {
     setFormData({ ...formData, [name]: value });
   };
 
-//  if(props.userID === null) {
-//    return (
-//      <div className="pb-5 pt-5" style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)'}}>
-//      <MDBContainer>
-//      <MDBCard>
-//        <MDBCardBody className="text-center">
-//          <MDBCardTitle className="mb-4">
-//            Hupsis, et ole kirjautunut sisään vielä
-//            <MDBIcon fas icon="circle-exclamation" className="ms-2"></MDBIcon>
-//          </MDBCardTitle>
-//          <MDBCardText>
-//            Ole hyvä ja kirjaudu tai rekisteröidy ennen kuin jatkat tilauksen tekemiseen.
-//              Näin varmistamme että saatte tuotteenne varmasti perille. Kiitos yhteistyöstä!
-//          </MDBCardText>
-//          <LoginRegister setUserID={props.setUserID} userID={props.userID} setUser={props.setUser}></LoginRegister>
-//        </MDBCardBody>
-//      </MDBCard>
-//      </MDBContainer>
-//      </div>
-//    )
-//}
+  if(props.userID === null) {
+    return (
+      <div className="pb-5 pt-5" style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)'}}>
+      <MDBContainer>
+      <MDBCard>
+        <MDBCardBody className="text-center">
+          <MDBCardTitle className="mb-4">
+            Hupsis, et ole kirjautunut sisään vielä
+            <MDBIcon fas icon="circle-exclamation" className="ms-2"></MDBIcon>
+          </MDBCardTitle>
+          <MDBCardText>
+            Ole hyvä ja kirjaudu tai rekisteröidy ennen kuin jatkat tilauksen tekemiseen.
+              Näin varmistamme että saatte tuotteenne varmasti perille. Kiitos yhteistyöstä!
+          </MDBCardText>
+          <LoginRegister setUserID={props.setUserID} userID={props.userID} setUser={props.setUser}></LoginRegister>
+        </MDBCardBody>
+      </MDBCard>
+      </MDBContainer>
+      </div>
+   )
+}
 //if isSubmitting is true, disable the submit button
 
   if(props.items.length === 0 && !tilaus) {
