@@ -23,7 +23,7 @@ function TuoteenTiedot(props) {
         <MDBCol className="mx-auto text-center">
           <MDBCard className="h-100 productInformationCardImage">
           <MDBCardHeader>
-              <MDBCardTitle className="text-uppercase text-center fw-bold mb-3 mt-3">
+              <MDBCardTitle className="text-uppercase text-center text-muted fw-bold mb-3 mt-3">
               {props.tuote.tuotenimi}
               </MDBCardTitle>
             </MDBCardHeader>
@@ -33,7 +33,7 @@ function TuoteenTiedot(props) {
         <MDBCol className="mx-auto text-center">
           <MDBCard className="h-100 productInformationCardImage">
             <MDBCardHeader>
-              <MDBCardTitle className="text-uppercase text-center fw-bold mb-3 mt-3">
+              <MDBCardTitle className="text-uppercase text-center text-muted fw-bold mb-3 mt-3">
                 Tuotetiedot
               </MDBCardTitle>
             </MDBCardHeader>
@@ -53,7 +53,7 @@ function TuoteenTiedot(props) {
               {props.tuote.varastosaldo === 0 ? (
                 <MDBCardText><MDBIcon fas icon="circle" color="danger" /> Tuote tilapäisesti loppu!</MDBCardText>
               ) : (
-              <MDBCardText><MDBIcon fas icon="circle" color="success" /> Varastossa {props.tuote.varastosaldo} kappaletta</MDBCardText>
+              <MDBCardText><MDBIcon fas icon="circle" color="success" className="me-1" /> Varastossa {props.tuote.varastosaldo} kappaletta</MDBCardText>
               )}
               {props.tuote.varastosaldo === 0 ? (
                 <MDBCardText><span className="fw-bold">Toimitusaika-arvio:</span> 1-4 viikkoa</MDBCardText>

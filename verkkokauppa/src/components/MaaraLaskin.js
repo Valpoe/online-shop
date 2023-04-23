@@ -40,7 +40,7 @@ function MaaraLaskin(props) {
   return (
     <>
       <MDBCardText className="fw-bold">Määrä:</MDBCardText>
-      <div className="d-flex align-items-center justify-content-around">
+      <div className="d-flex justify-content-around">
         <MDBBtn color="link" onClick={() => decreaseQuantity()}>
           <MDBIcon fas icon="minus" />
         </MDBBtn>
@@ -55,7 +55,7 @@ function MaaraLaskin(props) {
         </MDBBtn>
       </div>
       <MDBBtn
-        className="mt-3"
+        className="mt-4"
         onClick={() => HandleAddToCart(props.tuote, quantity)}
       >
         Lisää ostoskoriin
