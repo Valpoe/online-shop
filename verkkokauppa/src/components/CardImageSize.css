@@ -25,3 +25,13 @@
 .card-container {
   min-width: 620px;
 }
+
+.move-content-bottom {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card-content {
+  margin-top: auto;
+}

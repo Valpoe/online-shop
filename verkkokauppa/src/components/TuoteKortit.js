@@ -60,6 +60,8 @@ function TuoteKortit(props) {
                   position="top"
                   alt="..."
                 />
+                <div className="move-content-bottom" >
+                  <div className="card-content">
                 <MDBCardHeader>
                   <MDBCardTitle className="text-muted">{tuotteet.tuotenimi}</MDBCardTitle>
                 </MDBCardHeader>
@@ -79,9 +81,11 @@ function TuoteKortit(props) {
                     </MDBBtn>
                   </MDBCardText>
                 </MDBCardBody>
+                </div>
                 <MDBCardFooter>
                 <span className="fw-bold">Hinta:</span> {tuotteet.hinta} €
                 </MDBCardFooter>
+                </div>
               </MDBCard>
             </MDBCol>
           ))}
@@ -126,6 +130,8 @@ function TuoteKortit(props) {
                         position="top"
                         alt="..."
                       />
+                      <div className="move-content-bottom" >
+                      <div className="card-content">
                       <MDBCardHeader>
                         <MDBCardTitle className="text-muted">{tuotteet.tuotenimi}</MDBCardTitle>
                       </MDBCardHeader>
@@ -145,9 +151,11 @@ function TuoteKortit(props) {
                           </MDBBtn>
                         </MDBCardText>
                       </MDBCardBody>
+                      </div>
                       <MDBCardFooter>
                       <span className="fw-bold">Hinta:</span> {tuotteet.hinta} €
                       </MDBCardFooter>
+                      </div>
                     </MDBCard>
                   </MDBCol>
                 ))}
@@ -188,6 +196,8 @@ function TuoteKortit(props) {
                     position="top"
                     alt="..."
                   />
+                  <div className="move-content-bottom" >
+                  <div className="card-content">
                   <MDBCardHeader>
                     <MDBCardTitle className="text-muted">{tuotteet.tuotenimi}</MDBCardTitle>
                   </MDBCardHeader>
@@ -204,9 +214,11 @@ function TuoteKortit(props) {
                       </MDBBtn>
                     </MDBCardText>
                   </MDBCardBody>
+                  </div>
                   <MDBCardFooter>
                     <span className="fw-bold">Hinta:</span> {tuotteet.hinta} €
                   </MDBCardFooter>
+                  </div>
                 </MDBCard>
               </MDBCol>
             ))}
