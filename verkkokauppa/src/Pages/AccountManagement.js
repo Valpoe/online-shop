@@ -1,6 +1,6 @@
 
 import { useEffect } from "react";
-import { getAsiakkaatEmail } from "../components/Server/TuoteAPI";
+import { getAsiakkaatEmail, getTuote, getTuotteet } from "../components/Server/TuoteAPI";
 import React, { useState } from "react";
 import { editOrder } from "../components/Server/editTilausAPI";
 import {
@@ -19,6 +19,28 @@ import {
 const OrderManagement = (props) => {
 
   const [sahkopostit, setSahkopostit] = useState([]);
+  const [tuotteet, setTuotteet] = useState(getTuotteet());
+
+
+  useEffect(() => {
+    const fetchTuotteet = async () => {
+      const data = await getTuotteet();
+      setTuotteet(data);
+    };
+    fetchTuotteet();
+
+    console.log(JSON.stringify(tuotteet) + " HERE THEY ARE");
+  }, []);
+
+  //get tuotenimi with tuoteID from tuotteet
+  const getTuotenimi = (tuoteID) => {
+    const tuote = tuotteet.find((tuote) => tuote.tuoteID === tuoteID);
+    return tuote.tuotenimi;
+  };
+  //rest of the component code
+
+
+
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -314,7 +336,7 @@ const OrderManagement = (props) => {
                             {orderItems.map((orderItem) => {
                               return (
                                 <tr key={orderItem.tuoteid}>
-                                  <td>asd</td>
+                                  <td>{getTuotenimi(orderItem.tuoteid)}</td>
                                   <td>{orderItem.summa} €</td>
                                   <td>{orderItem.kpl}</td>
                                 </tr>

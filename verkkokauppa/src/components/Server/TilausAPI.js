@@ -27,11 +27,8 @@ export const asiakasTilaus = async (asiakasTiedot, userID, orderData) => {
 
   const asiakas = luoAsiakas(asiakasTiedot);
 
-  let grandTotal;
+  const grandTotal = loppuSumma(orderData)
   
-  if(orderData){
-    const grandTotal = loppuSumma(orderData)
-  }
 
   console.log(JSON.stringify({ asiakas }))
   
@@ -67,13 +64,14 @@ export const asiakasTilaus = async (asiakasTiedot, userID, orderData) => {
   export const loppuSumma = (orderData) => {
 
     let loppuSumma = 0;
-    
+
     if(!orderData) return (loppuSumma);
 
     orderData.forEach((item) => {
         const itemSum = item.hinta * item.määrä;
         loppuSumma += itemSum;
       });
+
     return loppuSumma;
   };
   
