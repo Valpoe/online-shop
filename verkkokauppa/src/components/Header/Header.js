@@ -52,7 +52,7 @@ const Header = (props) => {
           onClick={() => setShowNavCentred(!showNavCentred)}>
           <MDBIcon icon='bars' fas />
         </MDBNavbarToggler>
-        <MDBCollapse navbar show={showNavCentred} className="collapse navbar-collapse justify-content-center" >
+        <MDBCollapse navbar show={showNavCentred} className="collapse navbar-collapse justify-content-center text-center" >
           <MDBNavbarNav fullWidth={false} className="mb-2 mb-lg-0" >
             <MDBNavbarItem>
             <NavLink to="/" className='nav-link fw-bold'>Etusivu</NavLink>
