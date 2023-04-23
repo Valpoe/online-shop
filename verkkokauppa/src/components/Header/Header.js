@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink, Link } from "react-router-dom";
-import "./HeaderCSS.css";
+import "./Header.css";
 import {
     MDBContainer,
     MDBNavbar,
@@ -43,7 +43,7 @@ const Header = (props) => {
           <MDBContainer className="text-center text-md-start justify-content-center">
         <MDBNavbarBrand tag="strong">
           Kynä & Kumi
-        <MDBIcon fas icon="pencil-ruler" className="text-dark ms-3" />
+        <MDBIcon fas icon="pencil-ruler" className="ms-3" />
          </MDBNavbarBrand>
         <MDBNavbarToggler
           type='button'
@@ -52,19 +52,19 @@ const Header = (props) => {
           onClick={() => setShowNavCentred(!showNavCentred)}>
           <MDBIcon icon='bars' fas />
         </MDBNavbarToggler>
-        <MDBCollapse navbar show={showNavCentred} className="collapse navbar-collapse justify-content-center" >
+        <MDBCollapse navbar show={showNavCentred} className="collapse navbar-collapse justify-content-center text-center" >
           <MDBNavbarNav fullWidth={false} className="mb-2 mb-lg-0" >
             <MDBNavbarItem>
-            <NavLink to="/" className='nav-link fw-bold'>Etusivu</NavLink>
+            <NavLink to="/" className={({isActive}) => isActive ? "active-link nav-link" : "nav-link"}>Etusivu</NavLink>
             </MDBNavbarItem>
             <MDBNavbarItem>
-              <NavLink to="/tuotteet" className='nav-link fw-bold'>Tuotteet</NavLink>
+              <NavLink to="/tuotteet" className={({isActive}) => isActive ? "active-link nav-link" : "nav-link"}>Tuotteet</NavLink>
             </MDBNavbarItem>
             <MDBNavbarItem>
-            <NavLink to="/tietoa-meista" className='nav-link fw-bold'>Tietoa meistä</NavLink>
+            <NavLink to="/tietoa-meista" className={({isActive}) => isActive ? "active-link nav-link" : "nav-link"}>Tietoa meistä</NavLink>
             </MDBNavbarItem>
             <MDBNavbarItem>
-            <NavLink to="/ota-yhteytta" className='nav-link fw-bold'>Ota yhteyttä</NavLink>
+            <NavLink to="/ota-yhteytta" className={({isActive}) => isActive ? "active-link nav-link" : "nav-link"}>Ota yhteyttä</NavLink>
             </MDBNavbarItem>
           </MDBNavbarNav>
         </MDBCollapse>
@@ -99,14 +99,14 @@ const Header = (props) => {
                   {props.user}
                 </MDBDropdownToggle>
                 <MDBDropdownMenu>
-                  <MDBDropdownItem link className="asd" childTag="button">
-                    <NavLink className="asd" exact to="/tilinhallinta">
-                      <MDBBtn color="tertiary" className="asd" rippleColor='light'><MDBIcon fas icon="user-cog" className='me-2'/>Oma tili</MDBBtn>
+                  <MDBDropdownItem link className="backgroundFix" childTag="button">
+                    <NavLink className="backgroundFix" exact to="/tilinhallinta">
+                      <MDBBtn color="tertiary" className="backgroundFix" rippleColor='light'><MDBIcon fas icon="user-cog" className='me-2'/>Oma tili</MDBBtn>
                       </NavLink>
                       </MDBDropdownItem>
-                  <MDBDropdownItem link className="asd" childTag="button">
-                  <NavLink className="asd" exact to="/">
-                    <MDBBtn color="tertiary" className="asd" rippleColor='light' onClick={resetAccount}><MDBIcon fas icon="sign-out-alt" className='me-2'/>Kirjaudu ulos</MDBBtn>
+                  <MDBDropdownItem link className="backgroundFix" childTag="button">
+                  <NavLink className="backgroundFix" exact to="/">
+                    <MDBBtn color="tertiary" className="backgroundFix" rippleColor='light' onClick={resetAccount}><MDBIcon fas icon="sign-out-alt" className='me-2'/>Kirjaudu ulos</MDBBtn>
                       </NavLink>
                   </MDBDropdownItem>
                 </MDBDropdownMenu>

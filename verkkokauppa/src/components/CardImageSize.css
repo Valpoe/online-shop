@@ -21,3 +21,7 @@
   max-width: 260px;
   margin: 0 auto;
 }
+
+.card-container {
+  min-width: 620px;
+}
