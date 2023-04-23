@@ -6,6 +6,12 @@
   padding: 10px;
 }
 
+.productInformationCardImage {
+  height: auto;
+  width: auto;
+  padding: 10px;
+}
+
 .divWidth {
   max-width: 300px;
   margin: 0 auto;
