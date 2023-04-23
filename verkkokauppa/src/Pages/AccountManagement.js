@@ -281,8 +281,8 @@ const OrderManagement = (props) => {
               </form>
             </MDBCol>
 
-            <MDBCol className="mx-auto ps-5 pe-5">
-              <div className="scrollable-container">
+            <MDBCol className="mx-auto">
+              <div className="scrollable-container table-container">
               <h6 className="text-uppercase fw-bold mb-4">Omat tilaukset</h6>           
                   {props.asiakasTiedot.orders.map((order) => {
                     const orderItems = props.asiakasTiedot.orderItems.filter((orderItem) => orderItem.tilausid === order.tilausID);
