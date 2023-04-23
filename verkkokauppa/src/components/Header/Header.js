@@ -81,7 +81,13 @@ const Header = (props) => {
                     <MDBBtn className="btn btn-dark" onClick={toggleShow}>
                       Sulje
                     </MDBBtn>
+                    {props.items.length === 0 ? (
+                      <MDBBtn className="btn btn-primary" disabled>
+                        Siirry tilaamaan
+                      </MDBBtn>
+                    ) : (
                     <NavLink className="btn btn-primary" to={"/tilaus"} onClick={toggleShow}>Siirry tilaamaan</NavLink>
+                    )}
                   </MDBModalFooter>
                 </MDBModalContent>
               </MDBModalDialog>
