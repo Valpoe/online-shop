@@ -41,7 +41,7 @@ const Header = (props) => {
     return(
       <MDBNavbar expand='lg' light bgColor='light'>
           <MDBContainer className="text-center text-md-start justify-content-center">
-        <MDBNavbarBrand tag="strong">
+        <MDBNavbarBrand className="text-muted fw-bold">
           Kynä & Kumi
         <MDBIcon fas icon="pencil-ruler" className="ms-3" />
          </MDBNavbarBrand>
