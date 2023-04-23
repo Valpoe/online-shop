@@ -1,4 +1,4 @@
-import { getTuote } from "../components/Server/TuoteAPI";
+
 import { useEffect } from "react";
 import { getAsiakkaatEmail } from "../components/Server/TuoteAPI";
 import React, { useState } from "react";
@@ -262,7 +262,7 @@ const OrderManagement = (props) => {
                     <div className="text-danger mb-2">*{formErrors.city}</div>
                   )}
 
-                  <MDBInput className="mb-3"
+                  <MDBInput
                     label="Postinumero"
                     name="zip"
                     value={formData.zip}
@@ -272,7 +272,7 @@ const OrderManagement = (props) => {
                   />
 
                   <MDBBtn
-                    className="btn btn-primary btn-lg btn-block mt-4"
+                    className="btn btn-primary btn-lg mt-4 mb-4"
                     color="primary"
                     type="submit"
                   >
@@ -282,51 +282,51 @@ const OrderManagement = (props) => {
             </MDBCol>
 
             <MDBCol className="mx-auto ps-5 pe-5">
-              <h6 className="text-uppercase fw-bold mb-4">Omat tilaukset</h6>
-              <MDBTable hover className="btn btn-success">
-                <MDBTableHead>
-                  <tr>
-                    <th scope="col"></th>
+              <div className="scrollable-container">
+              <h6 className="text-uppercase fw-bold mb-4">Omat tilaukset</h6>           
+                  {props.asiakasTiedot.orders.map((order) => {
+                    const orderItems = props.asiakasTiedot.orderItems.filter((orderItem) => orderItem.tilausid === order.tilausID);
+                    const formattedDate = new Date(order.tilauspvm).toLocaleDateString("fi-FI");
+                    // get product names from orderItems where orderItems.tuoteid === product.tuoteid and add to orderItems
+
+
+                    return (
+                      <MDBTable hover>
+                      <React.Fragment key={order.tilausID}>
+                        <MDBTableHead>
+                        <tr>
                     <th scope="col">Tilaus ID</th>
                     <th scope="col">Tilauspäivämäärä</th>
                     <th scope="col">Summa</th>
                   </tr>
-                </MDBTableHead>
-                <MDBTableBody > 
-                  {props.asiakasTiedot.orders.map((order) => {
-                    const orderItems = props.asiakasTiedot.orderItems.filter((orderItem) => orderItem.tilausid === order.tilausID);
-                    let tuote;
-                    return (
-                      <React.Fragment key={order.tilausID}>
                         <tr>
-                          <th scope="col"></th>
                           <td>{order.tilausID}</td>
-                          <td>{order.tilauspvm}</td>
+                          <td>{formattedDate}</td>
                           <td>{order.summa} €</td>
                         </tr>
+                  </MDBTableHead>
+                        <MDBTableBody>
                         <tr>
-                          <td colSpan="4">
-                            <MDBTable hover>
-                              <MDBTableBody className="btn btn-primary">
-                              {orderItems.map((orderItem) => {
-                                return (
-                                  <tr key={orderItem.tuoteid}>
-                                    <td>tuoteid: {orderItem.tuoteid}</td>
-                                    <td>tuotenimi: {orderItem.tuotenimi}</td>
-                                    <td>summa: {orderItem.summa} €</td>
-                                    <td>kpl: {orderItem.kpl}</td>
-                                  </tr>
-                                );
-                              })}
-                              </MDBTableBody>
-                            </MDBTable>
-                          </td>
+                            <th>Tuotenimi</th>
+                            <th>Hinta</th>
+                            <th>Kpl</th>
                         </tr>
+                            {orderItems.map((orderItem) => {
+                              return (
+                                <tr key={orderItem.tuoteid}>
+                                  <td>asd</td>
+                                  <td>{orderItem.summa} €</td>
+                                  <td>{orderItem.kpl}</td>
+                                </tr>
+                              );
+                            })
+                            }         
+                </MDBTableBody>
                       </React.Fragment>
+                      </MDBTable>
                     );
                   })}
-                </MDBTableBody>
-              </MDBTable>
+              </div>
             </MDBCol>
           </MDBRow>
         </MDBContainer>

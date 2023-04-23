@@ -48,7 +48,7 @@ function SamankaltaisetTuotteet(props) {
             .filter((tuote) => tuote.tuoteID !== props.aktiivinenTuote)
             .map((tuotteet, index) => (
                 <MDBCol key={index}>
-                <MDBCard className="h-100">
+                <MDBCard className="h-100 productInformationCardImage">
                   <MDBCardImage src={tuotteet.kuva} position="top" alt="..." />
                     <MDBCardHeader>
                       <MDBCardTitle>{tuotteet.tuotenimi}</MDBCardTitle>
