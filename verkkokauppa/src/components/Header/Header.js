@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink, Link } from "react-router-dom";
-import "./HeaderCSS.css";
+import "./Header.css";
 import {
     MDBContainer,
     MDBNavbar,
@@ -99,14 +99,14 @@ const Header = (props) => {
                   {props.user}
                 </MDBDropdownToggle>
                 <MDBDropdownMenu>
-                  <MDBDropdownItem link className="asd" childTag="button">
-                    <NavLink className="asd" exact to="/tilinhallinta">
-                      <MDBBtn color="tertiary" className="asd" rippleColor='light'><MDBIcon fas icon="user-cog" className='me-2'/>Oma tili</MDBBtn>
+                  <MDBDropdownItem link className="backgroundFix" childTag="button">
+                    <NavLink className="backgroundFix" exact to="/tilinhallinta">
+                      <MDBBtn color="tertiary" className="backgroundFix" rippleColor='light'><MDBIcon fas icon="user-cog" className='me-2'/>Oma tili</MDBBtn>
                       </NavLink>
                       </MDBDropdownItem>
-                  <MDBDropdownItem link className="asd" childTag="button">
-                  <NavLink className="asd" exact to="/">
-                    <MDBBtn color="tertiary" className="asd" rippleColor='light' onClick={resetAccount}><MDBIcon fas icon="sign-out-alt" className='me-2'/>Kirjaudu ulos</MDBBtn>
+                  <MDBDropdownItem link className="backgroundFix" childTag="button">
+                  <NavLink className="backgroundFix" exact to="/">
+                    <MDBBtn color="tertiary" className="backgroundFix" rippleColor='light' onClick={resetAccount}><MDBIcon fas icon="sign-out-alt" className='me-2'/>Kirjaudu ulos</MDBBtn>
                       </NavLink>
                   </MDBDropdownItem>
                 </MDBDropdownMenu>
