@@ -40,7 +40,9 @@ return (
                 <MDBIcon icon="gem" className="me-3 text-dark" />
                 Kynä & Kumi
               </h6>
-              <p>         
+              <p>
+              Varmista opintojesi menestys laadukkailla koulutarvikkeillamme. Osta nyt kaikkea kynistä kumeihin
+              ja vihkoista kansioihin.
               </p>
             </MDBCol>
             <MDBCol md="2" lg="2" xl="2" className='mx-auto mb-4'>
