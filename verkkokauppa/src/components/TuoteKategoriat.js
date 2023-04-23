@@ -103,6 +103,7 @@ function TuoteKategoriat(props) {
           </MDBTabsItem>
         ))}
       </MDBTabs>
+      <div className="square border border-2 mt-2 me-2 p-2">
       <h6 className="text-uppercase fw-bold mb-4 text-center mt-4">
         Suodata tuotteita
       </h6>
@@ -127,8 +128,9 @@ function TuoteKategoriat(props) {
           Kallein ensin
         </MDBBtn>
       </div>
-      <div className="mb-4">
+      <div className="mb-4 divWidth">
         <p className="text-center">Hinta</p>
+        <div style={{ position: 'relative' }}>
         <MDBRange
           min="0"
           max="200"
@@ -136,16 +138,21 @@ function TuoteKategoriat(props) {
           value={minPrice}
           onChange={handleMinSearch}
         />
+          <div style={{ position: 'absolute', right: 0}} className="badge badge-secondary p-2 rounded-3">{minPrice}</div>
+          </div>
+          <div style={{ position: 'relative' }}>
         <MDBRange
           min="200"
           max="400"
           label="Max"
           value={maxPrice}
           onChange={handleMaxSearch}
-        />
+          />
+        <div style={{ position: 'absolute', right: 0 }} className="badge badge-secondary p-2 rounded-3">{maxPrice}</div>
+          </div>
       </div>
-      <div className="mb-4">
-        <p className="text-center">Väri</p>
+      <div className="mb-4 divWidth text-center">
+        <p>Väri</p>
         {uniqueColors.map((color) => (
           <MDBBtn
             floating
@@ -157,6 +164,7 @@ function TuoteKategoriat(props) {
             onClick={() => handleColorClick(color)}
           ></MDBBtn>
         ))}
+      </div>
       </div>
     </>
   );

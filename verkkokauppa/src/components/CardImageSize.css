@@ -5,3 +5,13 @@
   max-width: 220px;
   padding: 10px;
 }
+
+.divWidth {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.rangeWidth {
+  max-width: 260px;
+  margin: 0 auto;
+}
