@@ -11,6 +11,7 @@ import {
   MDBBtn,
   MDBCardText,
   MDBIcon,
+  MDBTabsLink,
 } from "mdb-react-ui-kit";
 import { NavLink } from "react-router-dom";
 
@@ -218,8 +219,20 @@ const SubmitLogin = async (event) => {
           className="mb-3 d-flex flex-row justify-content-between"
         >
           <MDBTabsItem>
-            <MDBCardText><MDBIcon fas icon="pencil-ruler" className="text-dark m-2" />Kirjaudu tunnuksilla tai luo uusi asiakastili  </MDBCardText>
-            <NavLink className="btn btn-primary m-3" to={"/tilaus"} onClick={props.toggleShowLogin}>luo asiakastili</NavLink>
+          <MDBTabsLink
+              onClick={() => handleJustifyClick("tab1")}
+              active={justifyActive === "tab1"}
+            >
+              Kirjaudu
+            </MDBTabsLink>
+          </MDBTabsItem>
+          <MDBTabsItem>
+            <MDBTabsLink
+              onClick={() => handleJustifyClick("tab2")}
+              active={justifyActive === "tab2"}
+            >
+              Rekisteröidy
+            </MDBTabsLink>
           </MDBTabsItem>
         </MDBTabs>
 
@@ -280,6 +293,17 @@ const SubmitLogin = async (event) => {
               </MDBBtn>
             </form>
           </MDBTabsPane>
+
+          <p className="text-center">
+              Etkö ole vielä asiakas?{" "}
+              <a
+                href="javascript:void(0);"
+                onClick={() => handleJustifyClick("tab2")}
+                active={justifyActive === "tab2"}
+              >
+                Rekisteröidy
+              </a>
+            </p>
 
           <MDBTabsPane show={justifyActive === "tab2"}>
             <form onSubmit={SubmitRegister}>
