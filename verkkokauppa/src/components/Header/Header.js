@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
+import "./HeaderCSS.css";
 import {
     MDBContainer,
     MDBNavbar,
@@ -16,6 +17,10 @@ import {
     MDBModalHeader,
     MDBModalTitle,
     MDBModalFooter,
+    MDBDropdown,
+    MDBDropdownToggle,
+    MDBDropdownMenu,
+    MDBDropdownItem,
   } from 'mdb-react-ui-kit';
 import Ostoskori from '../Ostoskori';
 import LoginRegister from '../LoginRegister';
@@ -77,8 +82,24 @@ const Header = (props) => {
               </MDBModalDialog>
             </MDBModal>
             {props.user && (
-          <NavLink className="btn btn-primary" to={"/tilinhallinta"}>{props.user}  {props.userID} </NavLink>
-          
+              <MDBDropdown>
+                <MDBDropdownToggle color="success" className='me-2'>
+                  <MDBIcon fas icon="user" className='me-2'/>
+                  {props.user}
+                </MDBDropdownToggle>
+                <MDBDropdownMenu>
+                  <MDBDropdownItem link className="asd" childTag="button">
+                    <NavLink className="asd" exact to="/tilinhallinta">
+                      <MDBBtn color="tertiary" className="asd" rippleColor='light'><MDBIcon fas icon="user-cog" className='me-2'/>Oma tili</MDBBtn>
+                      </NavLink>
+                      </MDBDropdownItem>
+                  <MDBDropdownItem link className="asd" childTag="button">
+                  <NavLink className="asd" exact to="/">
+                    <MDBBtn color="tertiary" className="asd" rippleColor='light' onClick={() => {props.setUser(null)}}><MDBIcon fas icon="sign-out-alt" className='me-2'/>Kirjaudu ulos</MDBBtn>
+                      </NavLink>
+                  </MDBDropdownItem>
+                </MDBDropdownMenu>
+              </MDBDropdown>     
         )}{
           !props.user && 
             <>

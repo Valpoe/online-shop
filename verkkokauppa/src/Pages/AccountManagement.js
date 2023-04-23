@@ -272,7 +272,7 @@ const OrderManagement = (props) => {
                   />
 
                   <MDBBtn
-                    className="btn btn-primary btn-lg mt-4"
+                    className="btn btn-primary btn-lg mt-4 mb-4"
                     color="primary"
                     type="submit"
                   >
