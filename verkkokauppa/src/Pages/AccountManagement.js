@@ -307,7 +307,6 @@ const OrderManagement = (props) => {
                   </MDBTableHead>
                         <MDBTableBody>
                         <tr>
-                            <th>Tuote ID</th>
                             <th>Tuotenimi</th>
                             <th>Hinta</th>
                             <th>Kpl</th>
@@ -315,7 +314,6 @@ const OrderManagement = (props) => {
                             {orderItems.map((orderItem) => {
                               return (
                                 <tr key={orderItem.tuoteid}>
-                                  <td>{orderItem.tuoteid}</td>
                                   <td>asd</td>
                                   <td>{orderItem.summa} €</td>
                                   <td>{orderItem.kpl}</td>
@@ -326,9 +324,7 @@ const OrderManagement = (props) => {
                 </MDBTableBody>
                       </React.Fragment>
                       </MDBTable>
-
                     );
-
                   })}
               </div>
             </MDBCol>
