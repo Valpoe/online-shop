@@ -81,7 +81,8 @@ function TuoteKategoriat(props) {
   return (
     <>
       <MDBTabs pills className="flex-column text-center">
-        <h6 className="text-uppercase fw-bold mb-4">Kategoriat</h6>
+    <div className="square border border-2 ms-2 p-2">
+        <h6 className="text-uppercase fw-bold mb-4 mt-4">Kategoriat</h6>
         <MDBTabsItem>
           <MDBTabsLink
             className="square border border-2"
@@ -102,8 +103,9 @@ function TuoteKategoriat(props) {
             </MDBTabsLink>
           </MDBTabsItem>
         ))}
+      </div>
       </MDBTabs>
-      <div className="square border border-2 mt-2 me-2 p-2">
+      <div className="square border border-2 p-2 mt-3">
       <h6 className="text-uppercase fw-bold mb-4 text-center mt-4">
         Suodata tuotteita
       </h6>
