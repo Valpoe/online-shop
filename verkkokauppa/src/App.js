@@ -22,6 +22,7 @@ function App() {
   const [userID, setUserID] = useState(null)
   const [asiakasTiedot, setAsiakasTiedot] = useState(null)
 
+
   // Hakee tuotteiden määrän
   const getItemsCount = () => {
     if (!items) {

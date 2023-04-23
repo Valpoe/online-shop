@@ -19,27 +19,30 @@ import {
 const OrderManagement = (props) => {
 
   const [sahkopostit, setSahkopostit] = useState([]);
-  const [tuotteet, setTuotteet] = useState(getTuotteet());
+  const [tuotteet, setTuotteet] = useState([]);
+  const [isLoading, setIsLoading] = useState(true); // set isLoading to true when data is not available
 
 
   useEffect(() => {
     const fetchTuotteet = async () => {
       const data = await getTuotteet();
       setTuotteet(data);
+      setIsLoading(false); // set isLoading to false when data is available
     };
     fetchTuotteet();
-
-    console.log(JSON.stringify(tuotteet) + " HERE THEY ARE");
   }, []);
+
 
   //get tuotenimi with tuoteID from tuotteet
   const getTuotenimi = (tuoteID) => {
+    if (tuotteet.length === 0) {
+      return "Ladataan tuotteita...";
+    }
+
     const tuote = tuotteet.find((tuote) => tuote.tuoteID === tuoteID);
     return tuote.tuotenimi;
   };
   //rest of the component code
-
-
 
 
   const [formData, setFormData] = useState({
@@ -194,6 +197,13 @@ const OrderManagement = (props) => {
     }
   };
 
+  if(setIsLoading === true) {
+    return (
+      <div className="pb-5 pt-5" style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)'}}>
+        <p>Its loading..</p>
+      </div>
+   )
+}
 
   return (
     <div
