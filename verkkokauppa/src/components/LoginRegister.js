@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { logIn } from '../components/Server/LogInAPI';
+import { getAsiakkaatEmail } from "../components/Server/TuoteAPI";
 import {
   MDBContainer,
   MDBTabs,
@@ -14,13 +15,29 @@ import {
   MDBTabsLink,
 } from "mdb-react-ui-kit";
 import { NavLink } from "react-router-dom";
+import { luoAsiakas } from "./Server/TilausAPI";
+import createTilaus from '../components/Server/TilausAPI';
+
 
 function LoginRegister(props) {
   const [RegisterForm, setRegisterForm] = useState({
-    name: "",
     email: "",
+    firstName: "",
+    lastName: "",
+    phone: "",
+    address: "",
+    city: "",
+    zip: "",
     password: "",
+    ATchecked: true, // add checked property for checkbox
+    ATluonti: true,
   });
+
+  const [sahkopostit, setSahkopostit] = useState(getAsiakkaatEmail);
+
+  useEffect(() => {
+    setSahkopostit(getAsiakkaatEmail);
+  }, []);
 
   const [RegisterErrorForm, setRegisterErrorForm] = useState({
     name: "",
@@ -94,6 +111,13 @@ const SubmitLogin = async (event) => {
   if (!LoginForm.email.includes("@")) {
     errors.email = "Sähköposti on virheellinen";
   }
+ //if sahkoposti is already in database
+  if (RegisterForm.email && props.userID === null) {
+    const isEmailInDatabase = await getAsiakkaatEmail(RegisterForm.email);
+    if (isEmailInDatabase === true) {
+    errors.email = "sähköposti on jo käytössä";
+    }
+  }
   if (!LoginForm.password) {
     errors.password = "Syötä salasana";
   }
@@ -135,9 +159,7 @@ const SubmitLogin = async (event) => {
 
     let errors = {};
     //check if all fields are filled and checkbox is checked
-    if (!RegisterForm.name) {
-      errors.name = "Nimi on pakollinen";
-    }
+
     if (!RegisterForm.email) {
       errors.email = "Sähköposti on pakollinen";
     }
@@ -152,14 +174,10 @@ const SubmitLogin = async (event) => {
     //if no errors submit the form
     if (Object.keys(errors).length === 0) {
       console.log(RegisterForm);
+      createTilaus.newTilaus(RegisterForm);
+      console.log(JSON.stringify(RegisterForm))
 
       
-      setRegisterForm({
-        name: "",
-        email: "",
-        password: "",
-        checked: false,
-      });
       setJustifyActive("tab1");
       setRegisterActive(true);
     } else {
@@ -312,17 +330,6 @@ const SubmitLogin = async (event) => {
                   *{RegisterErrorForm.name}
                 </div>
               )}
-
-              <MDBInput
-                wrapperClass="mb-4"
-                label="Nimi"
-                name="name"
-                id="Name"
-                type="text"
-                error={RegisterErrorForm.name}
-                value={RegisterForm.name}
-                onChange={handleChange}
-              />
 
               {RegisterErrorForm.email && (
                 <div className="text-danger mb-2">

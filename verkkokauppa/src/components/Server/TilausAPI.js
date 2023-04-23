@@ -1,7 +1,7 @@
 export const newTilaus = async (customerData, orderData) => {
   console.log("Tilaus apissa")
     const asiakas = luoAsiakas(customerData); 
-    const grandTotal = loppuSumma(orderData)
+    const grandTotal = loppuSumma(orderData);
     
     try {
       const response = await fetch('http://localhost:5000/tilaus', {
@@ -26,7 +26,9 @@ export const asiakasTilaus = async (asiakasTiedot, userID, orderData) => {
   console.log("Tilaus apissa asiakkaan tilauksella")
 
   const asiakas = luoAsiakas(asiakasTiedot);
+
   const grandTotal = loppuSumma(orderData)
+  
 
   console.log(JSON.stringify({ asiakas }))
   
@@ -60,11 +62,16 @@ export const asiakasTilaus = async (asiakasTiedot, userID, orderData) => {
   };
 
   export const loppuSumma = (orderData) => {
+
     let loppuSumma = 0;
+
+    if(!orderData) return (loppuSumma);
+
     orderData.forEach((item) => {
         const itemSum = item.hinta * item.määrä;
         loppuSumma += itemSum;
       });
+
     return loppuSumma;
   };
   

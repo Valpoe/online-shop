@@ -61,10 +61,10 @@ function TuoteKortit(props) {
                   alt="..."
                 />
                 <MDBCardHeader>
-                  <MDBCardTitle>{tuotteet.tuotenimi}</MDBCardTitle>
+                  <MDBCardTitle className="text-muted">{tuotteet.tuotenimi}</MDBCardTitle>
                 </MDBCardHeader>
                 <MDBCardBody>
-                  <MDBCardText>Saldo: {tuotteet.varastosaldo}</MDBCardText>
+                <MDBCardText><span className="fw-bold">Saldo:</span> {tuotteet.varastosaldo} kpl</MDBCardText>
                   <MDBCardText>
                     <NavLink to={`/tuotteet/${tuotteet.tuoteID}`}>
                       Lisätietoja
@@ -79,8 +79,8 @@ function TuoteKortit(props) {
                     </MDBBtn>
                   </MDBCardText>
                 </MDBCardBody>
-                <MDBCardFooter className="fw-bold">
-                  Hinta: {tuotteet.hinta} <MDBIcon fas icon="euro-sign" />
+                <MDBCardFooter>
+                <span className="fw-bold">Hinta:</span> {tuotteet.hinta} €
                 </MDBCardFooter>
               </MDBCard>
             </MDBCol>
@@ -127,12 +127,10 @@ function TuoteKortit(props) {
                         alt="..."
                       />
                       <MDBCardHeader>
-                        <MDBCardTitle>{tuotteet.tuotenimi}</MDBCardTitle>
+                        <MDBCardTitle className="text-muted">{tuotteet.tuotenimi}</MDBCardTitle>
                       </MDBCardHeader>
                       <MDBCardBody>
-                        <MDBCardText>
-                          Saldo: {tuotteet.varastosaldo}
-                        </MDBCardText>
+                        <MDBCardText><span className="fw-bold">Saldo:</span> {tuotteet.varastosaldo} kpl</MDBCardText>
                         <MDBCardText>
                           <NavLink to={`/tuotteet/${tuotteet.tuoteID}`}>
                             Lisätietoja
@@ -147,8 +145,8 @@ function TuoteKortit(props) {
                           </MDBBtn>
                         </MDBCardText>
                       </MDBCardBody>
-                      <MDBCardFooter className="fw-bold">
-                        Hinta: {tuotteet.hinta} <MDBIcon fas icon="euro-sign" />
+                      <MDBCardFooter>
+                      <span className="fw-bold">Hinta:</span> {tuotteet.hinta} €
                       </MDBCardFooter>
                     </MDBCard>
                   </MDBCol>
@@ -191,10 +189,10 @@ function TuoteKortit(props) {
                     alt="..."
                   />
                   <MDBCardHeader>
-                    <MDBCardTitle>{tuotteet.tuotenimi}</MDBCardTitle>
+                    <MDBCardTitle className="text-muted">{tuotteet.tuotenimi}</MDBCardTitle>
                   </MDBCardHeader>
                   <MDBCardBody>
-                    <MDBCardText>Saldo: {tuotteet.varastosaldo}</MDBCardText>
+                    <MDBCardText><span className="fw-bold">Saldo:</span> {tuotteet.varastosaldo} kpl</MDBCardText>
                     <MDBCardText>
                       <NavLink to={`/tuotteet/${tuotteet.tuoteID}`}>
                         Lisätietoja
@@ -206,8 +204,8 @@ function TuoteKortit(props) {
                       </MDBBtn>
                     </MDBCardText>
                   </MDBCardBody>
-                  <MDBCardFooter className="fw-bold">
-                    Hinta: {tuotteet.hinta} <MDBIcon fas icon="euro-sign" />
+                  <MDBCardFooter>
+                    <span className="fw-bold">Hinta:</span> {tuotteet.hinta} €
                   </MDBCardFooter>
                 </MDBCard>
               </MDBCol>
