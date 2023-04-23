@@ -43,7 +43,7 @@ const Header = (props) => {
           <MDBContainer className="text-center text-md-start justify-content-center">
         <MDBNavbarBrand tag="strong">
           Kynä & Kumi
-        <MDBIcon fas icon="pencil-ruler" className="text-dark ms-3" />
+        <MDBIcon fas icon="pencil-ruler" className="ms-3" />
          </MDBNavbarBrand>
         <MDBNavbarToggler
           type='button'
@@ -55,16 +55,16 @@ const Header = (props) => {
         <MDBCollapse navbar show={showNavCentred} className="collapse navbar-collapse justify-content-center text-center" >
           <MDBNavbarNav fullWidth={false} className="mb-2 mb-lg-0" >
             <MDBNavbarItem>
-            <NavLink to="/" className='nav-link fw-bold'>Etusivu</NavLink>
+            <NavLink to="/" className={({isActive}) => isActive ? "active-link nav-link" : "nav-link"}>Etusivu</NavLink>
             </MDBNavbarItem>
             <MDBNavbarItem>
-              <NavLink to="/tuotteet" className='nav-link fw-bold'>Tuotteet</NavLink>
+              <NavLink to="/tuotteet" className={({isActive}) => isActive ? "active-link nav-link" : "nav-link"}>Tuotteet</NavLink>
             </MDBNavbarItem>
             <MDBNavbarItem>
-            <NavLink to="/tietoa-meista" className='nav-link fw-bold'>Tietoa meistä</NavLink>
+            <NavLink to="/tietoa-meista" className={({isActive}) => isActive ? "active-link nav-link" : "nav-link"}>Tietoa meistä</NavLink>
             </MDBNavbarItem>
             <MDBNavbarItem>
-            <NavLink to="/ota-yhteytta" className='nav-link fw-bold'>Ota yhteyttä</NavLink>
+            <NavLink to="/ota-yhteytta" className={({isActive}) => isActive ? "active-link nav-link" : "nav-link"}>Ota yhteyttä</NavLink>
             </MDBNavbarItem>
           </MDBNavbarNav>
         </MDBCollapse>
