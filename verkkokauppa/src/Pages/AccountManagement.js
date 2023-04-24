@@ -82,7 +82,7 @@ const AccountManagement = (props) => {
 
   useEffect(() => {
 
-    props.userID !== null && props.userID !== undefined
+    props.userID !== null && props.userID !== undefined && props.asiakasTiedot.customer.osoite !== null && props.asiakasTiedot.customer.osoite !== undefined
       ? setFormData({
         ...formData,
         email: props.asiakasTiedot.customer.email,
@@ -95,9 +95,9 @@ const AccountManagement = (props) => {
       })
       : setFormData({
         ...formData,
-        email: "",
-        firstName: "",
-        lastName: "",
+        email: props.asiakasTiedot.customer.email,
+        firstName: props.asiakasTiedot.customer.nimi.split(" ")[0],
+        lastName: props.asiakasTiedot.customer.nimi.split(" ")[1],
         phone: "",
         address: "",
         city: "",

@@ -46,13 +46,14 @@ const luoAsiakas = (formData) => {
     const data = luoAsiakas(formData);
     console.log("Muokataan asiakasta tietokantaan")
     console.log(JSON.stringify(data));
+    console.log(JSON.stringify(userID));
     try {
       const response = await fetch('http://localhost:5000/editasiakas', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data, userID),
+        body: JSON.stringify({data, userID}),
       });
       if (response.ok) {
         return response.json();
