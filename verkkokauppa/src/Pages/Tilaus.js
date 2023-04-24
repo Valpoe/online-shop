@@ -265,7 +265,7 @@ const Tilaus = (props) => {
             Ole hyvä ja kirjaudu tai rekisteröidy ennen kuin jatkat tilauksen tekemiseen.
               Näin varmistamme että saatte tuotteenne varmasti perille. Kiitos yhteistyöstä!
           </MDBCardText>
-          <LoginRegister setUserID={props.setUserID} userID={props.userID} setUser={props.setUser} email={props.email} setEmail={props.setEmail} password={props.password} setPassword={props.setPassword}></LoginRegister>
+          <LoginRegister setUserID={props.setUserID} userID={props.userID} setUser={props.setUser} email={props.email} setEmail={props.setEmail} password={props.password} setPassword={props.setPassword } setAsiakasTiedot={props.setAsiakasTiedot}></LoginRegister>
         </MDBCardBody>
       </MDBCard>
       </MDBContainer>
