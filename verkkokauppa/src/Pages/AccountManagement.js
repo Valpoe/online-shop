@@ -186,10 +186,16 @@ const AccountManagement = (props) => {
     //console.log(JSON.stringify(props.asiakasTiedot.customer));
     
     // If there are no errors, submit the form
+    console.log("Kokeillaan PUT")
+
+    //editOrder.();
+
+
     if (Object.keys(errors).length === 0 && props.items.length > 0) {
       // Perform form submission
       setIsSubmitting(false);
       setFailedSubmit(false);
+      
   
       if(props.userID === null){
       //createTilaus.newTilaus(formData, uniqueItemsWithQuantity);
@@ -209,6 +215,37 @@ const AccountManagement = (props) => {
   };
 
   //sort tilaukset by ID
+  function QuantityInput({ quantity, onChange }) {
+    const [value, setValue] = useState(quantity);
+  
+    const increment = () => {
+      setValue(value + 1);
+      onChange(value + 1);
+    };
+  
+    const decrement = () => {
+      if (value > 0) {
+        setValue(value - 1);
+        onChange(value - 1);
+      }
+    };
+  
+    return (
+      <div className="quantity-input">
+        <button onClick={decrement}>-</button>
+        <input
+          type="number"
+          min="0"
+          value={value}
+          onChange={(e) => {
+            setValue(e.target.value);
+            onChange(e.target.value);
+          }}
+        />
+        <button onClick={increment}>+</button>
+      </div>
+    );
+  }
 
 
   if(setIsLoading === true) {
@@ -330,71 +367,74 @@ const AccountManagement = (props) => {
             <MDBCol className="mx-auto">
   <div className="scrollable-container table-container">
     <h6 className="text-uppercase fw-bold mb-4">Omat tilaukset</h6>
-    {props.asiakasTiedot.orders.map((order, index) => {
-      const orderItems = props.asiakasTiedot.orderItems.filter(
-        (orderItem) => orderItem.tilausid === order.tilausID
-      );
-      const formattedDate = new Date(order.tilauspvm).toLocaleDateString(
-        "fi-FI"
-      );
-
-      // Check if this is the latest order with the highest orderID and orderItem.kpl
-      const latestOrder = props.asiakasTiedot.orders.reduce((acc, curr) => {
-        return acc.tilausID > curr.tilausID ? acc : curr;
-      });
-      
-      const isLatestOrder = order.tilausID === latestOrder.tilausID && orderItems.some((orderItem) => orderItem.kpl > 0);
-      
-
-      return (
-        <MDBTable hover>
-          <React.Fragment key={order.tilausID}>
-            <MDBTableHead>
-              <tr>
-                <th scope="col">Tilaus ID</th>
-                <th scope="col">Tilauspäivämäärä</th>
-                <th scope="col">Summa</th>
-              </tr>
-              <tr>
-                <td>{order.tilausID}</td>
-                <td>{formattedDate}</td>
-                <td>{order.summa} €</td>
-              </tr>
-            </MDBTableHead>
-            <MDBTableBody>
-              <tr>
-                <th>Tuotenimi</th>
-                <th>Hinta</th>
-                {isLatestOrder ? <th>Kpl</th> : null}
-              </tr>
-              {orderItems.map((orderItem) => {
-                return (
-                  <tr key={orderItem.tuoteid}>
-                    <td>{getTuotenimi(orderItem.tuoteid)}</td>
-                    <td>{orderItem.summa} €</td>
-                    {isLatestOrder ? (
-                      <td>
-                        <input
-                          type="number"
-                          value={orderItem.kpl}
-                          onChange={(e) =>
-                            props.editOrderItem(
-                              order.tilausID,
-                              orderItem.tuoteid,
-                              Number(e.target.value)
-                            )
-                          }
-                        />
-                      </td>
-                    ) : (
-                      <td>{orderItem.kpl}</td>
-                    )}
-                  </tr>
-                );
-              })}
-            </MDBTableBody>
-          </React.Fragment>
-        </MDBTable>
+    {props.asiakasTiedot.orders.length === 0 && (
+      <p className="text-center">Ei tilauksia</p>
+    )}
+    {props.asiakasTiedot.orders
+      .sort((a, b) => b.tilausID - a.tilausID) // sort by tilausID in descending order
+      .map((order, index) => {
+        const orderItems = props.asiakasTiedot.orderItems.filter(
+          (orderItem) => orderItem.tilausid === order.tilausID
+        );
+        const formattedDate = new Date(order.tilauspvm).toLocaleDateString(
+          "fi-FI"
+        );
+        
+        // Check if this is the latest order with the highest orderID and orderItem.kpl
+        const latestOrder = props.asiakasTiedot.orders.reduce((acc, curr) => {
+          return acc.tilausID > curr.tilausID ? acc : curr;
+        });
+        
+        const isLatestOrder = order.tilausID === latestOrder.tilausID && orderItems.some((orderItem) => orderItem.kpl > 0);
+        
+        return (
+          <MDBTable hover key={order.tilausID}>
+            <React.Fragment>
+              <MDBTableHead>
+                <tr>
+                  <th scope="col">Tilaus ID</th>
+                  <th scope="col">Tilauspäivämäärä</th>
+                  <th scope="col">Summa</th>
+                </tr>
+                <tr>
+                  <td>{order.tilausID}</td>
+                  <td>{formattedDate}</td>
+                  <td>{order.summa} €</td>
+                </tr>
+              </MDBTableHead>
+              <MDBTableBody>
+                <tr>
+                  <th>Tuotenimi</th>
+                  <th>Hinta</th>
+                  {isLatestOrder ? <th>Kpl</th> : null}
+                </tr>
+                {orderItems.map((orderItem) => {
+                  return (
+                    <tr key={orderItem.tuoteid}>
+                      <td>{getTuotenimi(orderItem.tuoteid)}</td>
+                      <td>{orderItem.summa} €</td>
+                      {isLatestOrder ? (
+                        <td>
+                          <QuantityInput
+                            quantity={orderItem.kpl}
+                            onChange={(quantity) =>
+                              props.editOrderItem(
+                                order.tilausID,
+                                orderItem.tuoteid,
+                                Number(quantity)
+                              )
+                            }
+                          />
+                        </td>
+                      ) : (
+                        <td>{orderItem.kpl}</td>
+                      )}
+                    </tr>
+                  );
+                })}
+              </MDBTableBody>
+            </React.Fragment>
+          </MDBTable>
       );
     })}
   </div>
