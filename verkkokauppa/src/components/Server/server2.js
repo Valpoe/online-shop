@@ -384,7 +384,7 @@ app.put('/edit', async (req, res) => {
 
     // Update tilaus
     console.log("update tilaus")
-    const orderQuery = 'UPDATE "tilaus" SET tilauspvm = $1, summa = $2 WHERE "tilausID" = $3 AND "asiakasid" = $4' ;
+    const orderQuery = 'UPDATE "tilaus" SET tilauspvm = $1, summa = $2 WHERE "tilausID" = $3 AND "asiakasID" = $4' ;
     const orderValues = [editOrder.orders.tilauspvm, editOrder.orders.summa, editOrder.orders.tilausID, editOrder.customer.asiakasID];
     await pool.query(orderQuery, orderValues);
 /*
@@ -426,12 +426,11 @@ app.put('/edit', async (req, res) => {
     const updatedData = {
       customer: customer,
       orders: order,
-      orderItems: orderItems
+      orderitem: orderItems
     };
     console.log("Päivitetyt tilauksen tiedot:")
     console.log(JSON.stringify(updatedData))
     res.status(200).json(updatedData);
-
   } catch (error) {
     console.log(error);
     res.status(500).send('Internal server error');
