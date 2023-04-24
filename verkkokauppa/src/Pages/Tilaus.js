@@ -301,6 +301,7 @@ const Tilaus = (props) => {
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
     setFormData({ ...formData, [name]: value });
+    console.log("hello from tilaus " + formData.firstName);
   };
 
   if(props.userID === null) {

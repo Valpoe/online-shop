@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { getAsiakkaatEmail, getTuote, getTuotteet } from "../components/Server/TuoteAPI";
 import React, { useState } from "react";
 import { editOrder } from "../components/Server/editTilausAPI";
-import { useNavigate } from "react-router-dom";
 import {
   MDBRow,
   MDBCol,
@@ -25,15 +24,6 @@ const AccountManagement = (props) => {
   const [sahkopostit, setSahkopostit] = useState([]);
   const [tuotteet, setTuotteet] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // set isLoading to true when data is not available
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (props.asiakasTiedot === null || props.asiakasTiedot === undefined) {
-      navigate("/");
-    }
-  }, [props.asiakasTiedot]);
-
 
   useEffect(() => {
     const fetchTuotteet = async () => {
@@ -154,7 +144,6 @@ const AccountManagement = (props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [failedSubmit, setFailedSubmit] = useState(false);
   
-
   const handleChange = (event) => {
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
@@ -191,6 +180,7 @@ const AccountManagement = (props) => {
 
   
   const handleSubmit = async (event) => {
+
     console.log("Form submitted" + JSON.stringify(formData));
     //clear ostoskori after submit and set tilaus to true
     //prevent page reload
@@ -272,6 +262,7 @@ const AccountManagement = (props) => {
     */
 
     if (Object.keys(errors).length === 0 && props.items.length > 0) {
+      props.dataUpdated();
       // Perform form submission
       setIsSubmitting(false);
       setFailedSubmit(false);
@@ -332,13 +323,11 @@ const AccountManagement = (props) => {
     );
   }
 
-  if(setIsLoading === true) {
-    return (
-      <div className="pb-5 pt-5" style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)'}}>
-        <p>Its loading..</p>
-      </div>
-   )
-}
+  const handleOrderChange = () => {
+    props.orderUpdated();
+  };
+
+
 
   return (
     <div
@@ -351,7 +340,6 @@ const AccountManagement = (props) => {
             <MDBCol className="mx-auto ps-5 pe-5">
               <form onSubmit={handleSubmit}>
                 <h6 className="text-uppercase fw-bold mb-4">Omat tiedot</h6>
-
                 <MDBInput className="mb-3"
                     label="Etunimi"
                     name="firstName"
@@ -440,10 +428,12 @@ const AccountManagement = (props) => {
 
                   <MDBBtn
                     className="btn btn-primary btn-lg mt-4 mb-4"
+                    size="md"
                     color="primary"
                     type="submit"
+                    onClick={handleSubmit}
                   >
-                    Tallenna tiedot
+                    Muokkaa tietoja
                   </MDBBtn>
               </form>
             <MDBCol>
@@ -519,6 +509,20 @@ const AccountManagement = (props) => {
                     </tr>
                   );
                 })}
+                {isLatestOrder && (
+                  <tr>
+                    <td colSpan="3" className="text-center">
+                      <MDBBtn
+                        size="md"
+                        className="btn btn-primary"
+                        color="primary"
+                        onClick={handleOrderChange}
+                      >
+                        Muokkaa tilausta
+                        </MDBBtn>
+                      </td>
+                  </tr>
+                )}
               </MDBTableBody>
             </React.Fragment>
           </MDBTable>

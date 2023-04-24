@@ -38,7 +38,7 @@ const ContactUs = () => {
             <form onSubmit={handleSubmit}>
               <h6 className="text-uppercase fw-bold mb-4">Ota yhteyttä</h6>
               <p>
-                <MDBInput label="Nimi" id="name" type="text" />
+                <MDBInput label="Nimi" id="name" type="text"/>
               </p>
               <p>
                 <MDBInput label="Sähköposti" id="email" type="email" />
