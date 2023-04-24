@@ -76,7 +76,7 @@ const luoAsiakas = (formData) => {
 
   //
 
-  export { addAsiakas, editAsiakas };
+  export { addAsiakas, editAsiakas, luoAsiakas };
   //export default addAsiakas;
 
   

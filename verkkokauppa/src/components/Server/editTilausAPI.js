@@ -24,6 +24,14 @@ async function editOrder(editOrderData) {
     orderitem.summa = grandTotal;
   }
   editOrderData.orders.summa = loppuSumma;
+
+  const grandTotalAll = editOrderData.orderitem.reduce((total, orderitem) => {
+    return total + loppusumma(orderitem);
+  }, 0);
+
+  editOrderData.orders.summa = grandTotalAll;
+  
+  console.log("Loppsumma: " + JSON.stringify(grandTotalAll))
     try {
       const response = await fetch('http://localhost:5000/edit', {
         method: 'PUT',

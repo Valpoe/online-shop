@@ -110,9 +110,10 @@ return (
       </section>
 
       <div className='text-center p-4' style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}>
-        © {currentYear} Copyright: <a className='text-reset fw-bold'>
+        © {currentYear} Copyright: <a className='text-reset fw-bold me-2'>
            Kynä & Kumi
         </a>
+        <i class="flag flag-finland"></i>
       </div>
     </MDBFooter>
 );

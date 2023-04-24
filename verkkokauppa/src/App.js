@@ -2,6 +2,8 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import Etusivu from './Pages/Etusivu';
@@ -22,6 +24,16 @@ function App() {
   const [userID, setUserID] = useState(null)
   const [asiakasTiedot, setAsiakasTiedot] = useState(null)
 
+  const addToCart = () => toast.success('Tuote lisätty ostoskoriin!', {
+    position: "top-right",
+    autoClose: 4000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+    });
 
   // Hakee tuotteiden määrän
   const getItemsCount = () => {
@@ -53,7 +65,7 @@ function App() {
       <Header setItems={setItems} items={items} getTotal={getTotal} getItemsCount={getItemsCount} countItem={countItem} user={user} setUserID={setUserID} userID={userID} setUser={setUser} setAsiakasTiedot={setAsiakasTiedot} asiakasTiedot={asiakasTiedot} email={email} setEmail={setEmail} password={password} setPassword={setPassword}/>
       <Routes>
         <Route path='/' element={<Etusivu />} />
-        <Route path='/Tuotteet' element={<Tuotteet setItems={setItems} items={items} getTotal={getTotal} countItem={countItem}/>} />
+        <Route path='/Tuotteet' element={<Tuotteet setItems={setItems} items={items} getTotal={getTotal} countItem={countItem} addToCart={addToCart}/>} />
         <Route path='/tietoa-meista' element={<AboutUs />} />
         <Route path='/PrivacyStatement' element={<PrivacyStatement />} />
         <Route path='/ota-yhteytta' element={<ContactUs />} />
@@ -62,6 +74,7 @@ function App() {
         <Route path='/tilinhallinta' element={<AccountManagement items={items} setItems={setItems} user={user} setUserID={setUserID} userID={userID} setUser={setUser} asiakasTiedot={asiakasTiedot} setAsiakasTiedot={setAsiakasTiedot}/>} />
       </Routes>
       <Footer />
+      <ToastContainer />
     </Router>
   );
 }
