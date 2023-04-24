@@ -41,6 +41,3 @@ export const getAsiakkaatEmail = async (email) => {
   return emails.includes(email);
 }
 
-
-
-  
