@@ -35,7 +35,7 @@ const testData = {
       tilausid: 65,
       kpl: 0,
       tilaustuotteetid: 109,
-      summa: 3
+      summa: 2
     }
   ]
 };
@@ -79,3 +79,5 @@ describe('editOrder function', () => {
     expect(result).toEqual(expectedData);
   });
 });
+
+
