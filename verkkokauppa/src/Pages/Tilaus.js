@@ -261,8 +261,24 @@ const Tilaus = (props) => {
   //      return { error: 'Failed to edit customer data' };
   //    }
 
+        const newCustomerData = {
+          email: formData.email,
+          nimi: formData.firstName + " " + formData.lastName,
+          osoite: formData.address + ", " + formData.zip + ", " + formData.city,
+          puhelinnro: formData.phone,
+        };
+        
+        props.setAsiakasTiedot({
+          ...props.asiakasTiedot,
+          customer: {
+            ...props.asiakasTiedot.customer,
+            ...newCustomerData
+          }
+        });
+
       
       console.log("RELOGGED IN WITH NEW DATA: ?")
+      console.log(props.asiakasTiedot)
       //something needs to be fixed
       console.log("FAIL");
       }
