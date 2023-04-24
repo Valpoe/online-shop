@@ -74,9 +74,5 @@ export const asiakasTilaus = async (asiakasTiedot, userID, orderData) => {
 
     return loppuSumma;
   };
-  
- 
-
-
 
   export default { newTilaus };
