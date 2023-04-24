@@ -151,6 +151,7 @@ const AccountManagement = (props) => {
   };
   
   const handleSubmit = async (event) => {
+
     console.log("Form submitted" + JSON.stringify(formData));
     //clear ostoskori after submit and set tilaus to true
     //prevent page reload
@@ -232,6 +233,7 @@ const AccountManagement = (props) => {
     */
 
     if (Object.keys(errors).length === 0 && props.items.length > 0) {
+      props.dataUpdated();
       // Perform form submission
       setIsSubmitting(false);
       setFailedSubmit(false);
@@ -394,6 +396,7 @@ const AccountManagement = (props) => {
                     className="btn btn-primary btn-lg mt-4 mb-4"
                     color="primary"
                     type="submit"
+                    onClick={handleSubmit}
                   >
                     Tallenna tiedot
                   </MDBBtn>
