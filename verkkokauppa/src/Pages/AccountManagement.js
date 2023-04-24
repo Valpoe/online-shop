@@ -294,6 +294,11 @@ const AccountManagement = (props) => {
     );
   }
 
+  const handleOrderChange = () => {
+    props.orderUpdated();
+  };
+
+
 
   return (
     <div
@@ -394,11 +399,12 @@ const AccountManagement = (props) => {
 
                   <MDBBtn
                     className="btn btn-primary btn-lg mt-4 mb-4"
+                    size="md"
                     color="primary"
                     type="submit"
                     onClick={handleSubmit}
                   >
-                    Tallenna tiedot
+                    Muokkaa tietoja
                   </MDBBtn>
               </form>
             </MDBCol>
@@ -471,6 +477,20 @@ const AccountManagement = (props) => {
                     </tr>
                   );
                 })}
+                {isLatestOrder && (
+                  <tr>
+                    <td colSpan="3" className="text-center">
+                      <MDBBtn
+                        size="md"
+                        className="btn btn-primary"
+                        color="primary"
+                        onClick={handleOrderChange}
+                      >
+                        Muokkaa tilausta
+                        </MDBBtn>
+                      </td>
+                  </tr>
+                )}
               </MDBTableBody>
             </React.Fragment>
           </MDBTable>

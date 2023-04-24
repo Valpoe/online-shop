@@ -47,6 +47,18 @@ function App() {
       theme: "light",
     });
 
+    const orderUpdated = () =>
+    toast.success("Tilaus päivitetty!", {
+      position: "top-right",
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+
   // Hakee tuotteiden määrän
   const getItemsCount = () => {
     if (!items) {
@@ -154,6 +166,7 @@ function App() {
               asiakasTiedot={asiakasTiedot}
               setAsiakasTiedot={setAsiakasTiedot}
               dataUpdated={dataUpdated}
+              orderUpdated={orderUpdated}
             />
           }
         />
