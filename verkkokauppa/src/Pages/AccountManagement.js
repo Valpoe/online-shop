@@ -360,48 +360,50 @@ const OrderManagement = (props) => {
     {props.asiakasTiedot.orders.length === 0 && (
       <p className="text-center">Ei tilauksia</p>
     )}
-    {props.asiakasTiedot.orders.map((order, index) => {
-      const orderItems = props.asiakasTiedot.orderItems.filter(
-        (orderItem) => orderItem.tilausid === order.tilausID
-      );
-      const formattedDate = new Date(order.tilauspvm).toLocaleDateString(
-        "fi-FI"
-      );
-
-     // Check if this is the latest order with the highest orderID and orderItem.kpl
-      const latestOrder = props.asiakasTiedot.orders.reduce((acc, curr) => {
-        return acc.tilausID > curr.tilausID ? acc : curr;
-      });
-      
-      const isLatestOrder = order.tilausID === latestOrder.tilausID && orderItems.some((orderItem) => orderItem.kpl > 0);
-      
-      return (
-        <MDBTable hover>
-          <React.Fragment key={order.tilausID}>
-            <MDBTableHead>
-              <tr>
-                <th scope="col">Tilaus ID</th>
-                <th scope="col">Tilauspäivämäärä</th>
-                <th scope="col">Summa</th>
-              </tr>
-              <tr>
-                <td>{order.tilausID}</td>
-                <td>{formattedDate}</td>
-                <td>{order.summa} €</td>
-              </tr>
-            </MDBTableHead>
-            <MDBTableBody>
-              <tr>
-                <th>Tuotenimi</th>
-                <th>Hinta</th>
-                {isLatestOrder ? <th>Kpl</th> : null}
-              </tr>
-              {orderItems.map((orderItem) => {
-                return (
-                  <tr key={orderItem.tuoteid}>
-                    <td>{getTuotenimi(orderItem.tuoteid)}</td>
-                    <td>{orderItem.summa} €</td>
-                    {isLatestOrder ? (
+    {props.asiakasTiedot.orders
+      .sort((a, b) => b.tilausID - a.tilausID) // sort by tilausID in descending order
+      .map((order, index) => {
+        const orderItems = props.asiakasTiedot.orderItems.filter(
+          (orderItem) => orderItem.tilausid === order.tilausID
+        );
+        const formattedDate = new Date(order.tilauspvm).toLocaleDateString(
+          "fi-FI"
+        );
+        
+        // Check if this is the latest order with the highest orderID and orderItem.kpl
+        const latestOrder = props.asiakasTiedot.orders.reduce((acc, curr) => {
+          return acc.tilausID > curr.tilausID ? acc : curr;
+        });
+        
+        const isLatestOrder = order.tilausID === latestOrder.tilausID && orderItems.some((orderItem) => orderItem.kpl > 0);
+        
+        return (
+          <MDBTable hover key={order.tilausID}>
+            <React.Fragment>
+              <MDBTableHead>
+                <tr>
+                  <th scope="col">Tilaus ID</th>
+                  <th scope="col">Tilauspäivämäärä</th>
+                  <th scope="col">Summa</th>
+                </tr>
+                <tr>
+                  <td>{order.tilausID}</td>
+                  <td>{formattedDate}</td>
+                  <td>{order.summa} €</td>
+                </tr>
+              </MDBTableHead>
+              <MDBTableBody>
+                <tr>
+                  <th>Tuotenimi</th>
+                  <th>Hinta</th>
+                  {isLatestOrder ? <th>Kpl</th> : null}
+                </tr>
+                {orderItems.map((orderItem) => {
+                  return (
+                    <tr key={orderItem.tuoteid}>
+                      <td>{getTuotenimi(orderItem.tuoteid)}</td>
+                      <td>{orderItem.summa} €</td>
+                      {isLatestOrder ? (
                         <td>
                           <QuantityInput
                             quantity={orderItem.kpl}
@@ -414,15 +416,15 @@ const OrderManagement = (props) => {
                             }
                           />
                         </td>
-                    ) : (
-                      <td>{orderItem.kpl}</td>
-                    )}
-                  </tr>
-                );
-              })}
-            </MDBTableBody>
-          </React.Fragment>
-        </MDBTable>
+                      ) : (
+                        <td>{orderItem.kpl}</td>
+                      )}
+                    </tr>
+                  );
+                })}
+              </MDBTableBody>
+            </React.Fragment>
+          </MDBTable>
       );
     })}
   </div>
