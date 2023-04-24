@@ -45,10 +45,10 @@ function Yhteenveto(props) {
                 alt={item.tuotenimi} />
             </MDBCol>
             <MDBCol md="3" lg="3" xl="3">
-              <p className="lead fw-normal mb-2">{item.tuotenimi}</p>
+              <p className="lead fw-normal mb-2 text-muted">{item.tuotenimi}</p>
               <p>
-                <span className="text-muted">Tuotenumero: {item.tuoteid}</span>
-                <MDBCardText className="text-muted">Määrä: {countItem(item.tuoteid)}</MDBCardText>
+                <span className="fw-bold">Tuotenumero:</span> {item.tuoteid}
+                <MDBCardText><span className="fw-bold">Määrä:</span> {countItem(item.tuoteid)}</MDBCardText>
               </p>
             </MDBCol>
             <MDBCol md="3" lg="2" xl="2">

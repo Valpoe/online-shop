@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { getAsiakkaatEmail, getTuote, getTuotteet } from "../components/Server/TuoteAPI";
 import React, { useState } from "react";
 import { editOrder } from "../components/Server/editTilausAPI";
+import { useNavigate } from "react-router-dom";
 import {
   MDBRow,
   MDBCol,
@@ -12,15 +13,25 @@ import {
   MDBTable,
   MDBTableHead,
   MDBTableBody,
+  MDBIcon,
   MDBFooter,
   MDBCardText,
 } from "mdb-react-ui-kit";
 
-const OrderManagement = (props) => {
+const AccountManagement = (props) => {
+
 
   const [sahkopostit, setSahkopostit] = useState([]);
   const [tuotteet, setTuotteet] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // set isLoading to true when data is not available
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (props.asiakasTiedot === null || props.asiakasTiedot === undefined) {
+      navigate("/");
+    }
+  }, [props.asiakasTiedot]);
 
 
   useEffect(() => {
@@ -222,18 +233,23 @@ const OrderManagement = (props) => {
     };
   
     return (
-      <div className="quantity-input">
-        <button onClick={decrement}>-</button>
-        <input
-          type="number"
+      <div className="quantity-input d-flex">
+        <MDBBtn color="link" onClick={decrement}>
+          <MDBIcon fas icon="minus" />
+        </MDBBtn>
+        <MDBInput
+          className="text-center"
           min="0"
           value={value}
+          type="number"
           onChange={(e) => {
             setValue(e.target.value);
             onChange(e.target.value);
           }}
         />
-        <button onClick={increment}>+</button>
+        <MDBBtn color="link" onClick={increment}>
+          <MDBIcon fas icon="plus" />
+        </MDBBtn>
       </div>
     );
   }
@@ -381,32 +397,32 @@ const OrderManagement = (props) => {
         return (
           <MDBTable hover key={order.tilausID}>
             <React.Fragment>
-              <MDBTableHead>
-                <tr>
+              <MDBTableHead className="text-center"> 
+                <tr className="table-success">
                   <th scope="col">Tilaus ID</th>
                   <th scope="col">Tilauspäivämäärä</th>
                   <th scope="col">Summa</th>
                 </tr>
-                <tr>
+                <tr className="table-success">
                   <td>{order.tilausID}</td>
                   <td>{formattedDate}</td>
                   <td>{order.summa} €</td>
                 </tr>
               </MDBTableHead>
-              <MDBTableBody>
-                <tr>
+              <MDBTableBody className="text-center">
+                <tr className="table-secondary">
                   <th>Tuotenimi</th>
                   <th>Hinta</th>
-                  {isLatestOrder ? <th>Kpl</th> : null}
+                  {isLatestOrder ? <th className="text-center">Kpl</th> : <th>Kpl</th>}
                 </tr>
                 {orderItems.map((orderItem) => {
                   return (
-                    <tr key={orderItem.tuoteid}>
+                    <tr key={orderItem.tuoteid} className="table-secondary">
                       <td>{getTuotenimi(orderItem.tuoteid)}</td>
                       <td>{orderItem.summa} €</td>
                       {isLatestOrder ? (
                         <td>
-                          <QuantityInput
+                          <QuantityInput                           
                             quantity={orderItem.kpl}
                             onChange={(quantity) =>
                               props.editOrderItem(
@@ -437,4 +453,4 @@ const OrderManagement = (props) => {
   );
 };
 
-export default OrderManagement;
+export default AccountManagement;
