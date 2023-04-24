@@ -72,7 +72,7 @@ const AccountManagement = (props) => {
       {
         tuoteid: 4,
         tilausid: 65,
-        kpl: 1,
+        kpl: 10,
         tilaustuotteetid: 108,
         summa: 5
       }
