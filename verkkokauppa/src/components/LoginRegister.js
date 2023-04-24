@@ -10,8 +10,6 @@ import {
   MDBCheckbox,
   MDBInput,
   MDBBtn,
-  MDBCardText,
-  MDBIcon,
   MDBTabsLink,
 } from "mdb-react-ui-kit";
 import { NavLink } from "react-router-dom";
@@ -29,7 +27,7 @@ function LoginRegister(props) {
     city: "",
     zip: "",
     password: "",
-    ATchecked: true, // add checked property for checkbox
+    ATchecked: true,
     ATluonti: true,
   });
 
