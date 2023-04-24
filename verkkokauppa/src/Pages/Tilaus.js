@@ -221,8 +221,6 @@ const Tilaus = (props) => {
       console.log("Edit asiakkaalle lähtevät tiedot:")
       console.log(JSON.stringify(formData, props.userID))
 
-      const updAsiakas = await editAsiakas(formData, props.userID);
-
       props.asiakasTiedot.nimi = formData.firstName;
       props.asiakasTiedot.sukunimi = formData.lastName;
       props.asiakasTiedot.sahkoposti = formData.email;
@@ -232,6 +230,8 @@ const Tilaus = (props) => {
       props.asiakasTiedot.postinumero = formData.zip;
 
       props.setAsiakasTiedot(props.asiakasTiedot);
+
+      const updAsiakas = await editAsiakas(formData, props.userID);
 
       console.log(JSON.stringify(updAsiakas, props.userID))
       asiakasTilaus(formData, props.userID, uniqueItemsWithQuantity);
@@ -244,6 +244,8 @@ const Tilaus = (props) => {
       console.log(logIt)
 
       const userData = await logIn(logIt);
+      console.log(" EDIT? OR NO " +JSON.stringify(userData))
+
       props.setAsiakasTiedot(userData);
       }
 

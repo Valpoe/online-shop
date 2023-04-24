@@ -44,6 +44,7 @@ const luoAsiakas = (formData) => {
   const editAsiakas = async (formData, userID) => {
 
     const data = luoAsiakas(formData);
+    data.osoite = formData.address + ', ' + formData.zip + ', ' + formData.city;
     console.log("Muokataan asiakasta tietokantaan HHHHHHHH")
     console.log(JSON.stringify(data));
     console.log(JSON.stringify(userID));
