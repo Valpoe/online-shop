@@ -51,6 +51,23 @@ function LoginRegister(props) {
     password: "",
   });
 
+  const [rememberMe, setRememberMe] = useState(false);
+  
+  const handleCheckboxChange = (event) => {
+    setRememberMe(event.target.checked);
+  };
+  
+
+  //if localstorage has password and email
+  useEffect(() => {
+    if (localStorage.getItem("email") && localStorage.getItem("password")) {
+      setLoginForm({
+        email: localStorage.getItem("email"),
+        password: localStorage.getItem("password"),
+      });
+    }
+  }, []);
+
   const [LoginErrorForm, setLoginErrorForm] = useState({
     email: "",
     password: "",
@@ -111,13 +128,6 @@ const SubmitLogin = async (event) => {
   if (!LoginForm.email.includes("@")) {
     errors.email = "Sähköposti on virheellinen";
   }
- //if sahkoposti is already in database
-  if (RegisterForm.email && props.userID === null) {
-    const isEmailInDatabase = await getAsiakkaatEmail(RegisterForm.email);
-    if (isEmailInDatabase === true) {
-    errors.email = "sähköposti on jo käytössä";
-    }
-  }
   if (!LoginForm.password) {
     errors.password = "Syötä salasana";
   }
@@ -128,7 +138,17 @@ const SubmitLogin = async (event) => {
   if (Object.keys(errors).length === 0) {
     console.log(LoginForm);
 
+    if(rememberMe === true) {
+      localStorage.setItem("email", LoginForm.email);
+      localStorage.setItem("password", LoginForm.password);
+    }
+    else {
+      localStorage.removeItem("email");
+      localStorage.removeItem("password");
+    }
+
     try {
+
       console.log(JSON.stringify(LoginForm))
       const userData = await logIn(LoginForm);
       props.setPassword(LoginForm.password);
@@ -154,7 +174,7 @@ const SubmitLogin = async (event) => {
   return;
 };
 
-  const SubmitRegister = (event) => {
+  const SubmitRegister = async (event) => {
     event.preventDefault();
 
     let errors = {};
@@ -163,6 +183,13 @@ const SubmitLogin = async (event) => {
     if (!RegisterForm.email) {
       errors.email = "Sähköposti on pakollinen";
     }
+     //if sahkoposti is already in database
+      if (RegisterForm.email && props.userID === null) {
+        const isEmailInDatabase = await getAsiakkaatEmail(RegisterForm.email);
+        if (isEmailInDatabase === true) {
+        errors.email = "sähköposti on jo käytössä";
+        }
+      }
     if (!RegisterForm.password) {
       errors.password = "Salasana on pakollinen";
     }
@@ -177,7 +204,7 @@ const SubmitLogin = async (event) => {
       createTilaus.newTilaus(RegisterForm);
       console.log(JSON.stringify(RegisterForm))
 
-      
+
       setJustifyActive("tab1");
       setRegisterActive(true);
     } else {
@@ -293,7 +320,12 @@ const SubmitLogin = async (event) => {
               />
 
               <div className="d-flex justify-content-between mx-4 mb-4">
-                <MDBCheckbox label="Muista minut" />
+                <MDBCheckbox
+                label="Muista minut"
+                name="tallennatiedot"
+                checked={rememberMe}
+                onChange={handleCheckboxChange}
+                />
                 {showLink && (
                   <a href="javascript:void(0);" onClick={handleClick}>
                     Unohtuiko salasana?
