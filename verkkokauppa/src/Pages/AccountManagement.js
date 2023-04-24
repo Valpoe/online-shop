@@ -138,8 +138,7 @@ const AccountManagement = (props) => {
         city: "",
         zip: "",
       });
-  }, [props.asiakasTiedot]); // <<--??
-  console.log("props.asiakasTiedot: " + JSON.stringify(props.asiakasTiedot));
+  }, [props.asiakasTiedot.customer]); // <<--??
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [failedSubmit, setFailedSubmit] = useState(false);
