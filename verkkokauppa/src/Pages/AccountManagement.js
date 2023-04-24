@@ -177,7 +177,6 @@ const AccountManagement = (props) => {
     alert("Tilaus lähetetty");
   };
 
-
   
   const handleSubmit = async (event) => {
 
@@ -251,6 +250,29 @@ const AccountManagement = (props) => {
 
     //editAsiakas(JSON.stringify(props.asiakasTiedot.customer));
     //console.log(JSON.stringify(props.asiakasTiedot.customer));
+
+    const customer = {
+      asiakasID : props.userID,
+      email: formData.email,
+      nimi: formData.firstName + " " + formData.lastName,
+      osoite: formData.address + ", " + formData.zip + ", " + formData.city,
+      puhelinnro: formData.phone,
+    };
+
+    const orders = {
+      tilausID: props.tilausID,
+      asiakasID: props.userID,
+      tilauspvm: props.tilausPvm,
+      maksuid: props.maksuID,
+    };
+    
+    props.setAsiakasTiedot({
+      ...props.asiakasTiedot,
+      customer: {
+        ...props.asiakasTiedot.customer,
+        ...newCustomerData
+      }
+    });
     
     // If there are no errors, submit the form
     console.log("Kokeillaan PUT")
