@@ -72,9 +72,9 @@ const Tilaus = (props) => {
       })
       : setFormData({
         ...formData,
-        email: props.asiakasTiedot.customer.email,
-        firstName: props.asiakasTiedot.customer.nimi.split(" ")[0],
-        lastName: props.asiakasTiedot.customer.nimi.split(" ")[1],
+        email: "",
+        firstName: "",
+        lastName: "",
         phone: "",
         address: "",
         city: "",
