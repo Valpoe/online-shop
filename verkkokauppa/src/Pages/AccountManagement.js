@@ -19,27 +19,30 @@ import {
 const OrderManagement = (props) => {
 
   const [sahkopostit, setSahkopostit] = useState([]);
-  const [tuotteet, setTuotteet] = useState(getTuotteet());
+  const [tuotteet, setTuotteet] = useState([]);
+  const [isLoading, setIsLoading] = useState(true); // set isLoading to true when data is not available
 
 
   useEffect(() => {
     const fetchTuotteet = async () => {
       const data = await getTuotteet();
       setTuotteet(data);
+      setIsLoading(false); // set isLoading to false when data is available
     };
     fetchTuotteet();
-
-    console.log(JSON.stringify(tuotteet) + " HERE THEY ARE");
   }, []);
+
 
   //get tuotenimi with tuoteID from tuotteet
   const getTuotenimi = (tuoteID) => {
+    if (tuotteet.length === 0) {
+      return "Ladataan tuotteita...";
+    }
+
     const tuote = tuotteet.find((tuote) => tuote.tuoteID === tuoteID);
     return tuote.tuotenimi;
   };
   //rest of the component code
-
-
 
 
   const [formData, setFormData] = useState({
@@ -63,6 +66,7 @@ const OrderManagement = (props) => {
 
   useEffect(() => {
     setSahkopostit(getAsiakkaatEmail);
+    
   }, []);
 
   useEffect(() => {
@@ -194,6 +198,16 @@ const OrderManagement = (props) => {
     }
   };
 
+  //sort tilaukset by ID
+
+
+  if(setIsLoading === true) {
+    return (
+      <div className="pb-5 pt-5" style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)'}}>
+        <p>Its loading..</p>
+      </div>
+   )
+}
 
   return (
     <div
@@ -304,52 +318,77 @@ const OrderManagement = (props) => {
             </MDBCol>
 
             <MDBCol className="mx-auto">
-              <div className="scrollable-container table-container">
-              <h6 className="text-uppercase fw-bold mb-4">Omat tilaukset</h6>           
-                  {props.asiakasTiedot.orders.map((order) => {
-                    const orderItems = props.asiakasTiedot.orderItems.filter((orderItem) => orderItem.tilausid === order.tilausID);
-                    const formattedDate = new Date(order.tilauspvm).toLocaleDateString("fi-FI");
-                    // get product names from orderItems where orderItems.tuoteid === product.tuoteid and add to orderItems
+  <div className="scrollable-container table-container">
+    <h6 className="text-uppercase fw-bold mb-4">Omat tilaukset</h6>
+    {props.asiakasTiedot.orders.map((order, index) => {
+      const orderItems = props.asiakasTiedot.orderItems.filter(
+        (orderItem) => orderItem.tilausid === order.tilausID
+      );
+      const formattedDate = new Date(order.tilauspvm).toLocaleDateString(
+        "fi-FI"
+      );
 
+      // Check if this is the latest order with the highest orderID and orderItem.kpl
+      const latestOrder = props.asiakasTiedot.orders.reduce((acc, curr) => {
+        return acc.tilausID > curr.tilausID ? acc : curr;
+      });
+      
+      const isLatestOrder = order.tilausID === latestOrder.tilausID && orderItems.some((orderItem) => orderItem.kpl > 0);
+      
 
-                    return (
-                      <MDBTable hover>
-                      <React.Fragment key={order.tilausID}>
-                        <MDBTableHead>
-                        <tr>
-                    <th scope="col">Tilaus ID</th>
-                    <th scope="col">Tilauspäivämäärä</th>
-                    <th scope="col">Summa</th>
+      return (
+        <MDBTable hover>
+          <React.Fragment key={order.tilausID}>
+            <MDBTableHead>
+              <tr>
+                <th scope="col">Tilaus ID</th>
+                <th scope="col">Tilauspäivämäärä</th>
+                <th scope="col">Summa</th>
+              </tr>
+              <tr>
+                <td>{order.tilausID}</td>
+                <td>{formattedDate}</td>
+                <td>{order.summa} €</td>
+              </tr>
+            </MDBTableHead>
+            <MDBTableBody>
+              <tr>
+                <th>Tuotenimi</th>
+                <th>Hinta</th>
+                {isLatestOrder ? <th>Kpl</th> : null}
+              </tr>
+              {orderItems.map((orderItem) => {
+                return (
+                  <tr key={orderItem.tuoteid}>
+                    <td>{getTuotenimi(orderItem.tuoteid)}</td>
+                    <td>{orderItem.summa} €</td>
+                    {isLatestOrder ? (
+                      <td>
+                        <input
+                          type="number"
+                          value={orderItem.kpl}
+                          onChange={(e) =>
+                            props.editOrderItem(
+                              order.tilausID,
+                              orderItem.tuoteid,
+                              Number(e.target.value)
+                            )
+                          }
+                        />
+                      </td>
+                    ) : (
+                      <td>{orderItem.kpl}</td>
+                    )}
                   </tr>
-                        <tr>
-                          <td>{order.tilausID}</td>
-                          <td>{formattedDate}</td>
-                          <td>{order.summa} €</td>
-                        </tr>
-                  </MDBTableHead>
-                        <MDBTableBody>
-                        <tr>
-                            <th>Tuotenimi</th>
-                            <th>Hinta</th>
-                            <th>Kpl</th>
-                        </tr>
-                            {orderItems.map((orderItem) => {
-                              return (
-                                <tr key={orderItem.tuoteid}>
-                                  <td>{getTuotenimi(orderItem.tuoteid)}</td>
-                                  <td>{orderItem.summa} €</td>
-                                  <td>{orderItem.kpl}</td>
-                                </tr>
-                              );
-                            })
-                            }         
-                </MDBTableBody>
-                      </React.Fragment>
-                      </MDBTable>
-                    );
-                  })}
-              </div>
-            </MDBCol>
+                );
+              })}
+            </MDBTableBody>
+          </React.Fragment>
+        </MDBTable>
+      );
+    })}
+  </div>
+</MDBCol>
           </MDBRow>
         </MDBContainer>
       </section>
