@@ -189,6 +189,7 @@ const AccountManagement = (props) => {
     // If there are no errors, submit the form
     console.log("Kokeillaan PUT")
 
+
     //editOrder.();
 
 
@@ -252,6 +253,16 @@ const AccountManagement = (props) => {
       </div>
     );
   }
+
+  const editCustomer = (data, id) => {
+    let customer = {
+      nimi: data.firstName + " " + data.lastName,
+      osoite: data.address + ", " + data.zip + ", " + data.city,
+      puhelinnro: data.phone,
+      email: data.email
+    }
+  }
+
 
 
   if(setIsLoading === true) {
