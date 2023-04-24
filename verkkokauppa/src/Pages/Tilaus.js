@@ -241,6 +241,7 @@ const Tilaus = (props) => {
         email: props.email,
         password: props.password,
       }
+      console.log("Hello from the otherside, relogging time")
       console.log(logIt)
       const userData = await logIn(logIt);
       props.setAsiakasTiedot(userData);
@@ -261,7 +262,8 @@ const Tilaus = (props) => {
   //    }
 
       
-      console.log("RELOGGED IN WITH NEW DATA: ")
+      console.log("RELOGGED IN WITH NEW DATA: ?")
+      //something needs to be fixed
       console.log("FAIL");
       }
 
