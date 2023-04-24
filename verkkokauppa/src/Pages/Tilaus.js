@@ -59,7 +59,7 @@ const Tilaus = (props) => {
 
   useEffect(() => {
 
-    props.userID !== null && props.userID !== undefined
+    props.userID !== null && props.userID !== undefined && props.asiakasTiedot.customer.osoite !== null && props.asiakasTiedot.customer.osoite !== undefined
       ? setFormData({
         ...formData,
         email: props.asiakasTiedot.customer.email,
@@ -72,16 +72,13 @@ const Tilaus = (props) => {
       })
       : setFormData({
         ...formData,
-        email: "",
-        firstName: "",
-        lastName: "",
+        email: props.asiakasTiedot.customer.email,
+        firstName: props.asiakasTiedot.customer.nimi.split(" ")[0],
+        lastName: props.asiakasTiedot.customer.nimi.split(" ")[1],
         phone: "",
         address: "",
         city: "",
         zip: "",
-        password: "",
-        ATchecked: false, // add checked property for checkbox
-        ATluonti: false,
       });
   }, [props.userID]);
   
@@ -220,7 +217,12 @@ const Tilaus = (props) => {
         //userID tilaus
       console.log("KUTSUTAAN APIA TÄLLÄ PROPSILLA:" + props.userID )
       console.log(formData, props.userID, uniqueItemsWithQuantity)
+
+      console.log("Edit asiakkaalle lähtevät tiedot:")
+      console.log(JSON.stringify(formData, props.userID))
+
       const updAsiakas = await editAsiakas(formData, props.userID);
+
       console.log(JSON.stringify(updAsiakas, props.userID))
       asiakasTilaus(formData, props.userID, uniqueItemsWithQuantity);
 
