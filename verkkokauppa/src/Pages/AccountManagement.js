@@ -153,14 +153,12 @@ const AccountManagement = (props) => {
 
   const handleUpdateAsiakas = async (event) => {
     event.preventDefault();
-
     const newCustomerData = {
       email: formData.email,
       nimi: formData.firstName + " " + formData.lastName,
       osoite: formData.address + ", " + formData.zip + ", " + formData.city,
       puhelinnro: formData.phone,
-    };
-    
+    };   
     props.setAsiakasTiedot({
       ...props.asiakasTiedot,
       customer: {
@@ -168,17 +166,17 @@ const AccountManagement = (props) => {
         ...newCustomerData
       }
     });
-
-    
     editAsiakas(formData, props.userID)
-
     console.log("Form submitted" + JSON.stringify(formData));
     //clear ostoskori after submit and set tilaus to true
-    alert("Tilaus lähetetty");
+    props.dataUpdated();
   };
 
+  const handleOrderChange = async (event) => {
+    event.preventDefault();
+    props.orderUpdated();
+  };
 
-  
   const handleSubmit = async (event) => {
 
     console.log("Form submitted" + JSON.stringify(formData));
@@ -323,9 +321,9 @@ const AccountManagement = (props) => {
     );
   }
 
-  const handleOrderChange = () => {
-    props.orderUpdated();
-  };
+
+
+
 
 
 
@@ -427,17 +425,15 @@ const AccountManagement = (props) => {
                   />
 
                   <MDBBtn
-                    className="btn btn-primary btn-lg mt-4 mb-4"
-                    size="md"
+                    className="btn btn-primary mt-4 mb-4"
                     color="primary"
                     type="submit"
-                    onClick={handleSubmit}
+                    onClick={handleUpdateAsiakas}
                   >
                     Muokkaa tietoja
                   </MDBBtn>
               </form>
             <MDBCol>
-            <MDBBtn onClick={handleUpdateAsiakas}>TALLENNA</MDBBtn>
             </MDBCol>
             </MDBCol>
 
