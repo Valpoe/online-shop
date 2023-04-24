@@ -16,6 +16,14 @@ async function editOrder(editOrderData) {
   */
 
   export const editOrder = async (editOrderData) => {
+    let loppuSumma = 0;
+    for (let i = 0; i < editOrderData.orderitem.length; i++) {
+    const orderitem = editOrderData.orderitem[i];
+    const grandTotal = loppusumma(orderitem);
+    loppuSumma += grandTotal;
+    orderitem.summa = grandTotal;
+  }
+  editOrderData.orders.summa = loppuSumma;
     try {
       const response = await fetch('http://localhost:5000/edit', {
         method: 'PUT',
@@ -29,4 +37,9 @@ async function editOrder(editOrderData) {
     } catch (error) {
       console.log(error);
     }
+  };
+ 
+
+  const loppusumma = (orderitem) => {
+    return orderitem.kpl * orderitem.summa;
   };
