@@ -148,7 +148,7 @@ const AccountManagement = (props) => {
         city: "",
         zip: "",
       });
-  }, [props.setAsiakasTiedot]); // <<--??
+  }, []); // <<--??
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [failedSubmit, setFailedSubmit] = useState(false);
