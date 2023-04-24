@@ -21,6 +21,7 @@ import {
     MDBDropdownToggle,
     MDBDropdownMenu,
     MDBDropdownItem,
+    MDBTooltip
   } from 'mdb-react-ui-kit';
 import Ostoskori from '../Ostoskori';
 import LoginRegister from '../LoginRegister';
@@ -82,9 +83,11 @@ const Header = (props) => {
                       Sulje
                     </MDBBtn>
                     {props.items.length === 0 ? (
-                      <MDBBtn className="btn btn-primary" disabled>
+                      <MDBTooltip tag="span" wrapperClass="d-inline-block" title="Lisää tuotteita ostoskoriin!">
+                      <MDBBtn className="btn btn-primary" disabled style={{ pointerEvents: "none" }}>
                         Siirry tilaamaan
                       </MDBBtn>
+                      </MDBTooltip>
                     ) : (
                     <NavLink className="btn btn-primary" to={"/tilaus"} onClick={toggleShow}>Siirry tilaamaan</NavLink>
                     )}
