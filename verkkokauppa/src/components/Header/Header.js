@@ -21,10 +21,12 @@ import {
     MDBDropdownToggle,
     MDBDropdownMenu,
     MDBDropdownItem,
-    MDBTooltip
+    MDBTooltip,
+    MDBModalBody
   } from 'mdb-react-ui-kit';
 import Ostoskori from '../Ostoskori';
 import LoginRegister from '../LoginRegister';
+import { ModalBody } from 'react-bootstrap';
 
 const Header = (props) => {
     const [showNavCentred, setShowNavCentred] = useState(false);

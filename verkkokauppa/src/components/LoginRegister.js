@@ -334,7 +334,7 @@ const SubmitLogin = async (event) => {
                     <span>Harmillista</span>
                   </div>
                 )}
-              </div>
+                </div>
 
               <MDBBtn type="submit" className="mb-4 w-100">
                 Kirjaudu sisään
@@ -398,7 +398,7 @@ const SubmitLogin = async (event) => {
                   *{RegisterErrorForm.checked}
                 </div>
               )}
-
+              <div className="d-flex">
               <MDBCheckbox
                 wrapperClass="mx-4 mb-4"
                 label="Hyväksyn käyttöehdot"
@@ -408,7 +408,7 @@ const SubmitLogin = async (event) => {
                 onChange={handleChange}
                 error={RegisterErrorForm.checked}
               />
-
+              </div>
               <MDBBtn type="submit" className="mb-4 w-100">
                 Rekisteröidy
               </MDBBtn>

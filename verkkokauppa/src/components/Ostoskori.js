@@ -151,11 +151,11 @@ function Ostoskori(props) {
           </MDBCard>
         ))}
       </div>
-      <div>
+      <div className="d-flex align-items-center justify-content-center">
         {getTotal() === 0 ? (
           <div className="text-center">
             <MDBIcon size="7x" fas icon="shopping-cart" />
-          <h3 className="text-center mt-3">Ostoskori on tyhjä</h3>
+          <h3 className="mt-3">Ostoskori on tyhjä</h3>
           </div>
         ) : (
           <h3 className="text-center">Yhteensä: {getTotal()} €</h3>
