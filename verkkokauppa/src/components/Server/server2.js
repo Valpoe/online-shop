@@ -25,7 +25,7 @@ const pool = new Pool({
 app.get('/asiakkaat', async (req, res) => {
   try {
     const { rows } = await pool.query('SELECT * FROM asiakas');
-    console.log(rows);
+    //console.log(rows);
     res.json(rows);
   } catch (error) {
     console.error(error + "Asiakkaat haussa");
@@ -36,7 +36,7 @@ app.get('/asiakkaat', async (req, res) => {
 app.get('/tuotteet', async (req, res) => {
   try {
     const { rows } = await pool.query('SELECT * FROM tuote');
-    console.log(rows);
+    //console.log(rows);
     res.json(rows);
   } catch (error) {
     console.error(error + "Tuotteiden haussa");
@@ -47,7 +47,7 @@ app.get('/tuotteet', async (req, res) => {
 app.get('/kategoriat', async (req, res) => {
     try {
       const { rows } = await pool.query('SELECT * FROM kategoria');
-      console.log(rows);
+      //console.log(rows);
       res.json(rows);
     } catch (error) {
       console.error(error + "Kategoriat haussa");
