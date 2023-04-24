@@ -70,6 +70,7 @@ const Tilaus = (props) => {
         city: props.asiakasTiedot.customer.osoite.split(", ")[2],
         zip: props.asiakasTiedot.customer.osoite.split(", ")[1],
       })
+
       : setFormData({
         ...formData,
         email: "",
@@ -215,26 +216,27 @@ const Tilaus = (props) => {
 
       else{
         //userID tilaus
-      console.log("KUTSUTAAN APIA TÄLLÄ PROPSILLA:" + props.userID )
-      console.log(formData, props.userID, uniqueItemsWithQuantity)
+      //console.log("KUTSUTAAN APIA TÄLLÄ PROPSILLA:" + props.userID )
+      //console.log(formData, props.userID, uniqueItemsWithQuantity)
 
       console.log("Edit asiakkaalle lähtevät tiedot:")
       console.log(JSON.stringify(formData, props.userID))
 
-      props.asiakasTiedot.nimi = formData.firstName;
-      props.asiakasTiedot.sukunimi = formData.lastName;
-      props.asiakasTiedot.sahkoposti = formData.email;
-      props.asiakasTiedot.puhelinnumero = formData.phone;
-      props.asiakasTiedot.osoite = formData.address;
-      props.asiakasTiedot.kaupunki = formData.city;
-      props.asiakasTiedot.postinumero = formData.zip;
+    //  props.asiakasTiedot.nimi = formData.firstName;
+    //  props.asiakasTiedot.sukunimi = formData.lastName;
+    //  props.asiakasTiedot.sahkoposti = formData.email;
+    //  props.asiakasTiedot.puhelinnumero = formData.phone;
+    //  props.asiakasTiedot.osoite = formData.address;
+    //  props.asiakasTiedot.kaupunki = formData.city;
+    //  props.asiakasTiedot.postinumero = formData.zip;
+    //  props.setAsiakasTiedot(props.asiakasTiedot);
 
-      props.setAsiakasTiedot(props.asiakasTiedot);
+      //wait for edit to finish
+     // console.log("EDIT? OR NO " +JSON.stringify(updAsiakas))
 
-      const updAsiakas = await editAsiakas(formData, props.userID);
 
-      console.log(JSON.stringify(updAsiakas, props.userID))
-      asiakasTilaus(formData, props.userID, uniqueItemsWithQuantity);
+      //console.log(JSON.stringify(updAsiakas, props.userID))
+      await asiakasTilaus(formData, props.userID, uniqueItemsWithQuantity);
 
       //strings
       const logIt = {
@@ -247,6 +249,15 @@ const Tilaus = (props) => {
       console.log(" EDIT? OR NO " +JSON.stringify(userData))
 
       props.setAsiakasTiedot(userData);
+      console.log("EDIT? OR NO2422 " +JSON.stringify(props.asiakasTiedot))
+
+      try {
+        await editAsiakas(formData, props.userID)
+        // ... code to make PUT request ...
+      } catch (error) {
+        console.error('Failed to fetch:', error);
+        return { error: 'Failed to edit customer data' };
+      }
       }
 
       //print ostoskori json

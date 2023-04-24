@@ -19,7 +19,7 @@ const LogIn = async (credentials) => {
   export default logIn;
 */
   export const logIn = async (loginData) => {
-    console.log("login apissa")
+    //console.log("login apissa")
     console.log(JSON.stringify(loginData))
     try {
       const response = await fetch('http://localhost:5000/login', {
@@ -32,7 +32,9 @@ const LogIn = async (credentials) => {
       const data = await response.json();
       return data;
     } catch (error) {
-      console.log(JSON.stringify(error));
+      //console.log("login apissa");
+     console.log(JSON.stringify(error));
+     return { success: false, message: "Invalid credentials" };
     }
   };
 
