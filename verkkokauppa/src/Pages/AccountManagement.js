@@ -13,6 +13,7 @@ import {
   MDBTable,
   MDBTableHead,
   MDBTableBody,
+  MDBIcon,
   MDBFooter,
   MDBCardText,
 } from "mdb-react-ui-kit";
@@ -231,18 +232,23 @@ const AccountManagement = (props) => {
     };
   
     return (
-      <div className="quantity-input">
-        <button onClick={decrement}>-</button>
-        <input
-          type="number"
+      <div className="quantity-input d-flex">
+        <MDBBtn color="link" onClick={decrement}>
+          <MDBIcon fas icon="minus" />
+        </MDBBtn>
+        <MDBInput
+          className="text-center"
           min="0"
           value={value}
+          type="number"
           onChange={(e) => {
             setValue(e.target.value);
             onChange(e.target.value);
           }}
         />
-        <button onClick={increment}>+</button>
+        <MDBBtn color="link" onClick={increment}>
+          <MDBIcon fas icon="plus" />
+        </MDBBtn>
       </div>
     );
   }
@@ -390,7 +396,7 @@ const AccountManagement = (props) => {
         return (
           <MDBTable hover key={order.tilausID}>
             <React.Fragment>
-              <MDBTableHead>
+              <MDBTableHead className="text-center"> 
                 <tr className="table-success">
                   <th scope="col">Tilaus ID</th>
                   <th scope="col">Tilauspäivämäärä</th>
@@ -402,11 +408,11 @@ const AccountManagement = (props) => {
                   <td>{order.summa} €</td>
                 </tr>
               </MDBTableHead>
-              <MDBTableBody>
+              <MDBTableBody className="text-center">
                 <tr className="table-secondary">
                   <th>Tuotenimi</th>
                   <th>Hinta</th>
-                  {isLatestOrder ? <th>Kpl</th> : null}
+                  {isLatestOrder ? <th className="text-center">Kpl</th> : <th>Kpl</th>}
                 </tr>
                 {orderItems.map((orderItem) => {
                   return (
@@ -415,7 +421,7 @@ const AccountManagement = (props) => {
                       <td>{orderItem.summa} €</td>
                       {isLatestOrder ? (
                         <td>
-                          <QuantityInput
+                          <QuantityInput                           
                             quantity={orderItem.kpl}
                             onChange={(quantity) =>
                               props.editOrderItem(
