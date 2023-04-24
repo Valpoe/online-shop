@@ -148,11 +148,12 @@ const AccountManagement = (props) => {
         city: "",
         zip: "",
       });
-  }, [props.asiakasTiedot]);
+  }, []); // <<--??
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [failedSubmit, setFailedSubmit] = useState(false);
   
+
   const handleChange = (event) => {
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
