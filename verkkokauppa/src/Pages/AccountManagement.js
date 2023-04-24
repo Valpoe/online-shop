@@ -199,6 +199,37 @@ const OrderManagement = (props) => {
   };
 
   //sort tilaukset by ID
+  function QuantityInput({ quantity, onChange }) {
+    const [value, setValue] = useState(quantity);
+  
+    const increment = () => {
+      setValue(value + 1);
+      onChange(value + 1);
+    };
+  
+    const decrement = () => {
+      if (value > 0) {
+        setValue(value - 1);
+        onChange(value - 1);
+      }
+    };
+  
+    return (
+      <div className="quantity-input">
+        <button onClick={decrement}>-</button>
+        <input
+          type="number"
+          min="0"
+          value={value}
+          onChange={(e) => {
+            setValue(e.target.value);
+            onChange(e.target.value);
+          }}
+        />
+        <button onClick={increment}>+</button>
+      </div>
+    );
+  }
 
 
   if(setIsLoading === true) {
@@ -328,14 +359,13 @@ const OrderManagement = (props) => {
         "fi-FI"
       );
 
-      // Check if this is the latest order with the highest orderID and orderItem.kpl
+     // Check if this is the latest order with the highest orderID and orderItem.kpl
       const latestOrder = props.asiakasTiedot.orders.reduce((acc, curr) => {
         return acc.tilausID > curr.tilausID ? acc : curr;
       });
       
       const isLatestOrder = order.tilausID === latestOrder.tilausID && orderItems.some((orderItem) => orderItem.kpl > 0);
       
-
       return (
         <MDBTable hover>
           <React.Fragment key={order.tilausID}>
@@ -363,19 +393,18 @@ const OrderManagement = (props) => {
                     <td>{getTuotenimi(orderItem.tuoteid)}</td>
                     <td>{orderItem.summa} €</td>
                     {isLatestOrder ? (
-                      <td>
-                        <input
-                          type="number"
-                          value={orderItem.kpl}
-                          onChange={(e) =>
-                            props.editOrderItem(
-                              order.tilausID,
-                              orderItem.tuoteid,
-                              Number(e.target.value)
-                            )
-                          }
-                        />
-                      </td>
+                        <td>
+                          <QuantityInput
+                            quantity={orderItem.kpl}
+                            onChange={(quantity) =>
+                              props.editOrderItem(
+                                order.tilausID,
+                                orderItem.tuoteid,
+                                Number(quantity)
+                              )
+                            }
+                          />
+                        </td>
                     ) : (
                       <td>{orderItem.kpl}</td>
                     )}
