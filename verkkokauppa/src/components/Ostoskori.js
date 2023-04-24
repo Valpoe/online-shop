@@ -153,7 +153,10 @@ function Ostoskori(props) {
       </div>
       <div>
         {getTotal() === 0 ? (
-          <h3 className="text-center">Ostoskori on tyhjä</h3>
+          <div className="text-center">
+            <MDBIcon size="7x" fas icon="shopping-cart" />
+          <h3 className="text-center mt-3">Ostoskori on tyhjä</h3>
+          </div>
         ) : (
           <h3 className="text-center">Yhteensä: {getTotal()} €</h3>
         )}
