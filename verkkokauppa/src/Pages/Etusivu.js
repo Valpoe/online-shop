@@ -24,7 +24,7 @@ return(
     <MDBRow>
       <MDBCol md="6">
         <MDBCarousel showIndicators showControls dealy={100} className="pt-4">
-          <MDBTypography tag="div" className="">
+          <MDBTypography tag="div" className="vw-50">
             <MDBCarouselItem
               className='w-100 d-block '
               itemId={1}
