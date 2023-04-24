@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { getAsiakkaatEmail, getTuote, getTuotteet } from "../components/Server/TuoteAPI";
 import React, { useState } from "react";
 import { editOrder } from "../components/Server/editTilausAPI";
+import { useNavigate } from "react-router-dom";
 import {
   MDBRow,
   MDBCol,
@@ -16,11 +17,20 @@ import {
   MDBCardText,
 } from "mdb-react-ui-kit";
 
-const OrderManagement = (props) => {
+const AccountManagement = (props) => {
+
 
   const [sahkopostit, setSahkopostit] = useState([]);
   const [tuotteet, setTuotteet] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // set isLoading to true when data is not available
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (props.asiakasTiedot === null || props.asiakasTiedot === undefined) {
+      navigate("/");
+    }
+  }, [props.asiakasTiedot]);
 
 
   useEffect(() => {
@@ -396,4 +406,4 @@ const OrderManagement = (props) => {
   );
 };
 
-export default OrderManagement;
+export default AccountManagement;

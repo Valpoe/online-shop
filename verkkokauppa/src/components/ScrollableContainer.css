@@ -1,6 +1,7 @@
 .scrollable-container {
   height: 537px; 
-  overflow-y: auto; 
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .table-container {

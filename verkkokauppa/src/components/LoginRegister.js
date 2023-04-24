@@ -341,10 +341,7 @@ const SubmitLogin = async (event) => {
               <MDBBtn type="submit" className="mb-4 w-100">
                 Kirjaudu sisään
               </MDBBtn>
-            </form>
-          </MDBTabsPane>
-
-          <p className="text-center">
+              <p className="text-center">
               Etkö ole vielä asiakas?{" "}
               <a
                 href="javascript:void(0);"
@@ -354,7 +351,8 @@ const SubmitLogin = async (event) => {
                 Rekisteröidy
               </a>
             </p>
-
+            </form>
+          </MDBTabsPane>
           <MDBTabsPane show={justifyActive === "tab2"}>
             <form onSubmit={SubmitRegister}>
               {RegisterErrorForm.name && (

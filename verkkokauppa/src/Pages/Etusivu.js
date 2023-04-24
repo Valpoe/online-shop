@@ -1,11 +1,21 @@
-import React from 'react';
-import { MDBCarousel, MDBCarouselItem, MDBTypography, MDBBtn, MDBRow, MDBCol, MDBContainer } from 'mdb-react-ui-kit';
+import React, { useEffect } from 'react';
+import { useNavigate, NavLink } from 'react-router-dom';
+import { MDBCarousel, MDBCarouselItem, MDBTypography, MDBRow, MDBCol, MDBContainer } from 'mdb-react-ui-kit';
 import EtusivuKuva1 from "../Images/EtusivuKuva1.jpg"
 import EtusivuKuva2 from "../Images/EtusivuKuva2.jpg"
 import EtusivuKuva3 from "../Images/EtusivuKuva3.jpg"
-import { NavLink } from "react-router-dom";
 
 const Etusivu = () => {
+  
+  const navigate = useNavigate();
+  
+  // when refreshing any page navigate to main page
+
+  useEffect(() => {
+    navigate('/');
+  }, [navigate]);
+
+  
 
 return(
 <MDBTypography tag="div" className="pb-5 pt-5" style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)'}}>

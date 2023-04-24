@@ -1,5 +1,6 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
@@ -10,7 +11,6 @@ import ContactUs from './Pages/ContactUs';
 import PrivacyStatement from './Pages/PrivacyStatement';
 import ProductInformation from './Pages/ProductInformation';
 import Tilaus from './Pages/Tilaus';
-import OrderManagement from './Pages/OrderManagement';
 import AccountManagement from './Pages/AccountManagement';
 
 function App() {
@@ -59,7 +59,6 @@ function App() {
         <Route path='/ota-yhteytta' element={<ContactUs />} />
         <Route path='/tuotteet/:tuoteID' element={<ProductInformation setItems={setItems} items={items} getTotal={getTotal} countItem={countItem}/>} />
         <Route path='/tilaus' element={<Tilaus items={items} setItems={setItems} userID={userID} setUserID={setUserID} user={user} setUser={setUser} asiakasTiedot={asiakasTiedot} setAsiakasTiedot={setAsiakasTiedot} email={email} setEmail={setEmail} password={password} setPassword={setPassword}/> } />
-        <Route path='/tilaushallinta' element={<OrderManagement items={items} setItems={setItems}/> } />
         <Route path='/tilinhallinta' element={<AccountManagement items={items} setItems={setItems} user={user} setUserID={setUserID} userID={userID} setUser={setUser} asiakasTiedot={asiakasTiedot}/>} />
       </Routes>
       <Footer />
