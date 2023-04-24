@@ -38,5 +38,37 @@ const luoAsiakas = (formData) => {
       throw error;
     }
   };
-  export default addAsiakas;
+
+  //voi poistaa jos ei tarvita
+
+  const editAsiakas = async (formData, userID) => {
+
+    const data = luoAsiakas(formData);
+    console.log("Muokataan asiakasta tietokantaan")
+    console.log(JSON.stringify(data));
+    try {
+      const response = await fetch('http://localhost:5000/editasiakas', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data, userID),
+      });
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Failed to edit customer data');
+      }
+    } catch (error) {
+      console.error('Failed to fetch:', error);
+      throw error;
+    }
+  };
+
+  //
+
+  export { addAsiakas, editAsiakas };
+  //export default addAsiakas;
+
+  
   
