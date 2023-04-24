@@ -424,6 +424,7 @@ const Tilaus = (props) => {
                     value={formData.email}
                     onChange={handleChange}
                     error={formErrors.email}
+                    disabled={true}
                     outline="true"
                   />
                   {formErrors.email && (

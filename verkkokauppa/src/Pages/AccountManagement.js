@@ -17,6 +17,7 @@ import {
   MDBFooter,
   MDBCardText,
 } from "mdb-react-ui-kit";
+import { editAsiakas } from "../components/Server/AsiakasAPI";
 
 const AccountManagement = (props) => {
 
@@ -160,6 +161,34 @@ const AccountManagement = (props) => {
     const name = target.name;
     setFormData({ ...formData, [name]: value });
   };
+
+  const handleUpdateAsiakas = async (event) => {
+    event.preventDefault();
+
+    const newCustomerData = {
+      email: formData.email,
+      nimi: formData.firstName + " " + formData.lastName,
+      osoite: formData.address + ", " + formData.zip + ", " + formData.city,
+      puhelinnro: formData.phone,
+    };
+    
+    props.setAsiakasTiedot({
+      ...props.asiakasTiedot,
+      customer: {
+        ...props.asiakasTiedot.customer,
+        ...newCustomerData
+      }
+    });
+
+    
+    editAsiakas(formData, props.userID)
+
+    console.log("Form submitted" + JSON.stringify(formData));
+    //clear ostoskori after submit and set tilaus to true
+    alert("Tilaus lähetetty");
+  };
+
+
   
   const handleSubmit = async (event) => {
     console.log("Form submitted" + JSON.stringify(formData));
@@ -225,7 +254,7 @@ const AccountManagement = (props) => {
     props.asiakasTiedot.customer.puhelinnro = formData.phone;
     props.asiakasTiedot.customer.osoite = formData.address + ", " + formData.zip + ", " + formData.city;
 
-    //
+
     const editoredit = formData;
 
     //const userData = await editOrder(editoredit);
@@ -417,6 +446,9 @@ const AccountManagement = (props) => {
                     Tallenna tiedot
                   </MDBBtn>
               </form>
+            <MDBCol>
+            <MDBBtn onClick={handleUpdateAsiakas}>TALLENNA</MDBBtn>
+            </MDBCol>
             </MDBCol>
 
             <MDBCol className="mx-auto">
