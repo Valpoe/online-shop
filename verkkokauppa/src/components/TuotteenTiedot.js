@@ -61,6 +61,7 @@ function TuoteenTiedot(props) {
               <MDBCardText><span className="fw-bold">Toimitusaika-arvio:</span> 1-4 työpäivää</MDBCardText>
               )}
               <MaaraLaskin
+                addToCart={props.addToCart}
                 items={props.items}
                 tuote={props.tuote}
                 setItems={props.setItems}

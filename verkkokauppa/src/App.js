@@ -69,7 +69,7 @@ function App() {
         <Route path='/tietoa-meista' element={<AboutUs />} />
         <Route path='/PrivacyStatement' element={<PrivacyStatement />} />
         <Route path='/ota-yhteytta' element={<ContactUs />} />
-        <Route path='/tuotteet/:tuoteID' element={<ProductInformation setItems={setItems} items={items} getTotal={getTotal} countItem={countItem}/>} />
+        <Route path='/tuotteet/:tuoteID' element={<ProductInformation setItems={setItems} items={items} getTotal={getTotal} countItem={countItem} addToCart={addToCart}/>} />
         <Route path='/tilaus' element={<Tilaus items={items} setItems={setItems} userID={userID} setUserID={setUserID} user={user} setUser={setUser} asiakasTiedot={asiakasTiedot} setAsiakasTiedot={setAsiakasTiedot} email={email} setEmail={setEmail} password={password} setPassword={setPassword}/> } />
         <Route path='/tilinhallinta' element={<AccountManagement items={items} setItems={setItems} user={user} setUserID={setUserID} userID={userID} setUser={setUser} asiakasTiedot={asiakasTiedot} setAsiakasTiedot={setAsiakasTiedot}/>} />
       </Routes>
