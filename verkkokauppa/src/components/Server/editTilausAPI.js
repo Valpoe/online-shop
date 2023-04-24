@@ -38,7 +38,7 @@ async function editOrder(editOrderData) {
       console.log(error);
     }
   };
- 
+
 
   const loppusumma = (orderitem) => {
     return orderitem.kpl * orderitem.summa;

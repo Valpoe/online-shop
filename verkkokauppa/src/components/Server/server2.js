@@ -353,6 +353,8 @@ app.put('/editasiakas', async (req, res) => {
     const customerQuery = 'UPDATE asiakas SET nimi = $1, email = $2, osoite = $3, puhelinnro = $4 WHERE "asiakasID" = $5';
     const customerValues = [data.nimi, data.email, data.osoite, data.puhelinnro, customerId];
     await pool.query(customerQuery, customerValues);
+    console.log("Asiakas muokattu")
+    res.status(200).send('Asiakas muokattu');
   } catch (err) {
     console.error(err.message);
     return res.status(500).json({ error: 'Server error' });
