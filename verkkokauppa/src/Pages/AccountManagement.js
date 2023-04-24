@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { getAsiakkaatEmail, getTuote, getTuotteet } from "../components/Server/TuoteAPI";
 import React, { useState } from "react";
 import { editOrder } from "../components/Server/editTilausAPI";
+import { useNavigate } from "react-router-dom";
 import {
   MDBRow,
   MDBCol,
@@ -12,15 +13,25 @@ import {
   MDBTable,
   MDBTableHead,
   MDBTableBody,
+  MDBIcon,
   MDBFooter,
   MDBCardText,
 } from "mdb-react-ui-kit";
 
-const OrderManagement = (props) => {
+const AccountManagement = (props) => {
 
+  props.setAsiakasTiedot(props.asiakasTiedot);
   const [sahkopostit, setSahkopostit] = useState([]);
   const [tuotteet, setTuotteet] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // set isLoading to true when data is not available
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (props.asiakasTiedot === null || props.asiakasTiedot === undefined) {
+      navigate("/");
+    }
+  }, [props.asiakasTiedot]);
 
 
   useEffect(() => {
@@ -112,12 +123,11 @@ const OrderManagement = (props) => {
 
   useEffect(() => {
     setSahkopostit(getAsiakkaatEmail);
-    
   }, []);
 
   useEffect(() => {
 
-    props.userID !== null && props.userID !== undefined
+    props.userID !== null && props.userID !== undefined && props.asiakasTiedot.customer.osoite !== null && props.asiakasTiedot.customer.osoite !== undefined
       ? setFormData({
         ...formData,
         email: props.asiakasTiedot.customer.email,
@@ -130,15 +140,15 @@ const OrderManagement = (props) => {
       })
       : setFormData({
         ...formData,
-        email: "",
-        firstName: "",
-        lastName: "",
+        email: props.asiakasTiedot.customer.email,
+        firstName: props.asiakasTiedot.customer.nimi.split(" ")[0],
+        lastName: props.asiakasTiedot.customer.nimi.split(" ")[1],
         phone: "",
         address: "",
         city: "",
         zip: "",
       });
-  }, [props.userID]);
+  }, [props.asiakasTiedot]);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [failedSubmit, setFailedSubmit] = useState(false);
@@ -214,8 +224,9 @@ const OrderManagement = (props) => {
     props.asiakasTiedot.customer.puhelinnro = formData.phone;
     props.asiakasTiedot.customer.osoite = formData.address + ", " + formData.zip + ", " + formData.city;
 
-
+    //
     const editoredit = formData;
+
     //const userData = await editOrder(editoredit);
 
     //editAsiakas(JSON.stringify(props.asiakasTiedot.customer));
@@ -270,21 +281,36 @@ const OrderManagement = (props) => {
     };
   
     return (
-      <div className="quantity-input">
-        <button onClick={decrement}>-</button>
-        <input
-          type="number"
+      <div className="quantity-input d-flex">
+        <MDBBtn color="link" onClick={decrement}>
+          <MDBIcon fas icon="minus" />
+        </MDBBtn>
+        <MDBInput
+          className="text-center"
           min="0"
           value={value}
+          type="number"
           onChange={(e) => {
             setValue(e.target.value);
             onChange(e.target.value);
           }}
         />
-        <button onClick={increment}>+</button>
+        <MDBBtn color="link" onClick={increment}>
+          <MDBIcon fas icon="plus" />
+        </MDBBtn>
       </div>
     );
   }
+
+  const editCustomer = (data, id) => {
+    let customer = {
+      nimi: data.firstName + " " + data.lastName,
+      osoite: data.address + ", " + data.zip + ", " + data.city,
+      puhelinnro: data.phone,
+      email: data.email
+    }
+  }
+
 
 
   if(setIsLoading === true) {
@@ -406,50 +432,55 @@ const OrderManagement = (props) => {
             <MDBCol className="mx-auto">
   <div className="scrollable-container table-container">
     <h6 className="text-uppercase fw-bold mb-4">Omat tilaukset</h6>
-    {props.asiakasTiedot.orders.map((order, index) => {
-      const orderItems = props.asiakasTiedot.orderItems.filter(
-        (orderItem) => orderItem.tilausid === order.tilausID
-      );
-      const formattedDate = new Date(order.tilauspvm).toLocaleDateString(
-        "fi-FI"
-      );
-
-     // Check if this is the latest order with the highest orderID and orderItem.kpl
-      const latestOrder = props.asiakasTiedot.orders.reduce((acc, curr) => {
-        return acc.tilausID > curr.tilausID ? acc : curr;
-      });
-      
-      const isLatestOrder = order.tilausID === latestOrder.tilausID && orderItems.some((orderItem) => orderItem.kpl > 0);
-      
-      return (
-        <MDBTable hover>
-          <React.Fragment key={order.tilausID}>
-            <MDBTableHead>
-              <tr>
-                <th scope="col">Tilaus ID</th>
-                <th scope="col">Tilauspäivämäärä</th>
-                <th scope="col">Summa</th>
-              </tr>
-              <tr>
-                <td>{order.tilausID}</td>
-                <td>{formattedDate}</td>
-                <td>{order.summa} €</td>
-              </tr>
-            </MDBTableHead>
-            <MDBTableBody>
-              <tr>
-                <th>Tuotenimi</th>
-                <th>Hinta</th>
-                {isLatestOrder ? <th>Kpl</th> : null}
-              </tr>
-              {orderItems.map((orderItem) => {
-                return (
-                  <tr key={orderItem.tuoteid}>
-                    <td>{getTuotenimi(orderItem.tuoteid)}</td>
-                    <td>{orderItem.summa} €</td>
-                    {isLatestOrder ? (
+    {props.asiakasTiedot.orders.length === 0 && (
+      <p className="text-center">Ei tilauksia</p>
+    )}
+    {props.asiakasTiedot.orders
+      .sort((a, b) => b.tilausID - a.tilausID) // sort by tilausID in descending order
+      .map((order, index) => {
+        const orderItems = props.asiakasTiedot.orderItems.filter(
+          (orderItem) => orderItem.tilausid === order.tilausID
+        );
+        const formattedDate = new Date(order.tilauspvm).toLocaleDateString(
+          "fi-FI"
+        );
+        
+        // Check if this is the latest order with the highest orderID and orderItem.kpl
+        const latestOrder = props.asiakasTiedot.orders.reduce((acc, curr) => {
+          return acc.tilausID > curr.tilausID ? acc : curr;
+        });
+        
+        const isLatestOrder = order.tilausID === latestOrder.tilausID && orderItems.some((orderItem) => orderItem.kpl > 0);
+        
+        return (
+          <MDBTable hover key={order.tilausID}>
+            <React.Fragment>
+              <MDBTableHead className="text-center"> 
+                <tr className="table-success">
+                  <th scope="col">Tilaus ID</th>
+                  <th scope="col">Tilauspäivämäärä</th>
+                  <th scope="col">Summa</th>
+                </tr>
+                <tr className="table-success">
+                  <td>{order.tilausID}</td>
+                  <td>{formattedDate}</td>
+                  <td>{order.summa} €</td>
+                </tr>
+              </MDBTableHead>
+              <MDBTableBody className="text-center">
+                <tr className="table-secondary">
+                  <th>Tuotenimi</th>
+                  <th>Hinta</th>
+                  {isLatestOrder ? <th className="text-center">Kpl</th> : <th>Kpl</th>}
+                </tr>
+                {orderItems.map((orderItem) => {
+                  return (
+                    <tr key={orderItem.tuoteid} className="table-secondary">
+                      <td>{getTuotenimi(orderItem.tuoteid)}</td>
+                      <td>{orderItem.summa} €</td>
+                      {isLatestOrder ? (
                         <td>
-                          <QuantityInput
+                          <QuantityInput                           
                             quantity={orderItem.kpl}
                             onChange={(quantity) =>
                               props.editOrderItem(
@@ -460,15 +491,15 @@ const OrderManagement = (props) => {
                             }
                           />
                         </td>
-                    ) : (
-                      <td>{orderItem.kpl}</td>
-                    )}
-                  </tr>
-                );
-              })}
-            </MDBTableBody>
-          </React.Fragment>
-        </MDBTable>
+                      ) : (
+                        <td>{orderItem.kpl}</td>
+                      )}
+                    </tr>
+                  );
+                })}
+              </MDBTableBody>
+            </React.Fragment>
+          </MDBTable>
       );
     })}
   </div>
@@ -480,4 +511,4 @@ const OrderManagement = (props) => {
   );
 };
 
-export default OrderManagement;
+export default AccountManagement;

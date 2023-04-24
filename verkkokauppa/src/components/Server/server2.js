@@ -341,6 +341,25 @@ app.post('/login', async (req, res) => {
   }
 });
 
+// EDIT TEST FOR ASIAKAS - using edit logic
+
+app.put('/editasiakas', async (req, res) => {
+
+  console.log(req.body); // Log the request body
+  const { data, userID } = req.body;
+  const customerId = userID;
+
+  try {
+    const customerQuery = 'UPDATE asiakas SET nimi = $1, email = $2, osoite = $3, puhelinnro = $4 WHERE "asiakasID" = $5';
+    const customerValues = [data.nimi, data.email, data.osoite, data.puhelinnro, customerId];
+    await pool.query(customerQuery, customerValues);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
+////////////////////////////////////////////
 
 //// tilauksen muokkausta
 app.put('/edit', async (req, res) => {
@@ -422,6 +441,7 @@ app.put('/edit', async (req, res) => {
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
+
 
 
 

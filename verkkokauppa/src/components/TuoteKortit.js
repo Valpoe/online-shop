@@ -10,7 +10,6 @@ import {
   MDBCardText,
   MDBCardTitle,
   MDBCol,
-  MDBIcon,
   MDBRow,
   MDBTabsContent,
   MDBTabsPane,
@@ -18,6 +17,7 @@ import {
 import "./CardImageSize.css";
 
 function TuoteKortit(props) {
+
   // Tuotteen lisäys ostoskoriin
   const HandleAddToCart = (tuote) => {
     props.setItems([

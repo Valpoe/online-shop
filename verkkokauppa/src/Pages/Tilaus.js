@@ -21,9 +21,11 @@ import { asiakasTilaus } from "../components/Server/TilausAPI";
 import LoginRegister from "../components/LoginRegister";
 import { getAsiakkaatEmail } from "../components/Server/TuoteAPI";
 import { logIn } from "../components/Server/LogInAPI";
+import { NavLink } from "react-router-dom";
+import { editAsiakas } from "../components/Server/AsiakasAPI";
+
 
 const Tilaus = (props) => {
-
   const [sahkopostit, setSahkopostit] = useState(getAsiakkaatEmail);
 
   const [formData, setFormData] = useState({
@@ -57,7 +59,7 @@ const Tilaus = (props) => {
 
   useEffect(() => {
 
-    props.userID !== null && props.userID !== undefined
+    props.userID !== null && props.userID !== undefined && props.asiakasTiedot.customer.osoite !== null && props.asiakasTiedot.customer.osoite !== undefined
       ? setFormData({
         ...formData,
         email: props.asiakasTiedot.customer.email,
@@ -70,16 +72,13 @@ const Tilaus = (props) => {
       })
       : setFormData({
         ...formData,
-        email: "",
-        firstName: "",
-        lastName: "",
+        email: props.asiakasTiedot.customer.email,
+        firstName: props.asiakasTiedot.customer.nimi.split(" ")[0],
+        lastName: props.asiakasTiedot.customer.nimi.split(" ")[1],
         phone: "",
         address: "",
         city: "",
         zip: "",
-        password: "",
-        ATchecked: false, // add checked property for checkbox
-        ATluonti: false,
       });
   }, [props.userID]);
   
@@ -218,6 +217,23 @@ const Tilaus = (props) => {
         //userID tilaus
       console.log("KUTSUTAAN APIA TÄLLÄ PROPSILLA:" + props.userID )
       console.log(formData, props.userID, uniqueItemsWithQuantity)
+
+      console.log("Edit asiakkaalle lähtevät tiedot:")
+      console.log(JSON.stringify(formData, props.userID))
+
+      const updAsiakas = await editAsiakas(formData, props.userID);
+
+      props.asiakasTiedot.nimi = formData.firstName;
+      props.asiakasTiedot.sukunimi = formData.lastName;
+      props.asiakasTiedot.sahkoposti = formData.email;
+      props.asiakasTiedot.puhelinnumero = formData.phone;
+      props.asiakasTiedot.osoite = formData.address;
+      props.asiakasTiedot.kaupunki = formData.city;
+      props.asiakasTiedot.postinumero = formData.zip;
+
+      props.setAsiakasTiedot(props.asiakasTiedot);
+
+      console.log(JSON.stringify(updAsiakas, props.userID))
       asiakasTilaus(formData, props.userID, uniqueItemsWithQuantity);
 
       //strings
@@ -295,21 +311,30 @@ const Tilaus = (props) => {
 
   if (tilaus) {
     return (
+      <div className="pb-5 pt-5" style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)'}}>
+      <MDBContainer>
       <MDBRow className="p-5">
-        <MDBCol md="8" className="mx-auto mt-4">
+        <MDBCol size="8" className="mx-auto mt-4 mb-4 text-center">
           <MDBCard>
             <MDBCardBody>
-              <MDBCardTitle className="mb-4">
+              <MDBCardTitle className="mb-5">
                 Kiitos tilauksesta, {formData.firstName}!
               </MDBCardTitle>
               <MDBCardText>
                 Tilausvahvistus lähetetään sähköpostiosoitteesi{" "}
                 <b className="font-weight-bold">{formData.email}</b>.
               </MDBCardText>
+              <NavLink to="/">
+                <MDBBtn color="primary" className="mt-5">
+                  Takaisin etusivulle
+                </MDBBtn>
+              </NavLink>
             </MDBCardBody>
           </MDBCard>
         </MDBCol>
       </MDBRow>
+    </MDBContainer>
+    </div>
     );
   }
 
@@ -318,7 +343,7 @@ const Tilaus = (props) => {
     <section className="d-flex justify-content-center justify-content-lg-between">
       <MDBContainer className="text-center text-md-start">
         <MDBRow>
-          <MDBCol size="5" className="mx-auto mb-5">
+          <MDBCol lg="5" className="mx-auto mb-5">
             <MDBCard className="h-100">
                 <MDBCardHeader className="text-center"><MDBCardTitle className="mt-1">Asiakkaan tiedot</MDBCardTitle></MDBCardHeader>
               <MDBCardBody>
@@ -438,8 +463,8 @@ const Tilaus = (props) => {
 
                 <MDBCardFooter className="mt-5">
 
-                  <div className="d-flex justify-content-center justify-content-lg-between text-center">
-                    <label className="checkbox-label">
+                  <div className="d-flex justify-content-center text-center">
+                    {/* <label className="checkbox-label">
                     {props.userID === null && (
                       <>
                       <span>Luo asiakastili</span>
@@ -449,7 +474,7 @@ const Tilaus = (props) => {
                       ></MDBCheckbox>
                       </>
                     )}
-                    </label>
+                    </label> */}
                     <label className="checkbox-label">
                       <span>Hyväksyn toimitusehdot</span>
                       <MDBCheckbox className="mt-2 mb-2"
@@ -470,7 +495,7 @@ const Tilaus = (props) => {
 
                   
                   <MDBBtn
-                    className="btn btn-primary btn-lg btn-block mt-4"
+                    className="btn btn-primary btn-lg btn-block mt-2"
                     color="primary"
                     type="submit"
                     disabled={isSubmitting}
