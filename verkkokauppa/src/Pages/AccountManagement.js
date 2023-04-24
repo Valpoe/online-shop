@@ -179,8 +179,9 @@ const AccountManagement = (props) => {
     props.asiakasTiedot.customer.puhelinnro = formData.phone;
     props.asiakasTiedot.customer.osoite = formData.address + ", " + formData.zip + ", " + formData.city;
 
-
+    //
     const editoredit = formData;
+
     //const userData = await editOrder(editoredit);
 
     //editAsiakas(JSON.stringify(props.asiakasTiedot.customer));

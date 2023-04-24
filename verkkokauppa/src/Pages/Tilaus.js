@@ -22,6 +22,8 @@ import LoginRegister from "../components/LoginRegister";
 import { getAsiakkaatEmail } from "../components/Server/TuoteAPI";
 import { logIn } from "../components/Server/LogInAPI";
 import { NavLink } from "react-router-dom";
+import { editAsiakas } from "../components/Server/AsiakasAPI";
+
 
 const Tilaus = (props) => {
   const [sahkopostit, setSahkopostit] = useState(getAsiakkaatEmail);
@@ -218,6 +220,8 @@ const Tilaus = (props) => {
         //userID tilaus
       console.log("KUTSUTAAN APIA TÄLLÄ PROPSILLA:" + props.userID )
       console.log(formData, props.userID, uniqueItemsWithQuantity)
+      const updAsiakas = await editAsiakas(formData, props.userID);
+      console.log(JSON.stringify(updAsiakas, props.userID))
       asiakasTilaus(formData, props.userID, uniqueItemsWithQuantity);
 
       //strings
