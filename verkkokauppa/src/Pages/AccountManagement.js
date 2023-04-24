@@ -32,6 +32,52 @@ const OrderManagement = (props) => {
     fetchTuotteet();
   }, []);
 
+  ////Testidata Tästä mallia missä muodossa data liikkuu editorderille:
+  const testimake = {
+    customer: {
+      asiakasID: 75, //<-- ei muutu, on sama kun logindatassa
+      nimi: 'Testo Make',
+      email: 'testo.make@gmail.com',
+      osoite: 'Testosikakatu 2',
+      puhelinnro: '1001234567'
+    },
+    orders: {
+      tilausID: 65, // ei muutu
+      asiakasID: 75, // ei muutu
+      tilauspvm: '2023-04-24',
+      maksuid: 55, // ei muutu
+      summa: 100.0
+    },
+    orderitem: [
+      ///asiakkaan tuote 1:
+      {
+        tuoteid: 5, 
+        tilausid: 65,
+        kpl: 1,
+        tilaustuotteetid: 107,
+        summa: 6
+      },
+      //tuote 2
+      {
+        tuoteid: 4,
+        tilausid: 65,
+        kpl: 1,
+        tilaustuotteetid: 108,
+        summa: 5
+      }
+      ,
+      // tuote 3
+      { 
+        tuoteid: 2,
+        tilausid: 65,
+        kpl: 0,
+        tilaustuotteetid: 109,
+        summa: 3
+      }
+    ]
+  };
+  
+
 
   //get tuotenimi with tuoteID from tuotteet
   const getTuotenimi = (tuoteID) => {
@@ -177,9 +223,12 @@ const OrderManagement = (props) => {
     
     // If there are no errors, submit the form
     console.log("Kokeillaan PUT")
-
-    //editOrder.();
-
+    console.log(JSON.stringify(testimake))
+    editOrder(testimake);
+    /*
+    const data = {  };
+    await editOrder(data);
+    */
 
     if (Object.keys(errors).length === 0 && props.items.length > 0) {
       // Perform form submission

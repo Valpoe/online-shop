@@ -345,17 +345,28 @@ app.post('/login', async (req, res) => {
 //// tilauksen muokkausta
 app.put('/edit', async (req, res) => {
   try {
-    const customerId = req.params.customerId;
     const editOrder = req.body;
-
+    const customerId = editOrder.customer.asiakasID;
+    const tilausId = editOrder.orders.tilausID;
+    /*
+    console.log("Muokataan asiakasid:")
+    console.log(JSON.stringify(customerId))
+    console.log("Muokataan tilausid:")
+    console.log(JSON.stringify(tilausId))
+    console.log("editorder datat:")
+    console.log(JSON.stringify(editOrder))
+    console.log(JSON.stringify(editOrder.customer.nimi))
+    console.log(JSON.stringify(editOrder.customer.asiakasID))
+    */
     // Update asiakas
     const customerQuery = 'UPDATE asiakas SET nimi = $1, email = $2, osoite = $3, puhelinnro = $4 WHERE "asiakasID" = $5';
-    const customerValues = [editOrder.customer.name, editOrder.customer.email, editOrder.customer.address, editOrder.customer.number, customerId];
+    const customerValues = [editOrder.customer.nimi, editOrder.customer.email, editOrder.customer.osoite, editOrder.customer.puhelinnro, editOrder.customer.asiakasID];
     await pool.query(customerQuery, customerValues);
 
     // Update tilaus
-    const orderQuery = 'UPDATE "tilaus" SET tilauspvm = $1, summa = $2 WHERE "tilausID" = $3';
-    const orderValues = [editOrder.order.orderdate, editOrder.order.sum, editOrder.order.orderid];
+    console.log("update tilaus")
+    const orderQuery = 'UPDATE "tilaus" SET tilauspvm = $1, summa = $2 WHERE "tilausID" = $3 AND "asiakasid" = $4' ;
+    const orderValues = [editOrder.orders.tilauspvm, editOrder.orders.summa, editOrder.orders.tilausID, editOrder.customer.asiakasID];
     await pool.query(orderQuery, orderValues);
 /*
     // Update tilaustuotteet
@@ -366,30 +377,31 @@ app.put('/edit', async (req, res) => {
     }
 */
     // update tilaustuotteet
-    for (let i = 0; i < editOrder.orderitems.length; i++) {
-      const orderitem = editOrder.orderitems[i];
-      const orderitemQuery = 'UPDATE "tilausTuotteet" SET kpl = $1 WHERE "tilaustuotteetid" = $2';
-      const orderitemValues = [orderitem.quantity, orderitem.orderitemsid];
-      
-      if (orderitem.quantity === 0) {
-        const deleteQuery = 'DELETE FROM "tilausTuotteet" WHERE ""tilaustuotteet"id" = $1';
-        await client.query(deleteQuery, [orderitem.orderitemsid]);
+    console.log(editOrder.orderitem);
+    for (let i = 0; i < editOrder.orderitem.length; i++) {
+      const orderitem = editOrder.orderitem[i];
+      const orderitemQuery = 'UPDATE "tilausTuotteet" SET kpl = $1 WHERE "tilausid" = $2 AND "tilaustuotteetid" = $3';
+      const orderitemValues = [orderitem.kpl, orderitem.tilausid, orderitem.tilaustuotteetid];
+      if (orderitem.kpl === 0) {
+        const deleteQuery = 'DELETE FROM "tilausTuotteet" WHERE "tilaustuotteetid" = $1';
+        await pool.query(deleteQuery, [orderitem.tilaustuotteetid]);
       } else {
-        await client.query(orderitemQuery, orderitemValues);
+        await pool.query(orderitemQuery, orderitemValues);
       }
     }
-
+    console.log("Päivitetyt setit:")
     // päivitetty asiakas
     const customerResult = await pool.query('SELECT * FROM asiakas WHERE "asiakasID" = $1', [customerId]);
     const customer = customerResult.rows[0];
-
+    //console.log(JSON.stringify(customer))
     // päivitetty tilaus
-    const orderResult = await pool.query('SELECT * FROM "tilaus" WHERE "tilausID" = $1', [editOrder.order.orderid]);
+    const orderResult = await pool.query('SELECT * FROM "tilaus" WHERE "tilausID" = $1', [tilausId]);
     const order = orderResult.rows[0];
-
+    //console.log(JSON.stringify(order))
     // päivitetty tilaustuotteet
-    const orderItemsResult = await pool.query('SELECT * FROM "tilausTuotteet" WHERE "tilausid" = $1', [editOrder.order.orderid]);
+    const orderItemsResult = await pool.query('SELECT * FROM "tilausTuotteet" WHERE "tilausid" = $1', [tilausId]);
     const orderItems = orderItemsResult.rows;
+    console.log(JSON.stringify(orderItems))
 
     
     const updatedData = {
@@ -397,6 +409,8 @@ app.put('/edit', async (req, res) => {
       orders: order,
       orderItems: orderItems
     };
+    console.log("Päivitetyt tilauksen tiedot:")
+    console.log(JSON.stringify(updatedData))
     res.status(200).json(updatedData);
 
   } catch (error) {
