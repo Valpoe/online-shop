@@ -351,6 +351,9 @@ const OrderManagement = (props) => {
             <MDBCol className="mx-auto">
   <div className="scrollable-container table-container">
     <h6 className="text-uppercase fw-bold mb-4">Omat tilaukset</h6>
+    {props.asiakasTiedot.orders.length === 0 && (
+      <p className="text-center">Ei tilauksia</p>
+    )}
     {props.asiakasTiedot.orders.map((order, index) => {
       const orderItems = props.asiakasTiedot.orderItems.filter(
         (orderItem) => orderItem.tilausid === order.tilausID
