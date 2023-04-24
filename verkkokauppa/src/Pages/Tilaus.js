@@ -223,6 +223,16 @@ const Tilaus = (props) => {
 
       const updAsiakas = await editAsiakas(formData, props.userID);
 
+      props.asiakasTiedot.nimi = formData.firstName;
+      props.asiakasTiedot.sukunimi = formData.lastName;
+      props.asiakasTiedot.sahkoposti = formData.email;
+      props.asiakasTiedot.puhelinnumero = formData.phone;
+      props.asiakasTiedot.osoite = formData.address;
+      props.asiakasTiedot.kaupunki = formData.city;
+      props.asiakasTiedot.postinumero = formData.zip;
+
+      props.setAsiakasTiedot(props.asiakasTiedot);
+
       console.log(JSON.stringify(updAsiakas, props.userID))
       asiakasTilaus(formData, props.userID, uniqueItemsWithQuantity);
 

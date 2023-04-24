@@ -20,7 +20,7 @@ import {
 
 const AccountManagement = (props) => {
 
-
+  props.setAsiakasTiedot(props.asiakasTiedot);
   const [sahkopostit, setSahkopostit] = useState([]);
   const [tuotteet, setTuotteet] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // set isLoading to true when data is not available
@@ -77,7 +77,6 @@ const AccountManagement = (props) => {
 
   useEffect(() => {
     setSahkopostit(getAsiakkaatEmail);
-    
   }, []);
 
   useEffect(() => {
@@ -103,7 +102,7 @@ const AccountManagement = (props) => {
         city: "",
         zip: "",
       });
-  }, [props.userID]);
+  }, [props.asiakasTiedot]);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [failedSubmit, setFailedSubmit] = useState(false);

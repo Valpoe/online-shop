@@ -351,7 +351,7 @@ app.put('/editasiakas', async (req, res) => {
 
   try {
     const customerQuery = 'UPDATE asiakas SET nimi = $1, email = $2, osoite = $3, puhelinnro = $4 WHERE "asiakasID" = $5';
-    const customerValues = [data.nimi, data.email, data.address, data.number, customerId];
+    const customerValues = [data.nimi, data.email, data.osoite, data.puhelinnro, customerId];
     await pool.query(customerQuery, customerValues);
   } catch (err) {
     console.error(err.message);
