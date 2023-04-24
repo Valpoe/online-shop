@@ -42,10 +42,9 @@ const luoAsiakas = (formData) => {
   //voi poistaa jos ei tarvita
 
   const editAsiakas = async (formData, userID) => {
-
     const data = luoAsiakas(formData);
     data.osoite = formData.address + ', ' + formData.zip + ', ' + formData.city;
-    console.log("Muokataan asiakasta tietokantaan HHHHHHHH")
+    console.log("Muokataan asiakasta tietokantaan")
     console.log(JSON.stringify(data));
     console.log(JSON.stringify(userID));
     try {
@@ -57,7 +56,14 @@ const luoAsiakas = (formData) => {
         body: JSON.stringify({data, userID}),
       });
       if (response.ok) {
-        return response.json();
+        const result = await response.json();
+        if (result.success) {
+          console.log("Customer data updated successfully");
+          return true;
+        } else {
+          console.error('Failed to edit customer data:', result.error);
+          throw new Error('Failed to edit customer data');
+        }
       } else {
         throw new Error('Failed to edit customer data');
       }
@@ -66,10 +72,11 @@ const luoAsiakas = (formData) => {
       throw error;
     }
   };
+  
 
   //
 
-  export { addAsiakas, editAsiakas };
+  export { addAsiakas, editAsiakas, luoAsiakas };
   //export default addAsiakas;
 
   

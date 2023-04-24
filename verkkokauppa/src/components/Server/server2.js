@@ -121,6 +121,7 @@ app.post('/addasiakas', async (req, res) => {
     const { nimi, email, osoite, puhelinnro } = req.body;
     const query = `INSERT INTO asiakas (nimi, email, osoite, puhelinnro) VALUES ($1, $2, $3, $4) RETURNING *`;
     const values = [nimi, email, osoite, puhelinnro];
+    console.log(JSON.stringify(values))
     const result = await pool.query(query, values);
     res.status(201).json(result.rows[0]);
   } catch (error) {
@@ -353,6 +354,8 @@ app.put('/editasiakas', async (req, res) => {
     const customerQuery = 'UPDATE asiakas SET nimi = $1, email = $2, osoite = $3, puhelinnro = $4 WHERE "asiakasID" = $5';
     const customerValues = [data.nimi, data.email, data.osoite, data.puhelinnro, customerId];
     await pool.query(customerQuery, customerValues);
+    console.log("Asiakas muokattu")
+    res.status(200).send('Asiakas muokattu');
   } catch (err) {
     console.error(err.message);
     return res.status(500).json({ error: 'Server error' });

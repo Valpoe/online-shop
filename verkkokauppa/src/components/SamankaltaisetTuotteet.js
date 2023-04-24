@@ -25,6 +25,7 @@ function SamankaltaisetTuotteet(props) {
       },
     ]);
     console.log(props.items);
+    props.addToCart();
   };
 
   const [tuotekategoria, setTuotekategoria] = useState([props.tuotekategoria]);
