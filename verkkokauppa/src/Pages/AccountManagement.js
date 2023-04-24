@@ -176,10 +176,16 @@ const OrderManagement = (props) => {
     //console.log(JSON.stringify(props.asiakasTiedot.customer));
     
     // If there are no errors, submit the form
+    console.log("Kokeillaan PUT")
+
+    //editOrder.();
+
+
     if (Object.keys(errors).length === 0 && props.items.length > 0) {
       // Perform form submission
       setIsSubmitting(false);
       setFailedSubmit(false);
+      
   
       if(props.userID === null){
       //createTilaus.newTilaus(formData, uniqueItemsWithQuantity);
