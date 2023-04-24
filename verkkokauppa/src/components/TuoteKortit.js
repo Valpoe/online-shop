@@ -16,9 +16,21 @@ import {
   MDBAlert,
 } from "mdb-react-ui-kit";
 import "./CardImageSize.css";
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 
 function TuoteKortit(props) {
-  const [showAlert, setShowAlert] = useState(false);
+
+  // const notify = () => toast.success('Tuote lisätty ostoskoriin!', {
+  //   position: "top-right",
+  //   autoClose: 4000,
+  //   hideProgressBar: false,
+  //   closeOnClick: true,
+  //   pauseOnHover: true,
+  //   draggable: true,
+  //   progress: undefined,
+  //   theme: "light",
+  //   });
 
   // Tuotteen lisäys ostoskoriin
   const HandleAddToCart = (tuote) => {
@@ -31,10 +43,7 @@ function TuoteKortit(props) {
         tuoteid: tuote.tuoteID,
       },
     ]);
-    setShowAlert(true);
-    setTimeout(() => {
-      setShowAlert(false);
-    }, 2000);
+    props.addToCart();
   };
 
   // Pagination toiminnalisuus
@@ -51,20 +60,8 @@ function TuoteKortit(props) {
   const totalCategoryPages = Math.ceil(6 / cardsPerPage);
 
   return (
+    <>
     <MDBTabsContent>
-      {/* <>
-      {showAlert && (
-        <Alert type="success" message="Product added to shopping cart." onClose={() => setShowAlert(false)} />
-      )}
-      <button className="btn btn-primary" onClick={showAlertasd}>
-        Add to Cart
-      </button>
-    </> */}
-                          {/* {showAlert && (
-                            <div className="alert alert-success" role="alert">
-                              Product added to shopping cart.
-                            </div>
-                          )} */}
       <MDBTabsPane show={props.verticalActive === "kaikki-tuotteet"}>
         <MDBRow className="row-cols-1 row-cols-md-3 rows-cols-sm-2 g-2">
           {currentCards.map((tuotteet) => (
@@ -279,6 +276,7 @@ function TuoteKortit(props) {
         </MDBRow>
       </MDBTabsPane>
     </MDBTabsContent>
+    </>
   );
 }
 
