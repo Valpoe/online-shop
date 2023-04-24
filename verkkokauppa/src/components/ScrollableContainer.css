@@ -7,3 +7,7 @@
 .table-container {
   min-width: 400px;
 }
+
+th {
+  text-decoration: underline;
+}

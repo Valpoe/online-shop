@@ -391,26 +391,26 @@ const AccountManagement = (props) => {
           <MDBTable hover key={order.tilausID}>
             <React.Fragment>
               <MDBTableHead>
-                <tr>
+                <tr className="table-success">
                   <th scope="col">Tilaus ID</th>
                   <th scope="col">Tilauspäivämäärä</th>
                   <th scope="col">Summa</th>
                 </tr>
-                <tr>
+                <tr className="table-success">
                   <td>{order.tilausID}</td>
                   <td>{formattedDate}</td>
                   <td>{order.summa} €</td>
                 </tr>
               </MDBTableHead>
               <MDBTableBody>
-                <tr>
+                <tr className="table-secondary">
                   <th>Tuotenimi</th>
                   <th>Hinta</th>
                   {isLatestOrder ? <th>Kpl</th> : null}
                 </tr>
                 {orderItems.map((orderItem) => {
                   return (
-                    <tr key={orderItem.tuoteid}>
+                    <tr key={orderItem.tuoteid} className="table-secondary">
                       <td>{getTuotenimi(orderItem.tuoteid)}</td>
                       <td>{orderItem.summa} €</td>
                       {isLatestOrder ? (

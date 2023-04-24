@@ -76,7 +76,7 @@ function Ostoskori(props) {
                 alt={item.tuotenimi} />
             </MDBCol>
             <MDBCol md="3" lg="3" xl="3">
-              <p className="lead fw-normal mb-2">{item.tuotenimi}</p>
+              <p className="lead fw-normal mb-2 text-muted">{item.tuotenimi}</p>
             </MDBCol>
             <MDBCol md="3" lg="3" xl="2"
               className="d-flex align-items-center justify-content-around">
