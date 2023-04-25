@@ -25,14 +25,17 @@ function Tuotehakupalkki(props) {
   };
 
   return (
+    <>
       <MDBInputGroup>
         <MDBIcon className="m-3" icon="search" size="lg" />
         <MDBInput
+          className=""
           label="Etsi tuotteita"
           onChange={handleSearch}
           value={searchInput}
         />
       </MDBInputGroup>
+      </>
   );
 }
 
