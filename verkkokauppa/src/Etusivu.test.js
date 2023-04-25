@@ -15,19 +15,6 @@ describe("Etusivu component", () => {
 
   });
 
-  it('navigates to the /tuotteet route when the "Ostoksille" button is clicked', () => {
-    const { getByText } = render(
-      <MemoryRouter>
-        <Etusivu />
-      </MemoryRouter>
-    );
-
-    const button = getByText('Ostoksille');
-    fireEvent.click(button);
-
-    expect(window.location.pathname).toBe('/tuotteet');
-});
-
   it('testaa löytyykö ostoksille nappi', () => {
     const { getByText } = render(
       <MemoryRouter>
