@@ -22,7 +22,6 @@ import {
     MDBDropdownMenu,
     MDBDropdownItem,
     MDBTooltip,
-    MDBModalBody
   } from 'mdb-react-ui-kit';
 import Ostoskori from '../Ostoskori';
 import LoginRegister from '../LoginRegister';

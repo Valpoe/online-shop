@@ -296,7 +296,7 @@ const SubmitLogin = async (event) => {
                 type="text"
                 name="email"
                 value={LoginForm.email}
-                error={LoginErrorForm.email}
+                error={LoginErrorForm.email ? 'true' : 'false'}
                 onChange={handleChangeLogin}
               />
 
@@ -313,7 +313,7 @@ const SubmitLogin = async (event) => {
                 type="password"
                 name="password"
                 value={LoginForm.password}
-                error={LoginErrorForm.password}
+                error={LoginErrorForm.password ? 'true' : 'false'}
                 onChange={handleChangeLogin}
               />
 
@@ -325,7 +325,7 @@ const SubmitLogin = async (event) => {
                 onChange={handleCheckboxChange}
                 />
                 {showLink && (
-                  <a href="javascript:void(0);" onClick={handleClick}>
+                  <a href="#" onClick={handleClick}>
                     Unohtuiko salasana?
                   </a>
                 )}
@@ -342,9 +342,9 @@ const SubmitLogin = async (event) => {
               <p className="text-center">
               Etkö ole vielä asiakas?{" "}
               <a
-                href="javascript:void(0);"
+                href="#"
                 onClick={() => handleJustifyClick("tab2")}
-                active={justifyActive === "tab2"}
+                active={justifyActive === "tab2" ? "true" : "false"}
               >
                 Rekisteröidy
               </a>
@@ -371,7 +371,7 @@ const SubmitLogin = async (event) => {
                 name="email"
                 id="Email"
                 type="email"
-                error={RegisterErrorForm.email}
+                error={RegisterErrorForm.email ? 'true' : 'false'}
                 value={RegisterForm.email}
                 onChange={handleChange}
               />
@@ -388,7 +388,7 @@ const SubmitLogin = async (event) => {
                 name="password"
                 id="Password"
                 type="password"
-                error={RegisterErrorForm.password}
+                error={RegisterErrorForm.password ? 'true' : 'false'}
                 value={RegisterForm.password}
                 onChange={handleChange}
               />
@@ -406,7 +406,7 @@ const SubmitLogin = async (event) => {
                 id="checkbox1"
                 checked={RegisterForm.checked}
                 onChange={handleChange}
-                error={RegisterErrorForm.checked}
+                error={RegisterErrorForm.checked ? 'true' : 'false'}
               />
               </div>
               <MDBBtn type="submit" className="mb-4 w-100">

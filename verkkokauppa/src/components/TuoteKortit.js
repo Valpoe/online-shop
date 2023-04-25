@@ -83,8 +83,8 @@ function TuoteKortit(props) {
     <MDBTabsContent>
       <MDBTabsPane show={props.verticalActive === "kaikki-tuotteet"}>
         <MDBRow className="row-cols-1 row-cols-md-3 rows-cols-sm-2 g-2">
-          {currentCards.map((tuotteet) => (
-            <MDBCol key={tuotteet.id}>
+          {currentCards.map((tuotteet, index) => (
+            <MDBCol key={index}>
               <MDBCard
                 className="h-100 align-items-center"
                 data-testid="product-cards"
@@ -150,17 +150,17 @@ function TuoteKortit(props) {
           </nav>
         </MDBRow>
       </MDBTabsPane>
-      {props.kategoriat.map((kategoria) => (
+      {props.kategoriat.map((kategoria, index) => (
         <MDBTabsPane
-          key={kategoria.id}
+          key={index}
           show={props.verticalActive === kategoria.kategoriaID}
         >
           <MDBRow className="row-cols-1 row-cols-md-3 g-2">
             {props.tuotteet &&
               props.tuotteet
                 .filter((tuote) => tuote.kategoriaid === kategoria.kategoriaID)
-                .map((tuotteet) => (
-                  <MDBCol key={tuotteet.id}>
+                .map((tuotteet, index) => (
+                  <MDBCol key={index}>
                     <MDBCard className="h-100 align-items-center">
                       <MDBCardImage
                         src={tuotteet.kuva}
@@ -238,8 +238,8 @@ function TuoteKortit(props) {
           )}         
           {props.searchResults
             .slice(indexOfFirstCard, indexOfLastCard)
-            .map((tuotteet) => (
-              <MDBCol key={tuotteet.id}>
+            .map((tuotteet, index) => (
+              <MDBCol key={index}>
                 <MDBCard className="h-100 align-items-center">
                   <MDBCardImage
                     src={tuotteet.kuva}

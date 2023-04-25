@@ -92,8 +92,8 @@ function TuoteKategoriat(props) {
             Kaikki tuotteet
           </MDBTabsLink>
         </MDBTabsItem>
-        {props.kategoriat.map((kategoria) => (
-          <MDBTabsItem key={kategoria.id}>
+        {props.kategoriat.map((kategoria, index) => (
+          <MDBTabsItem key={index}>
             <MDBTabsLink
               className="square border border-2"
               onClick={() => handleVerticalClick(kategoria.kategoriaID)}
@@ -155,13 +155,13 @@ function TuoteKategoriat(props) {
       </div>
       <div className="mb-4 divWidth text-center">
         <p>Väri</p>
-        {uniqueColors.map((color) => (
+        {uniqueColors.map((color, index) => (
           <MDBBtn
             floating
             data-testid="colorButton"
             size="lg"
             className="m-1"
-            key={color}
+            key={index}
             style={{ backgroundColor: color }}
             onClick={() => handleColorClick(color)}
           ></MDBBtn>
