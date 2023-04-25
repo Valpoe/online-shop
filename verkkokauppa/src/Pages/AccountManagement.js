@@ -325,12 +325,16 @@ const AccountManagement = (props) => {
     const increment = () => {
       setValue(value + 1);
       onChange(value + 1);
+      console.log("VALUE OF THE QUANTITY: " + (value + 1)); 
+      console.log("ORDER ITEM QUANTITY HOOK: " + orderItemQuantity)
     };
   
     const decrement = () => {
       if (value > 0) {
         setValue(value - 1);
         onChange(value - 1);
+        console.log("VALUE OF THE QUANTITY: " + (value - 1));
+        console.log("ORDER ITEM QUANTITY HOOK: " + orderItemQuantity)
       }
     };
   
@@ -344,10 +348,14 @@ const AccountManagement = (props) => {
           min="0"
           value={value}
           type="number"
-          onChange={(e) => {
-            setValue(e.target.value);
-            onChange(e.target.value);
-          }}
+
+      //EI KÄYTÄ TÄTÄ ONCHANGEA :) :P :D 
+        //  onChange={(e) => {
+        //    console.log("e.target.value changed => " + e.target.value);
+        //    setValue(e.target.value);
+        //    onChange(e.target.value);
+        //  }}
+
         />
         <MDBBtn color="link" onClick={increment}>
           <MDBIcon fas icon="plus" />
