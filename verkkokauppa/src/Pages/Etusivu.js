@@ -22,11 +22,11 @@ return(
 <section className="d-flex justify-content-center justify-content-lg-between">
   <MDBContainer>
     <MDBRow>
-      <MDBCol >
+      <MDBCol lg="6" md="8" className="mx-auto mb-5 ps-5 pe-5">
         <MDBCarousel showIndicators showControls dealy={100} className="pt-4 text-center">
-          <MDBTypography tag="div" className="vw-50">
+          <MDBTypography tag="div" className="vw-100">
             <MDBCarouselItem
-              className='w-100 d-block '
+              className='w-100 d-block image-container '
               itemId={1}
               src={EtusivuKuva1}
               alt='...'
@@ -34,7 +34,7 @@ return(
             </MDBCarouselItem>
 
             <MDBCarouselItem
-              className='w-100 d-block '
+              className='w-100 d-block image-container '
               itemId={2}
               src={EtusivuKuva2}
               alt='...'
@@ -42,7 +42,7 @@ return(
             </MDBCarouselItem>
 
             <MDBCarouselItem
-              className='w-100 d-block '
+              className='w-100 d-block image-container '
               itemId={3}
               src={EtusivuKuva3}
               alt='...'
@@ -51,7 +51,7 @@ return(
           </MDBTypography>
         </MDBCarousel>
       </MDBCol>
-      <MDBCol >
+      <MDBCol lg="5" md="5" className="mx-auto" >
         <MDBTypography tag="div" className="pb-1">
           <MDBTypography variant="h1" className="text-dark fw-bold pb-2 text-center pt-3">NAPSUKAUPPA</MDBTypography>
           <MDBTypography tag="div" className="text-center">
