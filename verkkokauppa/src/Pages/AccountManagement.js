@@ -1,4 +1,3 @@
-
 import { useEffect } from "react";
 import { getAsiakkaatEmail, getTuote, getTuotteet } from "../components/Server/TuoteAPI";
 import React, { useState } from "react";
@@ -24,6 +23,9 @@ const AccountManagement = (props) => {
   const [sahkopostit, setSahkopostit] = useState([]);
   const [tuotteet, setTuotteet] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // set isLoading to true when data is not available
+  const [MuokkaaTilausta, setMuokkaaTilausta] = useState([]);
+  const [viimeisinTilaus, setViimeisinTilaus] = useState([]);
+  const [orderItemQuantity, setOrderItemQuantity] = useState([]);
 
   useEffect(() => {
     const fetchTuotteet = async () => {
@@ -151,7 +153,9 @@ const AccountManagement = (props) => {
     setFormData({ ...formData, [name]: value });
   };
 
+
   const handleUpdateAsiakas = async (event) => {
+    console.log("HANDLE UPDATE KUTSUTTU");
     event.preventDefault();
     const newCustomerData = {
       email: formData.email,
@@ -166,10 +170,13 @@ const AccountManagement = (props) => {
         ...newCustomerData
       }
     });
+
     editAsiakas(formData, props.userID)
+    console.log("EDIT ASIAKAS KUTSUTTU");
     console.log("Form submitted" + JSON.stringify(formData));
     //clear ostoskori after submit and set tilaus to true
     props.dataUpdated();
+
   };
 
   const handleOrderChange = async (event) => {
@@ -178,10 +185,7 @@ const AccountManagement = (props) => {
   };
 
   const handleSubmit = async (event) => {
-
-    console.log("Form submitted" + JSON.stringify(formData));
-    //clear ostoskori after submit and set tilaus to true
-    //prevent page reload
+    console.log("HANDLE SUBMIT KUTSUTTU");
     event.preventDefault();
   
     //scroll up
@@ -234,75 +238,83 @@ const AccountManagement = (props) => {
     }
     setFormErrors(errors);
   
-    console.log("Form errors" + JSON.stringify(errors));
-    console.log("Form data" + JSON.stringify(props.asiakasTiedot));
+    //console.log("Form errors" + JSON.stringify(errors));
+    //console.log("Form data" + JSON.stringify(props.asiakasTiedot));
     //edit the form before pasting back
     props.asiakasTiedot.customer.email = formData.email;
     props.asiakasTiedot.customer.nimi = formData.firstName + " " + formData.lastName;
     props.asiakasTiedot.customer.puhelinnro = formData.phone;
     props.asiakasTiedot.customer.osoite = formData.address + ", " + formData.zip + ", " + formData.city;
 
+  const latestOrder = props.asiakasTiedot.orders.reduce((acc, curr) => {
+    return acc.tilausID > curr.tilausID ? acc : curr;
+  });
 
-    const editoredit = formData;
+  const dateToSet = {
+    tilauspvm: "2022-05-04T13:30:00.000Z"
+  };
+  
+  const date = new Date(latestOrder.tilauspvm);
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  
+  const formattedDate = `${year}-${month}-${day}`;
+  console.log(formattedDate);
 
-    //const userData = await editOrder(editoredit);
+  const latestOrderItems = props.asiakasTiedot.orderItems.filter(
+    (orderItem) => orderItem.tilausid === latestOrder.tilausID
+  );
 
-    //editAsiakas(JSON.stringify(props.asiakasTiedot.customer));
-    //console.log(JSON.stringify(props.asiakasTiedot.customer));
+  const mytest = {
+    customer: {
+      asiakasID: props.asiakasTiedot.customer.asiakasID,
+      nimi: props.asiakasTiedot.customer.nimi,
+      email: props.asiakasTiedot.customer.email,
+      osoite: props.asiakasTiedot.customer.osoite,
+      puhelinnro: props.asiakasTiedot.customer.puhelinnro,
+    },
+    orders:{
+        tilausID: latestOrder.tilausID,
+        asiakasID: props.asiakasTiedot.customer.asiakasID,
+        tilauspvm: formattedDate,
+        maksuid: latestOrder.maksuid,
+        summa: latestOrder.summa,
+    },
+      orderitem: latestOrderItems.map((orderItem) => {
+        return {
+          tuoteid: orderItem.tuoteid,
+          tilausid: latestOrder.tilausID,
+          kpl: orderItem.kpl /*orderItem.kpl*/,
+          tilaustuotteetid: orderItem.tilaustuotteetid,
+          summa: orderItem.summa,
+        };
+      }),
+  };
 
-    const customer = {
-      asiakasID : props.userID,
-      email: formData.email,
-      nimi: formData.firstName + " " + formData.lastName,
-      osoite: formData.address + ", " + formData.zip + ", " + formData.city,
-      puhelinnro: formData.phone,
-    };
+    console.log("MY DATATEST COMPARE TO MAKE" + JSON.stringify(mytest));
+    console.log("testimake" + JSON.stringify(testimake));
+    console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
 
-    const orders = {
-      tilausID: props.tilausID,
-      asiakasID: props.userID,
-      tilauspvm: props.tilausPvm,
-      maksuid: props.maksuID,
-    };
-    
-    props.setAsiakasTiedot({
-      ...props.asiakasTiedot,
-      customer: {
-        ...props.asiakasTiedot.customer,
-        ...newCustomerData
-      }
-    });
-    
     // If there are no errors, submit the form
     console.log("Kokeillaan PUT")
     console.log(JSON.stringify(testimake))
-    editOrder(testimake);
-    /*
-    const data = {  };
-    await editOrder(data);
-    */
+    editOrder(mytest);
 
-    if (Object.keys(errors).length === 0 && props.items.length > 0) {
+    if (Object.keys(errors).length === 0) {
       props.dataUpdated();
       // Perform form submission
       setIsSubmitting(false);
       setFailedSubmit(false);
-      
-  
-      if(props.userID === null){
-      //createTilaus.newTilaus(formData, uniqueItemsWithQuantity);
-      }
-
-      //print ostoskori json
-      //Form output and filtered ostoskori output with quantyties
-      console.log(formData);
-      //console.log(JSON.stringify(uniqueItemsWithQuantity));
       alert('Form submitted successfully!');
+
     } else {
+
       //alert('Form submission failed!\n' + JSON.stringify(errors));
       console.log(errors);
       setIsSubmitting(false);
       setFailedSubmit(true);
+      alert('Form submit failed!');
     }
   };
 
@@ -313,12 +325,16 @@ const AccountManagement = (props) => {
     const increment = () => {
       setValue(value + 1);
       onChange(value + 1);
+      console.log("VALUE OF THE QUANTITY: " + (value + 1)); 
+      console.log("ORDER ITEM QUANTITY HOOK: " + orderItemQuantity)
     };
   
     const decrement = () => {
       if (value > 0) {
         setValue(value - 1);
         onChange(value - 1);
+        console.log("VALUE OF THE QUANTITY: " + (value - 1));
+        console.log("ORDER ITEM QUANTITY HOOK: " + orderItemQuantity)
       }
     };
   
@@ -332,10 +348,14 @@ const AccountManagement = (props) => {
           min="0"
           value={value}
           type="number"
-          onChange={(e) => {
-            setValue(e.target.value);
-            onChange(e.target.value);
-          }}
+
+      //EI KÄYTÄ TÄTÄ ONCHANGEA :) :P :D 
+        //  onChange={(e) => {
+        //    console.log("e.target.value changed => " + e.target.value);
+        //    setValue(e.target.value);
+        //    onChange(e.target.value);
+        //  }}
+
         />
         <MDBBtn color="link" onClick={increment}>
           <MDBIcon fas icon="plus" />
@@ -343,12 +363,6 @@ const AccountManagement = (props) => {
       </div>
     );
   }
-
-
-
-
-
-
 
   return (
     <div
@@ -514,7 +528,7 @@ const AccountManagement = (props) => {
                           <QuantityInput                           
                             quantity={orderItem.kpl}
                             onChange={(quantity) =>
-                              props.editOrderItem(
+                              setOrderItemQuantity(
                                 order.tilausID,
                                 orderItem.tuoteid,
                                 Number(quantity)
@@ -535,7 +549,7 @@ const AccountManagement = (props) => {
                         size="md"
                         className="btn btn-primary"
                         color="primary"
-                        onClick={handleOrderChange}
+                        onClick={handleSubmit}
                       >
                         Muokkaa tilausta
                         </MDBBtn>
