@@ -153,8 +153,9 @@ const AccountManagement = (props) => {
     setFormData({ ...formData, [name]: value });
   };
 
-  
+
   const handleUpdateAsiakas = async (event) => {
+    console.log("HANDLE UPDATE KUTSUTTU");
     event.preventDefault();
     const newCustomerData = {
       email: formData.email,
@@ -170,11 +171,12 @@ const AccountManagement = (props) => {
       }
     });
 
-
     editAsiakas(formData, props.userID)
+    console.log("EDIT ASIAKAS KUTSUTTU");
     console.log("Form submitted" + JSON.stringify(formData));
     //clear ostoskori after submit and set tilaus to true
     props.dataUpdated();
+
   };
 
   const handleOrderChange = async (event) => {
@@ -183,10 +185,7 @@ const AccountManagement = (props) => {
   };
 
   const handleSubmit = async (event) => {
-
-    console.log("Form submitted" + JSON.stringify(formData));
-    //clear ostoskori after submit and set tilaus to true
-    //prevent page reload
+    console.log("HANDLE SUBMIT KUTSUTTU");
     event.preventDefault();
   
     //scroll up
@@ -239,8 +238,8 @@ const AccountManagement = (props) => {
     }
     setFormErrors(errors);
   
-    console.log("Form errors" + JSON.stringify(errors));
-    console.log("Form data" + JSON.stringify(props.asiakasTiedot));
+    //console.log("Form errors" + JSON.stringify(errors));
+    //console.log("Form data" + JSON.stringify(props.asiakasTiedot));
     //edit the form before pasting back
     props.asiakasTiedot.customer.email = formData.email;
     props.asiakasTiedot.customer.nimi = formData.firstName + " " + formData.lastName;
@@ -278,7 +277,7 @@ const AccountManagement = (props) => {
     orders:{
         tilausID: latestOrder.tilausID,
         asiakasID: props.asiakasTiedot.customer.asiakasID,
-        tilauspvm: dateToSet,
+        tilauspvm: formattedDate,
         maksuid: latestOrder.maksuid,
         summa: latestOrder.summa,
     },
@@ -302,27 +301,20 @@ const AccountManagement = (props) => {
     console.log(JSON.stringify(testimake))
     editOrder(mytest);
 
-    if (Object.keys(errors).length === 0 && props.items.length > 0) {
+    if (Object.keys(errors).length === 0) {
       props.dataUpdated();
       // Perform form submission
       setIsSubmitting(false);
       setFailedSubmit(false);
-      
-  
-      if(props.userID === null){
-      //createTilaus.newTilaus(formData, uniqueItemsWithQuantity);
-      }
-
-      //print ostoskori json
-      //Form output and filtered ostoskori output with quantyties
-      console.log(formData);
-      //console.log(JSON.stringify(uniqueItemsWithQuantity));
       alert('Form submitted successfully!');
+
     } else {
+
       //alert('Form submission failed!\n' + JSON.stringify(errors));
       console.log(errors);
       setIsSubmitting(false);
       setFailedSubmit(true);
+      alert('Form submit failed!');
     }
   };
 
@@ -528,7 +520,7 @@ const AccountManagement = (props) => {
                           <QuantityInput                           
                             quantity={orderItem.kpl}
                             onChange={(quantity) =>
-                              props.editOrderItem(
+                              setOrderItemQuantity(
                                 order.tilausID,
                                 orderItem.tuoteid,
                                 Number(quantity)
