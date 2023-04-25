@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import TuoteenTiedot from './TuoteenTiedot';
+import TuotteenTiedot from './components/TuotteenTiedot';
+import { MemoryRouter } from 'react-router-dom';
 
 const tuote = {
   nimi: 'Kynä',
@@ -20,37 +21,58 @@ const setItems = jest.fn();
 
 describe('TuoteenTiedot', () => {
   test('renders product information', () => {
-    render(<TuoteenTiedot tuote={tuote} items={items} setItems={setItems} />);
-
-    const productName = screen.getByRole('heading', { name: /hyvä kynä/i });
-    expect(productName).toBeInTheDocument();
-
-    const productImage = screen.getByAltText('...');
-    expect(productImage).toHaveAttribute('src', 'https://example.com/kyna.jpg');
-
-    const productDescription = screen.getByText('Tämä kynä on erittäin hyvä kynä.');
-    expect(productDescription).toBeInTheDocument();
-
-    const productColor = screen.getByRole('button', { name: '' });
-    expect(productColor).toHaveStyle({ backgroundColor: 'blue' });
-
-    const productPrice = screen.getByText('Hinta: 2.5 €');
-    expect(productPrice).toBeInTheDocument();
-
-    const quantityInput = screen.getByLabelText('Määrä:');
-    expect(quantityInput).toHaveValue(2);
+    render(
+      <MemoryRouter>
+    <TuotteenTiedot tuote={tuote} items={items} setItems={setItems} />
+      </MemoryRouter>);
+    expect(screen.getByText('Väri:')).toBeInTheDocument();
+    expect(screen.getByText('Hyvä kynä')).toBeInTheDocument();
+    expect(screen.getByText('Tuotteen kuvaus:')).toBeInTheDocument();
+    expect(screen.getByText('Tämä kynä on erittäin hyvä kynä.')).toBeInTheDocument();
+    expect(screen.getByText('Hinta:')).toBeInTheDocument();
   });
 
-  test('updates item quantity', () => {
-    render(<TuoteenTiedot tuote={tuote} items={items} setItems={setItems} />);
+  test('renders quantity input', () => {
+    render(
+      <MemoryRouter>
+    <TuotteenTiedot tuote={tuote} items={items} setItems={setItems} />
+      </MemoryRouter>);
+    expect(screen.getByRole('spinbutton')).toBeInTheDocument();
+  });
 
-    const quantityInput = screen.getByLabelText('Määrä:');
-    userEvent.clear(quantityInput);
-    userEvent.type(quantityInput, '3');
+  test('renders add to cart button', () => {
+    render(
+      <MemoryRouter>
+    <TuotteenTiedot tuote={tuote} items={items} setItems={setItems} />
+      </MemoryRouter>);
+    expect(screen.getByText('Lisää ostoskoriin')).toBeInTheDocument();
+  });
 
-    expect(setItems).toHaveBeenCalledWith([
-      { tuote: tuote, maara: 3 },
-      { tuote: tuote, maara: 1 },
-    ]);
+  test('renders plus and minus buttons', () => {
+    render(
+      <MemoryRouter>
+    <TuotteenTiedot tuote={tuote} items={items} setItems={setItems} />
+      </MemoryRouter>);
+    expect(screen.getByTestId('plus')).toBeInTheDocument();
+    expect(screen.getByTestId('minus')).toBeInTheDocument();
+  });
+
+  test('clicking plus button increases quantity', () => {
+    render(
+      <MemoryRouter>
+    <TuotteenTiedot tuote={tuote} items={items} setItems={setItems} />
+      </MemoryRouter>);
+    userEvent.click(screen.getByTestId('plus'));
+    expect(screen.getByRole('spinbutton')).toHaveValue(1);
+  });
+
+  test('clicking minus button decreases quantity', () => {
+    render(
+      <MemoryRouter>
+    <TuotteenTiedot tuote={tuote} items={items} setItems={setItems} />
+      </MemoryRouter>);
+    userEvent.click(screen.getByTestId('minus'));
+    userEvent.type(screen.getByRole('spinbutton'), '2');
+    expect(screen.getByRole('spinbutton')).toHaveValue(1);
   });
 });

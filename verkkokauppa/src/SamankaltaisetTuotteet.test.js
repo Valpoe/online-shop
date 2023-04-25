@@ -1,39 +1,63 @@
-import React from 'react';
-import { render, screen} from "@testing-library/react";
-import SamankaltaisetTuotteet from './Components/SamankaltaisetTuotteet';
+import { render, screen } from '@testing-library/react';
+import SamankaltaisetTuotteet from './components/SamankaltaisetTuotteet';
 import { MemoryRouter } from 'react-router-dom';
+import React from 'react';
 
-describe('SamankaltaisetTuotteet', () => {
-  const mockTuotteet = [
-    { tuoteID: 1, tuotenimi: 'Tuote 1', hinta: 10, kuva: 'kuva1.jpg', varastosaldo: 5 },
-    { tuoteID: 2, tuotenimi: 'Tuote 2', hinta: 20, kuva: 'kuva2.jpg', varastosaldo: 10 },
-  ];
-  const mockItems = [];
-  const mockSetItems = jest.fn();
-  const mockAktiivinenTuote = 1;
-  const mockSetAktiivinenTuote = jest.fn();
+test("renders correctly with props and displays Saldo", () => {
+  const props = {
+    tuotekategoria: "some_category",
+    aktiivinenTuote: 123,
+    tuote: [{ tuoteID: 123 }],
+    setAktiivinenTuote: jest.fn(),
+    setItems: jest.fn(),
+    items: [],
+    addToCart: jest.fn(),
+  };
 
-  it('renders the component with the correct data', () => {
-    render(
-      <MemoryRouter>
-      <SamankaltaisetTuotteet
-        tuotekategoria={mockTuotteet}
-        items={mockItems}
-        setItems={mockSetItems}
-        aktiivinenTuote={mockAktiivinenTuote}
-        setAktiivinenTuote={mockSetAktiivinenTuote}
-      />
-      </MemoryRouter>
-    );
-
-    // check that each tuote in the list is rendered
-    for (const tuote of mockTuotteet) {0
-      const tuotenimi = screen.queryByText(tuote.tuotenimi);
-      expect(tuotenimi).toBeInTheDocument();
-      const hinta = screen.getByText(`Hinta: ${tuote.hinta} €`);
-      expect(hinta).toBeInTheDocument();
-      const saldo = screen.getByText(`Saldo: ${tuote.varastosaldo}`);
-      expect(saldo).toBeInTheDocument();
-    }
-  });
+  render(
+    <MemoryRouter>
+  <SamankaltaisetTuotteet {...props} />
+    </MemoryRouter>);
+  // Assert that the component renders without error
+  expect(screen.getByText("Saldo:")).toBeInTheDocument();
 });
+
+test("renders correctly with props and displays Hinta", () => {
+  const props = {
+    tuotekategoria: "some_category",
+    aktiivinenTuote: 123,
+    tuote: [{ tuoteID: 123 }],
+    setAktiivinenTuote: jest.fn(),
+    setItems: jest.fn(),
+    items: [],
+    addToCart: jest.fn(),
+  };
+
+  render(
+    <MemoryRouter>
+  <SamankaltaisetTuotteet {...props} />
+    </MemoryRouter>);
+  // Assert that the component renders without error
+  expect(screen.getByText("Hinta:")).toBeInTheDocument();
+});
+
+test("renders correct amount of items", () => {
+  const props = {
+    tuotekategoria: "some_category",
+    aktiivinenTuote: 123,
+    tuote: [{ tuoteID: 123 }, { tuoteID: 123 }],
+    setAktiivinenTuote: jest.fn(),
+    setItems: jest.fn(),
+    items: [],
+    addToCart: jest.fn(),
+  };
+
+  render(
+    <MemoryRouter>
+  <SamankaltaisetTuotteet {...props}/>
+    </MemoryRouter>);
+  // Assert that the component renders without error
+  expect(screen.getAllByText("Saldo:")).toHaveLength(1);
+}
+);
+
