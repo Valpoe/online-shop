@@ -22,8 +22,8 @@ return(
 <section className="d-flex justify-content-center justify-content-lg-between">
   <MDBContainer>
     <MDBRow>
-      <MDBCol md="6">
-        <MDBCarousel showIndicators showControls dealy={100} className="pt-4">
+      <MDBCol >
+        <MDBCarousel showIndicators showControls dealy={100} className="pt-4 text-center">
           <MDBTypography tag="div" className="vw-50">
             <MDBCarouselItem
               className='w-100 d-block '
@@ -51,7 +51,7 @@ return(
           </MDBTypography>
         </MDBCarousel>
       </MDBCol>
-      <MDBCol md="6">
+      <MDBCol >
         <MDBTypography tag="div" className="pb-1">
           <MDBTypography variant="h1" className="text-dark fw-bold pb-2 text-center pt-3">NAPSUKAUPPA</MDBTypography>
           <MDBTypography tag="div" className="text-center">
