@@ -35,6 +35,7 @@ function MaaraLaskin(props) {
       });
     }
     props.setItems(newItems);
+    props.addToCart();
   };
 
   return (

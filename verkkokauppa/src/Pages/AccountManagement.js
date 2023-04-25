@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { getAsiakkaatEmail, getTuote, getTuotteet } from "../components/Server/TuoteAPI";
 import React, { useState } from "react";
 import { editOrder } from "../components/Server/editTilausAPI";
-import { useNavigate } from "react-router-dom";
 import {
   MDBRow,
   MDBCol,
@@ -17,6 +16,7 @@ import {
   MDBFooter,
   MDBCardText,
 } from "mdb-react-ui-kit";
+import { editAsiakas } from "../components/Server/AsiakasAPI";
 
 const AccountManagement = (props) => {
 
@@ -24,15 +24,6 @@ const AccountManagement = (props) => {
   const [sahkopostit, setSahkopostit] = useState([]);
   const [tuotteet, setTuotteet] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // set isLoading to true when data is not available
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (props.asiakasTiedot === null || props.asiakasTiedot === undefined) {
-      navigate("/");
-    }
-  }, [props.asiakasTiedot]);
-
 
   useEffect(() => {
     const fetchTuotteet = async () => {
@@ -148,20 +139,46 @@ const AccountManagement = (props) => {
         city: "",
         zip: "",
       });
-  }, [props.setAsiakasTiedot]); // <<--??
+  }, [props.asiakasTiedot.customer]); // <<--??
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [failedSubmit, setFailedSubmit] = useState(false);
   
-
   const handleChange = (event) => {
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
     setFormData({ ...formData, [name]: value });
   };
-  
+
+  const handleUpdateAsiakas = async (event) => {
+    event.preventDefault();
+    const newCustomerData = {
+      email: formData.email,
+      nimi: formData.firstName + " " + formData.lastName,
+      osoite: formData.address + ", " + formData.zip + ", " + formData.city,
+      puhelinnro: formData.phone,
+    };   
+    props.setAsiakasTiedot({
+      ...props.asiakasTiedot,
+      customer: {
+        ...props.asiakasTiedot.customer,
+        ...newCustomerData
+      }
+    });
+    editAsiakas(formData, props.userID)
+    console.log("Form submitted" + JSON.stringify(formData));
+    //clear ostoskori after submit and set tilaus to true
+    props.dataUpdated();
+  };
+
+  const handleOrderChange = async (event) => {
+    event.preventDefault();
+    props.orderUpdated();
+  };
+
   const handleSubmit = async (event) => {
+
     console.log("Form submitted" + JSON.stringify(formData));
     //clear ostoskori after submit and set tilaus to true
     //prevent page reload
@@ -225,13 +242,36 @@ const AccountManagement = (props) => {
     props.asiakasTiedot.customer.puhelinnro = formData.phone;
     props.asiakasTiedot.customer.osoite = formData.address + ", " + formData.zip + ", " + formData.city;
 
-    //
+
     const editoredit = formData;
 
     //const userData = await editOrder(editoredit);
 
     //editAsiakas(JSON.stringify(props.asiakasTiedot.customer));
     //console.log(JSON.stringify(props.asiakasTiedot.customer));
+
+    const customer = {
+      asiakasID : props.userID,
+      email: formData.email,
+      nimi: formData.firstName + " " + formData.lastName,
+      osoite: formData.address + ", " + formData.zip + ", " + formData.city,
+      puhelinnro: formData.phone,
+    };
+
+    const orders = {
+      tilausID: props.tilausID,
+      asiakasID: props.userID,
+      tilauspvm: props.tilausPvm,
+      maksuid: props.maksuID,
+    };
+    
+    props.setAsiakasTiedot({
+      ...props.asiakasTiedot,
+      customer: {
+        ...props.asiakasTiedot.customer,
+        ...newCustomerData
+      }
+    });
     
     // If there are no errors, submit the form
     console.log("Kokeillaan PUT")
@@ -243,6 +283,7 @@ const AccountManagement = (props) => {
     */
 
     if (Object.keys(errors).length === 0 && props.items.length > 0) {
+      props.dataUpdated();
       // Perform form submission
       setIsSubmitting(false);
       setFailedSubmit(false);
@@ -303,13 +344,11 @@ const AccountManagement = (props) => {
     );
   }
 
-  if(setIsLoading === true) {
-    return (
-      <div className="pb-5 pt-5" style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)'}}>
-        <p>Its loading..</p>
-      </div>
-   )
-}
+
+
+
+
+
 
   return (
     <div
@@ -322,7 +361,6 @@ const AccountManagement = (props) => {
             <MDBCol className="mx-auto ps-5 pe-5">
               <form onSubmit={handleSubmit}>
                 <h6 className="text-uppercase fw-bold mb-4">Omat tiedot</h6>
-
                 <MDBInput className="mb-3"
                     label="Etunimi"
                     name="firstName"
@@ -410,13 +448,16 @@ const AccountManagement = (props) => {
                   />
 
                   <MDBBtn
-                    className="btn btn-primary btn-lg mt-4 mb-4"
+                    className="btn btn-primary mt-4 mb-4"
                     color="primary"
                     type="submit"
+                    onClick={handleUpdateAsiakas}
                   >
-                    Tallenna tiedot
+                    Muokkaa tietoja
                   </MDBBtn>
               </form>
+            <MDBCol>
+            </MDBCol>
             </MDBCol>
 
             <MDBCol className="mx-auto">
@@ -487,6 +528,20 @@ const AccountManagement = (props) => {
                     </tr>
                   );
                 })}
+                {isLatestOrder && (
+                  <tr>
+                    <td colSpan="3" className="text-center">
+                      <MDBBtn
+                        size="md"
+                        className="btn btn-primary"
+                        color="primary"
+                        onClick={handleOrderChange}
+                      >
+                        Muokkaa tilausta
+                        </MDBBtn>
+                      </td>
+                  </tr>
+                )}
               </MDBTableBody>
             </React.Fragment>
           </MDBTable>

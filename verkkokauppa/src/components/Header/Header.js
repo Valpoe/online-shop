@@ -26,7 +26,6 @@ import {
   } from 'mdb-react-ui-kit';
 import Ostoskori from '../Ostoskori';
 import LoginRegister from '../LoginRegister';
-import { ModalBody } from 'react-bootstrap';
 
 const Header = (props) => {
     const [showNavCentred, setShowNavCentred] = useState(false);
@@ -105,12 +104,12 @@ const Header = (props) => {
                 </MDBDropdownToggle>
                 <MDBDropdownMenu>
                   <MDBDropdownItem link className="backgroundFix" childTag="button">
-                    <NavLink className="backgroundFix" exact to="/tilinhallinta">
+                    <NavLink className="backgroundFix" to="/tilinhallinta">
                       <MDBBtn color="tertiary" className="backgroundFix" rippleColor='light'><MDBIcon fas icon="user-cog" className='me-2'/>Oma tili</MDBBtn>
                       </NavLink>
                       </MDBDropdownItem>
                   <MDBDropdownItem link className="backgroundFix" childTag="button">
-                  <NavLink className="backgroundFix" exact to="/">
+                  <NavLink className="backgroundFix" to="/">
                     <MDBBtn color="tertiary" className="backgroundFix" rippleColor='light' onClick={resetAccount}><MDBIcon fas icon="sign-out-alt" className='me-2'/>Kirjaudu ulos</MDBBtn>
                       </NavLink>
                   </MDBDropdownItem>

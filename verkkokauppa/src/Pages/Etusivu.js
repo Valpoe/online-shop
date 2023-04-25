@@ -22,11 +22,11 @@ return(
 <section className="d-flex justify-content-center justify-content-lg-between">
   <MDBContainer>
     <MDBRow>
-      <MDBCol >
-        <MDBCarousel showIndicators showControls dealy={100}>
-          <MDBTypography tag="div" className="min-vw-50 min-vh-50">
+      <MDBCol md="6">
+        <MDBCarousel showIndicators showControls dealy={100} className="pt-4">
+          <MDBTypography tag="div" className="vw-50">
             <MDBCarouselItem
-              className='w-100 vh-50 d-block'
+              className='w-100 d-block '
               itemId={1}
               src={EtusivuKuva1}
               alt='...'
@@ -34,7 +34,7 @@ return(
             </MDBCarouselItem>
 
             <MDBCarouselItem
-              className='w-100 vh-50 d-block'
+              className='w-100 d-block '
               itemId={2}
               src={EtusivuKuva2}
               alt='...'
@@ -42,7 +42,7 @@ return(
             </MDBCarouselItem>
 
             <MDBCarouselItem
-              className='w-100 vh-50 d-block'
+              className='w-100 d-block '
               itemId={3}
               src={EtusivuKuva3}
               alt='...'
@@ -51,9 +51,9 @@ return(
           </MDBTypography>
         </MDBCarousel>
       </MDBCol>
-      <MDBCol>
+      <MDBCol md="6">
         <MDBTypography tag="div" className="pb-1">
-          <MDBTypography variant="h1" className="text-dark fw-bold pb-2 text-center">NAPSUKAUPPA</MDBTypography>
+          <MDBTypography variant="h1" className="text-dark fw-bold pb-2 text-center pt-3">NAPSUKAUPPA</MDBTypography>
           <MDBTypography tag="div" className="text-center">
             <p className="pe-3 ps-3 lh-lg text-dark pb-2">
               Me tarjoamme koulutarvikkeita siksi, että haluamme auttaa oppilaita menestymään koulussa ja tarjota heille laadukkaita tarvikkeita kohtuulliseen hintaan. Haluamme varmistaa, että kaikilla oppilailla on käytettävissään tarvittavat työkalut ja että heillä on pääsy kaikenlaisiin tarvikkeisiin, joita he saattavat tarvita koulussa.

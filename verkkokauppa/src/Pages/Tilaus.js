@@ -23,6 +23,7 @@ import { getAsiakkaatEmail } from "../components/Server/TuoteAPI";
 import { logIn } from "../components/Server/LogInAPI";
 import { NavLink } from "react-router-dom";
 import { editAsiakas } from "../components/Server/AsiakasAPI";
+import { editOrder } from "../components/Server/editTilausAPI";
 
 
 const Tilaus = (props) => {
@@ -219,17 +220,14 @@ const Tilaus = (props) => {
       //console.log("KUTSUTAAN APIA TÄLLÄ PROPSILLA:" + props.userID )
       //console.log(formData, props.userID, uniqueItemsWithQuantity)
 
-      console.log("Edit asiakkaalle lähtevät tiedot:")
-      console.log(JSON.stringify(formData, props.userID))
-
-    //  props.asiakasTiedot.nimi = formData.firstName;
-    //  props.asiakasTiedot.sukunimi = formData.lastName;
-    //  props.asiakasTiedot.sahkoposti = formData.email;
-    //  props.asiakasTiedot.puhelinnumero = formData.phone;
-    //  props.asiakasTiedot.osoite = formData.address;
-    //  props.asiakasTiedot.kaupunki = formData.city;
-    //  props.asiakasTiedot.postinumero = formData.zip;
-    //  props.setAsiakasTiedot(props.asiakasTiedot);
+      //props.asiakasTiedot.nimi = formData.firstName;
+      //props.asiakasTiedot.sukunimi = formData.lastName;
+      //props.asiakasTiedot.sahkoposti = formData.email;
+      //props.asiakasTiedot.puhelinnumero = formData.phone;
+      //props.asiakasTiedot.osoite = formData.address;
+      //props.asiakasTiedot.kaupunki = formData.city;
+      //props.asiakasTiedot.postinumero = formData.zip;
+      //props.setAsiakasTiedot(props.asiakasTiedot);
 
       //wait for edit to finish
      // console.log("EDIT? OR NO " +JSON.stringify(updAsiakas))
@@ -243,21 +241,46 @@ const Tilaus = (props) => {
         email: props.email,
         password: props.password,
       }
+      console.log("Hello from the otherside, relogging time")
       console.log(logIt)
-
       const userData = await logIn(logIt);
-      console.log(" EDIT? OR NO " +JSON.stringify(userData))
-
       props.setAsiakasTiedot(userData);
-      console.log("EDIT? OR NO2422 " +JSON.stringify(props.asiakasTiedot))
 
-      try {
-        await editAsiakas(formData, props.userID)
-        // ... code to make PUT request ...
-      } catch (error) {
-        console.error('Failed to fetch:', error);
-        return { error: 'Failed to edit customer data' };
-      }
+      //editOrder(userData)
+
+      //props.setUpdAsiakastiedot(userData);
+
+      editAsiakas(formData, props.userID)
+
+  //        console.log("edit success new details = " + response);
+  //      });
+//
+  //      props.setUpdAsiakastiedot(true);
+  //    } catch (error) {
+  //      console.error('Failed to edit customer data:', error);
+  //      return { error: 'Failed to edit customer data' };
+  //    }
+
+        const newCustomerData = {
+          email: formData.email,
+          nimi: formData.firstName + " " + formData.lastName,
+          osoite: formData.address + ", " + formData.zip + ", " + formData.city,
+          puhelinnro: formData.phone,
+        };
+        
+        props.setAsiakasTiedot({
+          ...props.asiakasTiedot,
+          customer: {
+            ...props.asiakasTiedot.customer,
+            ...newCustomerData
+          }
+        });
+
+      
+      console.log("RELOGGED IN WITH NEW DATA: ?")
+      console.log(props.asiakasTiedot)
+      //something needs to be fixed
+      console.log("FAIL");
       }
 
       //print ostoskori json
@@ -278,6 +301,7 @@ const Tilaus = (props) => {
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
     setFormData({ ...formData, [name]: value });
+    console.log("hello from tilaus " + formData.firstName);
   };
 
   if(props.userID === null) {
@@ -401,6 +425,7 @@ const Tilaus = (props) => {
                     value={formData.email}
                     onChange={handleChange}
                     error={formErrors.email}
+                    disabled={true}
                     outline="true"
                   />
                   {formErrors.email && (
