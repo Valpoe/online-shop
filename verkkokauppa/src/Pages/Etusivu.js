@@ -15,8 +15,6 @@ const Etusivu = () => {
     navigate('/');
   }, [navigate]);
 
-  
-
 return(
 <MDBTypography tag="div" className="pb-5 pt-5" style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)'}}>
 <section className="d-flex justify-content-center justify-content-lg-between">
