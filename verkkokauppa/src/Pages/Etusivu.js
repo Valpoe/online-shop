@@ -20,7 +20,7 @@ return(
 <section className="d-flex justify-content-center justify-content-lg-between">
   <MDBContainer>
     <MDBRow>
-      <MDBCol lg="6" md="8" className="mx-auto mb-5 ps-5 pe-5">
+      <MDBCol lg="7" md="8" className="mx-auto mb-5 ps-5 pe-5">
         <MDBCarousel showIndicators showControls dealy={100} className="pt-4 text-center">
           <MDBTypography tag="div" className="vw-100">
             <MDBCarouselItem
