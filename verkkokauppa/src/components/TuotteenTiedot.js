@@ -41,6 +41,7 @@ function TuoteenTiedot(props) {
               <MDBCardText className="fw-bold">Väri: </MDBCardText>
               <MDBBtn
                 floating
+                href = "#"
                 size="md"
                 className="mt-n2 mb-2"
                 style={{ backgroundColor: props.tuote.vari }}

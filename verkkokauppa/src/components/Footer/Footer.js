@@ -11,22 +11,22 @@ return (
           <span className="text-reset">Ota meihin yhteyttä sosiaalisessa mediassa:</span>
         </div>
         <div>
-          <a href="/#" className='me-4 text-reset'>
+          <a href="#" className='me-4 text-reset'>
             <MDBIcon fab icon="facebook-f" style={{color: "#3b5998"}} />
           </a>
-          <a href='/#' className='me-4 text-reset'>
+          <a href="#" className='me-4 text-reset'>
             <MDBIcon fab icon="twitter" style={{ color: '#55acee' }} />
           </a>
-          <a href='/#' className='me-4 text-reset'>
+          <a href="#" className='me-4 text-reset'>
             <MDBIcon fab icon="google" style={{ color: '#db4437' }} />
           </a>
-          <a href='/#' className='me-4 text-reset'>
+          <a href="#" className='me-4 text-reset'>
             <MDBIcon fab icon="instagram" style={{ color: '#ac2bac' }} />
           </a>
-          <a href='/#' className='me-4 text-reset'>
+          <a href="#" className='me-4 text-reset'>
             <MDBIcon fab icon="linkedin" style={{ color: '#0072b1' }}/>
           </a>
-          <a href='/#' className='me-4 text-reset'>
+          <a href="#" className='me-4 text-reset'>
             <MDBIcon fab icon="github" className="text-dark" />
           </a>
         </div>
@@ -67,22 +67,22 @@ return (
             <MDBCol md="3" lg="2" xl="2" className='mx-auto mb-4'>
               <h6 className='text-uppercase fw-bold mb-4'>Hyödylliset linkit</h6>
               <p>
-                <a href='#!' className='text-reset'>
+                <a href="#" className='text-reset'>
                   Hinnoittelu
                 </a>
               </p>
               <p>
-                <a href='#!' className='text-reset'>
+                <a href="#" className='text-reset'>
                   Asetukset
                 </a>
               </p>
               <p>
-                <a href='#!' className='text-reset'>
+                <a href="#" className='text-reset'>
                   Lue lisää
                 </a>
               </p>
               <p>
-                <a href='#!' className='text-reset'>
+                <a href="#" className='text-reset'>
                   Tuki
                 </a>
               </p>
@@ -113,7 +113,7 @@ return (
         © {currentYear} Copyright: <a className='text-reset fw-bold me-2'>
            Kynä & Kumi
         </a>
-        <i class="flag flag-finland"></i>
+        <i className="flag flag-finland"></i>
       </div>
     </MDBFooter>
 );
