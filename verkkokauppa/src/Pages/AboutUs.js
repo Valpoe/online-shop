@@ -66,7 +66,7 @@ const AboutUs = () => {
                     <MDBTypography tag="div" className="pt-5">
                       <img
                         src={tietoaMeistaKuva2}
-                        alt="Kuva"
+                        alt="Kuva 1"
                         width="600"
                         height="400"
                         className="img-fluid rounded-circle"
@@ -115,7 +115,7 @@ const AboutUs = () => {
                     <MDBTypography className="ps-5">
                       <img
                         src={tietoaMeistaKuva}
-                        alt="Kuva"
+                        alt="Kuva 2"
                         width="600"
                         height="400"
                         className="img-fluid rounded"
@@ -126,7 +126,7 @@ const AboutUs = () => {
                     <MDBTypography className="ps-5">
                       <img
                         src={tietoaMeistaKuva3}
-                        alt="Kuva"
+                        alt="Kuva 3"
                         width="600"
                         height="400"
                         className="img-fluid rounded"
