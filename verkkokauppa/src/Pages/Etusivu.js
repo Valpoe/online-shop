@@ -18,7 +18,7 @@ const Etusivu = () => {
 return(
 <MDBTypography tag="div" className="pb-5 pt-5" style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)'}}>
 <section className="d-flex justify-content-center justify-content-lg-between">
-  <MDBContainer>
+  <MDBContainer className="text-center text-md-start">
     <MDBRow>
       <MDBCol lg="7" md="8" className="mx-auto mb-5 ps-5 pe-5">
         <MDBCarousel showIndicators showControls dealy={100} className="pt-4 text-center">
