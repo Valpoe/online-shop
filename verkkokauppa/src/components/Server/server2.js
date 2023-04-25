@@ -387,7 +387,7 @@ app.put('/edit', async (req, res) => {
 
     // Update tilaus
     console.log("update tilaus")
-    const orderQuery = 'UPDATE "tilaus" SET tilauspvm = $1, summa = $2 WHERE "tilausID" = $3 AND "asiakasID" = $4' ;
+    const orderQuery = 'UPDATE "tilaus" SET tilauspvm = $1, summa = $2 WHERE "tilausID" = $3 AND "asiakasid" = $4' ;
     const orderValues = [editOrder.orders.tilauspvm, editOrder.orders.summa, editOrder.orders.tilausID, editOrder.customer.asiakasID];
     await pool.query(orderQuery, orderValues);
 /*
