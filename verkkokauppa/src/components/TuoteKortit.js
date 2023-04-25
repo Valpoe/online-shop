@@ -13,24 +13,10 @@ import {
   MDBRow,
   MDBTabsContent,
   MDBTabsPane,
-  MDBAlert,
 } from "mdb-react-ui-kit";
 import "./CardImageSize.css";
-// import { ToastContainer, toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
 
 function TuoteKortit(props) {
-
-  // const notify = () => toast.success('Tuote lisätty ostoskoriin!', {
-  //   position: "top-right",
-  //   autoClose: 4000,
-  //   hideProgressBar: false,
-  //   closeOnClick: true,
-  //   pauseOnHover: true,
-  //   draggable: true,
-  //   progress: undefined,
-  //   theme: "light",
-  //   });
 
   // Tuotteen lisäys ostoskoriin
   const HandleAddToCart = (tuote) => {
@@ -59,8 +45,41 @@ function TuoteKortit(props) {
   const totalSearchPages = Math.ceil(props.searchResults.length / cardsPerPage);
   const totalCategoryPages = Math.ceil(6 / cardsPerPage);
 
+  // Laskee näytettävien tuotteiden määrän ja sivutuksen
+  const countProducts = () => {
+    let count = 0;
+    if (props.verticalActive === "kaikki-tuotteet") {
+      count = props.tuotteet.length;
+    } else if (props.verticalActive === "searchResults") {
+      count = props.searchResults.length;
+    } else {
+      count = props.tuotteet.filter(
+        (tuote) => tuote.kategoriaid === props.verticalActive
+      ).length;
+    }
+  
+    const totalPages = Math.ceil(count / cardsPerPage);
+    let startIndex = 1;
+    let endIndex = count;
+  
+    if (count === 0) {
+      startIndex = 0;
+    } else if (totalPages > 0) {
+      if (currentPage > totalPages) {
+        setCurrentPage(totalPages);
+      } else if (currentPage < 1) {
+        setCurrentPage(1);
+      }
+      startIndex = (currentPage - 1) * cardsPerPage + 1;
+      endIndex = Math.min(startIndex + cardsPerPage - 1, count);
+    }
+  
+    return `${startIndex}-${endIndex} kaikkiaan ${count} tuotteesta`;
+  };
+  
   return (
     <>
+    <h4><span className="badge badge-secondary rounded-3 p-2">{countProducts()}</span></h4>
     <MDBTabsContent>
       <MDBTabsPane show={props.verticalActive === "kaikki-tuotteet"}>
         <MDBRow className="row-cols-1 row-cols-md-3 rows-cols-sm-2 g-2">
@@ -210,6 +229,13 @@ function TuoteKortit(props) {
       ))}
       <MDBTabsPane show={props.verticalActive === "searchResults"}>
         <MDBRow className="row-cols-1 row-cols-md-3 g-2">
+          {props.searchResults.length === 0 && (
+            <MDBCol>
+              <div className="text-center">
+                <h3>Ei hakutuloksia</h3>
+              </div>
+            </MDBCol>
+          )}         
           {props.searchResults
             .slice(indexOfFirstCard, indexOfLastCard)
             .map((tuotteet) => (

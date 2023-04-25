@@ -26,6 +26,10 @@ const AccountManagement = (props) => {
   const [MuokkaaTilausta, setMuokkaaTilausta] = useState([]);
   const [viimeisinTilaus, setViimeisinTilaus] = useState([]);
   const [orderItemQuantity, setOrderItemQuantity] = useState([]);
+  const [tilauksenKPL, setTilauksenKPL] = useState([]);
+  const [quantityInputs, setQuantityInputs] = useState([]);
+  const [updOrderItems, setUpdOrderItems] = useState([]);
+  const [orderItems, setOrderItems] = useState([]);
 
   useEffect(() => {
     const fetchTuotteet = async () => {
@@ -35,6 +39,8 @@ const AccountManagement = (props) => {
     };
     fetchTuotteet();
   }, []);
+
+
 
   ////Testidata Tästä mallia missä muodossa data liikkuu editorderille:
   const testimake = {
@@ -156,6 +162,7 @@ const AccountManagement = (props) => {
 
   const handleUpdateAsiakas = async (event) => {
     console.log("HANDLE UPDATE KUTSUTTU");
+    
     event.preventDefault();
     const newCustomerData = {
       email: formData.email,
@@ -246,13 +253,27 @@ const AccountManagement = (props) => {
     props.asiakasTiedot.customer.puhelinnro = formData.phone;
     props.asiakasTiedot.customer.osoite = formData.address + ", " + formData.zip + ", " + formData.city;
 
-  const latestOrder = props.asiakasTiedot.orders.reduce((acc, curr) => {
-    return acc.tilausID > curr.tilausID ? acc : curr;
-  });
+
+
+
+    //get latest order 
+    //const latestOrde1r = props.asiakasTiedot.orderItems[props.asiakasTiedot.orderItems.length - 1];
+    //console.log("LATEST ORDER" + JSON.stringify(latestOrde1r));
+
+
+//get all orderItems
+    const latestOrder = props.asiakasTiedot.orderItems.filter
+
+
+    console.log("LATEST ORDER" + JSON.stringify(latestOrder));
+
+
 
   const dateToSet = {
-    tilauspvm: "2022-05-04T13:30:00.000Z"
+    tilauspvm: "2022-05-04"
   };
+
+
   
   const date = new Date(latestOrder.tilauspvm);
   const year = date.getFullYear();
@@ -260,11 +281,46 @@ const AccountManagement = (props) => {
   const day = date.getDate();
   
   const formattedDate = `${year}-${month}-${day}`;
-  console.log(formattedDate);
+  //console.log(formattedDate);
 
-  const latestOrderItems = props.asiakasTiedot.orderItems.filter(
-    (orderItem) => orderItem.tilausid === latestOrder.tilausID
-  );
+  //const [tilauksenKPL, setTilauksenKPL] = useState([]);
+  const latestOrder1 = props.asiakasTiedot.orders.reduce((acc, curr) => {
+    return acc.tilausID > curr.tilausID ? acc : curr;
+  });
+  console.log("LATEST ORDER =>=>=>=>" + JSON.stringify(latestOrder1.tilausID));
+
+
+  const latestOrderItems = props.asiakasTiedot.orders.filter((item) => {
+    return item.tilausID === latestOrder1.tilausID;
+  });
+  //console.log("LATEST ORDER ITEMS =>=>=>=>" + latestOrderItems.kpl);
+
+  //print all props.asiakasTiedot.orderItems where tilausid == latestOrder1.tilausID no undefined
+  const orderItems = props.asiakasTiedot.orderItems
+  .filter(item => item.tilausid === latestOrder1.tilausID)
+  .map(item => item);
+
+
+  setUpdOrderItems(orderItems);
+
+
+ // for (let i = 0; i < orderItems.length; i++) {
+ //   console.log("LATEST ORDER ITEMS =>=>=>=> ORDERS values" + JSON.stringify(orderItems[array[index].value].kpl));
+ // }
+
+  console.log("LATEST ORDER ITEMS FILTERED =>=>=>=>" + JSON.stringify(orderItems));
+
+  //change orderItems values
+
+  //map asiakasTiedot.orderItems
+
+  //where orderItems is an filtered with latestOrder1
+  //const latestOrderItems = latestOrder1.orderItems.map((item) => {
+  //  return item.kpl;
+  //});
+
+  //console.log("LATEST ORDER ITEMS =>=>=>=> ORDER 1 value" + JSON.stringify(orderItems[1].kpl));
+  //console.log("LATEST ORDER ITEMS =>=>=>=> ORDER 1 value" + JSON.stringify(orderItems[0].kpl));
 
   const mytest = {
     customer: {
@@ -277,28 +333,29 @@ const AccountManagement = (props) => {
     orders:{
         tilausID: latestOrder.tilausID,
         asiakasID: props.asiakasTiedot.customer.asiakasID,
-        tilauspvm: formattedDate,
+        tilauspvm: '2023-04-24',
         maksuid: latestOrder.maksuid,
         summa: latestOrder.summa,
     },
-      orderitem: latestOrderItems.map((orderItem) => {
-        return {
-          tuoteid: orderItem.tuoteid,
-          tilausid: latestOrder.tilausID,
-          kpl: orderItem.kpl /*orderItem.kpl*/,
-          tilaustuotteetid: orderItem.tilaustuotteetid,
-          summa: orderItem.summa,
-        };
-      }),
+    orderitem: orderItems.map((orderItem, index) => {
+      return {
+        tuoteid: orderItems[index].tuoteid,
+        tilausid: orderItems[index].tilausid,
+        kpl: orderItems[index].kpl,
+        tilaustuotteetid: orderItems[index].tilaustuotteetid,
+        summa: orderItems[index].summa,
+      };
+    }),
   };
 
+
     console.log("MY DATATEST COMPARE TO MAKE" + JSON.stringify(mytest));
-    console.log("testimake" + JSON.stringify(testimake));
+    //console.log("testimake" + JSON.stringify(testimake));
     console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
 
     // If there are no errors, submit the form
     console.log("Kokeillaan PUT")
-    console.log(JSON.stringify(testimake))
+    //console.log(JSON.stringify(testimake))
     editOrder(mytest);
 
     if (Object.keys(errors).length === 0) {
@@ -306,7 +363,7 @@ const AccountManagement = (props) => {
       // Perform form submission
       setIsSubmitting(false);
       setFailedSubmit(false);
-      alert('Form submitted successfully!');
+      //alert('Form submitted successfully!');
 
     } else {
 
@@ -314,30 +371,48 @@ const AccountManagement = (props) => {
       console.log(errors);
       setIsSubmitting(false);
       setFailedSubmit(true);
-      alert('Form submit failed!');
+      //alert('Form submit failed!');
     }
   };
 
+  function orderItemsSumma(orderItems) {
+    let orderItemsSumma = 0;
+    for (let i = 0; i < orderItems.length; i++) {
+      orderItemsSumma = orderItemsSumma + orderItems[i].summa * orderItems[i].kpl;
+    }
+    console.log(orderItems);
+    return orderItemsSumma;  
+  }
+
   //sort tilaukset by ID
-  function QuantityInput({ quantity, onChange }) {
+  function QuantityInput({ quantity, onChange, index, orderItem }) {
     const [value, setValue] = useState(quantity);
   
     const increment = () => {
       setValue(value + 1);
       onChange(value + 1);
-      console.log("VALUE OF THE QUANTITY: " + (value + 1)); 
-      console.log("ORDER ITEM QUANTITY HOOK: " + orderItemQuantity)
+      console.log("VALUE OF THE QUANTITY INDEX: " + index); 
+      console.log("ORDER ITEM QUANTITY HOOK: " + orderItemQuantity + " " + orderItem.kpl)
+      //change orderItem.kpl value
+      orderItem.kpl = value + 1;
+      console.log("orderItem.kpl: " + orderItem.kpl);
+      orderItemsSumma(orderItem.kpl);
     };
   
     const decrement = () => {
       if (value > 0) {
         setValue(value - 1);
-        onChange(value - 1);
+        onChange((value - 1));
         console.log("VALUE OF THE QUANTITY: " + (value - 1));
-        console.log("ORDER ITEM QUANTITY HOOK: " + orderItemQuantity)
+        console.log("ORDER ITEM QUANTITY HOOK: " + orderItemQuantity + " " + orderItem.kpl)
+
+        //change orderItem.kpl value
+        orderItem.kpl = value - 1;
+        console.log("orderItem.kpl: " + orderItem.kpl);
+        orderItemsSumma(orderItem.kpl);
       }
     };
-  
+
     return (
       <div className="quantity-input d-flex">
         <MDBBtn color="link" onClick={decrement}>
@@ -363,6 +438,8 @@ const AccountManagement = (props) => {
       </div>
     );
   }
+
+  
 
   return (
     <div
@@ -509,7 +586,7 @@ const AccountManagement = (props) => {
                 <tr className="table-success">
                   <td>{order.tilausID}</td>
                   <td>{formattedDate}</td>
-                  <td>{order.summa} €</td>
+                  <td>{orderItemsSumma(orderItems)} €</td>
                 </tr>
               </MDBTableHead>
               <MDBTableBody className="text-center">
@@ -518,30 +595,33 @@ const AccountManagement = (props) => {
                   <th>Hinta</th>
                   {isLatestOrder ? <th className="text-center">Kpl</th> : <th>Kpl</th>}
                 </tr>
-                {orderItems.map((orderItem) => {
-                  return (
-                    <tr key={orderItem.tuoteid} className="table-secondary">
-                      <td>{getTuotenimi(orderItem.tuoteid)}</td>
-                      <td>{orderItem.summa} €</td>
-                      {isLatestOrder ? (
-                        <td>
-                          <QuantityInput                           
-                            quantity={orderItem.kpl}
-                            onChange={(quantity) =>
-                              setOrderItemQuantity(
-                                order.tilausID,
-                                orderItem.tuoteid,
-                                Number(quantity)
-                              )
-                            }
-                          />
-                        </td>
-                      ) : (
-                        <td>{orderItem.kpl}</td>
-                      )}
-                    </tr>
-                  );
-                })}
+                {orderItems.map((orderItem, index) => {
+                          return (
+                            <tr key={orderItem.tuoteid} className="table-secondary">
+                              <td>{getTuotenimi(orderItem.tuoteid)}</td>
+                              <td>{orderItem.summa} €</td>
+                              {isLatestOrder ? (
+                                <td>
+                                  <QuantityInput                           
+                                    quantity={orderItem.kpl}
+                                    onChange={(quantity) =>
+                                      setOrderItemQuantity(
+                                        order.tilausID,
+                                        orderItem.tuoteid,
+                                        index,
+                                        Number(quantity)
+                                      )
+                                    }
+                                    orderItem={orderItem}
+                                    index={index} // Pass the index value to the QuantityInput component
+                                  />
+                                </td>
+                              ) : (
+                                <td>{orderItem.kpl}</td>
+                              )}
+                            </tr>
+                          );
+                        })}
                 {isLatestOrder && (
                   <tr>
                     <td colSpan="3" className="text-center">
