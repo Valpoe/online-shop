@@ -257,8 +257,8 @@ const AccountManagement = (props) => {
 
 
     //get latest order 
-    const latestOrde1r = props.asiakasTiedot.orderItems[props.asiakasTiedot.orderItems.length - 1];
-    console.log("LATEST ORDER" + JSON.stringify(latestOrde1r));
+    //const latestOrde1r = props.asiakasTiedot.orderItems[props.asiakasTiedot.orderItems.length - 1];
+    //console.log("LATEST ORDER" + JSON.stringify(latestOrde1r));
 
 
 //get all orderItems
@@ -281,7 +281,7 @@ const AccountManagement = (props) => {
   const day = date.getDate();
   
   const formattedDate = `${year}-${month}-${day}`;
-  console.log(formattedDate);
+  //console.log(formattedDate);
 
   //const [tilauksenKPL, setTilauksenKPL] = useState([]);
   const latestOrder1 = props.asiakasTiedot.orders.reduce((acc, curr) => {
@@ -293,11 +293,11 @@ const AccountManagement = (props) => {
   const latestOrderItems = props.asiakasTiedot.orders.filter((item) => {
     return item.tilausID === latestOrder1.tilausID;
   });
-  console.log("LATEST ORDER ITEMS =>=>=>=>" + latestOrderItems.kpl);
+  //console.log("LATEST ORDER ITEMS =>=>=>=>" + latestOrderItems.kpl);
 
   //print all props.asiakasTiedot.orderItems where tilausid == latestOrder1.tilausID no undefined
   const orderItems = props.asiakasTiedot.orderItems
-  .filter(item => item.tilausid === latestOrder1.tilausID && item.kpl !== 0)
+  .filter(item => item.tilausid === latestOrder1.tilausID)
   .map(item => item);
 
 
@@ -308,7 +308,7 @@ const AccountManagement = (props) => {
  //   console.log("LATEST ORDER ITEMS =>=>=>=> ORDERS values" + JSON.stringify(orderItems[array[index].value].kpl));
  // }
 
-  console.log("LATEST ORDER ITEMS FILTERED =>=>=>=>" + orderItems);
+  console.log("LATEST ORDER ITEMS FILTERED =>=>=>=>" + JSON.stringify(orderItems));
 
   //change orderItems values
 
@@ -319,8 +319,8 @@ const AccountManagement = (props) => {
   //  return item.kpl;
   //});
 
-  console.log("LATEST ORDER ITEMS =>=>=>=> ORDER 1 value" + JSON.stringify(orderItems[1].kpl));
-  console.log("LATEST ORDER ITEMS =>=>=>=> ORDER 1 value" + JSON.stringify(orderItems[0].kpl));
+  //console.log("LATEST ORDER ITEMS =>=>=>=> ORDER 1 value" + JSON.stringify(orderItems[1].kpl));
+  //console.log("LATEST ORDER ITEMS =>=>=>=> ORDER 1 value" + JSON.stringify(orderItems[0].kpl));
 
   const mytest = {
     customer: {
@@ -349,7 +349,6 @@ const AccountManagement = (props) => {
   };
 
 
-
     console.log("MY DATATEST COMPARE TO MAKE" + JSON.stringify(mytest));
     //console.log("testimake" + JSON.stringify(testimake));
     console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
@@ -376,8 +375,17 @@ const AccountManagement = (props) => {
     }
   };
 
+  function orderItemsSumma(orderItems) {
+    let orderItemsSumma = 0;
+    for (let i = 0; i < orderItems.length; i++) {
+      orderItemsSumma = orderItemsSumma + orderItems[i].summa * orderItems[i].kpl;
+    }
+    console.log(orderItems);
+    return orderItemsSumma;  
+  }
+
   //sort tilaukset by ID
-  function QuantityInput({ quantity, onChange, tuoteid, index, orderItem }) {
+  function QuantityInput({ quantity, onChange, index, orderItem }) {
     const [value, setValue] = useState(quantity);
   
     const increment = () => {
@@ -387,6 +395,8 @@ const AccountManagement = (props) => {
       console.log("ORDER ITEM QUANTITY HOOK: " + orderItemQuantity + " " + orderItem.kpl)
       //change orderItem.kpl value
       orderItem.kpl = value + 1;
+      console.log("orderItem.kpl: " + orderItem.kpl);
+      orderItemsSumma(orderItem.kpl);
     };
   
     const decrement = () => {
@@ -398,6 +408,8 @@ const AccountManagement = (props) => {
 
         //change orderItem.kpl value
         orderItem.kpl = value - 1;
+        console.log("orderItem.kpl: " + orderItem.kpl);
+        orderItemsSumma(orderItem.kpl);
       }
     };
 
@@ -574,7 +586,7 @@ const AccountManagement = (props) => {
                 <tr className="table-success">
                   <td>{order.tilausID}</td>
                   <td>{formattedDate}</td>
-                  <td>{order.summa} €</td>
+                  <td>{orderItemsSumma(orderItems)} €</td>
                 </tr>
               </MDBTableHead>
               <MDBTableBody className="text-center">
