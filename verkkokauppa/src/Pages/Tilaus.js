@@ -28,6 +28,7 @@ import { editOrder } from "../components/Server/editTilausAPI";
 
 const Tilaus = (props) => {
   const [sahkopostit, setSahkopostit] = useState(getAsiakkaatEmail);
+  const [updUser, setUpdUser] = useState([]);
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -243,25 +244,12 @@ const Tilaus = (props) => {
       }
       console.log("Hello from the otherside, relogging time")
       console.log(logIt)
-      const userData = await logIn(logIt);
-      props.setAsiakasTiedot(userData);
+      
+      await props.setAsiakasTiedot(logIn(logIt));
 
-      // 
-
-      //editOrder(userData)
-
-      //props.setUpdAsiakastiedot(userData);
+      console.log("props asiakastiedot" + JSON.stringify(props.asiakasTiedot))
 
       editAsiakas(formData, props.userID)
-
-  //        console.log("edit success new details = " + response);
-  //      });
-//
-  //      props.setUpdAsiakastiedot(true);
-  //    } catch (error) {
-  //      console.error('Failed to edit customer data:', error);
-  //      return { error: 'Failed to edit customer data' };
-  //    }
 
         const newCustomerData = {
           email: formData.email,
@@ -279,16 +267,14 @@ const Tilaus = (props) => {
         });
 
       
-      console.log("RELOGGED IN WITH NEW DATA: ?")
-      console.log(props.asiakasTiedot)
       //something needs to be fixed
-      console.log("FAIL");
+      console.log("props asiakastiedot AGAIN" + JSON.stringify(props.asiakasTiedot))
       }
 
       //print ostoskori json
       //Form output and filtered ostoskori output with quantyties
-      console.log(formData);
-      console.log(JSON.stringify(uniqueItemsWithQuantity));
+      //console.log(formData);
+      //console.log(JSON.stringify(uniqueItemsWithQuantity));
       //alert('Form submitted successfully!');
     } else {
       //alert('Form submission failed!\n' + JSON.stringify(errors));
@@ -305,6 +291,8 @@ const Tilaus = (props) => {
     setFormData({ ...formData, [name]: value });
     console.log("hello from tilaus " + formData.firstName);
   };
+
+
 
   if(props.userID === null) {
     return (

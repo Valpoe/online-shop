@@ -98,6 +98,15 @@ const AccountManagement = (props) => {
     const tuote = tuotteet.find((tuote) => tuote.tuoteID === tuoteID);
     return tuote.tuotenimi;
   };
+
+  const getTuoteHinta = (tuoteID) => {
+    if (tuotteet.length === 0) {
+      return "Ladataan tuotteita...";
+    }
+
+    const tuote = tuotteet.find((tuote) => tuote.tuoteID === tuoteID);
+    return tuote.hinta;
+  };
   //rest of the component code
 
 
@@ -343,7 +352,7 @@ const AccountManagement = (props) => {
         tilausid: orderItems[index].tilausid,
         kpl: orderItems[index].kpl,
         tilaustuotteetid: orderItems[index].tilaustuotteetid,
-        summa: orderItems[index].summa,
+        summa: getTuoteHinta(orderItem.tuoteid),
       };
     }),
   };
@@ -374,16 +383,17 @@ const AccountManagement = (props) => {
       //alert('Form submit failed!');
     }
   };
-
-  function orderItemsSumma(orderItems) {
-    let orderItemsSumma = 0;
-    for (let i = 0; i < orderItems.length; i++) {
-      orderItemsSumma = orderItemsSumma + orderItems[i].summa * orderItems[i].kpl;
-    }
-    console.log(orderItems);
-    return orderItemsSumma;  
-  }
-
+      const CalculateSumma = (orderitems) => {
+        let summa = 0;
+        for (let i = 0; i < orderitems.length; i++) {
+          console.log("orderitems ID " + orderitems[i].tilausid + "|| "+ JSON.stringify(orderitems[i]) + " <== orderItems: " + orderitems[i].summa + " - " + orderitems[i].kpl);
+          summa = summa + orderitems[i].summa;
+          //console.log((orderitems[i].summa / getTuoteHinta(orderItems[i].tuoteid)) * orderitems[i].kpl)
+          console.log("SUMMA: " + summa);
+        }
+        return summa;
+      };
+  
   //sort tilaukset by ID
   function QuantityInput({ quantity, onChange, index, orderItem }) {
     const [value, setValue] = useState(quantity);
@@ -391,27 +401,28 @@ const AccountManagement = (props) => {
     const increment = () => {
       setValue(value + 1);
       onChange(value + 1);
-      console.log("VALUE OF THE QUANTITY INDEX: " + index); 
-      console.log("ORDER ITEM QUANTITY HOOK: " + orderItemQuantity + " " + orderItem.kpl)
+      //console.log("VALUE OF THE QUANTITY INDEX: " + index); 
+      //console.log("ORDER ITEM QUANTITY HOOK: " + orderItemQuantity + " " + orderItem.kpl)
       //change orderItem.kpl value
       orderItem.kpl = value + 1;
-      console.log("orderItem.kpl: " + orderItem.kpl);
-      orderItemsSumma(orderItem.kpl);
+      //console.log("orderItem.kpl: " + orderItem.kpl);
     };
-  
+    
     const decrement = () => {
       if (value > 0) {
         setValue(value - 1);
         onChange((value - 1));
-        console.log("VALUE OF THE QUANTITY: " + (value - 1));
-        console.log("ORDER ITEM QUANTITY HOOK: " + orderItemQuantity + " " + orderItem.kpl)
+        //console.log("VALUE OF THE QUANTITY: " + (value - 1));
+        //console.log("ORDER ITEM QUANTITY HOOK: " + orderItemQuantity + " " + orderItem.kpl)
 
         //change orderItem.kpl value
         orderItem.kpl = value - 1;
-        console.log("orderItem.kpl: " + orderItem.kpl);
-        orderItemsSumma(orderItem.kpl);
+        //console.log("orderItem.kpl: " + orderItem.kpl);
       }
     };
+    
+    
+
 
     return (
       <div className="quantity-input d-flex">
@@ -586,7 +597,7 @@ const AccountManagement = (props) => {
                 <tr className="table-success">
                   <td>{order.tilausID}</td>
                   <td>{formattedDate}</td>
-                  <td>{orderItemsSumma(orderItems)} €</td>
+                  <td>{CalculateSumma(orderItems)} €</td>
                 </tr>
               </MDBTableHead>
               <MDBTableBody className="text-center">
@@ -599,7 +610,7 @@ const AccountManagement = (props) => {
                           return (
                             <tr key={orderItem.tuoteid} className="table-secondary">
                               <td>{getTuotenimi(orderItem.tuoteid)}</td>
-                              <td>{orderItem.summa} €</td>
+                              <td>{getTuoteHinta(orderItem.tuoteid) /*orderItemsHinta(orderItems, index, orderItem.tilausid)*/} €</td>
                               {isLatestOrder ? (
                                 <td>
                                   <QuantityInput                           
