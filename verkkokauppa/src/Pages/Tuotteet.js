@@ -45,8 +45,8 @@ const Tuotteet = (props) => {
     <div className="pb-5 pt-5" style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)'}}>
     <section className="d-flex justify-content-center justify-content-lg-between">
     <MDBContainer className="text-center text-md-start">
-      <MDBRow className="justify-content-center">
-        <MDBCol size="4">
+      <MDBRow className="">
+        <MDBCol lg="4" md="8" sm="8" className="mx-auto">
           <Tuotehakupalkki tuotteet={tuotteet} setVerticalActive={setVerticalActive} setSearchResults={setSearchResults} />
         </MDBCol>
       </MDBRow>
