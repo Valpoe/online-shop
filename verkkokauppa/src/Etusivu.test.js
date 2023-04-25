@@ -14,6 +14,7 @@ describe("Etusivu component", () => {
     expect(screen.getByText('Ostoksille')).toBeInTheDocument();
 
   });
+  
 
   it('testaa löytyykö ostoksille nappi', () => {
     const { getByText } = render(
