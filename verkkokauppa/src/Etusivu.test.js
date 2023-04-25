@@ -1,5 +1,5 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import Etusivu from "./Pages/Etusivu";
 import { MemoryRouter } from 'react-router-dom';
 
@@ -8,7 +8,11 @@ describe("Etusivu component", () => {
     render(
     <MemoryRouter>
     <Etusivu />
-    </MemoryRouter>);
+    </MemoryRouter>
+    );
+    expect(screen.getByText('NAPSUKAUPPA')).toBeInTheDocument();
+    expect(screen.getByText('Ostoksille')).toBeInTheDocument();
+
   });
 
   it('testaa löytyykö ostoksille nappi', () => {
