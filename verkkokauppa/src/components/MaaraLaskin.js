@@ -42,7 +42,7 @@ function MaaraLaskin(props) {
     <>
       <MDBCardText className="fw-bold">Määrä:</MDBCardText>
       <div className="d-flex justify-content-around">
-        <MDBBtn color="link" onClick={() => decreaseQuantity()}>
+        <MDBBtn data-testid="minus" color="link" onClick={() => decreaseQuantity()}>
           <MDBIcon fas icon="minus" />
         </MDBBtn>
         <MDBInput
@@ -51,7 +51,7 @@ function MaaraLaskin(props) {
           value={quantity}
           type="number"
         />
-        <MDBBtn color="link" onClick={() => increaseQuantity()}>
+        <MDBBtn data-testid="plus" color="link" onClick={() => increaseQuantity()}>
           <MDBIcon fas icon="plus" />
         </MDBBtn>
       </div>

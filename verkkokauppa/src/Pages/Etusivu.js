@@ -49,7 +49,7 @@ return(
           </MDBTypography>
         </MDBCarousel>
       </MDBCol>
-      <MDBCol lg="5" md="5" className="mx-auto" >
+      <MDBCol lg="5" md="7" className="mx-auto" >
         <MDBTypography tag="div" className="pb-1">
           <MDBTypography variant="h1" className="text-dark fw-bold pb-2 text-center pt-3">NAPSUKAUPPA</MDBTypography>
           <MDBTypography tag="div" className="text-center">

@@ -27,4 +27,13 @@ describe("Etusivu component", () => {
 
     expect(window.location.pathname).toBe('/tuotteet');
 });
+
+  it('testaa löytyykö ostoksille nappi', () => {
+    const { getByText } = render(
+      <MemoryRouter>
+        <Etusivu />
+        </MemoryRouter>);
+        const linkElement = getByText(/Ostoksille/i);
+        expect(linkElement).toBeInTheDocument();
+  });
 });
