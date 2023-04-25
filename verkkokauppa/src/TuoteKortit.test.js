@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import TuoteKortit from './components/TuoteKortit';
 import { MemoryRouter } from 'react-router-dom';
 
