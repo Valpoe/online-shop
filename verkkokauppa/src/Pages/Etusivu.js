@@ -20,13 +20,13 @@ const Etusivu = () => {
 return(
 <MDBTypography tag="div" className="pb-5 pt-5" style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)'}}>
 <section className="d-flex justify-content-center justify-content-lg-between">
-  <MDBContainer className="text-center text-md-start">
+  <MDBContainer>
     <MDBRow>
-      <MDBCol lg="6" md="8" className="mx-auto mb-5 ps-5 pe-5">
-        <MDBCarousel showIndicators showControls dealy={100} className="pt-4">
-          <MDBTypography tag="div" className="vw-100">
+      <MDBCol >
+        <MDBCarousel showIndicators showControls dealy={100} className="pt-4 text-center">
+          <MDBTypography tag="div" className="vw-50">
             <MDBCarouselItem
-              className='w-100 d-block image-container'
+              className='w-100 d-block '
               itemId={1}
               src={EtusivuKuva1}
               alt='...'
@@ -34,7 +34,7 @@ return(
             </MDBCarouselItem>
 
             <MDBCarouselItem
-              className='w-100 d-block image-container'
+              className='w-100 d-block '
               itemId={2}
               src={EtusivuKuva2}
               alt='...'
@@ -42,7 +42,7 @@ return(
             </MDBCarouselItem>
 
             <MDBCarouselItem
-              className='w-100 d-block image-container'
+              className='w-100 d-block '
               itemId={3}
               src={EtusivuKuva3}
               alt='...'
@@ -51,7 +51,7 @@ return(
           </MDBTypography>
         </MDBCarousel>
       </MDBCol>
-      <MDBCol lg="5" md="5" className="mx-auto">
+      <MDBCol >
         <MDBTypography tag="div" className="pb-1">
           <MDBTypography variant="h1" className="text-dark fw-bold pb-2 text-center pt-3">NAPSUKAUPPA</MDBTypography>
           <MDBTypography tag="div" className="text-center">
