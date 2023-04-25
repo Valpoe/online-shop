@@ -475,8 +475,8 @@ const AccountManagement = (props) => {
             </MDBCol>
 
             <MDBCol className="mx-auto">
-  <div className="scrollable-container table-container">
     <h6 className="text-uppercase fw-bold mb-4">Omat tilaukset</h6>
+  <div className="scrollable-container table-container">
     {props.asiakasTiedot.orders.length === 0 && (
       <p className="text-center">Ei tilauksia</p>
     )}
