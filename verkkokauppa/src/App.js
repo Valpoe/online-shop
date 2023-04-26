@@ -22,6 +22,7 @@ function App() {
   const [user, setUser] = useState(null);
   const [userID, setUserID] = useState(null);
   const [asiakasTiedot, setAsiakasTiedot] = useState(null);
+  const [paivitetty, setPaivitetty] = useState([]);
 
   const addToCart = () =>
     toast.success("Tuote lisätty ostoskoriin!", {
@@ -150,6 +151,8 @@ function App() {
               setEmail={setEmail}
               password={password}
               setPassword={setPassword}
+              setPaivitetty={setPaivitetty}
+              paivitetty={paivitetty}
             />
           }
         />
@@ -167,6 +170,8 @@ function App() {
               setAsiakasTiedot={setAsiakasTiedot}
               dataUpdated={dataUpdated}
               orderUpdated={orderUpdated}
+              setPaivitetty={setPaivitetty}
+              paivitetty={paivitetty}
             />
           }
         />
