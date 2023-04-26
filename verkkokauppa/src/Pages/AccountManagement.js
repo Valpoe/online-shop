@@ -386,10 +386,10 @@ const AccountManagement = (props) => {
       const CalculateSumma = (orderitems) => {
         let summa = 0;
         for (let i = 0; i < orderitems.length; i++) {
-          console.log("orderitems ID " + orderitems[i].tilausid + "|| "+ JSON.stringify(orderitems[i]) + " <== orderItems: " + orderitems[i].summa + " - " + orderitems[i].kpl);
+          //console.log("orderitems ID " + orderitems[i].tilausid + "|| "+ JSON.stringify(orderitems[i]) + " <== orderItems: " + orderitems[i].summa + " - " + orderitems[i].kpl);
           summa = summa + orderitems[i].summa;
           //console.log((orderitems[i].summa / getTuoteHinta(orderItems[i].tuoteid)) * orderitems[i].kpl)
-          console.log("SUMMA: " + summa);
+          //console.log("SUMMA: " + summa);
         }
         return summa;
       };
